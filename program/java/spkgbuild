@@ -1,0 +1,33 @@
+# description	: Prebuilt Java JDK binaries
+# depends	: glibc libxext libxi libxrender libxtst zlib freetype 
+# depends	: fontconfig alsa-lib cups giflib man-db
+
+name=java
+_name=OpenJDK
+version=23.0.2
+release=1
+options="!strip"
+source="https://anduin.linuxfromscratch.org/BLFS/OpenJDK/OpenJDK-$version/OpenJDK-$version+7-x86_64-bin.tar.xz
+        openjdk.sh java"
+
+build() {
+	:
+}
+
+package() {
+    cd ${_name}-$version+7-x86_64-bin
+
+    install -vdm755 "$PKG"/opt/OpenJDK-$version-bin &&
+    mv -v * "$PKG"/opt/OpenJDK-$version-bin         &&
+    chown -R root:root "$PKG"/opt/OpenJDK-$version-bin
+
+    ln -sfn OpenJDK-23.0.1-bin "$PKG"/opt/jdk
+
+    install -Dm 755 "$SRC"/openjdk.sh "$PKG"/etc/profile.d/openjdk.sh
+    install -Dm 644 "$SRC"/java "$PKG"/etc/sudoers.d/java 
+
+    mkdir -p "$PKG"/opt/jdk/lib/security
+    ln -sfv /etc/pki/tls/java/cacerts "$PKG"/opt/jdk/lib/security/cacerts
+
+    mkdir -p "$PKG"/var/cache/man
+}

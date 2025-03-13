@@ -1,0 +1,20 @@
+# description	: Aspell (English and French) language dictionary
+# depends	: which aspell
+
+name=aspell-fr
+version=0.50
+release=1
+source="https://ftp.gnu.org/gnu/aspell/dict/fr/aspell-fr-$version-3.tar.bz2"
+
+build() {
+    cd aspell-fr-$version-3
+
+    ./configure
+    make 
+}
+
+package() {
+    cd aspell-fr-$version-3
+
+    make DESTDIR="$PKG" install
+}

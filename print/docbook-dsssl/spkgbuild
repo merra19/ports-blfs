@@ -1,0 +1,26 @@
+# description	: DSSSL Stylesheets for DocBook
+# depends	: sgml-common
+
+name=docbook-dsssl
+version=1.79
+release=2
+source="https://downloads.sourceforge.net/docbook/$name-$version.tar.bz2
+        https://downloads.sourceforge.net/docbook/$name-doc-$version.tar.bz2"
+noextract="$name-doc-$version.tar.bz2"
+
+build() {
+    cd $name-$version
+
+    tar -xf ../$name-doc-$version.tar.bz2 --strip-components=1
+}
+
+package() {
+    cd $name-$version
+
+    mkdir -p "$PKG"/usr/bin "$PKG"/usr/share/man/man1 "$PKG"/etc/sgml
+
+    install -v -m755 bin/collateindex.pl "$PKG"/usr/bin
+    install -v -m644 bin/collateindex.pl.1 "$PKG"/usr/share/man/man1
+    install -v -d -m755 "$PKG"/usr/share/sgml/docbook/dsssl-stylesheets-$version
+    cp -v -R * "$PKG"/usr/share/sgml/docbook/dsssl-stylesheets-$version
+}

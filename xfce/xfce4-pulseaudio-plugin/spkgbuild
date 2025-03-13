@@ -1,0 +1,26 @@
+# description	: A panel plug-in for PulseAudio volume control
+# depends	: glib pulseaudio gtk3 exo libxfce4ui libxfce4util xfconf 
+# depends	: xfce4-panel keybinder3 libwnck3 libcanberra libnotify 
+# depends	: libxfce4windowing
+
+name=xfce4-pulseaudio-plugin
+version=0.4.9
+release=1
+source="https://archive.xfce.org/src/panel-plugins/xfce4-pulseaudio-plugin/${version%.*}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --enable-x11 \
+        --disable-debug
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

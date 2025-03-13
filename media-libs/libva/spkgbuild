@@ -1,0 +1,23 @@
+# description	: Video Acceleration (VA) API for Linux
+# depends	: libdrm meson libx11 libxext libxfixes libxcb wayland
+
+name=libva
+version=2.22.0
+release=1
+source="https://github.com/intel/libva/archive/$version/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

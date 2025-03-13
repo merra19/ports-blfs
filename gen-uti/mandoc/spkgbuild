@@ -1,0 +1,22 @@
+# description	: Suite of tools compiling mdoc and man
+# depends	: zlib
+
+name=mandoc
+version=1.14.6
+release=1
+source="https://mandoc.bsd.lv/snapshots/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    ./configure
+    make mandoc
+}
+
+package() {
+    cd $name-$version
+
+    mkdir -p "${PKG}"/usr/bin "${PKG}"/usr/share/man/man1
+    install -vm755 mandoc   "${PKG}"/usr/bin &&
+    install -vm644 mandoc.1 "${PKG}"/usr/share/man/man1
+}

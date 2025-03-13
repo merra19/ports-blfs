@@ -1,0 +1,36 @@
+# description	: Hardware Monitoring user-space utilities
+# depends	: which perl lm-sensors
+
+name=lm-sensors-32
+_name=lm-sensors
+version=3.6.0
+vrsn=$(echo $version | sed 's/\./-/g')
+release=1
+source="https://github.com/lm-sensors/lm-sensors/archive/V${vrsn}/${_name}-${vrsn}.tar.gz"
+
+build() {
+    cd ${_name}-"${vrsn}"
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    sed -i 's/CC := gcc/CC := gcc -m32 -mstackrealign/' Makefile
+
+    make PREFIX=/usr \
+        BUILD_STATIC_LIB=0 \
+        MANDIR=/usr/share/man
+}
+
+package() {
+    cd ${_name}-"${vrsn}"
+
+    make DESTDIR="$PWD/DESTDIR" \
+        PREFIX=/usr \
+        LIBDIR=/usr/lib32 \
+        BUILD_STATIC_LIB=0 \
+        MANDIR=/usr/share/man install
+
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

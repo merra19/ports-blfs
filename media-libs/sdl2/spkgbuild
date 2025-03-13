@@ -1,0 +1,28 @@
+# description	: Simple Direct Media Layer 2
+# depends	: alsa-lib dbus libdrm mesa libsamplerate libglvnd glu 
+# depends	: pipewire pulseaudio wayland libxkbcommon libx11 
+# depends	: libxcursor libxext libxfixes libxi libxrandr xorg-proto 
+# depends	: libxscrnsaver vulkan-loader vulkan-headers glib nasm 
+# depends	: wayland-protocols        
+# optional	: ibus
+
+name=sdl2
+_name=SDL2
+version=2.30.11
+release=1
+source="https://www.libsdl.org/release/SDL2-$version.tar.gz"
+
+build() {
+	cd ${_name}-$version
+
+	./configure \
+        --prefix=/usr
+	make
+}
+
+package() {
+    cd ${_name}-$version
+
+	make DESTDIR="$PKG" install
+	rm -v "$PKG"/usr/lib/libSDL2*.a
+}

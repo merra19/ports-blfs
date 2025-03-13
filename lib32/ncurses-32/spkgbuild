@@ -1,0 +1,50 @@
+# description	: Console display library
+# depends	: ncurses
+
+name=ncurses-32
+_name=ncurses
+version=6.5
+version_pkg=6.5
+release=1
+source="https://invisible-mirror.net/archives/ncurses/${_name}-${version_pkg}.tar.gz"
+
+build() {
+    cd ${_name}-${version_pkg}
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    echo $CFLAGS
+
+    ./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --host=i686-pc-linux-gnu \
+        --mandir=/usr/share/man \
+        --with-shared \
+        --without-debug \
+        --without-normal \
+        --with-cxx-shared \
+        --enable-pc-files \
+        --with-pkg-config-libdir=/usr/lib32/pkgconfig \
+        --enable-widec 
+    make
+}
+
+package() {
+    cd ${_name}-${version_pkg}
+
+    make DESTDIR=$PWD/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32/pkgconfig
+    install -vm755 DESTDIR/usr/lib32/libncursesw.so.$version "$PKG"/usr/lib32
+    rm -v  DESTDIR/usr/lib32/libncursesw.so.$version
+    cp -av DESTDIR/usr/lib32/* "$PKG"/usr/lib32/
+
+    for lib in ncurses form panel menu ; do
+        ln -sfv lib${lib}w.so "$PKG"/usr/lib32/lib${lib}.so
+        ln -sfv ${lib}w.pc    "$PKG"/usr/lib32/pkgconfig/${lib}.pc
+    done
+
+    ln -sfv libncursesw.so "$PKG"/usr/lib32/libcurses.so
+}

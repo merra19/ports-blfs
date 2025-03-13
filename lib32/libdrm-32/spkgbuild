@@ -1,0 +1,34 @@
+# description	: X.Org libdrm library
+# depends	: meson libxslt libdrm libpciaccess-32
+
+name=libdrm-32
+_name=libdrm
+version=2.4.124
+release=1
+source="https://dri.freedesktop.org/libdrm/${_name}-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --libdir=/usr/lib32 \
+        -D udev=true \
+        -D valgrind=disabled \
+        -D cairo-tests=disabled \
+        build32
+	ninja -C build32
+}
+
+package() {
+    cd ${_name}-$version
+
+    DESTDIR="$PWD"/DESTDIR ninja -C build32 install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

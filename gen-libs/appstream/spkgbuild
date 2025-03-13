@@ -1,0 +1,34 @@
+# description	: Cross-distro effort for providing metadata for software in the Linux ecosystem
+# depends	: zstd libxml2 glib libxmlb libyaml snowball-stemmer curl 
+# depends	: gobject-introspection qt6-tools appstream-glib libxslt 
+# depends	: itstool
+
+name=appstream
+_name=AppStream
+version=1.0.4
+release=1
+options="!lto"
+source="https://www.freedesktop.org/software/appstream/releases/AppStream-$version.tar.xz
+        metainfo"
+
+build() {
+	cd ${_name}-$version
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D apidocs=false \
+        -D qt=true \
+        -D qt-versions=6 \
+        -D stemming=true \
+        build
+    ninja -C build
+}
+
+package() {
+    cd ${_name}-$version
+
+	DESTDIR="$PKG" ninja -C build install
+
+	install -Dm 644 "$SRC"/metainfo "$PKG"/usr/share/metainfo
+}

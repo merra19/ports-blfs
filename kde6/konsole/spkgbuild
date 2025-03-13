@@ -1,0 +1,32 @@
+# description	: KDE's terminal emulator
+# depends	: icu kbookmarks kconfig kconfigwidgets kcoreaddons 
+# depends	: kcrash kdbusaddons kglobalaccel kguiaddons ki18n 
+# depends	: kiconthemes kio kjobwidgets knewstuff kservice
+# depends	: knotifications knotifyconfig kparts kpty kxmlgui
+# depends	: ktextwidgets kwidgetsaddons kwindowsystem qt6-5compat
+# depends	: qt6-base qt6-multimedia
+
+name=konsole
+version=24.12.2
+release=1
+source="https://download.kde.org/stable/release-service/$version/src/$name-$version.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/svn/konsole-$version-scrollbar-1.patch"
+
+build() {
+	cd $name-$version
+
+    patch -Np1 -i ../konsole-$version-scrollbar-1.patch
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

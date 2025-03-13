@@ -1,0 +1,75 @@
+# description	: Standard (de)compression library
+# depends	: glibc
+
+name=zlib
+version=1.3.1
+release=1
+source="https://www.zlib.net/fossils/$name-$version.tar.gz
+        configure.patch lto.patch nomemlevel.patch"
+
+build_pgo() {
+    export LD_LIBRARY_PATH="$(pwd)"
+    
+    CFLAGS="${CFLAGS_GENERATE}" CXXFLAGS="${CXXFLAGS_GENERATE}" FFLAGS="${FFLAGS_GENERATE}" \
+    FCFLAGS="${FCFLAGS_GENERATE}" LDFLAGS="${LDFLAGS_GENERATE}" \
+    ./configure \
+        --prefix=/usr
+    make
+
+    cat *.c | ./minigzip -6 | ./minigzip -d > /dev/null
+    cat *.c | ./minigzip -4 | ./minigzip -d > /dev/null
+    cat *.c | ./minigzip -9 | ./minigzip -d > /dev/null
+    cat minigzip | ./minigzip -6 | ./minigzip -d > /dev/null
+    cat minigzip | ./minigzip -4 | ./minigzip -d > /dev/null
+    cat minigzip | ./minigzip -9 | ./minigzip -d > /dev/null
+    make check
+
+    make clean
+    unset LD_LIBRARY_PATH
+
+    CFLAGS="${CFLAGS_USE}" CXXFLAGS="${CXXFLAGS_USE}" FFLAGS="${FFLAGS_USE}" \
+    FCFLAGS="${FCFLAGS_USE}" LDFLAGS="${LDFLAGS_USE}" \
+    ./configure \
+        --prefix=/usr 
+
+    make
+}
+
+build_nopgo() {
+    ./configure \
+        --prefix=/usr 
+    make
+}
+
+build() {
+    cd $name-$version
+
+    export CFLAGS+=" -DUNALIGNED_OK -D_REENTRANT -D_LARGEFILE64_SOURCE=1 "
+
+    export CFLAGS_GENERATE="$CFLAGS -fprofile-generate -fprofile-update=atomic "
+    export FCFLAGS_GENERATE="$FCFLAGS -fprofile-generate -fprofile-update=atomic "
+    export FFLAGS_GENERATE="$FFLAGS -fprofile-generate -fprofile-update=atomic "
+    export CXXFLAGS_GENERATE="$CXXFLAGS -fprofile-generate -fprofile-update=atomic "
+    export LDFLAGS_GENERATE="$LDFLAGS -fprofile-generate -fprofile-update=atomic "
+    export CFLAGS_USE="$CFLAGS -fprofile-use -fprofile-correction "
+    export FCFLAGS_USE="$FCFLAGS -fprofile-use -fprofile-correction "
+    export FFLAGS_USE="$FFLAGS -fprofile-use -fprofile-correction "
+    export CXXFLAGS_USE="$CXXFLAGS -fprofile-use -fprofile-correction "
+    export LDFLAGS_USE="$LDFLAGS -fprofile-use -fprofile-correction "
+    
+    patch -Np1 -i ../configure.patch 
+    patch -Np1 -i ../lto.patch 
+    patch -Np1 -i ../nomemlevel.patch
+  
+    if [ $BUILD_PGO = "yes" ];then
+        build_pgo
+    else
+        build_nopgo
+    fi
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

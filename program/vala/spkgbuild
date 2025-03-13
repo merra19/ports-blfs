@@ -1,0 +1,22 @@
+# description	: Compiler for the GObject type system
+# depends	: glib gobject-introspection libxslt
+
+name=vala
+version=0.56.17
+release=1
+source="https://download.gnome.org/sources/vala/${version%.*}/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr \
+        --disable-valadoc
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

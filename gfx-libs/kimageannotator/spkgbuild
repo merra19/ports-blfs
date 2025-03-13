@@ -1,0 +1,25 @@
+# description	: Tool for annotating images
+# depends	: kcolorpicker qt6-svg qt6-tools libx11 xorg-proto
+
+name=kimageannotator
+_name=kImageAnnotator
+version=0.7.1
+release=1
+source="https://github.com/ksnip/kImageAnnotator/archive/refs/tags/v$version/kImageAnnotator-$version.tar.gz"
+
+build() {
+    cd ${_name}-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_WITH_QT6=ON \
+        -D BUILD_SHARED_LIBS=ON
+    make -C build
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" -C build install
+}

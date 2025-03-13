@@ -1,0 +1,40 @@
+# description	: Standard EXT2/EXT3/EXT4 filesystem utilities
+# depends	: util-linux texinfo
+
+name=e2fsprogs
+version=1.47.2
+release=1
+source="https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v$version/$name-$version.tar.gz"
+backup="etc/mke2fs.conf etc/e2scrub.conf"
+
+build() {
+    cd $name-$version
+
+    mkdir -v build
+    cd       build
+    
+    ../configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --disable-fsck \
+        --disable-libblkid \
+        --disable-uuidd \
+        --disable-libuuid \
+        --enable-elf-shlibs
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+
+    rm -fv "$PKG"/usr/lib/{libcom_err,libe2p,libext2fs,libss}.a
+
+    gunzip -v "$PKG"/usr/share/info/libext2fs.info.gz
+    install-info --dir-file="$PKG"/usr/share/info/dir "$PKG"/usr/share/info/libext2fs.info
+
+    makeinfo -o  build/doc/com_err.info lib/et/com_err.texinfo
+    install -v -m644 build/doc/com_err.info "$PKG"/usr/share/info
+    install-info --dir-file="$PKG"/usr/share/info/dir "$PKG"/usr/share/info/com_err.info
+}

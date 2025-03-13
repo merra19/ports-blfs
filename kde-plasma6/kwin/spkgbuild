@@ -1,0 +1,40 @@
+# description	: Flexible, composited Window Manager for windowing systems on Linux
+# depends	: libinput wayland qt6-base qt6-declarative qt6-5compat
+# depends	: qt6-sensors qt6-wayland qt6-multimedia libei kauth 
+# depends	: kcmutils kcolorscheme kconfig kconfigwidgets kcrash
+# depends	: kcoreaddons kdbusaddons kdeclarative kglobalaccel 
+# depends	: kguiaddons ki18n kidletime knewstuff knotifications
+# depends	: kpackage kservice ksvg kwidgetsaddons kwindowsystem
+# depends	: kxmlgui breeze kdecoration kwayland fontconfig
+# depends	: plasma-activities freetype lcms2 libdisplay-info 
+# depends	: libepoxy libglvnd mesa libx11 libxi libdrm libxcb 
+# depends	: libxcvt libxkbcommon xcb-util-cursor xcb-util-keysyms 
+# depends	: xcb-util-wm kscreenlocker pipewire kglobalacceld 
+# depends	: kirigami kitemmodels libplasma hwdata xwayland
+# depends	: plasma-wayland-protocols wayland-protocols xorg-proto
+# depends	: xcb-util-image libcap
+
+name=kwin
+version=6.3.2.1
+release=1
+source="https://download.kde.org/stable/plasma/${version%.*}/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+
+    rm -rf "$PKG"/usr/lib/systemd
+}

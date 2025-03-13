@@ -1,0 +1,6 @@
+Kernel configuration
+
+Device Drivers --->
+  SCSI device support --->
+    [*]  SCSI low-level drivers --->                 [CONFIG_SCSI_LOW_LEVEL]
+      <M> SCSI debugging host and device simulator   [CONFIG_SCSI_DEBUG]

@@ -1,0 +1,13 @@
+diff --git a/src/vtedefines.hh b/src/vtedefines.hh
+index 23827c9..65b8eb2 100644
+--- a/src/vtedefines.hh
++++ b/src/vtedefines.hh
+@@ -73,7 +73,7 @@
+ #define VTE_CURSOR_FG                   262
+ #define VTE_PALETTE_SIZE		263
+ 
+-#define VTE_SCROLLBACK_INIT		512
++#define VTE_SCROLLBACK_INIT		4096
+ #define VTE_DEFAULT_CURSOR		std::string{"text"}
+ #define VTE_MOUSING_CURSOR		std::string{"default"}
+ #define VTE_HYPERLINK_CURSOR		std::string{"pointer"}

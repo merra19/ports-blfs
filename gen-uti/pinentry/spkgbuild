@@ -1,0 +1,24 @@
+# description	: Simple passphrase entry dialogs which utilize the Assuan protocol
+# depends	: libassuan libgpg-error libgcrypt ncurses libsecret
+
+name=pinentry
+version=1.3.1
+release=1
+options="!lto"
+source=" https://www.gnupg.org/ftp/gcrypt/$name/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr \
+        --enable-pinentry-tty \
+        --disable-pinentry-qt5 
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

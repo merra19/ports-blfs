@@ -1,0 +1,38 @@
+# description	: Highly customizable Wayland bar for Sway and Wlroots based compositors
+# depends	: atkmm cairomm fmt glib glibc glibmm gtk-layer-shell gtk3
+# depends	: gtkmm jsoncpp libnl pipewire pulseaudio libsigc++ meson
+# depends	: spdlog udev upower wireplumber libxkbcommon wayland
+# depends	: playerctl cmake wayland-protocols ttf-font-awesome
+# depends	: libdbusmenu libevdev libinput 
+
+name=waybar
+version=0.12.0
+release=1
+source="$name-$version.tar.gz::https://github.com/Alexays/Waybar/archive/$version.tar.gz"
+
+build() {
+	cd Waybar-$version
+
+    meson --prefix=/usr \
+          --buildtype=plain \
+          --auto-features=enabled \
+          --wrap-mode=nodownload \
+          -D cpp_std=c++20 \
+          -D experimental=true \
+          -D cava=disabled \
+          -D tests=disabled \
+          -D sndio=disabled \
+          -D systemd=disabled \
+          -D logind=enabled \
+          -D mpd=disabled \
+          -D jack=disabled \
+          -D man-pages=disabled \
+          build
+    meson compile -C build
+}
+
+package() {
+    cd Waybar-$version
+
+    meson install -C build --destdir "$PKG"
+}

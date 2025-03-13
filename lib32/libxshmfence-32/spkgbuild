@@ -1,0 +1,35 @@
+# description	: Shared memory fences using futexes
+# depends	: xorg-proto libxshmfence
+
+name=libxshmfence-32
+_name=libxshmfence
+version=1.3.3
+release=1
+source="https://www.x.org/pub/individual/lib/libxshmfence-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    autoreconf -fiv
+    
+    ./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --host=i686-pc-linux-gnu
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PWD"/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

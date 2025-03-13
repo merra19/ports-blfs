@@ -1,0 +1,27 @@
+# description	: X.Org X authorization library
+# depends	: xorg-proto
+
+name=libxau
+_name=libXau
+version=1.0.12
+release=1
+source="https://www.x.org/pub/individual/lib/libXau-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+
+    rm -f "$PKG"/usr/lib/*.la
+}

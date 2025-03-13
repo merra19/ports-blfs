@@ -1,0 +1,52 @@
+# description	: System which facilitates service discovery on a local network
+# depends	: libdaemon libevent expat glib dbus libcap python3-dbus
+# depends	: gobject-introspection python3-gobject3
+# optional	: gdbm 
+
+name=avahi
+version=0.8
+release=1
+options="!makeflags"
+source="https://github.com/lathiat/avahi/releases/download/v$version/$name-$version.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/avahi-0.8-ipv6_race_condition_fix-1.patch"
+backup="etc/avahi/hosts etc/avahi/avahi-daemon.conf etc/avahi/avahi-autoipd.action etc/avahi/avahi-dnsconfd.action"
+
+build() {
+	cd $name-$version
+
+    patch -Np1 -i ../avahi-0.8-ipv6_race_condition_fix-1.patch
+
+    #Fix a security vulnerability in avahi-daemon:
+
+    sed -i '426a if (events & AVAHI_WATCH_HUP) { \
+    client_free(c); \
+    return; \
+    }' avahi-daemon/simple-protocol.c
+
+    scratch isinstalled gtk3 ||  OPT_GTK3='-disable-gtk3'
+
+	./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --disable-libevent \
+        --disable-mono \
+        --disable-monodoc \
+        --disable-python \
+        --disable-qt3 \
+        --disable-qt4 \
+        --disable-qt5 \
+        --enable-core-docs \
+        --with-distro=none \
+        --with-systemdsystemunitdir=no \
+        --with-dbus-system-address='unix:path=/run/dbus/system_bus_socket' \
+        $OPT_GTK3
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

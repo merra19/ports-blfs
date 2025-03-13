@@ -1,0 +1,21 @@
+# description	: rpcsvc protocol definitions from glibc
+# depends	: glibc
+
+name=rpcsvc-proto
+version=1.4.4
+release=1
+source="https://github.com/thkukuk/rpcsvc-proto/releases/download/v$version/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --sysconfdir=/etc
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

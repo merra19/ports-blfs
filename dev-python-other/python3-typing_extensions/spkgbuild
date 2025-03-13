@@ -1,0 +1,20 @@
+# description	: Backported and Experimental Type Hints for Python 3.7+
+# depends	: python3 python3-gpep517 python3-setuptools python3-wheel 
+# depends	: python3-flit-core
+
+name=python3-typing_extensions
+version=4.12.2
+release=1
+source="https://files.pythonhosted.org/packages/source/t/typing_extensions/typing_extensions-$version.tar.gz"
+
+build() {
+	cd ${name#*-}-$version
+    
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+    cd ${name#*-}-$version
+
+    python3 -m installer -d "$PKG" .dist/typing_extensions-$version-py3-none-any.whl
+}

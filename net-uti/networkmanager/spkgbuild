@@ -1,0 +1,58 @@
+# description	: A set of co-operative tools that make networking simple and straightforward
+# depends	: gobject-introspection vala glib libndp curl util-linux 
+# depends	: nss nspr readline newt intltool libxslt dbus polkit 
+# depends	: python3-gobject3 wpa_supplicant udev libpsl bluez 
+# depends	: linux-api-headers perl jansson elogind
+# optional	: modemmanager dhcpcd
+
+name=networkmanager
+_name=NetworkManager
+version=1.50.0
+release=1
+source="$name-$version.tar.xz::https://download.gnome.org/sources/NetworkManager/${version%.*}/NetworkManager-$version.tar.xz
+        NetworkManager.conf polkit.conf no-dns-update.conf rules"
+backup="etc/NetworkManager/NetworkManager.conf"
+
+build() {
+	cd ${_name}-$version
+
+	grep -rl '^#!.*python$' | xargs sed -i '1s/python/&3/'
+
+    CXXFLAGS="$CXXFLAGS -fPIC" \
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+		-D libaudit=no \
+		-D libpsl=false \
+		-D nmtui=true \
+		-D ovs=false \
+		-D ppp=false \
+		-D selinux=false \
+        -D session_tracking=elogind \
+		-D modem_manager=false \
+        -D systemdsystemunitdir=no \
+        -D systemd_journal=false \
+		-D qt=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd ${_name}-$version
+
+	DESTDIR="$PKG" ninja -C build install
+
+    for file in $(echo man/*.[1578]); do
+        section=${file##*.} &&
+        install -vdm 755 "$PKG"/usr/share/man/man$section
+        install -vm 644 $file "$PKG"/usr/share/man/man$section/
+    done
+
+    mv -v "$PKG"/usr/share/doc/NetworkManager "$PKG"/usr/share/doc/NetworkManager-$version
+    cp -Rv docs/{api,libnm} "$PKG"/usr/share/doc/NetworkManager-$version
+
+    install -Dm 644 "$SRC"/NetworkManager.conf "$PKG"/etc/NetworkManager/NetworkManager.conf
+    install -Dm 644 "$SRC"/polkit.conf "$PKG"/etc/NetworkManager/conf.d/polkit.conf
+    install -Dm 644 "$SRC"/no-dns-update.conf "$PKG"/etc/NetworkManager/conf.d/no-dns-update.conf
+    install -Dm 644 "$SRC"/rules "$PKG"/usr/share/polkit-1/rules.d/org.freedesktop.NetworkManager.rules
+}

@@ -1,0 +1,15 @@
+# description	: An implementation of the Language Server Protocol
+# depends	: qt6-base python3 vulkan-headers qt6-full
+
+name=qt6-languageserver
+version=6.8.2
+release=1
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+}

@@ -1,0 +1,38 @@
+# description	: Provides an API and commands for processing SPIR-V modules
+# depends	: spirv-headers vulkan-loader-32 spirv-tools
+
+name=spirv-tools-32
+version=1.4.304.1
+release=1
+options="!lto"
+source="https://github.com/KhronosGroup/SPIRV-Tools/archive/refs/tags/vulkan-sdk-$version/SPIRV-Tools-$version.tar.gz"
+
+build() {
+    cd SPIRV-Tools-vulkan-sdk-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    cmake -B build32 -G Ninja \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_INSTALL_LIBDIR=lib32 \
+		-D CMAKE_C_FLAGS_RELEASE="$CFLAGS -m32" \
+		-D CMAKE_CXX_FLAGS_RELEASE="$CXXFLAGS -m32" \
+		-D BUILD_SHARED_LIBS=ON \
+		-D SPIRV_TOOLS_BUILD_STATIC=OFF \
+		-D SPIRV_WERROR=OFF \
+		-D SPIRV-Headers_SOURCE_DIR=/usr \
+        -Wno-dev
+    ninja -C build32
+}
+
+package() {
+    cd SPIRV-Tools-vulkan-sdk-$version
+
+    DESTDIR="$PWD/dest" ninja -C build32 install
+
+    rm -r dest/usr/{bin,include}
+    cp -R dest/* "$PKG"/
+}

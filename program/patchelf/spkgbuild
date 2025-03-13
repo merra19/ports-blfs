@@ -1,0 +1,22 @@
+# description	: Small utility to modify the dynamic linker and RPATH of ELF executables
+# depends	: glibc
+
+name=patchelf
+version=0.18.0
+release=1
+source="https://github.com/NixOS/patchelf/releases/download/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr \
+		--docdir=/usr/share/doc/$name-$version
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,52 @@
+# description	: Binding to the GLIB library for Gtk2Hs
+# depends	: docbook-xml meson libxslt pcre2-32 python3-packaging 
+# depends	: libffi-32 zlib-32 util-linux-32 elfutils-32 glib
+
+name=glib-32
+_name=glib
+version=2.82.5
+release=1
+source="https://download.gnome.org/sources/glib/${version%.*}/${_name}-$version.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/svn/glib-skip_warnings-1.patch"
+
+build() {
+	cd ${_name}-$version
+	
+	patch -Np1 -i ../glib-skip_warnings-1.patch
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --libdir=/usr/lib32 \
+        --libexecdir=/usr/lib32 \
+        --cross-file lib32 \
+        -D xattr=true \
+        -D gio_module_dir="/usr/lib32/gio/modules" \
+        -D introspection=disabled \
+        -D glib_debug=disabled \
+        -D documentation=false \
+        -D man-pages=disabled \
+        -D selinux=disabled \
+        -D sysprof=disabled \
+        -D man=false \
+        build32
+    ninja -C build32
+}
+
+package() {
+    cd ${_name}-$version
+
+    DESTDIR="$PWD"/DESTDIR ninja -C build32 install
+
+	rm -r DESTDIR/usr/share
+	rm -r DESTDIR/usr/include
+	find DESTDIR/usr/bin -type f -not -name gio-querymodules -printf 'Removing %P\n' -delete
+	mv DESTDIR/usr/bin/gio-querymodules DESTDIR/usr/bin/gio-querymodules-32
+	install -d DESTDIR/usr/lib32/gio/modules
+    sed -i -e 's,gio-querymodules,gio-querymodules-32,g' DESTDIR/usr/lib32/pkgconfig/gio-2.0.pc
+    cp -r DESTDIR/* "$PKG"/
+}

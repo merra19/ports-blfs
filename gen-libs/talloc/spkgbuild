@@ -1,0 +1,21 @@
+# description	: Samba talloc library
+# depends	: glibc python3 libxslt libnsl libtirpc
+
+name=talloc
+version=2.4.3
+release=1
+source="https://www.samba.org/ftp/talloc/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

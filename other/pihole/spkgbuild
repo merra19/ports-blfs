@@ -1,0 +1,19 @@
+# description	: Pihole script
+# depends	: grep bind-utils git dialog iproute2 newt procps-ng 
+# depends	: make-ca fcron curl findutils sudo unzip libidn2 psmisc 
+# depends	: libcap nmap jq netcat lighttpd
+
+name=pihole
+version=1.1.1
+release=1
+source="install.sh"
+
+build() {
+    xxxxxxxxxxxx
+:
+}
+
+package() {
+    mkdir -p "$PKG"/opt/pihole
+    install -m 0755 install.sh "$PKG"/opt/pihole
+}

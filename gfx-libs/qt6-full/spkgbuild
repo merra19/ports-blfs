@@ -1,0 +1,89 @@
+# description	: Cross-platform application development framework
+# depends	: zlib openssl udev zstd double-conversion glib pcre2 
+# depends	: icu dbus fontconfig freetype harfbuzz libjpeg-turbo 
+# depends	: libpng libdrm libxkbcommon libice libsm libx11 libxcb 
+# depends	: xcb-util-cursor xcb-util-image xcb-util-keysyms sqlite
+# depends	: xcb-util-renderutil xcb-util-wm at-spi2-core mesa mtdev 
+# depends	: libinput libglvnd cups gdk-pixbuf gtk3 pango xorg-proto 
+# depends	: vulkan-headers
+
+name=qt6-full
+version=6.8.2
+release=1
+source="https://download.qt.io/archive/qt/${version:0:3}/$version/single/qt-everywhere-src-$version.tar.xz
+		qt6.sh qt6 qt6-base-cflags.patch qt6-base-nostrip.patch 
+        assistant-qt6.desktop designer-qt6.desktop linguist-qt6.desktop qdbusviewer-qt6.desktop"
+
+build() {
+    cd qt-everywhere-src-$version
+
+	patch -Np1 -i $SRC/qt6-base-cflags.patch -d qtbase
+	patch -Np1 -i $SRC/qt6-base-nostrip.patch -d qtbase
+
+	mkdir -pv qtbase/.git
+
+    export OPENSSL_LIBS=" -lssl -lcrypto"
+
+    # Disable a conflicting declaration on i686 systems
+    if [ "$(uname -m)" == "i686" ]; then
+        sed -e "/^#elif defined(Q_CC_GNU_ONLY)/s/.*/& \&\& 0/" \
+            -i src/corelib/global/qtypes.h
+    fi
+
+    ./configure \
+        -prefix /usr  \
+        -sysconfdir /etc/xdg \
+        -archdatadir /usr/lib/qt6 \
+        -bindir /usr/bin \
+        -plugindir /usr/lib/qt6/plugins \
+        -headerdir /usr/include/qt6 \
+        -datadir /usr/share/qt6 \
+        -docdir /usr/share/doc/qt6 \
+        -translationdir /usr/share/qt6/translations \
+        -examplesdir /usr/share/doc/qt6/examples \
+        -dbus-linked \
+        -openssl-linked \
+        -system-sqlite \
+        -nomake examples \
+        -no-rpath \
+        -syslog \
+        -skip qt3d \
+        -skip qtquick3dphysics \
+        -skip qtwebengine \
+        -- -Wno-dev
+    ninja
+}
+
+package() {
+    cd qt-everywhere-src-$version
+
+    export OPENSSL_LIBS=" -lssl -lcrypto"
+
+    DESTDIR="$PKG" ninja install
+
+	find "$PKG"/ -name \*.prl \
+		-exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+
+    pushd qttools/src
+
+	install -v -dm755 "$PKG"/usr/share/pixmaps/                  &&
+
+	install -v -Dm644 qttools/src/assistant/assistant/images/assistant-128.png \
+					"$PKG"/usr/share/pixmaps/assistant-qt6.png &&
+
+	install -v -Dm644 qttools/src/designer/src/designer/images/designer.png \
+					"$PKG"/usr/share/pixmaps/designer-qt6.png  &&
+
+	install -v -Dm644 qttools/src/linguist/linguist/images/icons/linguist-128-32.png \
+					"$PKG"/usr/share/pixmaps/linguist-qt6.png  &&
+
+	install -v -Dm644 qttools/src/qdbus/qdbusviewer/images/qdbusviewer-128.png \
+					"$PKG"/usr/share/pixmaps/qdbusviewer-qt6.png &&
+
+	install -dm755 "$PKG"/usr/share/applications &&
+
+    popd
+
+    install -Dm 0755 ${SRC}/qt6.sh "$PKG"/etc/profile.d/qt6.sh
+    install -Dm 0644 ${SRC}/qt6 "$PKG"/etc/sudoers.d/qt6 
+}

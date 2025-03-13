@@ -1,0 +1,33 @@
+# description	: Policy framework for controlling privileges for system-wide services
+# depends	: glib duktape pam gobject-introspection expat elogind
+
+name=polkit
+version=126
+release=3
+source="https://github.com/polkit-org/polkit/archive/$version/$name-$version.tar.gz
+        10-admin.rules"
+
+build() {
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D man=true \
+        -D gtk_doc=false \
+        -D session_tracking=elogind \
+        -D systemdsystemunitdir=/tmp \
+        -D tests=true \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+	DESTDIR="$PKG" ninja -C build install
+
+    rm -rf "$PKG"/tmp rm -rf "$PKG"/usr/lib/{sysusers,tmpfiles}.d 
+
+    install -Dm 0644 "$SRC"/10-admin.rules "$PKG"/etc/polkit-1/rules.d/10-admin.rules
+}

@@ -1,0 +1,39 @@
+# description	: PDF rendering library based on the xpdf-3.0 code base
+# depends	: cmake fontconfig libjpeg-turbo libpng openjpeg2 ninja
+# depends	: freetype zlib glib curl lcms2 libtiff qt6-base nss
+# depends	: gobject-introspection cairo boost gpgme
+
+name=poppler
+version=25.02.0
+release=1
+version_data=0.4.12
+source="https://poppler.freedesktop.org/$name-$version.tar.xz
+		https://poppler.freedesktop.org/poppler-data-${version_data}.tar.gz"
+
+build() {
+	cd $name-$version
+
+	cmake -B build \
+        -D CMAKE_BUILD_TYPE=Release \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D ENABLE_UNSTABLE_API_ABI_HEADERS=ON \
+        -D CMAKE_PREFIX_PATH=/usr \
+        -D ENABLE_QT5=OFF \
+        -D ENABLE_QT6=ON \
+        -D ENABLE_GPGME=ON \
+        -D ENABLE_NSS3=ON \
+        -D ENABLE_BOOST=ON
+	make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+
+	install -v -m755 -d    "$PKG"/usr/share/doc/$name-$version
+    cp -vr glib/reference/html "$PKG"/usr/share/doc/$name-$version
+
+	cd "$SRC"/poppler-data-${version_data}
+	make prefix=/usr DESTDIR="$PKG" install
+}

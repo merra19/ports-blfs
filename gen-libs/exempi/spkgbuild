@@ -1,0 +1,23 @@
+# description	: Port of the Adobe XMP SDK to work on UNIX
+# depends	: expat zlib boost
+
+name=exempi
+version=2.6.5
+release=1
+source="https://libopenraw.freedesktop.org/download/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    
+    ./configure \
+        --prefix=/usr \
+        --disable-static 
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

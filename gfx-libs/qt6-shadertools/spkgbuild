@@ -1,0 +1,15 @@
+# description	: Provides functionality for the shader pipeline that allows Qt Quick to operate on Vulkan, Metal, and Direct3D, in addition to OpenGL
+# depends	: qt6-base python3 vulkan-headers qt6-full
+
+name=qt6-shadertools
+version=6.8.2
+release=1
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+}

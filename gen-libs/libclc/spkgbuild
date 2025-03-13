@@ -1,0 +1,23 @@
+# description	: OpenCL C library
+# depends	: spirv-llvm-translator llvm
+
+name=libclc
+version=19.1.7
+release=1
+options="!lto"
+source="https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/$name-$version.src.tar.xz"
+
+build() {
+    cd $name-$version.src
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release
+    make -C build
+}
+
+package() {
+    cd $name-$version.src
+
+    make DESTDIR="$PKG" -C build install
+}

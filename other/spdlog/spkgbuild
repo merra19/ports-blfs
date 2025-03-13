@@ -1,0 +1,30 @@
+# description	Fast C++ logging library
+# depends	: cmake fmt
+
+
+name=spdlog
+version=1.15.1
+release=1
+source="$name-$version.tar.gz::https://github.com/gabime/spdlog/archive/v$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    cmake -B build \
+        -D SPDLOG_BUILD_BENCH=OFF \
+        -D SPDLOG_FMT_EXTERNAL=ON \
+        -D SPDLOG_BUILD_SHARED=ON \
+        -D SPDLOG_BUILD_TESTS=ON \
+        -D CMAKE_BUILD_TYPE=None \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBDIR=lib \
+        -D SPDLOG_BUILD_TESTS=OFF \
+        -Wno-dev
+    cmake --build build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" cmake --install build
+}

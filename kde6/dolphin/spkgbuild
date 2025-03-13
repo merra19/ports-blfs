@@ -1,0 +1,36 @@
+# description	: Plasma filemanager focusing on usability
+# depends	: kbookmarks kcmutils kcodecs kcompletion kconfig 
+# depends	: kconfigwidgets kcoreaddons kcrash kdbusaddons ki18n 
+# depends	: kiconthemes kio kitemviews kjobwidgets knewstuff 
+# depends	: knotifications kparts kservice ktextwidgets 
+# depends	: kwidgetsaddons kwindowsystem kxmlgui solid phonon
+# depends	: qt6-base extra-cmake-modules kdoctools kio-extras
+# optional	: semantic-desktop!!baloo-widgets 
+# optional	: semantic-desktop!!baloo 
+# optional	: semantic-desktop!!kfilemetadata
+# optional	: telemetry!!kuserfeedback
+
+name=dolphin
+version=24.12.2
+release=1
+source="https://download.kde.org/stable/release-service/$version/src/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+
+    rm -rvf "$PKG"/usr/lib/systemd
+}

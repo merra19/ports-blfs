@@ -1,0 +1,24 @@
+# description	: Network exploration tool and security / port scanner
+# depends	: liblinear libpcap libssh2 lua pcre2 python3-gobject3
+# depends	: zlib openssl python3-build python3-pyproject_hooks
+
+name=nmap
+version=7.95
+release=1
+source="https://nmap.org/dist/$name-$version.tar.bz2"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr 
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+
+    pip3 install build  --root "$PKG"
+}

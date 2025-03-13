@@ -1,0 +1,31 @@
+# description	: Plugin-based system monitoring daemon
+# depends	: libnl kcoreaddons kdbusaddons ki18n kio solid 
+# depends	: libksysguard libpcap lm-sensors qt6-base libcap 
+# depends	: extra-cmake-modules
+# optional	: networkmanager!!networkmanager-qt6
+
+name=ksystemstats
+version=6.3.2
+release=1
+source="https://download.kde.org/stable/plasma/$version/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+    
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -D CMAKE_DISABLE_FIND_PACKAGE_KF6NetworkManagerQt="$(scratch isinstalled networkmanager-qt6 && echo "OFF" || echo "ON")" \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+
+    rm -rf "$PKG"/usr/lib/systemd
+}

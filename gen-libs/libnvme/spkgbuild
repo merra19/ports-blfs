@@ -1,0 +1,25 @@
+# description	: C Library for NVM Express on Linux
+# depends	: meson ninja dbus json-c swig util-linux openssl
+# depends	: keyutils
+
+name=libnvme
+version=1.11.1
+release=1
+source="https://github.com/linux-nvme/libnvme/archive/refs/tags/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D libdbus=auto \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

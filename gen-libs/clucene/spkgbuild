@@ -1,0 +1,29 @@
+# description	: High-performance, full-featured text search engine based off of lucene in C++
+# depends	: cmake ninja
+
+name=clucene
+version=2.3.3.4
+release=1
+options="!lto"
+source="https://downloads.sourceforge.net/clucene/clucene-core-$version.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/clucene-$version-contribs_lib-1.patch"
+
+build() {
+	cd $name-core-$version
+
+    patch -Np1 -i ../clucene-$version-contribs_lib-1.patch 
+
+    sed -i '/Misc.h/a #include <ctime>' src/core/CLucene/document/DateTools.cpp
+
+	cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_CONTRIBS_LIB=ON
+	make -C build
+}
+
+package() {
+    cd $name-core-$version
+
+    make DESTDIR="$PKG" -C build install
+}

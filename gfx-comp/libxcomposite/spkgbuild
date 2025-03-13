@@ -1,0 +1,26 @@
+# description	: X.Org Xcomposite library
+# depends	: libx11 libxfixes xorg-proto
+
+name=libxcomposite
+_name=libXcomposite
+version=0.4.6
+release=1
+source="https://www.x.org/pub/individual/lib/libXcomposite-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXcomposite-$version
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,32 @@
+# description	: Bluez development headers
+# depends	: glibc
+
+name=bluez-headers
+version=5.79
+release=0
+source="https://www.kernel.org/pub/linux/bluetooth/${name%-*}-$version.tar.xz"
+
+build() {
+    :
+}
+
+package() {
+    cd ${name%-*}-$version
+
+	local headers="
+		bluetooth
+		bnep
+		cmtp
+		hci
+		hci_lib
+		hidp
+		l2cap
+		rfcomm
+		sco
+		sdp
+		sdp_lib
+		"
+	for header in $headers; do
+		install -Dm644 ./lib/$header.h -t "$PKG"/usr/include/bluetooth
+	done
+}

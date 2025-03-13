@@ -1,0 +1,15 @@
+# description	: Translation files for the Qt6 framework
+# depends	: qt6-base qt6-tools qt6-full
+
+name=qt6-translations
+version=6.8.2
+release=1
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+}

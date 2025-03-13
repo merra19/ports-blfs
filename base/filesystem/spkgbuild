@@ -1,0 +1,65 @@
+# description	: System files
+
+name=filesystem
+version=35
+release=1
+source="hosts os-release lsb-release inputrc shells clock console
+        profile dircolors.sh extrapaths.sh readline.sh umask.sh i18n.sh
+        bashrc dot_bash_profile dot_profile dot_bashrc dot_bash_logout 
+        resolv.conf sysctl.conf nsswitch.conf locale.conf
+        bash_completion.sh inittab rc.site"
+backup="etc/shells etc/inputrc etc/resolv.conf etc/locale.conf etc/hosts 
+        etc/bashrc etc/sysctl.conf"
+
+build() {
+    :
+}
+
+package() {
+    install --directory --mode=0755 --owner=root --group=root "$PKG"/etc/profile.d
+    install --directory --mode=0755 --owner=root --group=root "$PKG"/etc/bash_completion.d
+    install --directory --mode=0755 --owner=root --group=root "$PKG"/etc/skel/
+    install --directory --mode=0755 --owner=root --group=root "$PKG"/etc/profile.d
+
+    install -dm 0750 "$PKG"/root 
+    install -d "$PKG"/etc/sysconfig/
+
+    install -m 0644 inittab "$PKG"/etc/inittab
+    
+    install -m 0644 profile "$PKG"/etc/profile
+    install -m 0644 nsswitch.conf locale.conf resolv.conf hosts shells inputrc bashrc "$PKG"/etc/
+
+    install -m 0644 console clock rc.site "$PKG"/etc/sysconfig/
+
+    # os-release lsb-release
+    install -m 644 os-release "$PKG"/etc/os-release
+    install -m 644 lsb-release "$PKG"/etc/lsb-release
+
+    install -m 755 dircolors.sh extrapaths.sh readline.sh umask.sh i18n.sh bash_completion.sh "$PKG"/etc/profile.d/
+
+    install -Dm 644 sysctl.conf "$PKG"/etc/sysctl.conf
+
+    for i in dot_bash_profile dot_profile dot_bashrc dot_bash_logout; do
+        j=${i/dot_/.}
+        install -m 750 $i "$PKG"/root/$j
+        install -m 750 $i "$PKG"/etc/skel/$j
+    done
+
+    mkdir -pv  "$PKG"/{boot,home,mnt,opt,srv,run}
+
+    mkdir -pv  "$PKG"/etc/{opt,sysconfig}
+    mkdir -pv  "$PKG"/usr/lib/firmware
+    mkdir -pv  "$PKG"/media/{floppy,cdrom}
+    mkdir -pv  "$PKG"/usr/{,local/}{include,src}
+    mkdir -pv  "$PKG"/usr/lib/locale
+    mkdir -pv  "$PKG"/usr/local/{bin,lib,sbin}
+    mkdir -pv  "$PKG"/usr/{,local/}share/{color,dict,doc,info,locale,man}
+    mkdir -pv  "$PKG"/usr/{,local/}share/{misc,terminfo,zoneinfo}
+    mkdir -pv  "$PKG"/usr/{,local/}share/man/man{1..8}
+    mkdir -pv  "$PKG"/var/{cache,local,log,mail,opt,spool}
+    mkdir -pv  "$PKG"/var/lib/{color,misc,locate}
+
+    echo r12.3 > "$PKG"/etc/lfs-release
+
+    mkdir -p "$PKG"/boot/efi 
+}

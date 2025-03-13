@@ -1,0 +1,28 @@
+# description	: Framework for testing other programs
+# depends	: expect gawk
+
+name=dejagnu
+version=1.6.3
+release=1
+source="https://ftp.gnu.org/gnu/dejagnu/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    mkdir -v build
+    cd       build
+
+    ../configure \
+        --prefix=/usr
+    makeinfo --html --no-split -o doc/dejagnu.html ../doc/dejagnu.texi
+    makeinfo --plaintext       -o doc/dejagnu.txt  ../doc/dejagnu.texi
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+    install -v -dm755  "$PKG"/usr/share/doc/$name-$version
+    install -v -m644   build/doc/dejagnu.{html,txt} "$PKG"/usr/share/doc/$name-$version
+}

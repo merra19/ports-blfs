@@ -1,0 +1,28 @@
+# description	: Standard Linux networking tools
+# depends	: glibc
+
+name=net-tools
+version=2.10
+release=1
+options="!makeflags !lto"
+source="https://downloads.sourceforge.net/project/net-tools/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	export BINDIR='/usr/bin' SBINDIR='/usr/bin' &&
+	yes "" | make -j1                           &&
+	make -j1 DESTDIR="$PWD"/install -j1 install       &&
+	rm    install/usr/bin/nisdomainname install/usr/bin/ypdomainname
+	rm    install/usr/bin/hostname install/usr/bin/dnsdomainname install/usr/bin/domainname install/usr/bin/ifconfig
+	rm -r install/usr/share/man/man1
+	rm    install/usr/share/man/man8/ifconfig.8
+	unset BINDIR SBINDIR
+}
+
+package() {
+    cd $name-$version
+
+    chown -R root:root install &&
+    cp -a install/* "$PKG"/
+}

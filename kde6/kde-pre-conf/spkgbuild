@@ -1,0 +1,20 @@
+# description	: Configuration for KDE frameworks
+# depends	: pam elogind dbus polkit udisks2 cups 
+# depends	: extra-cmake-modules 
+# optional	: colord
+
+name=kde-pre-conf
+version=6.0.0
+release=1
+source="kf6.sh kde6"
+
+build() {
+    :
+}
+
+package() {
+    install -v -dm755 "$PKG"/etc/profile.d "$PKG"/etc/sudoers.d/ 
+
+    install -Dm 755 kf6.sh "$PKG"/etc/profile.d/kf6.sh
+    install -Dm 644 kde6 "$PKG"/etc/sudoers.d/kde
+}

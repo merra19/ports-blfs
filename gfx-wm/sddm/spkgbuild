@@ -1,0 +1,50 @@
+# description	: Simple Desktop Display Manager
+# depends	: libxau libxcb xorg-server noto-fonts ttf-dejavu 
+# depends	: extra-cmake-modules python3-docutils qt6-base 
+# depends	: qt6-declarative qt6-tools
+
+name=sddm
+version=0.21.0
+release=1
+options="!lto"
+source="https://github.com/sddm/sddm/archive/v$version/$name-$version.tar.gz
+        sddm sddm-autologin sddm-greeter"
+backup="usr/share/sddm/scripts/Xsetup usr/share/sddm/scripts/Xstop"
+
+build() {
+	cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D ENABLE_JOURNALD=OFF \
+        -D NO_SYSTEMD=ON \
+        -D RUNTIME_DIR=/run/sddm \
+        -D USE_ELOGIND=ON \
+        -D BUILD_MAN_PAGES=ON \
+        -D BUILD_WITH_QT6=ON \
+        -D DATA_INSTALL_DIR=/usr/share/sddm \
+        -D DBUS_CONFIG_FILENAME=sddm_org.freedesktop.DisplayManager.conf
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    mkdir -p "$PKG"/etc/pam.d
+
+	make DESTDIR="$PKG" -C build install
+    
+    install -v -dm755 -o sddm -g sddm "$PKG"/var/lib/sddm
+    "$PKG"/usr/bin/sddm --example-config > "$PKG"/etc/sddm.conf
+
+    # For security reasons, you normally want the default ServerArguments=-nolisten tcp
+    sed -i 's/-nolisten tcp//' "$PKG"/etc/sddm.conf
+
+    # Num Lock key on
+    sed -i 's/none/on/' "$PKG"/etc/sddm.conf
+    
+    install -Dm 0644 "$SRC"/sddm "$PKG"/etc/pam.d/sddm 
+    install -Dm 0644 "$SRC"/sddm-autologin "$PKG"/etc/pam.d/sddm-autologin
+    install -Dm 0644 "$SRC"/sddm-greeter "$PKG"/etc/pam.d/sddm-greeter
+}

@@ -1,0 +1,61 @@
+#!/bin/sh
+#######################################################################
+# Begin lighttpd
+#
+# Description : Start Lighttpd Web Server
+#
+# Author      : DJ Lucas - dj@linuxfromscratch.org
+#               Bruce Dubbs - bdubbs@linuxfromscratch.org
+#
+# Version     : BLFS 7.0
+#
+########################################################################
+
+### BEGIN INIT INFO
+# Provides:            lighttpd
+# Required-Start:      $network
+# Should-Start:        networkmanager php-fpm wicd
+# Required-Stop:       $network
+# Should-Stop:         networkmanager php-fpm wicd
+# Default-Start:       2 3 4 5
+# Default-Stop:        0 1 6
+# Short-Description:   Lighttpd HTTP Server
+# Description:         Controls the Lighttpd HTTP Daemon
+# X-LFS-Provided-By:   Copied from BLFS Apache
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+case "$1" in
+   start)
+      log_info_msg "Starting Lighttpd HTTP daemon..."
+      install --directory --mode=0755 --owner=lighttpd --group=lighttpd /run/lighttpd
+      start_daemon /usr/sbin/lighttpd -D -f /etc/lighttpd/lighttpd.conf 2>&1 >/dev/null &
+      sleep 1
+      pidofproc -p "/run/lighttpd.pid" > /dev/null
+      evaluate_retval
+      ;;
+
+   stop)
+      log_info_msg "Stopping Lighttpd HTTP daemon..."
+      killproc -p "/run/lighttpd.pid" /usr/sbin/lighttpd
+      evaluate_retval
+      ;;
+
+   restart)
+      $0 stop
+      sleep 1
+      $0 start
+      ;;
+
+   status)
+      statusproc /usr/sbin/lighttpd
+      ;;
+
+   *)
+      echo "Usage: $0 {start|stop|restart|status}"
+      exit 1
+      ;;
+esac
+
+# End /etc/init.d/httpd

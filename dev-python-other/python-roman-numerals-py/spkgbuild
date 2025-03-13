@@ -1,0 +1,19 @@
+# description	: Manipulate roman numerals
+# depends	: python3 python3-gpep517 python3-setuptools python3-wheel
+
+name=python-roman-numerals-py
+version=3.1.0
+release=1
+source="https://files.pythonhosted.org/packages/30/76/48fd56d17c5bdbdf65609abbc67288728a98ed4c02919428d4f52d23b24b/roman_numerals_py-$version.tar.gz"
+
+build() {
+	cd roman_numerals_py-$version
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd roman_numerals_py-$version
+
+	python3 -m installer -d "$PKG" .dist/*.whl
+}

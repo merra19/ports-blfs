@@ -1,0 +1,22 @@
+# description	: C library that resolves names asynchronously
+# depends	: glibc
+
+name=c-ares
+version=1.34.4
+release=1
+source="https://github.com/c-ares/c-ares/releases/download/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr \
+        --enable-shared
+	make DEFAULTFLAGS="$CFLAGS"
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

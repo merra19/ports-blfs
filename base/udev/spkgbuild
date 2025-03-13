@@ -1,0 +1,102 @@
+# description	: Controlling the startup, running, and shutdown of the system
+# depends	: meson acl xz python3-jinja gperf libcap
+
+name=udev
+_name=systemd
+version=257.3
+release=1
+options="!lto"
+source="https://github.com/systemd/systemd/archive/v$version/systemd-$version.tar.gz
+        https://anduin.linuxfromscratch.org/LFS/systemd-man-pages-$version.tar.xz
+        https://anduin.linuxfromscratch.org/LFS/udev-lfs-20230818.tar.xz"
+noextract="systemd-man-pages-$version.tar.xz udev-lfs-20230818.tar.xz"
+
+build() {
+    cd systemd-$version
+
+    # Remove two unneeded groups, render and sgx, from the default udev rules:
+    sed  -i -e 's/GROUP="render"/GROUP="video"/' \
+            -e 's/GROUP="sgx", //' rules.d/50-udev-default.rules.in
+
+    # Remove one udev rule requiring a full Systemd installation:
+    sed '/systemd-sysctl/s/^/#/' -i rules.d/99-systemd.rules.in
+
+    # Adjust the hardcoded paths to network configuration files for the 
+    # standalone udev installation
+    sed -e '/NETWORK_DIRS/s/systemd/udev/' \
+        -i src/libsystemd/sd-network/network-util.h
+
+    export PKG_CONFIG_PATH="/usr/lib/pkgconfig:/tools/lib/pkgconfig"
+
+    mkdir -p build
+    cd       build
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D mode=release \
+        -D dev-kvm-mode=0660 \
+        -D link-udev-shared=false \
+        -D logind=false \
+        -D vconsole=false \
+        ..
+
+    export udev_helpers=$(grep "'name' :" ../src/udev/meson.build | \
+                awk '{print $3}' | tr -d ",'" | grep -v 'udevadm')
+
+    ninja udevadm systemd-hwdb \
+        $(ninja -n | grep -Eo '(src/(lib)?udev|rules.d|hwdb.d)/[^ ]*') \
+        $(realpath libudev.so --relative-to .) \
+        $udev_helpers
+}
+
+package() {
+    cd systemd-$version/build
+
+    export udev_helpers=$(grep "'name' :" ../src/udev/meson.build | \
+                awk '{print $3}' | tr -d ",'" | grep -v 'udevadm')
+
+    mkdir -pv "$PKG"/usr/{bin,sbin,include,share/man}
+
+    install -vm755 -d "$PKG"{/usr/lib,/etc}/udev/{hwdb.d,rules.d,network}
+    install -vm755 -d "$PKG"/usr/{lib,share}/pkgconfig
+
+    install -vm755 udevadm                     "$PKG"/usr/bin/
+    install -vm755 systemd-hwdb                "$PKG"/usr/bin/udev-hwdb
+    ln      -svfn  ../bin/udevadm              "$PKG"/usr/sbin/udevd
+    cp      -av    libudev.so{,*[0-9]}         "$PKG"/usr/lib/
+    install -vm644 ../src/libudev/libudev.h    "$PKG"/usr/include/
+    install -vm644 src/libudev/*.pc            "$PKG"/usr/lib/pkgconfig/
+    install -vm644 src/udev/*.pc               "$PKG"/usr/share/pkgconfig/
+    install -vm644 ../src/udev/udev.conf       "$PKG"/etc/udev/
+    install -vm644 rules.d/* ../rules.d/README "$PKG"/usr/lib/udev/rules.d/
+    install -vm644 $(find ../rules.d/*.rules \
+                    -not -name '*power-switch*') "$PKG"/usr/lib/udev/rules.d/
+    install -vm644 hwdb.d/*  ../hwdb.d/{*.hwdb,README} "$PKG"/usr/lib/udev/hwdb.d/
+    install -vm755 $udev_helpers                       "$PKG"/usr/lib/udev
+    install -vm644 ../network/99-default.link          "$PKG"/usr/lib/udev/network
+
+    tar -xvf ../../udev-lfs-20230818.tar.xz
+    make -f udev-lfs-20230818/Makefile.lfs DESTDIR="$PKG" install
+
+    tar -xf ../../systemd-man-pages-$version.tar.xz \
+        --no-same-owner --strip-components=1 \
+        -C "$PKG"/usr/share/man --wildcards '*/udev*' '*/libudev*' \
+                                    '*/systemd.link.5' \
+                                    '*/systemd-hwdb.8' \
+                                    '*/systemd-udevd.service.8'
+
+    sed 's|systemd/network|udev/network|' \
+        "$PKG"/usr/share/man/man5/systemd.link.5 \
+        > "$PKG"/usr/share/man/man5/udev.link.5
+
+    sed 's/systemd\(\\\?-\)/udev\1/' \
+        "$PKG"/usr/share/man/man8/systemd-hwdb.8 \
+        > "$PKG"/usr/share/man/man8/udev-hwdb.8
+
+    sed 's|lib.*udevd|sbin/udevd|' \
+        "$PKG"/usr/share/man/man8/systemd-udevd.service.8 \
+        > "$PKG"/usr/share/man/man8/udevd.8
+
+    rm "$PKG"/usr/share/man/man*/systemd*
+}

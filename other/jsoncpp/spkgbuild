@@ -1,0 +1,32 @@
+# description	: An object oriented GL/GLES Abstraction/Utility Layer
+# depends	: python3 meson
+
+name=jsoncpp
+version=1.9.6
+release=1
+source="https://github.com/open-source-parsers/$name/archive/$version/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
+        --default-library shared \
+        build
+    ninja -C build
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
+        --default-library static \
+        build-static
+    ninja -C build-static
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+    DESTDIR="$PKG" ninja -C build-static install
+}

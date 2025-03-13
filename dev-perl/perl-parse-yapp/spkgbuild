@@ -1,0 +1,21 @@
+# description	: Compiles yacc-like LALR grammars to generate Perl OO parser modules
+# depends	: perl
+
+name=perl-parse-yapp
+_name=Parse-Yapp
+version=1.21
+release=1
+source="https://www.cpan.org/authors/id/W/WB/WBRASWELL/Parse-Yapp-$version.tar.gz"
+
+build() {
+	cd ${_name}-$version
+
+	perl Makefile.PL INSTALLDIRS=vendor
+	make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

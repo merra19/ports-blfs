@@ -1,0 +1,57 @@
+# description	: GNU GRUB boot loader
+# depends	: gettext bash xz python3 efibootmgr freetype flex bison 
+# depends	: help2man texinfo ncurses lvm2 fuse
+
+name=grub
+version=2.12
+release=1
+fontvers=16.0.01
+gccversion=13.2.0
+options="!makeflags !lto"
+source="https://ftp.gnu.org/gnu/grub/$name-$version.tar.xz
+        https://unifoundry.com/pub/unifont/unifont-${fontvers}/font-builds/unifont-${fontvers}.pcf.gz
+        fstab grub.default update-grub update-efi"
+backup="etc/default/grub etc/grub.d/40_custom etc/fstab"
+noextract="gcc-${gccversion}.tar.xz"
+
+build() {
+    cd $name-$version
+
+    unset CFLAGS
+    unset CPPFLAGS
+    unset CXXFLAGS
+    unset LDFLAGS
+    unset MAKEFLAGS
+
+    mkdir -pv "$PKG"/usr/share/fonts/unifont &&
+    gunzip -c ../unifont-${fontvers}.pcf.gz > "$PKG"/usr/share/fonts/unifont/unifont.pcf
+
+    # Add a file missing from the release tarball:
+    echo depends bli part_gpt > grub-core/extra_deps.lst
+    
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --disable-efiemu \
+        --enable-grub-mkfont \
+        --with-platform=efi \
+        --target=x86_64 \
+        --disable-werror \
+        --enable-nls \
+        --enable-device-mapper
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+    
+    mkdir -pv "$PKG"/usr/share/bash-completion/completions
+    mv -v "$PKG"/etc/bash_completion.d/grub "$PKG"/usr/share/bash-completion/completions
+    install -D -m0644 ../grub.default "$PKG"/etc/default/grub
+    install -D -m0644 ../fstab "$PKG"/etc/fstab
+
+    install -Dm0755 ../update-grub "$PKG"/usr/bin/update-grub
+    install -Dm0755 ../update-efi "$PKG"/usr/bin/update-efi
+}

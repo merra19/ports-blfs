@@ -1,0 +1,24 @@
+# description	: Add-ons for the Kirigami framework
+# depends	: extra-cmake-modules ki18n kirigami qt6-base 
+# depends	: qt6-declarative sound-theme-freedesktop
+
+name=kirigami-addons
+version=1.4.0
+release=1
+source="https://download.kde.org/stable/kirigami-addons/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    cmake -B build \ -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

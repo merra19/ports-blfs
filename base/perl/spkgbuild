@@ -1,0 +1,48 @@
+# description	: Larry Wall's Practical Extraction and Report Language
+# depends	: gdbm bzip2 zlib libxcrypt
+
+name=perl
+version=5.40.1
+release=1
+source="https://www.cpan.org/src/5.0/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    export BUILD_ZLIB=False
+    export PERL5LIB=$(find . -type f -name strict.pm -execdir pwd \; | head -1)
+    
+    ./Configure \
+        -der \
+        -D prefix=/usr \
+        -D vendorprefix=/usr \
+        -D privlib=/usr/lib/perl5/${version%.*}/core_perl \
+        -D archlib=/usr/lib/perl5/${version%.*}/core_perl \
+        -D sitelib=/usr/lib/perl5/${version%.*}/site_perl \
+        -D sitearch=/usr/lib/perl5/${version%.*}/site_perl \
+        -D vendorlib=/usr/lib/perl5/${version%.*}/vendor_perl \
+        -D vendorarch=/usr/lib/perl5/${version%.*}/vendor_perl \
+        -D installman1dir='/usr/share/man/man1' \
+        -D installman3dir='/usr/share/man/man3' \
+        -D man1dir='/usr/share/man/man1' \
+        -D man3dir='/usr/share/man/man3' \
+        -D pager="/usr/bin/less -isR" \
+        -D usethreads \
+        -D useshrplib \
+        -A define:d_procselfexe \
+        -A define:procselfexe='"/proc/self/exe"' \
+        -A define:optimize="-O3 -ffunction-sections -fno-semantic-interposition -fopt-info-vec -ffat-lto-objects -flto=4 " \
+        -A define:ccflags="$CFLAGS" \
+        -A define:ldflags="$LDFLAGS" \
+        -A define:lddflags="$LDFLAGS" \
+        -U d_off64_t \
+        -D inc_version_list="$version"
+    make
+    unset BUILD_ZLIB BUILD_BZIP2 PERL5LIB
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

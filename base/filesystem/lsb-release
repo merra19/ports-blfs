@@ -1,0 +1,4 @@
+DISTRIB_ID="Linux From Scratch"
+DISTRIB_RELEASE="r12.3"
+DISTRIB_CODENAME="r12.3-multilib"
+DISTRIB_DESCRIPTION="Linux From Scratch"

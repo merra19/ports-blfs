@@ -1,0 +1,29 @@
+# description	: Implementation of basic iCAL protocols
+# depends	: cmake ninja gobject-introspection vala icu perl glib
+
+name=libical
+version=3.0.19
+release=1
+source="https://github.com/libical/$name/releases/download/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    # Fix an incompatibility with ICU 75 or later
+    sed -i '/getKeywordValuesForLocale/s/NULL/""/' src/libical/icalrecur.c
+    
+	cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=Release \
+		-D SHARED_ONLY=yes \
+		-D ICAL_BUILD_DOCS=false \
+		-D GOBJECT_INTROSPECTION=true \
+		-D ICAL_GLIB_VAPI=true
+	make -j1 -C build 
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

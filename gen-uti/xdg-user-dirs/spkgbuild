@@ -1,0 +1,24 @@
+# description	: Tool to help manage 'well known' user directories
+# depends	: bash udev docbook-xml
+
+name=xdg-user-dirs
+version=0.18
+release=1
+source="https://user-dirs.freedesktop.org/releases/$name-$version.tar.gz"
+backup="etc/xdg/user-dirs.conf etc/xdg/user-dirs.defaults"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --disable-documentation
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

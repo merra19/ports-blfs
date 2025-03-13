@@ -1,0 +1,35 @@
+# description	: Standalone X server running under Wayland
+# depends	: openssl wayland-protocols wayland xorg-fonts libepoxy 
+# depends	: mesa libdrm libxau libxcvt libxdmcp xtrans pixman 
+# depends	: xkeyboard-config xkbcomp flex libxfont2 libxkbfile 
+# depends	: libxshmfence udev 
+# optional	: libei 
+
+name=xwayland
+version=24.1.5
+release=1
+source="https://www.x.org/pub/individual/xserver/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    sed -i '/install_man/,$d' meson.build
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D secure-rpc=false \
+        -D xkb_output_dir=/var/lib/xkb \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+	DESTDIR="$PKG" ninja -C build install
+
+    # conflict xorg-server
+    rm -f "$PKG"/usr/lib/xorg/protocol.txt
+    rm -f "$PKG"/usr/share/man/man1/Xserver.1
+}

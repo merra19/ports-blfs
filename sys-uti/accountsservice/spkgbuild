@@ -1,0 +1,46 @@
+# description	: D-Bus interfaces for querying and manipulating user account information
+# depends	: glib libxcrypt polkit docbook-xml gobject-introspection
+# depends	: meson xmlto dbus udev vala elogind
+
+name=accountsservice
+version=23.13.9
+release=1
+options="!lto"
+source="https://www.freedesktop.org/software/accountsservice/$name-$version.tar.xz
+        40-adm.rules accountsservice-23.13.9-c99-fixes.patch"
+
+build() {
+    cd $name-$version
+
+    patch -Np1 -i ../accountsservice-23.13.9-c99-fixes.patch
+
+    # Rename a directory whose presence prevents the build system from running if dbusmock is not installed:
+    mv tests/dbusmock tests/dbusmock-tests
+
+    # Fix the tests so that the new directory is found and adapt it for Python 3.12.0 or later
+    sed -e '/accounts_service\.py/s/dbusmock/dbusmock-tests/' \
+        -e 's/assertEquals/assertEqual/' \
+        -i tests/test-libaccountsservice.py
+
+    # Fix one test that fails if the en_IE.UTF-8 locale is not installed:
+    sed -i '/^SIMULATED_SYSTEM_LOCALE/s/en_IE.UTF-8/en_HK.iso88591/' tests/test-daemon.py
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D admin_group=adm \
+        -D docbook=true \
+        -D gtk_doc=false \
+        -D elogind=true \
+        -D systemdsystemunitdir=no \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+	DESTDIR="$PKG" ninja -C build install
+
+	install -Dm 644  ${SRC}/40-adm.rules   "$PKG"/etc/polkit-1/rules.d/40-adm.rules
+}

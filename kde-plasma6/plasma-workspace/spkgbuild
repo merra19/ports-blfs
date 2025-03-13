@@ -1,0 +1,57 @@
+# description	: KDE Plasma Workspace
+# depends	: icu wayland qt6-base qt6-declarative qt6-5compat 
+# depends	: qt6-shadertools qt6-svg qt6-tools qt6-virtualkeyboard 
+# depends	: qt6-wayland karchive kauth kbookmarks kcmutils 
+# depends	: kcompletion  kconfig kconfigwidgets kcoreaddons 
+# depends	: kcrash kdbusaddons kdeclarative kded  kglobalaccel 
+# depends	: kguiaddons ki18n kiconthemes kidletime kio kparts
+# depends	: kitemmodels kitemviews kjobwidgets knewstuff breeze
+# depends	: knotifications knotifyconfig kpackage krunner solid
+# depends	: kservice kstatusnotifieritem ksvg ktexteditor 
+# depends	: ktextwidgets kunitconversion kwallet kwidgetsaddons 
+# depends	: kwindowsystem kxmlgui prison kscreenlocker kwayland
+# depends	: kwin layer-shell-qt libkscreen libksysguard 
+# depends	: libplasma plasma-activities plasma-activities-stats 
+# depends	: plasma5support libcanberra  phonon libqalculate  zlib
+# depends	: libice libsm libx11 libxau libxcb libxcursor libxfixes 
+# depends	: libxrender libxtst xcb-util kholidays fontconfig libxft
+# depends	: xcb-util-image polkit-qt libxcrypt kpipewire libglvnd 
+# depends	: pipewire libdrm baloo plasma-wayland-protocols 
+# depends	: xorg-proto qcoro6 iso-codes kirigami-addons kio-extras
+# depends	: kirigami kquickcharts kactivitymanagerd milou 
+# depends	: plasma-integration dbus xmessage xprop xrdb xsetroot 
+# depends	: accountsservice qt6-positioning ocean-sound-theme
+# optional	: appstream geolocation!!networkmanager-qt6 
+# optional	: telemetry!!kuserfeedback wallpaper-metadata!!libkexiv2
+
+name=plasma-workspace
+version=6.3.2
+release=1
+source="https://download.kde.org/stable/plasma/${version:0:5}/$name-$version.tar.xz
+        plasma-workspace-5.22.5-krunner-cwd-at-home.patch"
+
+build() {
+    cd $name-$version
+
+    patch -Np1 -i ../plasma-workspace-5.22.5-krunner-cwd-at-home.patch # TODO upstream: KDE-bug 432975, bug 767478
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -D CMAKE_DISABLE_FIND_PACKAGE_AppStreamQt="$(scratch isinstalled appstream && echo "OFF" || echo "ON")" \
+        -D CMAKE_DISABLE_FIND_PACKAGE_KF6NetworkManagerQt="$(scratch isinstalled networkmanager-qt6 && echo "OFF" || echo "ON")" \
+        -D CMAKE_DISABLE_FIND_PACKAGE_KF6UserFeedback="$(scratch isinstalled kuserfeedback && echo "OFF" || echo "ON")" \
+        -D CMAKE_DISABLE_FIND_PACKAGE_PackageKitQt6=ON \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+
+    rm -rf "$PKG"/usr/lib/systemd
+}

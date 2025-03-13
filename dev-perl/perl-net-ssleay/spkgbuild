@@ -1,0 +1,20 @@
+# description	: Perl extension for using OpenSSL
+# depends	: perl openssl zlib
+
+name=perl-net-ssleay
+version=1.94
+release=1
+source="https://cpan.metacpan.org/authors/id/C/CH/CHRISN/Net-SSLeay-$version.tar.gz"
+
+build() {
+	cd Net-SSLeay-$version
+
+	PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+	make
+}
+
+package() {
+    cd Net-SSLeay-$version
+
+    make DESTDIR="$PKG" install
+}

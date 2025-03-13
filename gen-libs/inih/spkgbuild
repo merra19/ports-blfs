@@ -1,0 +1,23 @@
+# description	: inih (INI not invented here) simple .INI file parser
+# depends	: meson
+
+name=inih
+version=58
+release=1
+source="https://github.com/benhoyt/inih/archive/r$version/$name-r$version.tar.gz"
+
+build() {
+	cd $name-r$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-r$version
+
+	DESTDIR="$PKG" ninja -C build install
+}

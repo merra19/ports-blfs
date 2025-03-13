@@ -1,0 +1,22 @@
+# description	: GNU utilities for finding files
+# depends	: glibc
+
+name=findutils
+version=4.10.0
+release=1
+source="https://ftp.gnu.org/gnu/findutils/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --localstatedir=/var/lib/locate
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

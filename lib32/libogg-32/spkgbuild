@@ -1,0 +1,35 @@
+# description	: The Ogg media file format library
+# depends	: libogg
+
+name=libogg-32
+_name=libogg
+version=1.3.5
+release=1
+options="!lto"
+source="http://downloads.xiph.org/releases/ogg/${_name}-$version.tar.xz"
+
+build() {
+	cd ${_name}-$version
+
+	mkdir build &&
+	cd    build &&
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+	../configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+		--disable-static \
+        --host=i686-pc-linux-gnu 
+	make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PWD"/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

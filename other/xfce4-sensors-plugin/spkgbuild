@@ -1,0 +1,28 @@
+# description	: A panel plug-in for acpi, lm-sensors and hddtemp sensors
+# depends	: gtk3 libxfce4ui libxfce4util xfce4-panel netcat
+# depends	: libnotify lm-sensors
+
+name=xfce4-sensors-plugin
+version=1.4.5
+release=1
+source="https://archive.xfce.org/src/panel-plugins/xfce4-sensors-plugin/${version%.*}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    NOCONFIGURE=1 ./autogen.sh
+    
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --disable-static \
+        --disable-pathchecks \
+        --disable-debug
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

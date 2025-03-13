@@ -1,0 +1,24 @@
+# description	: A CLI utility to control media players over MPRIS
+# depends	:  meson dbus glib gobject-introspection 
+
+name=playerctl
+version=2.4.1
+release=4
+source="$name-$version.tar.gz::https://github.com/altdesktop/playerctl/archive/v$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk-doc=false \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

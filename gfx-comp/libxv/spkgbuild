@@ -1,0 +1,26 @@
+# description	: X.Org Xv library
+# depends	: libx11 libxext xorg-proto
+
+name=libxv
+_name=libXv
+version=1.0.13
+release=1
+source="https://www.x.org/pub/individual/lib/libXv-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXv-$version
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

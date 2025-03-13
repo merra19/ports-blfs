@@ -1,0 +1,21 @@
+# description	: A set of python bindings for keyutils
+# depends	: glibc
+
+name=keyutils
+version=1.6.3
+release=1
+options="!lto"
+source="https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git/snapshot/$name-$version.tar.gz"
+backup="etc/request-key.conf"
+
+build() {
+	cd $name-$version
+
+	make CFLAGS="$CFLAGS" CXXFLAGS="${CXXFLAGS}"
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" NO_ARLIB=1 LIBDIR=/usr/lib BINDIR=/usr/bin SBINDIR=/usr/sbin install
+}

@@ -1,0 +1,38 @@
+# description	: Visual Studio Code (vscode) editor
+# depends	: at-spi2-core libsecret expat glib nspr nss alsa-lib 
+# depends	: libglvnd mesa curl dbus zlib lsof cairo gtk3 libdrm 
+# depends	: libx11 libxcb libxcomposite libxdamage libxext libxfixes 
+# depends	: libxkbcommon libxkbfile libxrandr libxscrnsaver pango 
+# depends	: xdg-utils p11-kit
+
+name=vscode
+version=1.97.2
+release=1
+source="$name-$version-amd64.tar.gz::https://update.code.visualstudio.com/$version/linux-x64/stable
+	$name.desktop $name-url-handler.desktop"
+IGNORE_MDSUM="yes"
+
+build() {
+    :
+}
+
+package() {
+	cd VSCode-linux-x64
+
+    if (! scratch isinstalled krb5 ); then 
+        rm -rv ./resources/app/node_modules/kerberos
+    fi
+
+	mkdir -p "$PKG"/opt/$name
+	cp -Rv ./* "$PKG"/opt/$name
+	mkdir -p "$PKG"/usr/bin
+	ln -s /opt/$name/bin/code "$PKG"/usr/bin/code
+	install -Dm644 "$SRC"/$name.desktop "$PKG"/usr/share/applications/$name.desktop
+	install -Dm644 "$SRC"/$name-url-handler.desktop "$PKG"/usr/share/applications/$name-url-handler.desktop
+
+	chmod 4711 "$PKG"/opt/$name/chrome-sandbox
+
+    # Install bash and zsh completions
+    install -Dm 644 resources/completions/bash/code "$PKG"/usr/share/bash-completion/completions/code
+    install -Dm 644 resources/completions/zsh/_code "$PKG"/usr/share/zsh/site-functions/_code
+}

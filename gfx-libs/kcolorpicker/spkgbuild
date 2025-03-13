@@ -1,0 +1,25 @@
+# description	: Qt based color picker with popup menu
+# depends	: cmake qt6-base
+
+name=kcolorpicker
+_name=kColorPicker
+version=0.3.1
+release=1
+source="https://github.com/ksnip/kColorPicker/archive/refs/tags/v$version/kColorPicker-$version.tar.gz"
+
+build() {
+    cd ${_name}-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_WITH_QT6=ON \
+        -D BUILD_SHARED_LIBS=ON
+    make -C build
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" -C build install
+}

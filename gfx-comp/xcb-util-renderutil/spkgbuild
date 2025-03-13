@@ -1,0 +1,24 @@
+# description	: X C-language Bindings sample implementations"
+# depends	: libxcb xorg-proto
+
+name=xcb-util-renderutil
+version=0.3.10
+release=1
+source="https://xcb.freedesktop.org/dist/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

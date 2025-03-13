@@ -1,0 +1,27 @@
+# description	: uncompile an rgb color-name database
+# depends	: qt6-base qt6-websockets qt6-declarative
+
+name=qcoro6
+_name=qcoro
+version=0.11.0
+release=1
+source="https://github.com/danvratil/qcoro/archive/v$version/${_name}-$version.tar.gz"
+
+build() {
+    cd ${_name}-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -D USE_QT_VERSION=6 \
+        -D BUILD_SHARED_LIBS=ON \
+        -Wno-dev
+    make -C build 
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" -C build install
+}

@@ -1,0 +1,21 @@
+# description	: A wrapper that lets you read Zip archive members as if they were files
+# depends	: perl
+
+name=perl-archive-zip
+_name=Archive-Zip
+version=1.68
+release=1
+source="https://www.cpan.org/authors/id/P/PH/PHRED/Archive-Zip-$version.tar.gz"
+
+build() {
+	cd ${_name}-$version
+
+	perl Makefile.PL INSTALLDIRS=vendor
+	make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

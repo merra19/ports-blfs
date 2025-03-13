@@ -1,0 +1,48 @@
+# description	: Xorg Legacy Fonts
+# depends	: bdftopcf xorg-fonts
+
+name=xorg-legacy
+version=1.0.0
+release=1
+source="https://www.x.org/pub/individual/font/font-adobe-100dpi-1.0.4.tar.xz
+        https://www.x.org/pub/individual/font/font-adobe-75dpi-1.0.4.tar.xz
+        https://www.x.org/pub/individual/font/font-jis-misc-1.0.4.tar.xz
+        https://www.x.org/pub/individual/font/font-daewoo-misc-1.0.4.tar.xz
+        https://www.x.org/pub/individual/font/font-isas-misc-1.0.4.tar.xz
+        https://www.x.org/pub/individual/font/font-misc-misc-1.1.3.tar.xz
+        legacy.dat"
+noextract=" font-adobe-100dpi-1.0.4.tar.xz
+            font-adobe-75dpi-1.0.4.tar.xz
+            font-jis-misc-1.0.4.tar.xz
+            font-daewoo-misc-1.0.4.tar.xz
+            font-isas-misc-1.0.4.tar.xz
+            font-misc-misc-1.1.3.tar.xz"
+
+build() {
+    for package in $noextract
+    do
+        packagedir=${package%.tar.?z*}
+        tar -xf $package
+        cd $packagedir
+
+        ./configure \
+            --prefix=/usr \
+            --sysconfdir=/etc \
+            --localstatedir=/var \
+            --disable-static
+        make
+        cd ..
+    done  
+}
+
+package() {
+    for package in $noextract
+    do
+        packagedir=${package%.tar.?z*}
+        cd $packagedir
+
+        make DESTDIR="$PKG" install
+        cd ..
+        rm -rf $packagedir
+    done  
+}

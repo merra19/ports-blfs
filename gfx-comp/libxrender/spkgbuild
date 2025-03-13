@@ -1,0 +1,26 @@
+# description	: X.Org Xrender library
+# depends	: libx11 xorg-proto
+
+name=libxrender
+_name=libXrender
+version=0.9.12
+release=1
+source=" https://www.x.org/pub/individual/lib/libXrender-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXrender-$version
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

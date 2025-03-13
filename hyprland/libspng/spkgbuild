@@ -1,0 +1,24 @@
+# description	: Simple, modern libpng alternative
+# depends	: glibc meson zlib
+
+name=libspng
+version=0.7.4
+release=2
+source="$name-$version.tar.gz::https://github.com/randy408/libspng/archive/refs/tags/v$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D build_examples=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

@@ -1,0 +1,25 @@
+# description	: A window navigation construction kit
+# depends	: cairo glib gobject-introspection gtk3 libx11 libxres
+# depends	: startup-notification libxi
+
+name=libwnck3
+_name=libwnck
+version=43.2
+release=1
+source="https://download.gnome.org/sources/libwnck/${version%.*}/libwnck-$version.tar.xz"
+
+build() {
+	cd ${_name}-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd ${_name}-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

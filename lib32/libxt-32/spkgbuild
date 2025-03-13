@@ -1,0 +1,35 @@
+# description	: X.Org X Toolkit Intrinsics library
+# depends	: libsm-32 libice-32 libx11-32 xorg-proto libxt
+
+name=libxt-32
+_name=libXt
+version=1.3.1
+release=1
+source="https://www.x.org/pub/individual/lib/libXt-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    ./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --without-python \
+        --with-appdefaultdir=/etc/X11/app-defaults \
+        --host=i686-pc-linux-gnu
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PWD"/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

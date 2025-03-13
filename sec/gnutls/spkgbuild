@@ -1,0 +1,26 @@
+# description	: A secure communications library implementing the SSL, TLS and DTLS protocols
+# depends	: nettle libtasn1 p11-kit libunistring libidn2 libgmp zlib 
+# depends	: zstd libseccomp brotli 
+
+name=gnutls
+version=3.8.9
+release=1
+options="!lto"
+source="https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr \
+		--docdir=/usr/share/doc/$name-$version \
+		--with-default-trust-store-pkcs11="pkcs11:" \
+        --with-seccomp-tests 
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

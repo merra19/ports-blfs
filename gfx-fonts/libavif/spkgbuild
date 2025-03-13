@@ -1,0 +1,26 @@
+# description	: Library for encoding and decoding .avif files
+# depends	: glibc libaom glib gdk-pixbuf libjpeg-turbo libpng
+
+name=libavif
+version=1.2.0
+release=1
+source="https://github.com/AOMediaCodec/libavif/archive/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D AVIF_CODEC_AOM=SYSTEM \
+        -D AVIF_BUILD_GDK_PIXBUF=ON \
+        -D AVIF_LIBYUV=OFF \
+        -G Ninja
+    ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

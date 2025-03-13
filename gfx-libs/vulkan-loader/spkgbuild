@@ -1,0 +1,31 @@
+# description	: Vulkan Installable Client Driver (ICD) Loader
+# depends	: cmake vulkan-headers wayland libxrandr libx11 libxcb
+
+name=vulkan-loader
+version=1.4.304
+release=1
+source="$name-$version.tar.gz::https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/v$version.tar.gz"
+
+build() {
+    cd Vulkan-Loader*
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D VULKAN_HEADERS_INSTALL_DIR=/usr \
+        -D CMAKE_INSTALL_LIBDIR=lib \
+        -D CMAKE_INSTALL_SYSCONFDIR=/etc \
+        -D CMAKE_INSTALL_DATADIR=/share \
+        -D CMAKE_SKIP_RPATH=True \
+        -D BUILD_TESTS=Off \
+        -D BUILD_WSI_XCB_SUPPORT=ON \
+        -D BUILD_WSI_XLIB_SUPPORT=ON \
+        -D BUILD_WSI_WAYLAND_SUPPORT=On \
+        -D CMAKE_BUILD_TYPE=Release
+    make -C build
+}
+
+package() {
+    cd Vulkan-Loader*/build
+
+    make DESTDIR="$PKG" install
+}

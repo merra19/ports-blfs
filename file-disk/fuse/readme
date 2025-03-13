@@ -1,0 +1,9 @@
+Enable the following options in the kernel configuration and recompile the kernel if necessary:
+
+File systems --->
+  <*/M> FUSE (Filesystem in Userspace) support                         [FUSE_FS]
+Character devices in userspace should be enabled too for running the tests:
+
+File systems --->
+  <*/M> FUSE (Filesystem in Userspace) support                         [FUSE_FS]
+  <*/M>   Character device in Userspace support   

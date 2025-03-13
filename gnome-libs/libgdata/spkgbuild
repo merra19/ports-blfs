@@ -1,0 +1,27 @@
+# description	: GLib-based library for accessing online service APIs using the GData protocol
+# depends	: glib json-glib libxml2 libsoup2 gcr meson vala
+# depends	: gobject-introspection
+
+name=libgdata
+version=0.18.1
+release=1
+source="https://download.gnome.org/sources/libgdata/${version%.*}/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk_doc=false \
+        -D always_build_tests=false \
+        -D goa=auto \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

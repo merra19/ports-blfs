@@ -1,0 +1,26 @@
+# description	: Unified widget and session management libs for Xfce
+# depends	: glib gobject-introspection gtk3 gdk-pixbuf libwnck3
+# depends	: libdisplay-info libx11 libxrandr wayland-protocols 
+# depends	: xfce4-dev-tools perl gettext pkgconf
+
+name=libxfce4windowing
+version=4.20.2
+release=1
+source="https://archive.xfce.org/src/xfce/libxfce4windowing/${version%.*}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --enable-x11 \
+        --disable-debug
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

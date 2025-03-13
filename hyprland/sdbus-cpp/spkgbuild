@@ -1,0 +1,24 @@
+# description	: High-level C++ D-Bus library
+# depends	:  cmake expat elogind
+
+name=sdbus-cpp
+version=2.1.0
+release=2
+source="https://github.com/Kistler-Group/sdbus-cpp/archive/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	cmake -B build \
+		-D CMAKE_INSTALL_PREFIX=/ \
+		-D CMAKE_BUILD_TYPE=Release \
+		-D SDBUSCPP_BUILD_CODEGEN=ON \
+		-D SDBUSCPP_BUILD_DOCS=OFF
+	cmake --build build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" cmake --install build
+}

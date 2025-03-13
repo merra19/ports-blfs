@@ -1,0 +1,24 @@
+# description	: H.264 encoder plugin for GStreamer
+# depends	: cmake ninja nasm
+
+name=x265
+version=4.1
+release=1
+source="https://bitbucket.org/multicoreware/x265_git/downloads/${name}_$version.tar.gz"
+
+build() {
+	cd x265_$version
+
+	cmake -B bld \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+		-D GIT_ARCHETYPE=1 \
+		-Wno-dev source
+	make -C bld
+}
+
+package() {
+    cd x265_$version
+
+	make DESTDIR="$PKG" -C bld install &&
+	rm -vf "$PKG"/usr/lib/libx265.a
+}

@@ -1,0 +1,25 @@
+# description	: Controls the keyboard layout of a running X serve
+# depends	: libxkbfile libx11 libxrandr xorg-proto
+
+name=setxkbmap
+version=1.3.4
+release=1
+source="https://www.x.org/pub/individual/app/$name-$version.tar.xz"
+
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

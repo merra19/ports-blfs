@@ -1,0 +1,24 @@
+# description	: Info ZIP (encryption support)
+# depends	: bzip2
+
+name=zip
+version=3.0
+_version=30
+release=1
+options="!lto"
+source="https://downloads.sourceforge.net/infozip/zip${_version}.tar.gz"
+
+build() {
+	cd $name${_version}
+
+	sed -e "/^CFLAGS_NOOPT =/s/\$/ $CPPFLAGS $CFLAGS/" -i unix/Makefile
+	sed -e "s/^LFLAGS1=''/LFLAGS1=$LDFLAGS/" -i unix/configure
+
+	make -f unix/Makefile generic CC="gcc -std=gnu89"
+}
+
+package() {
+    cd $name${_version}
+
+    make prefix="$PKG"/usr MANDIR="$PKG"/usr/share/man/man1 -f unix/Makefile install
+}

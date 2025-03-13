@@ -1,0 +1,25 @@
+# description	: A modern multi-purpose calculator library
+# depends	: libgmp libxml2 libmpfr icu readline curl
+
+name=libqalculate
+version=5.5.1
+release=1
+source="https://github.com/Qalculate/libqalculate/releases/download/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --docdir=/usr/share/doc/$name-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+	make DESTDIR="$PKG" install
+
+    rm -v "$PKG"/usr/lib/libqalculate.la
+}

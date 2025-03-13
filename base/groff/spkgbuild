@@ -1,0 +1,23 @@
+# description	: Text formatter used for man pages
+# depends	: perl texinfo libice libsm libx11 libxaw libxmu libxt
+
+name=groff
+version=1.23.0
+release=1
+options="!makeflags"
+source="https://ftp.gnu.org/gnu/groff/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    PAGE=A4 \
+    ./configure \
+         --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

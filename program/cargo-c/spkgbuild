@@ -1,0 +1,34 @@
+# description	: Cross platform Make
+# depends	: rustc libssh2 sqlite curl zlib
+
+name=cargo-c
+version=0.10.11
+release=1
+source="https://github.com/lu-zero/cargo-c/archive/v$version/$name-$version.tar.gz
+        $name-$version.lock::https://github.com/lu-zero/cargo-c/releases/download/v$version/Cargo.lock
+        local://cargo-c-0.10.11-cargo.tar.xz"
+
+build() {
+	cd $name-$version
+
+    cp ../$name-$version.lock ./Cargo.lock
+
+    mv "$SRC"/vendor .
+    
+    mkdir -p .cargo
+    echo '[source.crates-io]' >> .cargo/config.toml
+    echo 'replace-with = "vendored-sources"' >> .cargo/config.toml
+    echo '[source.vendored-sources]' >> .cargo/config.toml
+    echo 'directory = "vendor"' >> .cargo/config.toml
+
+    [ ! -e /usr/include/libssh2.h ] || export LIBSSH2_SYS_USE_PKG_CONFIG=1    &&
+    [ ! -e /usr/include/sqlite3.h ] || export LIBSQLITE3_SYS_USE_PKG_CONFIG=1 &&
+    cargo build --release
+}
+
+package() {
+    cd $name-$version
+
+    mkdir -p "$PKG"/usr/bin/
+    install -vm755 target/release/cargo-{capi,cbuild,cinstall,ctest} "$PKG"/usr/bin/
+}

@@ -1,0 +1,39 @@
+# description	: Khronos reference front-end for GLSL and ESSL, and sample SPIR-V generator
+# depends	: cmake ninja spirv-tools
+
+name=glslang
+version=15.1.0
+release=1
+options="!lto !asneeded"
+source="https://github.com/KhronosGroup/glslang/archive/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	cmake -B build-shared -G Ninja \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+        -D ALLOW_EXTERNAL_SPIRV_TOOLS=ON \
+		-D CMAKE_BUILD_TYPE=Release \
+		-D CMAKE_C_FLAGS_RELEASE="${CFLAGS}" \
+		-D CMAKE_CXX_FLAGS_RELEASE="${CXXFLAGS}" \
+		-D BUILD_SHARED_LIBS=ON \
+		-Wno-dev
+	ninja -C build-shared
+	
+	cmake -B build-static -G Ninja \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+        -D ALLOW_EXTERNAL_SPIRV_TOOLS=ON \
+		-D CMAKE_BUILD_TYPE=Release \
+		-D CMAKE_C_FLAGS_RELEASE="${CFLAGS}" \
+		-D CMAKE_CXX_FLAGS_RELEASE="${CXXFLAGS}" \
+		-D BUILD_SHARED_LIBS=OFF \
+		-Wno-dev
+	ninja -C build-static
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build-shared install
+    DESTDIR="$PKG" ninja -C build-static install
+}

@@ -1,0 +1,23 @@
+# description	: A dynamic tiling Wayland compositor that doesn't sacrifice on its looks
+# depends	: cairo file hyprutils libjpeg-turbo libjxl libspng 
+# depends	: libwebp pixman cmake 
+
+name=hyprgraphics
+version=0.1.2
+release=1
+source="$name-$version.tar.gz::https://github.com/hyprwm/$name/archive/refs/tags/v$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	cmake -B build \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=Release
+	cmake --build build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" cmake --install build
+}

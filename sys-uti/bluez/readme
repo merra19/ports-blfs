@@ -1,0 +1,45 @@
+Kernel Configuration:
+
+If you are building this package to use bluetooth devices (rather than as a build
+dependency), enable the following options in the kernel configuration, also the
+options below the next paragraph if you intend to run the tests, and recompile the
+kernel if necessary:
+
+General setup --->
+  # If it is disabled, [TIMERFD] and [EVENTFD] will be hidden and
+  # enabled implicitly.  We DO NOT recommend to enable [EXPERT]
+  # unless you are really an expert user:
+  [ /*] Configure standard kernel features (expert users) --->          [EXPERT]
+    [*] Enable timerfd() system call                                   [TIMERFD]
+    [*] Enable eventfd() system call                                   [EVENTFD]
+
+[*] Networking support --->                                                [NET]
+  <*/M> Bluetooth subsystem support --->                                    [BT]
+    [*]   Bluetooth Classic (BR/EDR) features                         [BT_BREDR]
+    <*/M>   RFCOMM protocol support                                  [BT_RFCOMM]
+    [*]       RFCOMM TTY support                                 [BT_RFCOMM_TTY]
+    <*/M>   BNEP protocol support                                      [BT_BNEP]
+    [*]       Multicast filter support                       [BT_BNEP_MC_FILTER]
+    [*]       Protocol filter support                     [BT_BNEP_PROTO_FILTER]
+    <*/M>   HIDP protocol support                                      [BT_HIDP]
+    Bluetooth device drivers --->
+      # Select the appropriate drivers for your bluetooth hardware.
+      # There are more vendor-specific drivers not listed here:
+      < /*/M> HCI USB driver                                       [BT_HCIBTUSB]
+      < /*/M> HCI SDIO driver                                     [BT_HCIBTSDIO]
+      < /*/M> HCI UART driver                                       [BT_HCIUART]
+  <*/M> RF switch subsystem support --->                                [RFKILL]
+
+-*- Cryptographic API --->                                              [CRYPTO]
+  Crypto core or helper --->
+    <*/M> Userspace cryptographic algorithm configuration          [CRYPTO_USER]
+  Block ciphers --->
+    <*/M> AES (Advanced Encryption Standard)                        [CRYPTO_AES]
+  AEAD (authenticated encryption with associated data) ciphers --->
+    <*/M> CCM (Counter with Cipher Block Chaining-MAC)              [CRYPTO_CCM]
+  Hashes, digests, and MACs --->
+    <*/M> CMAC (Cipher-based MAC)                                  [CRYPTO_CMAC]
+  Userspace interface --->
+    <*/M> Hash algorithms                                 [CRYPTO_USER_API_HASH]
+    <*/M> Symmetric key cipher algorithms             [CRYPTO_USER_API_SKCIPHER]
+    <*/M> AEAD cipher algorithms                          [CRYPTO_USER_API_AEAD]

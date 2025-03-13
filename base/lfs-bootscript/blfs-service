@@ -1,0 +1,94 @@
+#!/bin/bash
+
+usage() {
+    cat<< EOF
+Usage:
+    $(basename "$0") <options> [<arg>]
+Options:
+
+    status <service>   or -V <service>
+    start <service>    or -X <service>
+    stop <service>     or -S <service>
+    restart <service>  or -R <service>
+    enable <service>   or -E <service>
+    disable <service>  or -D <service>
+
+Services:
+
+maria (mysql) apache (httpd)  cyrus-sasl (saslauthd)
+
+init:
+accounts-daemon acpid alsa atd autofs avahi bind bluetooth cups dbus dhcpd 
+dovecot exim fcron firewalld git-daemon gpm httpd iptables kea-dhcpd krb5
+mysql netfs networkmanager nfs-client nfs-server nftables ntpd php-fpm
+postfix postgresql proftpd random rpcbind rsyncd samba saslauthd sendmail 
+slapd smartd sshd stunnel svn sysstat unbound vsftpd winbindd xdm
+
+service:
+bridge dhclient  dhcpcd  wpa
+
+EOF
+}
+
+msgwarn() {
+    printf  "%s" "$1"
+}
+
+
+checkservice() {
+    if  [ ! -f /etc/init.d/"$service" ]; then 
+        msgwarn "service ${RED} $service ${NC} not found"
+        exit 1
+    fi
+}
+
+list="status start stop restart enable disable help"
+service="$1"
+command="$2"
+
+case $mode in
+    -X) command="start" ;;
+    -S) command="stop" ;;
+    -V) command="status" ;;
+    -R) command="restart" ;;
+    -E) command="enable" ;;
+    -D) command="disable" ;;
+esac
+
+if echo "$list" | (! grep -qw "$command"); then
+    msgwarn "command ${RED}$command ${NC}not found"
+    usage
+    exit 1
+fi
+
+
+case $command in
+    status) checkservice ; /etc/init.d/"$service" status ; exit 0 ;;
+    start) checkservice ;  /etc/init.d/"$service" start ; exit 0 ;;
+    stop) checkservice ; /etc/init.d/"$service" stop ; exit 0 ;;
+    restart) checkservice ; /etc/init.d/"$service" restart ; exit 0 ;;
+esac
+
+cd /usr/share/blfs-bootscripts 
+
+if [ "$service" = "samba" ]; then
+    echo "With samba service, Don't forget the winbindd service"
+fi
+
+if [ -f init.d/"$service"  ] ;then
+    if [ "$command" = "enable" ];then
+        make install-"$service" 
+    else
+        make uninstall-"$service" 
+    fi
+elif [ -f services/"$service"  ] ;then
+    if [ "$command" = "enable" ];then
+        make install-service-"$service" 
+    else
+        make uninstall-service-"$service" 
+    fi
+else
+    msgwarn "service ${RED} $service ${NC} not found"
+    usage
+    exit 1
+fi

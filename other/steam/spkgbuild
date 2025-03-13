@@ -1,0 +1,24 @@
+# description	: Installer, launcher and supplementary files for Valve's Steam client
+# depends	: glibc xorg-proto xcb-proto libxau libx11 libdrm xz icu 
+# depends	: libxshmfence mesa xdg-user-dirs lsof tar bash fontconfig 
+# depends	: libglvnd ttf-dejavu at-spi2-core bzip2 ibus gcc make-ca
+# depends	: libxau-32 libx11-32 libdrm-32 bzip2-32 libxshmfence-32
+# depends	: icu-32 fontconfig-32 mesa-32 libglvnd-32 zenity
+
+name=steam
+version=1.0.0.82
+release=1
+source="http://repo.steampowered.com/$name/pool/$name/s/$name/${name}_$version.tar.gz"
+
+build() {
+    :
+}
+
+package() {
+	cd $name-launcher
+
+	make DESTDIR="$PKG" install
+
+	# blank steamdeps because apt-get
+	ln -sf /bin/true "$PKG"/usr/bin/steamdeps
+}

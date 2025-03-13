@@ -1,0 +1,21 @@
+# description	: Library that gives human readable names to XCB error, event, & request codes
+# depends	: glibc libxcb python3 xorg-proto
+
+name=xcb-util-errors
+version=1.0.1
+release=2
+source="https://xorg.freedesktop.org/archive/individual/lib/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

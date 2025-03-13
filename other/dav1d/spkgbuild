@@ -1,0 +1,24 @@
+# description	: dav1d is an AV1 Decoder :)
+# depends	: meson nasm
+
+name=dav1d
+version=1.5.1
+release=1
+source="https://code.videolan.org/videolan/dav1d/-/archive/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D enable_tests=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

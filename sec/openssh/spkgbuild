@@ -1,0 +1,38 @@
+# description	: Port of OpenBSD's free SSH release
+# depends	: pam xauth which net-tools libxcrypt zlib shadow
+
+name=openssh
+version=9.9p2
+release=1
+options="!lto"
+source="https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$name-$version.tar.gz"
+backup="etc/ssh/ssh_config etc/ssh/sshd_config"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc/ssh \
+        --with-privsep-path=/var/lib/sshd \
+        --with-default-path=/usr/bin \
+        --with-superuser-path=/usr/sbin:/usr/bin \
+        --with-pid-dir=/run \
+        "$(scratch isinstalled krb5 && echo "--with-kerberos5=/usr" || echo "--without-kerberos5")"             
+	make
+}
+
+package() {
+    cd $name-$version
+
+    install -v -g sys -m700 -d "$PKG"/var/lib/sshd
+
+	make DESTDIR="$PKG" install
+	install -v -m755    contrib/ssh-copy-id "$PKG"/usr/bin
+
+	install -v -m644    contrib/ssh-copy-id.1 "$PKG"/usr/share/man/man1 
+	install -v -m755 -d "$PKG"/usr/share/doc/$name-$version
+	install -v -m644    INSTALL LICENCE OVERVIEW README* "$PKG"/usr/share/doc/$name-$version
+
+	echo "PermitRootLogin no" >> "$PKG"/etc/ssh/sshd_config
+}

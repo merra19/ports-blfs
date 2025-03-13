@@ -1,0 +1,16 @@
+# description	: SVG rendering library for the Qt6 framework
+# depends	: qt6-base qt6-declarative qt6-shadertools python3 
+# depends	: vulkan-headers qt6-full
+
+name=qt6-5compat
+version=6.8.2
+release=1
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+}

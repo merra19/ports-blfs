@@ -1,0 +1,21 @@
+# description	: Utility to apply diffs to files
+# depends	: attr
+
+name=patch
+version=2.7.6
+release=1
+source="https://ftp.gnu.org/gnu/patch/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

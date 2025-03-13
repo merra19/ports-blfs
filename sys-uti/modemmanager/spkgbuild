@@ -1,0 +1,29 @@
+# description	: Modem and mobile broadband management libraries
+# depends	: libgudev glib udev gobject-introspection libqmi 
+# depends	: libmbim polkit vala
+
+name=modemmanager
+_name=ModemManager
+version=1.18.12
+release=1
+source="https://www.freedesktop.org/software/ModemManager/ModemManager-$version.tar.xz"
+
+build() {
+	cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --disable-maintainer-mode \
+        --with-systemd-journal=no \
+        --with-systemd-suspend-resume 
+	make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

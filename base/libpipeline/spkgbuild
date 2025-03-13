@@ -1,0 +1,21 @@
+# description	: A pipeline manipulation library
+# depends	: glibc
+
+name=libpipeline
+version=1.5.8
+release=1
+source="https://download.savannah.gnu.org/releases/libpipeline/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+   ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

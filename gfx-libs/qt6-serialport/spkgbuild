@@ -1,0 +1,15 @@
+# description	:  Serial port abstraction library for the Qt6 framework
+# depends	: qt6-base udev qt6-full
+
+name=qt6-serialport
+version=6.8.2
+release=1
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+}

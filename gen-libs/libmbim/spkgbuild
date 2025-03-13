@@ -1,0 +1,22 @@
+# description	: Mobile Broadband Interface Model (MBIM) modem protocol helper library
+# depends	: gobject-introspection help2man glib
+
+name=libmbim
+version=1.26.4
+release=1
+source="https://www.freedesktop.org/software/libmbim/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

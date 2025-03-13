@@ -1,0 +1,22 @@
+# description	: LibreOffice - Binary package for the full office suite
+# depends       : avahi cups desktop-file-utils nss
+
+name=libreoffice-bin
+version=25.2.1
+release=1
+options="!strip"
+source="$name-$version.tar.gz::http://download.documentfoundation.org/libreoffice/stable/$version/rpm/x86_64/LibreOffice_${version}_Linux_x86-64_rpm.tar.gz"
+
+build() {
+    :
+}
+
+package() {
+	for rpm in "$SRC"/LibreOffice_$version*/RPMS/*; do
+		bsdtar -xf $rpm -p -o -C "$PKG"
+	done
+	
+	rm "$PKG"/opt/libreoffice*/CREDITS* \
+	   "$PKG"/opt/libreoffice*/LICENSE* \
+	   "$PKG"/opt/libreoffice*/NOTICE
+}

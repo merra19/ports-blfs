@@ -1,0 +1,27 @@
+# description	: Open source multimedia framework
+# depends	: glib libcap gobject-introspection meson qt6-base
+# depends	: qt6-declarative qt6-shadertools qt6-tools qt6-wayland
+# optional	: unwind!!libunwind unwind!!elfutils
+
+name=gstreamer
+version=1.24.12
+release=1
+source="http://gstreamer.freedesktop.org/src/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+		-D gst_debug=false \
+        -D libunwind=disabled \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

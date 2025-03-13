@@ -1,0 +1,34 @@
+# description	: Framework for providing spell-checking through abstraction of popular backends
+# depends	: qt6-base qt6-tools qt6-declarative extra-cmake-modules 
+# optional	: hunspell!!hunspell aspell aspell!!aspell-en 
+# optional	: aspell!!aspell-fr
+
+name=sonnet
+version=6.11.0
+release=1
+source="https://download.kde.org/stable/frameworks/${version%.*}/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    if (! scratch isinstalled hunspell ) && (! scratch isinstalled aspell ); then 
+        OPTS_BACKEND="-D SONNET_NO_BACKENDS=ON"
+    fi
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_PREFIX_PATH=/usr \
+        -D CMAKE_SKIP_INSTALL_RPATH=ON  \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        $OPTS_BACKEND \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

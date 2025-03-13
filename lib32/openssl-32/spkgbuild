@@ -1,0 +1,35 @@
+# description	: full-strength general purpose cryptography library (including SSL and TLS)
+# depends	: perl openssl
+
+name=openssl-32
+_name=openssl
+version=3.4.0
+release=1
+options="!lto"
+source="https://www.openssl.org/source/${_name}-$version.tar.gz"
+
+build() {
+    cd ${_name}-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    ./config \
+        --prefix=/usr \
+        --openssldir=/etc/ssl \
+        --libdir=lib32 \
+        shared zlib-dynamic linux-x86
+    #make depend
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR=$PWD/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+
+    rm -rf "$PKG"/usr/lib32/*.a
+}

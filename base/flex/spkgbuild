@@ -1,0 +1,26 @@
+# description	: The Fast Lexical Analyzer
+# depends	: gettext help2man m4
+
+name=flex
+version=2.6.4
+release=1
+source="https://github.com/westes/flex/releases/download/v$version/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --docdir=/usr/share/doc/$name-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+    
+    ln -sv flex   "$PKG"/usr/bin/lex
+    ln -sv flex.1 "$PKG"/usr/share/man/man1/lex.1
+}

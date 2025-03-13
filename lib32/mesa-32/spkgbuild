@@ -1,0 +1,72 @@
+# description	: OpenGL-like graphic library for Linux
+# depends	: python3-mako elfutils-32 bison flex libdrm-32 llvm32 
+# depends	: libglvnd-32 vulkan-loader wayland-protocols expat-32
+# depends	: lm-sensors-32 wayland-32 glslang zlib-32 zstd-32 libclc
+# depends	: xorg-proto libxrandr-32 libx11-32 libxshmfence-32 
+# depends	: libxxf86vm-32 libxfixes-32 libxext-32 libxcb-32 
+# depends	: spirv-tools-32 python3-ply rust-bindgen cbindgen 
+# depends	: spirv-llvm-translator-32 python3-yaml mesa
+
+name=mesa-32
+_name=mesa
+version=24.3.4
+release=1
+options="!lto !asneeded"
+source="https://mesa.freedesktop.org/archive/${_name}-$version.tar.xz
+        crossfile"
+
+build() {
+    cd ${_name}-$version
+
+    export BINDGEN_EXTRA_CLANG_ARGS="-m32"
+    export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    meson setup \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --libdir=/usr/lib32 \
+        --buildtype=plain \
+        --cross-file lib32 \
+        -D android-libbacktrace=disabled \
+        -D b_ndebug=true \
+        -D gallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,swrast,i915,iris,crocus,zink \
+        -D gallium-extra-hud=true \
+        -D gallium-nine=true \
+        -D gallium-opencl=icd \
+        -D gallium-rusticl=true \
+        -D gles1=disabled \
+        -D glx=dri \
+        -D intel-clc=enabled \
+        -D libunwind=disabled \
+        -D microsoft-clc=disabled \
+        -D osmesa=true \
+        -D platforms=x11,wayland \
+        -D valgrind=disabled \
+        -D video-codecs=all \
+        -D vulkan-drivers=amd,intel \
+        -D vulkan-layers=device-select,intel-nullhw,overlay \
+        -D glvnd=enabled \
+        build32
+    ninja -C build32
+}
+
+package() {
+    cd ${_name}-$version
+
+    DESTDIR=$PWD/DESTDIR ninja -C build32 install
+
+	# indirect rendering symlink
+	ln -s libGLX_mesa.so.0 DESTDIR/usr/lib32/libGLX_indirect.so.0
+
+    [ -d DESTDIR/usr/share/glvnd ] && rm -r DESTDIR/usr/include DESTDIR/usr/share/glvnd
+    rm -rf DESTDIR/usr/include DESTDIR/etc/OpenCL
+	rm DESTDIR/usr/share/drirc.d/00-mesa-defaults.conf
+	rm DESTDIR/usr/share/drirc.d/00-radv-defaults.conf
+
+    rm -f DESTDIR/usr/share/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json
+    rm -f DESTDIR/usr/share/vulkan/explicit_layer.d/VkLayer_MESA_overlay.json
+    rm -f DESTDIR/usr/share/vulkan/explicit_layer.d/VkLayer_INTEL_nullhw.json
+    rm -f DESTDIR/usr/bin/mesa-overlay-control.py
+
+    cp -Rv DESTDIR/* "$PKG"/
+}

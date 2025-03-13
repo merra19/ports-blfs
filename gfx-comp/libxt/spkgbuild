@@ -1,0 +1,28 @@
+# description	: X.Org X Toolkit Intrinsics library
+# depends	: libsm libice libx11 xorg-proto
+
+name=libxt
+_name=libXt
+version=1.3.1
+release=1
+source="https://www.x.org/pub/individual/lib/libXt-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        PYTHON=/usr/bin/python3 \
+        --docdir=/usr/share/doc/libXt-$version \
+        --with-appdefaultdir=/etc/X11/app-defaults
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

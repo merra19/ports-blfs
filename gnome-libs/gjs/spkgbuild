@@ -1,0 +1,25 @@
+# description	: Javascript bindings for GNOME
+# depends	: glib gobject-introspection libffi spidermonkey cairo
+# depends	: readline
+
+name=gjs
+version=1.82.1
+release=1
+source="https://download.gnome.org/sources/gjs/${version%.*}/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --wrap-mode=nofallback \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

@@ -1,0 +1,36 @@
+# description	: A dynamic tiling Wayland compositor that doesn't sacrifice on its looks
+# depends	: cmake hyprland-protocols meson ninja xorg-proto cairo
+# depends	: aquamarine gcc glib glslang hyprcursor hyprgraphics
+# depends	: hyprland-qtutils hyprlang hyprutils hyprwayland-scanner
+# depends	: libdisplay-info libdrm libglvnd libinput libliftoff 
+# depends	: libx11 libxcb libxcomposite libxcursor libxfixes re2 
+# depends	: libxkbcommon libxrender mesa pango pixman seatd udev
+# depends	: tomlplusplus util-linux wayland wayland-protocols 
+# depends	: xcb-proto xcb-util xcb-util-errors xcb-util-image
+# depends	: xcb-util-keysyms xcb-util-renderutil xcb-util-wm
+# depends	: xwayland glaze polkit
+
+name=hyprland
+version=0.47.2
+release=2
+source="$name-$version.tar.gz::https://github.com/hyprwm/Hyprland/releases/download/v$version/source-v$version.tar.gz"
+
+build() {
+    ls
+	cd $name-source
+
+    sed -i -e '/^release:/{n;s/-D/-DCMAKE_SKIP_RPATH=ON -D/}' Makefile
+
+    rm -fv scripts/generateVersion.sh
+
+    make release PREFIX=/usr
+}
+
+package() {
+    cd $name-source
+
+    make DESTDIR="$PKG" install
+    rm -fv "$PKG/usr/include/hyprland/src/version.h.in"
+    # Drop this line when hyprland-portals.conf is removed from xdg-desktop-portal-hyprland
+    rm -frv "$PKG/usr/share/xdg-desktop-portal"
+}

@@ -1,0 +1,24 @@
+# description	: An assembler for x86 and x86_64 instruction sets
+# depends	: glibc
+
+name=yasm
+version=1.3.0
+release=2
+options="!lto"
+source="https://www.tortall.net/projects/$name/releases/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	sed -i 's#) ytasm.*#)#' Makefile.in
+    
+	./configure \
+        --prefix=/usr
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

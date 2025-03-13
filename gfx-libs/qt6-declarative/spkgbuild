@@ -1,0 +1,16 @@
+# description	: Qt Declarative (Quick 2)
+# depends	: qt6-base python3 vulkan-headers qt6-languageserver 
+# depends	: qt6-shadertools qt6-full
+
+name=qt6-declarative
+version=6.8.2
+release=1
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+}

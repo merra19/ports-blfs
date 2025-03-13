@@ -1,0 +1,22 @@
+# description	: Xfce's freedesktop.org specification compatible menu implementation library
+# depends	: libxfce4ui gobject-introspection glib libxfce4util gtk3
+
+name=garcon
+version=4.20.0
+release=1
+source="https://archive.xfce.org/src/xfce/garcon/${version%.*}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

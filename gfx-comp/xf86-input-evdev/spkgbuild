@@ -1,0 +1,26 @@
+# description	: Generic Linux input driver
+# depends	: libevdev xorg-server mtdev xorg-proto linux-api-headers 
+# depends	: udev
+
+name=xf86-input-evdev
+version=2.11.0
+release=1
+options="!makeflags"
+source="https://www.x.org/pub/individual/driver/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make -j1
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,26 @@
+# description	: X.Org Xfixes library
+# depends	: libx11 xorg-proto
+
+name=libxfixes
+_name=libXfixes
+version=6.0.1
+release=1
+source="https://www.x.org/pub/individual/lib/libXfixes-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXfixes-$version
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,22 @@
+# description	: GNU utility to convert program --help output to a man page
+# depends	: perl
+
+name=help2man
+version=1.49.3
+release=1
+options="!lto"
+source="https://ftp.gnu.org/gnu/$name/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

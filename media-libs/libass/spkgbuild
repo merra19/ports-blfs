@@ -1,0 +1,22 @@
+# description	: Library for SSA/ASS subtitles rendering
+# depends	: glibc freetype fribidi fontconfig nasm harfbuzz
+
+name=libass
+version=0.17.3
+release=1
+source="https://github.com/$name/$name/releases/download/$version/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr \
+        --disable-static
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

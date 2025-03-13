@@ -1,0 +1,23 @@
+# description	: Standard GNU database libraries
+# depends	: readline ncurses
+
+name=gdbm
+version=1.24
+release=1
+source="https://ftp.gnu.org/gnu/gdbm/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --enable-libgdbm-compat
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

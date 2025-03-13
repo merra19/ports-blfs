@@ -1,0 +1,38 @@
+# description	: General purpose crypto library based on the code used in GnuPG
+# depends	: libgpg-error-32 libgcrypt
+
+name=libgcrypt-32
+_name=libgcrypt
+version=1.11.0
+release=1
+source="https://www.gnupg.org/ftp/gcrypt/libgcrypt/${_name}-$version.tar.bz2"
+
+build() {
+    cd ${_name}-$version
+
+    # Use 32-bit assembler
+    sed 's:i\[34567\]86\*-\*-\*:x86_64-*-*:' -i mpi/config.links
+    sed 's:x86_64-\*-\*:ignore:;s:i?86-\*-\*:x86_64-*-*:' -i configure.ac
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    autoreconf -fiv
+
+	./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --disable-padlock-support \
+        --enable-shared \
+        --host=i686-pc-linux-gnu
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR=$PWD/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

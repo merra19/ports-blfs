@@ -1,0 +1,22 @@
+# description	: Userspace access to USB devices
+# depends	: udev
+
+name=libusb
+version=1.0.27
+release=1
+source="https://github.com/libusb/libusb/releases/download/v$version/libusb-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr \
+        --disable-static
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,26 @@
+# description	: kernel routing and traffic control utilities
+# depends	: linux-api-headers libmnl bison flex iptables
+
+name=iproute2
+version=6.13.0
+release=1
+source="https://www.kernel.org/pub/linux/utils/net/iproute2/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    # Remove arpd since it is dependent on Berkeley DB
+    sed -i /ARPD/d Makefile
+    rm -fv man/man8/arpd.8
+
+    make NETNS_RUN_DIR=/run/netns
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" SBINDIR=/usr/sbin install
+
+    mkdir -pv "$PKG"/usr/share/doc/$name-$version
+    cp -v COPYING README* "$PKG"/usr/share/doc/$name-$version
+}

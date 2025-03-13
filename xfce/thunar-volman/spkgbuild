@@ -1,0 +1,22 @@
+# description	: Daemon that enforces volume-related policies
+# depends	: glib libgudev gtk3 libxfce4ui libxfce4util xfconf exo
+# depends	: libnotify gettext pkgconf intltool
+
+name=thunar-volman
+version=4.20.0
+release=1
+source="https://archive.xfce.org/src/xfce/thunar-volman/${version%.*}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

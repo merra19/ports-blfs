@@ -1,0 +1,47 @@
+# description	: Jade is an implementation of DSSSL for formatting SGML and XML documents
+# depends	: sgml-common opensp perl
+
+name=openjade
+version=1.3.2
+release=2
+options="!lto"
+source="https://downloads.sourceforge.net/openjade/$name-$version.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/12.2/openjade-1.3.2-upstream-1.patch"
+
+build() {
+    cd $name-$version
+
+    #First fix problems when building with newer compilers:
+    patch -Np1 -i ../openjade-1.3.2-upstream-1.patch
+    
+    #Now fix a compilation problem with perl-5.16 and later:
+    sed -i -e '/getopts/{N;s#&G#g#;s#do .getopts.pl.;##;}' \
+        -e '/use POSIX/ause Getopt::Std;' msggen.pl
+
+    export CXXFLAGS="$CXXFLAGS -fno-lifetime-dse"
+
+    ./configure \
+        --prefix=/usr \
+        --mandir=/usr/share/man \
+        --enable-http \
+        --disable-static \
+        --enable-default-catalog=/etc/sgml/catalog \
+        --enable-default-search-path=/usr/share/sgml \
+        --datadir=/usr/share/sgml/openjade-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+    make DESTDIR="$PKG" install-man
+
+    ln -v -sf openjade "$PKG"/usr/bin/jade                &&
+    ln -v -sf libogrove.so "$PKG"/usr/lib/libgrove.so     &&
+    ln -v -sf libospgrove.so "$PKG"/usr/lib/libspgrove.so &&
+    ln -v -sf libostyle.so "$PKG"/usr/lib/libstyle.so     &&
+
+    install -v -m644 dsssl/catalog "$PKG"/usr/share/sgml/openjade-$version/
+    install -v -m644 dsssl/*.{dtd,dsl,sgm} "$PKG"/usr/share/sgml/openjade-$version/
+}

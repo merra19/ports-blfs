@@ -1,0 +1,58 @@
+# description	: (networked sound server
+# depends	: alsa-lib-32 dbus-32 elogind-32 glib-32 libsndfile-32 
+# depends	: libx11-32 libice-32 libsm-32 libxtst-32 libxcb-32 
+# depends	: speexdsp pulseaudio
+
+name=pulseaudio-32
+_name=pulseaudio
+version=17.0
+release=1
+options="!lto"
+source="https://www.freedesktop.org/software/pulseaudio/releases/${_name}-$version.tar.xz"
+
+build() {
+	cd ${_name}-$version
+
+	# disable autospawn by client
+	sed -i -e 's:; autospawn = yes:autospawn = no:g' src/pulse/client.conf.in 
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    export PATH=$PATH:/opt/rustc/bin/
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --libdir=/usr/lib32 \
+        --cross-file lib32 \
+		-D database=gdbm \
+		-D doxygen=false \
+		-D bluez5=disabled \
+        -D cpp_std=gnu++17 \
+        -D avahi=disabled \
+        -D bashcompletiondir=no \
+        -D bluez5-gstreamer=disabled \
+        -D bluez5=disabled \
+        -D consolekit=disabled \
+        -D daemon=false \
+        -D doxygen=false \
+        -D fftw=disabled \
+        -D gstreamer=disabled \
+        -D jack=disabled \
+        -D lirc=disabled \
+        -D man=false \
+        -D tests=false \
+        -D elogind=disabled \
+        build32
+	ninja -C build32
+}
+
+package() {
+    cd ${_name}-$version
+
+	DESTDIR="$PWD"/DESTDIR ninja -C build32 install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

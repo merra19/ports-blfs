@@ -1,0 +1,65 @@
+# description	: Samba Suite Version 4
+# depends	: glibc libarchive perl icu libtasn1 perl-parse-yapp popt 
+# depends	: gnutls e2fsprogs libcap ncurses readline zlib libxcrypt 
+# depends	: acl cups jansson pam libtirpc glib dbus rpcsvc-proto 
+# depends	: gpgme liburing lmdb libaio libnsl python3-markdown
+# depends	: talloc avahi
+# optional	: openldap krb5 
+
+name=samba
+version=4.21.4
+release=1
+source="https://download.samba.org/pub/samba/stable/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    scratch isinstalled openldap ||  OPT_LDAP='--without-ldap --without-ads'
+    scratch isinstalled krb5 &&  OPT_KRB5='--with-system-mitkrb5'
+
+    python3 -m venv pyvenv &&
+    ./pyvenv/bin/pip3 install cryptography pyasn1 iso8601
+
+    PYTHON=$PWD/pyvenv/bin/python3 \
+    PATH=$PWD/pyvenv/bin:$PATH \
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --with-piddir=/run/samba \
+        --with-pammodulesdir=/usr/lib/security \
+        --enable-fhs \
+        --without-ad-dc \
+        --without-systemd \
+        --enable-selftest \
+        --disable-rpath-install \
+        $OPT_LDAP $OPT_KRB5
+    make
+}
+
+package() {
+    cd $name-$version
+
+    # Fix hard coded paths to Python 3 interpreter:
+    sed '1s@^.*$@#!/usr/bin/python3@' \
+    -i ./bin/default/source4/scripting/bin/*.inst
+
+    make DESTDIR="$PKG" install
+
+    install -v -m644    examples/smb.conf.default "$PKG"/etc/samba
+
+    sed -e "s;log file =.*;log file = /var/log/samba/%m.log;" \
+        -e "s;path = /usr/spool/samba;path = /var/spool/samba;" \
+        -i "$PKG"/etc/samba/smb.conf.default
+
+    mkdir -pv "$PKG"/etc/openldap/schema
+
+    install -v -m644    examples/LDAP/README \
+                        "$PKG"/etc/openldap/schema/README.samba
+
+    install -v -m644    examples/LDAP/samba* \
+                        "$PKG"/etc/openldap/schema
+
+    install -v -m755    examples/LDAP/{get*,ol*} \
+                        "$PKG"/etc/openldap/schema
+}

@@ -1,0 +1,23 @@
+# description	: Library for reading and editing audio meta data
+# depends	: cmake ninja utfcpp
+
+name=taglib
+version=2.0.2
+release=1
+source="https://taglib.github.io/releases/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=Release \
+		-D BUILD_SHARED_LIBS=ON
+	make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

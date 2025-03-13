@@ -1,0 +1,38 @@
+# description	: A fast and secure web browser
+# depends	: at-spi2-core expat glib nspr nss alsa-lib mesa curl cups
+# depends	: gsettings-desktop-schemas dbus glibc cairo gdk-pixbuf
+# depends	: gtk3 libdrm libxcb libxkbcommon libxshmfence libx11
+# depends	: libxcomposite libxdamage libxext libxfixes libxrandr
+# depends	: pango ffmpeg qt6-base
+
+name=opera
+version=117.0.5408.32
+release=1
+source="https://get.geo.opera.com/ftp/pub/$name/desktop/$version/linux/$name-stable_${version}_amd64.deb
+        opera default"
+backup="etc/$name/default"
+
+build() {
+    ar x $name-stable_${version}_amd64.deb
+}
+
+package() {
+    tar -xf data.tar.xz --exclude=usr/share/{lintian,menu} -C "$PKG/"
+
+    # get rid of the extra subfolder {i386,x86_64}-linux-gnu
+    (
+        cd "$PKG/usr/lib/"*-linux-gnu/
+        mv "$name" ../
+    )
+    rm -rf "$PKG/usr/lib/"*-linux-gnu
+
+    # suid opera_sandbox
+    chmod 4755 "$PKG/usr/lib/$name/opera_sandbox"
+
+    # install default options
+    install -Dm644 "$SRC/default" "$PKG/etc/$name/default"
+
+    # install opera wrapper
+    rm "$PKG/usr/bin/$name"
+    install -Dm755 "$SRC/opera" "$PKG/usr/bin/$name"
+}

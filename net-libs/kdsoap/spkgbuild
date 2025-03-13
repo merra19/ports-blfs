@@ -1,0 +1,24 @@
+# description	: Qt-based client-side and server-side SOAP component
+# depends	: qt6-base boost
+
+name=kdsoap
+version=2.2.0
+release=1
+source="https://github.com/KDAB/KDSoap/releases/download/kdsoap-$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D KDSoap_QT6=ON \
+        -D CMAKE_INSTALL_DOCDIR=/usr/share/doc/$name-$version
+	make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

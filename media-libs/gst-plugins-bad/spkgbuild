@@ -1,0 +1,26 @@
+# description	: Less plugins for GStreamer
+# depends	: gst-plugins-base meson gobject-introspection libx11 
+# depends	: bzip2 gstreamer libgudev libva wayland libdrm 
+# depends	: wayland-protocols glib
+
+name=gst-plugins-bad
+version=1.24.12
+release=1
+source="https://gstreamer.freedesktop.org/src/gst-plugins-bad/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gpl=enabled \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

@@ -1,0 +1,31 @@
+# description	: Complete ODBC driver manager
+# depends	: glibc bison flex readline ncurses
+
+name=unixodbc
+_name=unixODBC
+version=2.3.12
+release=1
+options="!lto"
+source="https://github.com/lurcher/unixODBC/releases/download/$version/unixODBC-$version.tar.gz"
+backup="etc/unixODBC/odbc.ini etc/unixODBC/odbcinst.ini"
+
+build() {
+	cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc/unixODBC
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+	make DESTDIR="$PKG" install
+
+    find doc -name "Makefile*" -delete &&
+    chmod 644 doc/lst/*   doc/ProgrammerManual/Tutorial/* 
+
+    install -v -m755 -d "$PKG"/usr/share/doc/unixODBC-$version
+    cp      -v -R doc/* "$PKG"/usr/share/doc/unixODBC-$version
+}

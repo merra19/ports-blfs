@@ -1,0 +1,44 @@
+# description	: An ultra-fast, ultra-compact key-value embedded data store
+# depends	: e2fsprogs keyutils lmdb yasm
+
+name=krb5
+version=1.21.3
+release=1
+options="!lto"
+source="https://kerberos.org/dist/krb5/${version%.*}/$name-$version.tar.gz
+        krb5.conf"
+
+build() {
+	cd $name-$version
+
+    cd src &&
+
+	sed -i -e '/eq 0/{N;s/12 //}'    plugins/kdb/db2/libdb2/test/run.test &&
+
+    export CFLAGS+=" -fPIC -fno-strict-aliasing -fstack-protector-all"
+    export CPPFLAGS+=" -I/usr/include/et"
+   
+	./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var/lib \
+        --runstatedir=/run \
+        --with-system-et \
+        --with-system-ss \
+        --with-system-verto=no \
+        --enable-dns-for-realm \
+        --disable-rpath 
+	make
+}
+
+package() {
+    cd $name-$version/src
+
+	make DESTDIR="$PKG" install
+
+    mkdir -p "$PKG"/usr/share/doc/$name-$version
+    cp -vfr ../doc -T "$PKG"/usr/share/doc/$name-$version
+    sed '/PROG_RPATH_FLAGS/d' -i "$PKG"/usr/bin/krb5-config
+
+    install -Dm 644 $SRC/krb5.conf "$PKG"/etc/krb5.conf
+}

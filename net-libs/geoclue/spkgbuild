@@ -1,0 +1,30 @@
+# description	: A location information D-Bus service
+# depends	: glib json-glib libsoup3 gobject-introspection libnotify 
+# depends	: dbus vala avahi
+# optional	: modemmanager
+
+name=geoclue
+version=2.7.2
+release=1
+source="https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/$version/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	scratch isinstalled modemmanager && GEO_OPTS="-D 3g-source=true -D cdma-source=true -D modem-gps-source=true" || GEO_OPTS="-D 3g-source=false -D cdma-source=false -D modem-gps-source=false"
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk-doc=false \
+        -D nmea-source=true \
+        $GEO_OPTS \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

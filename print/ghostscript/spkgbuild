@@ -1,0 +1,39 @@
+# description	: Interpreter for the PostScript language and PDF
+# depends	: libpaper fontconfig freetype lcms2 libpng libjpeg-turbo 
+# depends	: openjpeg2 libtiff zlib dbus libxext  libxt 
+# depends	: libidn cups
+
+### poppler 
+
+name=ghostscript
+version=10.04.0
+release=2
+options="!lto"
+source="https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10040/$name-$version.tar.xz
+        https://downloads.sourceforge.net/gs-fonts/ghostscript-fonts-std-8.11.tar.gz
+        https://downloads.sourceforge.net/gs-fonts/gnu-gs-fonts-other-6.0.tar.gz"
+noextract="ghostscript-fonts-std-8.11.tar.gz gnu-gs-fonts-other-6.0.tar.gz"
+
+build() {
+    cd $name-$version
+
+    rm -rf cups/libs freetype jpeg lcms2mt libpng tiff openjpeg zlib
+
+    ./configure \
+        --prefix=/usr \
+        --disable-compile-inits \
+        --with-system-libtiff 
+    make so all 
+}
+
+package() {
+    cd $name-$version
+
+    make -j1 DESTDIR="$PKG" install-so install
+
+    install -v -m644 base/*.h "$PKG"/usr/include/ghostscript &&
+    ln -sfvn ghostscript "$PKG"/usr/include/ps
+
+    tar -xvf ../ghostscript-fonts-std-8.11.tar.gz -C "$PKG"/usr/share/ghostscript --no-same-owner &&
+    tar -xvf ../gnu-gs-fonts-other-6.0.tar.gz     -C "$PKG"/usr/share/ghostscript --no-same-owner
+}

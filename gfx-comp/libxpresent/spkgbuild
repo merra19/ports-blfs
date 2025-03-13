@@ -1,0 +1,26 @@
+# description	: X Present Extension C Library
+# depends	: libx11 libxext libxfixes libxrandr xorg-proto
+
+name=libxpresent
+_name=libXpresent
+version=1.0.1
+release=1
+source=" https://www.x.org/pub/individual/lib/libXpresent-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXpresent-$version
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

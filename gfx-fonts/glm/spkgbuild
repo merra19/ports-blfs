@@ -1,0 +1,19 @@
+# description	: OpenGL Mathematics
+# depends	: glibc
+
+name=glm
+version=1.0.1
+release=1
+source="https://github.com/g-truc/glm/archive/$version/$name-$version.tar.gz"
+
+build() {
+    :
+}
+
+package() {
+    cd $name-$version
+
+    mkdir -p "$PKG"/usr/include/  "$PKG"/usr/share/doc/$name-$version
+    cp -r glm "$PKG"/usr/include/ 
+    cp -r doc "$PKG"/usr/share/doc/$name-$version
+}

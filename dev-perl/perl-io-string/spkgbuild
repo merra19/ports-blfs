@@ -1,0 +1,21 @@
+# description	: IO::File interface for in-core strings
+# depends	: perl
+
+name=perl-io-string
+_name=IO-String
+version=1.08
+release=1
+source="https://www.cpan.org/authors/id/G/GA/GAAS/IO-String-$version.tar.gz"
+
+build() {
+	cd ${_name}-$version
+
+	PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+	make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

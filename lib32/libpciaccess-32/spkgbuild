@@ -1,0 +1,31 @@
+# description	: Library providing generic access to the PCI bus and devices
+# depends	: zlib-32 libpciaccess
+
+name=libpciaccess-32
+_name=libpciaccess
+version=0.18.1
+release=1
+source="https://www.x.org/pub/individual/lib/libpciaccess-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --libdir=/usr/lib32 \
+        build32
+	ninja -C build32
+}
+
+package() {
+    cd ${_name}-$version
+
+    DESTDIR="$PWD"/DESTDIR ninja -C build32 install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

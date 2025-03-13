@@ -1,0 +1,22 @@
+# description	: The hyprland cursor format, library and utilities
+# depends	: cairo hyprlang librsvg tomlplusplus libzip cmake
+
+name=hyprcursor
+version=0.1.11
+release=3
+source="$name-$version.tar.gz::https://github.com/hyprwm/$name/archive/refs/tags/v$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	cmake -B build \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=Release
+	cmake --build build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" cmake --install build
+}

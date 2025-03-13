@@ -1,0 +1,23 @@
+# description	: QML style provider for Hypr* QT app
+# depends	:  hyprlang qt6-base qt6-declarative qt6-wayland cmake
+
+name=hyprland-qt-support
+version=0.1.0
+release=4
+source="$name-$version.tar.gz::https://github.com/hyprwm/$name/archive/refs/tags/v$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	cmake -B build \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D INSTALL_QML_PREFIX=/usr/lib/qt6/qml \
+		-D CMAKE_BUILD_TYPE=Release
+	cmake --build build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" cmake --install build
+}

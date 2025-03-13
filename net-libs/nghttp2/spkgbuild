@@ -1,0 +1,24 @@
+# description	: HTTP/2 C Library
+# depends	: openssl c-ares boost libevent python3-cython
+ 
+name=nghttp2
+version=1.64.0
+release=1
+source="https://github.com/nghttp2/nghttp2/releases/download/v$version/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --enable-lib-only \
+        --docdir=/usr/share/doc/$name-$version
+    make   
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,25 @@
+# description	: HTTP library for human beings
+# depends	: python3 python3-gpep517 python3-setuptools python3-wheel 
+# depends	: python3-idna python3-urllib3 python3-charset-normalizer 
+# depends	: python3-certifi
+
+name=python3-requests
+version=2.32.3
+release=1
+options="!lto"
+source="https://pypi.org/packages/source/r/requests/requests-$version.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/requests-2.32.3-use_system_certs-1.patch"
+
+build() {
+	cd ${name#*-}-$version
+
+	patch -p1 -i ../requests-2.32.3-use_system_certs-1.patch
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${name#*-}-$version
+
+	python3 -m installer -d "$PKG" .dist/*.whl
+}

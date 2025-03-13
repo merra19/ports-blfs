@@ -1,0 +1,22 @@
+# description	: Used to generate Makefile.in from Makefile.am
+# depends	: autoconf gzip help2man
+
+name=automake
+version=1.17
+release=1
+source="https://ftp.gnu.org/gnu/automake/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --docdir=/usr/share/doc/$name-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

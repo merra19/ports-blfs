@@ -1,0 +1,39 @@
+# description	: X.Org X servers
+# depends	: libglvnd openssl iceauth xauth xkbcomp libdrm libxdmcp
+# depends	: libpciaccess libxau libxfont2 libxkbfile libxshmfence 
+# depends	: pixman xbitmaps xkeyboard-config libxcvt mesa libepoxy 
+# depends	: udev dbus pam xorg-proto xtrans xorg-fonts libxext
+# depends	: libx11 xorg-legacy elogind
+
+name=xorg-server
+version=21.1.16
+release=1
+options="!lto !asneeded"
+source="https://www.x.org/pub/individual/xserver/$name-$version.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/svn/xorg-server-$version-tearfree_backport-1.patch"
+
+build() {
+	cd $name-$version
+
+    patch -Np1 -i ../xorg-server-$version-tearfree_backport-1.patch
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --localstatedir=/var \
+        -D glamor=true \
+        -D systemd_logind=true \
+        -D xkb_output_dir=/var/lib/xkb \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+	DESTDIR="$PKG" ninja -C build install
+
+    chmod u+s /"$PKG"/usr/bin/Xorg   
+
+    mkdir -pv "$PKG"/etc/X11/xorg.conf.d 
+}

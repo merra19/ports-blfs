@@ -1,0 +1,44 @@
+# description	: The Common Unix Printing System
+# depends	: libpaper zlib linux-api-headers acl attr dbus pam 
+# depends	: openssl libusb avahi
+
+name=cups
+version=2.4.11
+release=1
+options="!lto"
+source="https://github.com/OpenPrinting/cups/releases/download/v$version/$name-$version-source.tar.gz
+        cups"
+backup="etc/cups/cupsd.conf etc/cups/snmp.conf etc/cups/cups-files.conf"
+
+build() {
+	cd $name-$version
+
+    # The build system uses only DSOFLAGS but not LDFLAGS to build some libraries.
+    export DSOFLAGS=${LDFLAGS}
+
+	./configure \
+        --libdir=/usr/lib \
+        --with-rcdir=/tmp/cupsinit \
+        --with-rundir=/run/cups \
+        --with-system-groups=lpadmin \
+        --enable-libpaper \
+		--with-docdir=/usr/share/cups/doc-$version
+	make
+}
+
+package() {
+    cd $name-$version
+
+    mkdir -p "$PKG"/etc/pam.d
+
+	make DESTDIR="$PKG" install
+
+    rm -rf "$PKG"/tmp
+
+	mkdir -p "$PKG"/usr/share/doc
+	ln -svnf ../cups/doc-$version "$PKG"/usr/share/doc/$name-$version
+
+	echo "ServerName /run/cups/cups.sock" > "$PKG"/etc/cups/client.conf
+
+	install -Dm 0644 "$SRC"/cups "$PKG"/etc/pam.d/cups 
+}

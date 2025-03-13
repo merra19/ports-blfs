@@ -1,0 +1,21 @@
+# description	: Hardware identification and configuration data
+# depends	: glibc
+
+name=hwdata
+version=0.392
+release=1
+source="https://github.com/vcrhonek/hwdata/archive/v$version/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+    
+    ./configure \
+        --prefix=/usr \
+        --disable-blacklist
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

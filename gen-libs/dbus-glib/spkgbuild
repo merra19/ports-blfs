@@ -1,0 +1,23 @@
+# description	: D-Bus bindings for glib
+# depends	: dbus glib expat
+
+name=dbus-glib
+version=0.112
+release=1
+source="http://dbus.freedesktop.org/releases/$name/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr \
+		--sysconfdir=/etc \
+		--disable-static
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,28 @@
+# description	: X.Org Xfont library
+# depends	: glibc zlib libxcb bzip2 xtrans libfontenc xorg-proto 
+# depends	: freetype
+
+name=libxfont2
+_name=libXfont2
+version=2.0.7
+release=1
+source="https://www.x.org/pub/individual/lib/libXfont2-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXfont2-$version \
+        --disable-devel-docs
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

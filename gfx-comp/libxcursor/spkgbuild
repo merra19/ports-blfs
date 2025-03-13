@@ -1,0 +1,26 @@
+# description	: X.Org Xcursor library
+# depends	: libx11 libxfixes libxrender xorg-proto
+
+name=libxcursor
+_name=libXcursor
+version=1.2.3
+release=1
+source="https://www.x.org/pub/individual/lib/libXcursor-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXcursor-$version
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

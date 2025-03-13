@@ -1,0 +1,75 @@
+# description	: An interpreted, interactive, object-oriented programming language
+# depends	: bzip2 xz zlib readline libffi sqlite expat gdbm openssl
+# depends	: libxcrypt bluez-headers
+
+name=python3
+version=3.13.2
+release=1
+options="!lto"
+source="https://www.python.org/ftp/python/$version/Python-$version.tar.xz
+        https://www.python.org/ftp/python/doc/$version/python-$version-docs-html.tar.bz2
+        pyconfig.h pip.conf"
+noextract="python-$version-docs-html.tar.bz2"
+
+build() {   
+    cd Python-$version
+
+    local stacksize=0x200000
+
+    # Python flags
+	export CFLAGS_NODIST="$CFLAGS -DTHREAD_STACK_SIZE=$stacksize"
+	export CXXFLAGS_NODIST="$CXXFLAGS"
+	export LDFLAGS_NODIST="$LDFLAGS"
+
+	# we set them via NODIST to not propagate them and duplicate them to modules
+	unset LDFLAGS CFLAGS CXXFLAGS CPPFLAGS
+
+    ./configure \
+        --prefix=/usr \
+        --with-threads \
+        --with-pymalloc  \
+        --without-cxx-main \
+        --with-signal-module \
+        --enable-ipv6=yes  \
+        --libdir=/usr/lib  \
+        ac_cv_header_bluetooth_bluetooth_h=yes  \
+        --with-system-ffi \
+        --with-system-expat \
+        --with-lto \
+        --with-computed-gotos \
+        --enable-optimizations \
+        --enable-shared
+    if [ $BUILD_PGO = "yes" ];then
+        PROFILE_TASK="-m test --pgo-extended" make profile-opt
+    else
+        make
+    fi
+
+    # --without-ensurepip \
+}
+
+package() {
+    cd Python-$version
+
+    make DESTDIR="$PKG" install
+
+    mkdir -pv "$PKG"/etc 
+    
+    ln -s python3               "$PKG"/usr/bin/python
+    ln -s python3-config        "$PKG"/usr/bin/python-config
+    ln -s idle3                 "$PKG"/usr/bin/idle
+    ln -s pydoc3                "$PKG"/usr/bin/pydoc
+    ln -s python${version%.*}.1 "$PKG"/usr/share/man/man1/python.1
+
+    install -Dm 644 ../pip.conf "$PKG"/etc/pip.conf
+
+    mv "$PKG"/usr/include/python${version%.*}/pyconfig.h \
+        "$PKG"/usr/include/python${version%.*}/pyconfig-64.h
+
+	install -Dm 644 ../pyconfig.h "$PKG"/usr/include/python${version%.*}/pyconfig.h
+
+    mkdir -p "$PKG"/usr/share/doc/python-$version/html
+    tar --no-same-owner -xvf "$SRC"/python-$version-docs-html.tar.bz2
+    cp -R --no-preserve=mode python-$version-docs-html/* \
+        "$PKG"/usr/share/doc/python-$version/html
+}

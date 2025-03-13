@@ -1,0 +1,28 @@
+# description	: Standard (de)compression library
+# depends	: glibc
+
+name=zlib-minizip
+version=1.3.1
+release=1
+source="https://www.zlib.net/fossils/zlib-$version.tar.gz"
+
+build() {
+    cd zlib-$version
+    cd contrib/minizip
+
+    export CFLAGS+="-DUNALIGNED_OK -D_REENTRANT -D_LARGEFILE64_SOURCE=1 "
+  
+    cp Makefile Makefile.orig
+    autoreconf -fiv
+  
+    ./configure \
+        --prefix=/usr \
+        --enable-static=no
+    make
+}
+
+package() {
+    cd zlib-$version
+
+    make DESTDIR="$PKG" -C contrib/minizip install
+}

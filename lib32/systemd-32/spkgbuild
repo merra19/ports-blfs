@@ -1,0 +1,58 @@
+# description	: Controlling the startup, running, and shutdown of the system
+# depends	: meson acl-32 kbd kmod openssl-32 xz-32 python3-jinja 
+# depends	: gperf zstd-32 libgcrypt-32 libxcrypt-32 libcap-32 
+# depends	: systemd
+
+name=systemd-32
+_name=systemd
+version=257
+release=1
+source="https://github.com/systemd/systemd/archive/v$version/systemd-$version.tar.gz"
+
+build() {
+    cd ${_name}-$version
+
+    xxxxxxxxx
+
+    # Remove two unneeded groups, render and sgx, from the default udev rules:
+    sed  -i -e 's/GROUP="render"/GROUP="video"/' \
+            -e 's/GROUP="sgx", //' rules.d/50-udev-default.rules.in
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    LANG=en_US.UTF-8 \
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --libdir=/usr/lib32 \
+        --cross-file lib32 \
+        -D default-dnssec=no \
+        -D firstboot=false \
+        -D install-tests=false \
+        -D ldconfig=false \
+        -D sysusers=false \
+        -D rpmmacrosdir=no \
+        -D homed=disabled \
+        -D userdb=false \
+        -D man=disabled \
+        -D mode=release \
+        -D pam=enabled \
+        -D pamconfdir=/etc/pam.d \
+        -D dev-kvm-mode=0660 \
+        -D nobody-group=nogroup \
+        -D sysupdate=disabled \
+        -D ukify=disabled \
+        -D docdir=/usr/share/doc/$name-$version \
+        build32
+    ninja
+}
+
+package() {
+    cd ${_name}-$version
+
+    install -vdm755 "$PKG"/etc/pam.d
+
+    ninja -C build32 install
+}

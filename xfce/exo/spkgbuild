@@ -1,0 +1,22 @@
+# description	: Extensions, widgets and framework library with session support for Xfce
+# depends	: libxfce4ui intltool glib gtk3 libxfce4util
+
+name=exo
+version=4.20.0
+release=1
+source="https://archive.xfce.org/src/xfce/exo/${version%.*}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

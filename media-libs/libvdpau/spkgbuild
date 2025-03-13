@@ -1,0 +1,23 @@
+# description	: VDPAU wrapper and trace libraries
+# depends	: meson libx11 libxext xorg-proto
+
+name=libvdpau
+version=1.5
+release=1
+source="https://gitlab.freedesktop.org/vdpau/libvdpau/-/archive/$version/$name-$version.tar.bz2"
+
+build() {
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

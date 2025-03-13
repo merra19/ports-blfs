@@ -1,0 +1,45 @@
+# description	: Mozilla's Network Security Services library that implements PKI support
+# depends	: nspr sqlite zlib perl p11-kit
+
+name=nss
+version=3.108
+vrsn=$(echo $version | sed 's/\./_/g')
+release=1
+options="!lto"
+source="https://archive.mozilla.org/pub/security/nss/releases/NSS_${vrsn}_RTM/src/$name-$version.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/nss-standalone-1.patch"
+
+build() {
+	cd $name-$version
+
+	patch -Np1 -i ../nss-standalone-1.patch
+
+	cd nss &&
+
+	make BUILD_OPT=1 \
+	NSPR_INCLUDE_DIR=/usr/include/nspr  \
+	USE_SYSTEM_ZLIB=1 \
+	ZLIB_LIBS=-lz \
+	NSS_ENABLE_WERROR=0 \
+    NSS_DISABLE_GTESTS=1 \
+	"$([ "$(uname -m)" = x86_64 ] && echo USE_64=1)" \
+	"$([ -f /usr/include/sqlite3.h ] && echo NSS_USE_SYSTEM_SQLITE=1)"
+}
+
+package() {
+    cd $name-$version/dist
+
+	install -d "$PKG"/usr/lib "$PKG"/usr/lib/pkgconfig "$PKG"/usr/bin
+	install -v -m755 Linux*/lib/*.so  "$PKG"/usr/lib
+	install -v -m644 Linux*/lib/*.chk Linux*/lib/libcrmf.a "$PKG"/usr/lib
+
+	install -v -m755 -d  "$PKG"/usr/include/nss
+	cp -v -RL public/nss/* private/nss/*  "$PKG"/usr/include/nss
+
+	install -v -m755 Linux*/bin/{certutil,nss-config,pk12util} "$PKG"/usr/bin 
+
+	install -v -m644 Linux*/lib/pkgconfig/nss.pc  "$PKG"/usr/lib/pkgconfig
+
+    # Using  p11-kit trust module
+    rm -f "$PKG"/usr/lib/libnssckbi.so
+}

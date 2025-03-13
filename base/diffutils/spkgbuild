@@ -1,0 +1,22 @@
+# description	: Tools to make diffs and compare files
+# depends	: glibc
+
+name=diffutils
+version=3.11
+release=1
+options="!lto"
+source="https://ftp.gnu.org/gnu/diffutils/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

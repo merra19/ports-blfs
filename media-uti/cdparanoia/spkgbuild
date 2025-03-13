@@ -1,0 +1,37 @@
+# description	: An audio CD extraction application
+# depends	: libtool autoconf automake linux-api-headers
+
+name=cdparanoia
+version=10.2
+release=14
+source="https://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-$version.src.tgz
+        format-security.patch gcc.patch"
+
+builddir="$SRC/cdparanoia-III-$version"
+
+build() {
+	cd cdparanoia-III-c
+	
+	mv configure.guess config.guess
+	mv configure.sub config.sub
+    
+    sed -i -e '/configure.\(guess\|sub\)/d' configure.in
+	aclocal && autoconf
+	libtoolize
+
+	./configure \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--mandir=/usr/share/man \
+		--infodir=/usr/share/info
+	make -j1
+}
+
+package() {
+    cd cdparanoia-III-$version
+
+    make prefix="$PKG"/usr MANDIR="$PKG"/usr/share/man install
+
+    chmod -v 755 "$PKG"/usr/lib/libcdda_*.so.0.$version
+    rm -fv "$PKG"/usr/lib/libcdda_*.a
+}

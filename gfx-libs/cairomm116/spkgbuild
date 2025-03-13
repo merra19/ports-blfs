@@ -1,0 +1,26 @@
+# description	: C++ bindings for the Cairo vector graphics library
+# depends	: cairo libsigc++3 boost
+
+name=cairomm116
+_name=cairomm
+version=1.18.0
+release=1
+source="https://www.cairographics.org/releases/cairomm-$version.tar.xz"
+
+build() {
+	cd ${_name}-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+		-D build-tests=true \
+		-D boost-shared=true \
+        build
+	ninja -C build
+}
+
+package() {
+    cd ${_name}-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

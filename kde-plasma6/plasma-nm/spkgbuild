@@ -1,0 +1,33 @@
+# description	: KDE Plasma applet for NetworkManager
+# depends	: kcolorscheme kcompletion kconfig kcoreaddons ksvg
+# depends	: kdbusaddons ki18n kio knotifications kservice 
+# depends	: kwallet kwidgetsaddons kwindowsystem kxmlgui 
+# depends	: modemmanager-qt6 networkmanager-qt6 solid libplasma 
+# depends	: networkmanager qca kdeclarative kirigami kquickcharts
+# depends	: kcmutils qcoro6 qt6-base qt6-declarative prison 
+# depends	: plasma-workspace extra-cmake-modules 
+
+name=plasma-nm
+version=6.3.2
+release=1
+source="https://download.kde.org/stable/plasma/$version/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    sed -e "s/^pkg_check_modules.*openconnect/#&/" -i CMakeLists.txt
+    
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

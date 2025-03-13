@@ -1,0 +1,26 @@
+# description	: X.Org Xrandr library
+# depends	: libx11 libxfixes libxrender libxext xorg-proto
+
+name=libxrandr
+_name=libXrandr
+version=1.5.4
+release=1
+source="https://www.x.org/pub/individual/lib/libXrandr-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXrandr-$version
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

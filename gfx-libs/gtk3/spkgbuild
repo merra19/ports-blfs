@@ -1,0 +1,34 @@
+# description	: Gimp ToolKit +
+# depends	: at-spi2-core fribidi glib fontconfig harfbuzz libepoxy 
+# depends	: intltool cairo gdk-pixbuf pango shared-mime-info cups 
+# depends	: gobject-introspection wayland wayland-protocols mesa 
+# depends	: libxkbcommon librsvg docbook-xml libxslt libglvnd 
+# depends	: xorg-proto libx11 libxcomposite libxcursor libxdamage 
+# depends	: libxext libxfixes libxi libxrandr libxinerama
+# optional	: cloudproviders!!libcloudproviders colord
+
+name=gtk3
+version=3.24.48
+release=1
+source="https://download.gnome.org/sources/gtk/${version%.*}/gtk-$version.tar.xz
+        settings.ini"
+
+build() {
+	cd gtk-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+		-D man=true \
+		-D broadway_backend=true \
+        build
+	ninja -C build
+}
+
+package() {
+    cd gtk-$version
+
+	DESTDIR="$PKG" ninja -C build install
+
+    install -Dm 644 "$SRC"/settings.ini "$PKG"/etc/gtk-3.0/settings.ini
+}

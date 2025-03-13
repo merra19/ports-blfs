@@ -1,0 +1,28 @@
+# description	: Friendly onboarding wizard for Plasma
+# depends	: kconfig kconfigwidgets kcoreaddons kdbusaddons 
+# depends	: ki18n kio kirigami kjobwidgets knewstuff kservice 
+# depends	: ksvg kwindowsystem libplasma qt6-base qt6-declarative 
+# depends	: qt6-svg extra-cmake-modules
+
+name=plasma-welcome
+version=6.3.2
+release=1
+source="https://download.kde.org/stable/plasma/$version/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

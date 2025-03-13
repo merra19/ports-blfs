@@ -1,0 +1,24 @@
+# description	: Gedit Technology - Source code editing widget
+# depends	: glib gobject-introspection gtk3 libxml2
+
+name=libgedit-gtksourceview
+version=299.4.0
+release=1
+source="https://gitlab.gnome.org/World/gedit/libgedit-gtksourceview/-/archive/$version/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk_doc=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

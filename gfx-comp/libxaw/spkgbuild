@@ -1,0 +1,26 @@
+# description	: X.Org Xaw library
+# depends	: libxmu libxpm libx11 libxext libxt xorg-proto
+
+name=libxaw
+_name=libXaw
+version=1.0.16
+release=1
+source="https://www.x.org/pub/individual/lib/libXaw-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXaw-$version
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

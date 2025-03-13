@@ -1,0 +1,24 @@
+# description	: X C-language Bindings protocol headers
+# depends	: libxml2 python3
+
+name=xcb-proto
+version=1.17.0
+release=1
+source="https://xorg.freedesktop.org/archive/individual/proto/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    PYTHON=python3 \
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

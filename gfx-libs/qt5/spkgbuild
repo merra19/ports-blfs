@@ -1,0 +1,138 @@
+# description	: Cross-platform application development framework
+# depends	: double-conversion glib icu zlib pcre2 gtk3 libx11 pango 
+# depends	: cups openssl dbus sqlite fontconfig freetype harfbuzz 
+# depends	: libglvnd mesa libdrm mtdev libjpeg-turbo libinput 
+# depends	: libxkbcommon libpng udev vulkan-headers xorg-proto
+# depends	: linux-api-headers libice libsm libxcb xcb-util-wm
+# depends	: libxkbcommon xcb-util-image xcb-util-keysyms
+# depends	: xcb-util-renderutil
+# optional	: krb5 krb5!!openldap libproxy unixodbc postgresql 
+# optional	: accessibility!!at-spi2-core ibus
+
+name=qt5
+version=5.15.16
+release=1
+#options="!lto"
+source="https://download.qt.io/archive/qt/${version%.*}/$version/single/qt-everywhere-opensource-src-$version.tar.xz
+        qt-everywhere-opensource-src-$version-kf5-1.patch
+        qtbase-5.15.8-fix-missing-qtsan-include.patch
+        qt5-cflags.patch qmake-config.patch 
+        qt5-quick3d-assimp-5.1.patch
+        d8054f1efa0b97b291a6f8c7fff9090b0fd4328e.patch
+        5a07e1967dcc925d9def47accadae991436b9686.patch
+        0d9987b43e695f5202c5d69a5e42ab70a678b04f.patch
+        35d566724c48180c9a372c2ed50a253871a51574.patch
+        qtlocation-fix-rapidjson-build.patch
+        qtbase-everywhere-src-5.14.2-no_relocatable.patch
+        qtbase-everywhere-src-5.15.2-libglvnd.patch
+        qtbase-use-wayland-on-gnome.patch
+		qt5.sh qt qt5.conf
+        assistant-qt5.desktop designer-qt5.desktop linguist-qt5.desktop qdbusviewer-qt5.desktop"
+
+build() {
+	cd qt-everywhere-src-$version
+
+	mkdir -pv qtbase/.git
+
+    patch -p1 -i $SRC/qt-everywhere-opensource-src-$version-kf5-1.patch
+	patch -d qtbase -p1 -i $SRC/qt5-cflags.patch
+    patch -d qtbase -p1 -i $SRC/qmake-config.patch 
+	patch -d qtbase -p1 -i $SRC/qtbase-everywhere-src-5.14.2-no_relocatable.patch
+	patch -d qtbase -p1 -i $SRC/qtbase-everywhere-src-5.15.2-libglvnd.patch
+	patch -d qtbase -p1 -i $SRC/qtbase-use-wayland-on-gnome.patch
+	patch -d qtbase -p1 -i $SRC/qtbase-5.15.8-fix-missing-qtsan-include.patch
+	patch -d qtlocation -p1 -i $SRC/qtlocation-fix-rapidjson-build.patch
+	patch -d qtlocation/src/3rdparty/mapbox-gl-native -p1 -i $SRC/d8054f1efa0b97b291a6f8c7fff9090b0fd4328e.patch
+	patch -d qtlocation/src/3rdparty/mapbox-gl-native -p1 -i $SRC/5a07e1967dcc925d9def47accadae991436b9686.patch
+	patch -d qtlocation/src/3rdparty/mapbox-gl-native -p1 -i $SRC/35d566724c48180c9a372c2ed50a253871a51574.patch
+
+	sed -i '/utility/a #include <limits>'     qtbase/src/corelib/global/qglobal.h
+	sed -i '/string/a #include <limits>'      qtbase/src/corelib/global/qfloat16.h
+	sed -i '/qbytearray/a #include <limits>'  qtbase/src/corelib/text/qbytearraymatcher.h
+	sed -i '/type_traits/a #include <limits>' qtdeclarative/src/qmldebug/qqmlprofilerevent_p.h
+
+	ls -Fd qt* | grep / | sed 's/^/-skip /;s@/@@' > qtconf
+	sed -i -r '/base|tools|x11extras|svg|declarative|quickcontrols|quickcontrols2|tools|translations|wayland|webchannel/d' qtconf
+
+	export QT5PREFIX=/opt/qt5
+    export OPENSSL_LIBS=" -lssl -lcrypto"
+
+    ./configure \
+        -prefix $QT5PREFIX \
+        -sysconfdir /etc/xdg \
+        -confirm-license \
+        -opensource \
+        -dbus-linked \
+        -openssl-linked \
+        -system-harfbuzz \
+        -system-sqlite \
+        -nomake examples \
+        -no-rpath \
+        -journald \
+        -release \
+        -optimized-tools \
+        -no-separate-debug-info \
+        -no-strip -no-pch \
+        -no-compile-examples \
+        -accessibility \
+        -cups \
+        -fontconfig \
+        -glib \
+        -no-mimetype-database \
+        -reduce-relocations \
+        -silent \
+        -sm \
+        -system-freetype \
+        -system-pcre \
+        -system-libjpeg \
+        -system-libpng \
+        -system-zlib \
+        -skip qtwebengine \
+        -ltcg \
+        QMAKE_CFLAGS_RELEASE="$CFLAGS" \
+        QMAKE_CXXFLAGS_RELEASE="$CXXFLAGS" \
+        QMAKE_LFLAGS_RELEASE="${LDFLAGS}" \
+        $(cat qtconf)
+	make
+}
+
+package() {
+	cd qt-everywhere-src-$version
+
+	export QT5PREFIX=/opt/qt5
+    export OPENSSL_LIBS=" -lssl -lcrypto"
+
+	make INSTALL_ROOT="$PKG" install
+
+	find "$PKG"/$QT5PREFIX/ -name \*.prl \
+		-exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+
+	QT5BINDIR=$QT5PREFIX/bin
+
+	install -v -dm755 "$PKG"/usr/share/pixmaps/                  &&
+
+	install -v -Dm644 qttools/src/assistant/assistant/images/assistant-128.png \
+					"$PKG"/usr/share/pixmaps/assistant-qt5.png &&
+
+	install -v -Dm644 qttools/src/designer/src/designer/images/designer.png \
+					"$PKG"/usr/share/pixmaps/designer-qt5.png  &&
+
+	install -v -Dm644 qttools/src/linguist/linguist/images/icons/linguist-128-32.png \
+					"$PKG"/usr/share/pixmaps/linguist-qt5.png  &&
+
+	install -v -Dm644 qttools/src/qdbus/qdbusviewer/images/qdbusviewer-128.png \
+					"$PKG"/usr/share/pixmaps/qdbusviewer-qt5.png &&
+
+	install -dm755 "$PKG"/usr/share/applications &&
+
+    install -Dm 644 "$SRC"/qt5.conf "$PKG"/etc/ld.so.conf.d/qt5.conf
+
+	mkdir -p "$PKG"/usr/bin
+
+	for file in moc uic rcc qmake lconvert lrelease lupdate; do
+		ln -sfvn $QT5BINDIR/$file "$PKG"/usr/bin/$file-qt5
+	done
+
+    install -Dm 755 ${SRC}/qt5.sh "$PKG"/etc/profile.d/qt5.sh
+    install -Dm 644 ${SRC}/qt "$PKG"/etc/sudoers.d/qt 
+}

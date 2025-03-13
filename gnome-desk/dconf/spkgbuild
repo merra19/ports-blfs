@@ -1,0 +1,27 @@
+# description	: Simple low-level configuration system
+# depends	: glib docbook-xml libxslt gettext pkgconf dbus
+
+name=dconf
+version=0.40.0
+release=1
+source="https://download.gnome.org/sources/$name/${version%.*}/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    # Prevent unnecessary systemd units from being installed
+    sed -i 's/install_dir: systemd_userunitdir,//' service/meson.build
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D bash_completion=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

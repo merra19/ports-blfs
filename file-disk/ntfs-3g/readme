@@ -1,0 +1,13 @@
+Kernel configuration
+
+File systems --->
+  DOS/FAT/EXFAT/NT Filesystems --->
+    <*/M> NTFS Read-Write file system support                         [NTFS3_FS]
+
+To ensure the mount command uses NTFS3 for ntfs partitions, create a wrapper script:
+
+cat > /usr/sbin/mount.ntfs << "EOF" &&
+#!/bin/sh
+exec mount -t ntfs3 "$@"
+EOF
+chmod -v 755 /usr/sbin/mount.ntfs

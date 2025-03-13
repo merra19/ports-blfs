@@ -1,0 +1,17 @@
+Enable Kernel
+
+Device Drivers --->
+  [*] USB support --->                                             [USB_SUPPORT]
+    <*/M> USB Printer support                                      [USB_PRINTER]
+
+For   parallel printer
+Device Drivers --->
+  <*/M> Parallel port support --->                                     [PARPORT]
+    <*/M> PC-style hardware                                         [PARPORT_PC]
+  Character devices --->
+    <*/M> Parallel printer support                                     [PRINTER]
+
+
+To add a user to the Cups administrative grou
+usermod -a -G lpadmin <username>
+

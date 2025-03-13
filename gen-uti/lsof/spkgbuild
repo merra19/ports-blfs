@@ -1,0 +1,22 @@
+# description	: Lists open files for running Unix processes
+# depends	: groff libtirpc
+
+name=lsof
+version=4.99.0
+release=1
+source="https://github.com/lsof-org/lsof/releases/download/$version/lsof-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr  \
+        --disable-static
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

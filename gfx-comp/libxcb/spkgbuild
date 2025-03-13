@@ -1,0 +1,29 @@
+# description	: X C-language Bindings library
+# depends	: libxau libxdmcp xcb-proto util-macros xorg-proto
+
+name=libxcb
+version=1.17.0
+release=1
+source="https://xorg.freedesktop.org/archive/individual/lib/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    PYTHON=python3 \
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --without-doxygen \
+        --docdir='${datadir}'/doc/$name-$version
+    LC_ALL=en_US.UTF-8 make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+
+    chown -Rv root:root "$PKG"/usr/share/doc/libxcb-1.17.0
+}

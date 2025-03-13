@@ -1,0 +1,39 @@
+# description	: Another cute console display library
+# depends	: ncurses-32 readline
+
+name=readline-32
+_name=readline
+version=8.2.13
+release=1
+options="!lto !asneeded"
+source="https://ftp.gnu.org/gnu/readline/${_name}-$version.tar.gz"
+
+build() {
+    cd ${_name}-$version
+    
+    sed -i '/MV.*old/d' Makefile.in
+    sed -i '/{OLDSUFF}/c:' support/shlib-install
+
+    # Prevent hard coding library search paths (rpath) into the shared libraries
+    sed -i 's/-Wl,-rpath,[^ ]*//' support/shobj-conf
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+     ./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --disable-static \
+        --with-curses \
+        --host=i686-pc-linux-gnu
+    make SHLIB_LIBS="-lncursesw"
+}
+
+package() {
+    cd ${_name}-$version
+
+    make SHLIB_LIBS="-lncursesw" DESTDIR=$PWD/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

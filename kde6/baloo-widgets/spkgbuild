@@ -1,0 +1,27 @@
+# description	: Widget library for baloo
+# depends	: baloo kconfig kcoreaddons kfilemetadata ki18n kio 
+# depends	: kwidgetsaddons kservice extra-cmake-modules qt6-base
+
+name=baloo-widgets
+version=24.12.2
+release=1
+source="https://download.kde.org/stable/release-service/$version/src/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -D BUILD_WITH_QT6=ON \
+        -Wno-dev
+    make -C build
+}
+
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

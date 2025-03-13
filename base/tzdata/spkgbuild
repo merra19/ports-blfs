@@ -1,0 +1,24 @@
+# description	: Sources for time zone and daylight saving time data
+# depends	: linux-api-headers
+
+name=tzdata
+version=2025a
+release=1
+source="https://www.iana.org/time-zones/repository/releases/tzdata$version.tar.gz
+        https://www.iana.org/time-zones/repository/releases/tzcode$version.tar.gz"
+
+build() {
+    sed -i "s:sbin:bin:g" Makefile
+    make CFLAGS="$CFLAGS -DHAVE_GETTEXT=0 -DTZDEFAULT='\"/etc/localtime\"'"
+    make TZDIR=zoneinfo zones
+}
+
+package() {
+    mkdir -p "$PKG"/usr/share/zoneinfo
+    cp -a zoneinfo "$PKG"/usr/share/zoneinfo/posix
+    cp -al "$PKG"/usr/share/zoneinfo/posix/. "$PKG"/usr/share/zoneinfo
+    cp -a zoneinfo-leaps "$PKG"/usr/share/zoneinfo/right
+    install -m 644 zone1970.tab "$PKG"/usr/share/zoneinfo/zone1970.tab
+    install -m 644 iso3166.tab "$PKG"/usr/share/zoneinfo/iso3166.tab
+    install -m 644 zone.tab    "$PKG"/usr/share/zoneinfo/zone.tab
+}

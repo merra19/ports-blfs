@@ -1,0 +1,23 @@
+# description	: Library providing generic access to the PCI bus and devices
+# depends	: zlib
+
+name=libpciaccess
+version=0.18.1
+release=1
+source="https://www.x.org/pub/individual/lib/libpciaccess-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

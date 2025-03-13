@@ -1,0 +1,33 @@
+# description	: Manages the power consumption settings of a Plasma Shell
+# depends	: kauth kconfig kconfigwidgets kcoreaddons kcrash 
+# depends	: kdbusaddons kglobalaccel ki18n kidletime kio 
+# depends	: kirigami kitemmodels knotifications kservice 
+# depends	: kwindowsystem kxmlgui solid layer-shell-qt 
+# depends	: libkscreen plasma-activities plasma-workspace libxcb
+# depends	: libcap qt6-base qt6-declarative upower kcmutils 
+# depends	: extra-cmake-modules kdoctools power-profiles-daemon
+
+name=powerdevil
+version=6.3.2
+release=1
+source="https://download.kde.org/stable/plasma/$version/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+
+    rm -rf "$PKG"/usr/lib/systemd
+}

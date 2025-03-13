@@ -1,0 +1,22 @@
+# description	: Portable and efficient API to determine the call-chain of a program
+# depends	: zlib xz
+
+name=libunwind
+version=1.8.1
+release=1
+source="https://github.com/libunwind/libunwind/releases/download/v$version//$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,32 @@
+# description	: Meta port for base system
+# depends	: filesystem lfs-bootscript iana-etc glibc zlib bzip2 xz 
+# depends	: zstd file readline m4 bc man-pages flex tcl binutils 
+# depends	: libgmp libmpfr libmpc attr acl libcap libxcrypt gcc 
+# depends	: pkgconf ncurses sed psmisc gettext bison grep bash 
+# depends	: bash-completion shadow libtool gdbm gperf expat less 
+# depends	: perl perl-xml-parser inetutils intltool autoconf 
+# depends	: automake openssl kmod elfutils libffi python3 
+# depends	: python3-wheel ninja meson coreutils diffutils gawk 
+# depends	: findutils groff gzip iproute2 kbd libpipeline make patch 
+# depends	: tar texinfo make-ca curl grub udev man-db procps-ng 
+# depends	: util-linux e2fsprogs sysvinit sysklogd freetype libtasn1
+# depends	: nano  linux-firmware dosfstools mdadm python3-flit-core
+# depends	: fcron dbus cracklib sudo logrotate libpwquality b3sum
+
+name=base
+version=20230101
+release=1
+source="ifconfig.eth0"
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/etc
+
+    dircolors -p > "$PKG"/etc/dircolors
+    clear > "$PKG"/etc/issue
+
+    install -Dm 644 "$SRC"/ifconfig.eth0 "$PKG"/etc/sysconfig/ifconfig.eth0
+}

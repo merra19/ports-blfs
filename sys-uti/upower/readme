@@ -1,0 +1,5 @@
+Kernel config
+
+General Setup --->
+    [*] Namespaces support --->     [CONFIG_NAMESPACES]
+       [*] User namespace           [CONFIG_USER_NS]

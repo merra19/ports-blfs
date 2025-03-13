@@ -1,0 +1,33 @@
+# description	: EXIF, IPTC and XMP metadata C++ library and command line utility
+# depends	: curl cmake ninja inih zlib expat
+
+name=exiv2
+version=0.28.5
+release=1
+source="https://github.com/Exiv2/exiv2/archive/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    if (! scratch isinstalled brotli ); then 
+        OPTS_BROTLI="-D EXIV2_ENABLE_BROTLI=no"
+    fi
+
+	cmake -B build \
+         $OPTS_BROTLI \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=release \
+		-D EXIV2_ENABLE_VIDEO=yes \
+		-D EXIV2_ENABLE_WEBREADY=yes \
+		-D EXIV2_ENABLE_CURL=yes \
+		-D EXIV2_BUILD_SAMPLES=no \
+        -D EXIV2_ENABLE_NLS=no \
+		-G "Unix Makefiles"
+	make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

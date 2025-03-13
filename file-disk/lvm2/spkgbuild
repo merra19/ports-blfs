@@ -1,0 +1,28 @@
+# description	: User-land utilities for LVM2 (device-mapper) software
+# depends	: libaio udev util-linux readline
+
+name=lvm2
+version=2.03.30
+release=1
+source="$name-$version.tgz::https://sourceware.org/pub/lvm2/LVM2.$version.tgz"
+backup="etc/lvm/lvm.conf etc/lvm/lvmlocal.conf"
+
+build() {
+	cd LVM2.$version
+	
+	PATH=:$PATH:/usr/sbin \
+	./configure \
+        --prefix=/usr \
+		--enable-cmdlib \
+		--enable-pkgconfig \
+		--enable-udev_sync
+	make
+}
+
+package() {
+    cd LVM2.$version
+
+	make DESTDIR="$PKG" install
+
+    rm -fv "$PKG"/usr/lib/udev/rules.d/69-dm-lvm.rules
+}

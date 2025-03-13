@@ -1,0 +1,36 @@
+# description	: Standard GNU utilities (chmod, cp, dd, ls, sort, tr, head, wc, who,...)
+# depends	: glibc acl attr xz perl openssl
+
+name=coreutils
+version=9.6
+release=2
+source="https://ftp.gnu.org/gnu/coreutils/$name-$version.tar.xz
+        https://www.linuxfromscratch.org/patches/lfs/development/$name-$version-i18n-1.patch"
+
+build() {
+    cd $name-$version
+
+    # POSIX requires that programs from Coreutils recognize character boundaries correctly
+    # even in multibyte locales. The following patch fixes this non-compliance and other
+    # internationalization-related bugs. 
+    patch -Np1 -i ../coreutils-$version-i18n-1.patch
+
+    autoreconf -fv
+    automake -af
+    FORCE_UNSAFE_CONFIGURE=1 \
+    ./configure \
+        --prefix=/usr \
+        --enable-no-install-program=kill,uptime 
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+    
+    mkdir -pv "$PKG"/usr/share/man/man8/ "$PKG"/usr/sbin
+    mv -v "$PKG"/usr/bin/chroot "$PKG"/usr/sbin
+    mv -v "$PKG"/usr/share/man/man1/chroot.1 "$PKG"/usr/share/man/man8/chroot.8
+    sed -i 's/"1"/"8"/' "$PKG"/usr/share/man/man8/chroot.8
+}

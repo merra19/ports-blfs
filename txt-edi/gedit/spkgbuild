@@ -1,0 +1,27 @@
+# description	: Simple low-level configuration system
+# depends	: glib gobject-introspection gtk3 libgedit-amtk libpeas
+# depends	: libgedit-tepl gspell python3-cairo python3-gobject3
+# depends	: libgedit-gtksourceview adwaita-icon-theme gvfs itstool
+# depends	: gsettings-desktop-schemas vala
+
+name=gedit
+version=48.1
+release=1
+source="https://download.gnome.org/sources/$name/${version%.*}/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk_doc=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

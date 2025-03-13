@@ -1,0 +1,23 @@
+# description	: Colloid GTK Theme
+# depends	: sassc gtk-engine-murrine
+
+name=colloid-gtk-themes
+version=2024-11-16
+release=1
+source="$name-$version.tar.gz::https://github.com/vinceliuice/Colloid-gtk-theme/archive/refs/tags/$version.tar.gz"
+
+build() {
+    sed -i 's/clean_theme && install_theme/install_theme/g' install.sh
+}
+
+package() {
+    cd $name-$version
+
+    install -d "$PKG"/usr/share/themes
+    ./install.sh -t all -d "$PKG"/usr/share/themes
+    ./install.sh -t all -s compact -d "$PKG"/usr/share/themes
+
+    # Firefox theme
+    install -d "$PKG"/usr/share/doc/colloid-gtk-themes
+    cp -r src/other/firefox "$PKG/usr/share/doc/colloid-gtk-themes/"
+}

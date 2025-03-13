@@ -1,0 +1,13 @@
+diff --git a/configure b/configure
+index 52ff4a0..c310bc2 100755
+--- a/configure
++++ b/configure
+@@ -142,7 +142,7 @@ case "$1" in
+     *)
+       echo "unknown option: $1" | tee -a configure.log
+       echo "$0 --help for help" | tee -a configure.log
+-      leave 1;;
++      shift ;;
+     esac
+ done
+ 

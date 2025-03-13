@@ -1,0 +1,38 @@
+# description	: The GNU Privacy Guard, a GPL OpenPGP implementation
+# depends	: libassuan libgcrypt libgpg-error libksba npth pinentry 
+# depends	: gnutls curl zlib bzip2 sqlite readline libusb
+
+name=gnupg
+version=2.4.7
+release=1
+source="https://gnupg.org/ftp/gcrypt/$name/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	mkdir build &&
+	cd    build &&
+
+	../configure \
+        --prefix=/usr \
+		--localstatedir=/var \
+		--sysconfdir=/etc \
+		--docdir=/usr/share/doc/$name-$version
+	make &&
+
+	makeinfo --html --no-split -I doc -o doc/gnupg_nochunks.html ../doc/gnupg.texi &&
+	makeinfo --plaintext       -I doc -o doc/gnupg.txt           ../doc/gnupg.texi &&
+	make -C doc html
+
+}
+
+package() {
+    cd $name-$version
+
+	make DESTDIR="$PKG" -C build install
+
+	install -v -m755 -d "$PKG"/usr/share/doc/$name-$version/html 
+	install -v -m644    build/doc/gnupg_nochunks.html "$PKG"/usr/share/doc/$name-$version/html/gnupg.html &&
+	install -v -m644    doc/*.texi build/doc/gnupg.txt "$PKG"/usr/share/doc/$name-$version &&
+	install -v -m644    build/doc/gnupg.html/* "$PKG"/usr/share/doc/$name-$version/html
+}

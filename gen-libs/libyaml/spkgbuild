@@ -1,0 +1,23 @@
+# description	: Low-level, streaming YAML interface
+# depends	: glibc
+
+name=libyaml
+version=0.2.5
+release=1
+options="!lto"
+source="https://github.com/yaml/libyaml/releases/download/0.2.5/yaml-$version.tar.gz"
+
+build() {
+    cd ${name#lib}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make
+}
+
+package() {
+    cd ${name#lib}-$version
+
+    make DESTDIR="$PKG" install
+}

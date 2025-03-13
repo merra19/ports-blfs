@@ -1,0 +1,29 @@
+# description	: KeePassXC - KeePass Cross-platform Community Editio
+# depends	: glibc argon2 botan qt5 qrencode zlib zlib-minizip 
+# depends	: hicolor-icon-theme libusb pcsclite
+
+name=keepassxc
+version=2.7.9
+release=1
+options="!lto"
+source="https://github.com/keepassxreboot/keepassxc/releases/download/$version/$name-$version-src.tar.xz"
+
+build() {
+	cd $name-$version
+	
+    cmake -B build -G Ninja \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_INSTALL_LIBDIR=lib \
+        -D KEEPASSXC_BUILD_TYPE=Release \
+        -D WITH_XC_ALL=ON \
+        -D WITH_GUI_TESTS=ON \
+        -D WITH_XC_UPDATECHECK=OFF
+    ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+	DESTDIR="$PKG" ninja -C build install
+}

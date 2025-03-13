@@ -1,0 +1,25 @@
+# description	: display a message or query in a window (X-based /bin/echo)
+# depends	: libxaw libxt xorg-proto
+
+name=xmessage
+version=1.0.7
+release=1
+source="https://www.x.org/pub/individual/app/$name-$version.tar.xz"
+
+ 
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

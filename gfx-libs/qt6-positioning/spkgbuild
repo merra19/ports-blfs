@@ -1,0 +1,16 @@
+# description	: Physical position determination library for the Qt6 framework
+# depends	: qt6-base qt6-declarative cmake qt6-serialport qt6-full
+# optional	: geoclue
+
+name=qt6-positioning
+version=6.8.2
+release=1
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+}

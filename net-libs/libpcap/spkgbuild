@@ -1,0 +1,24 @@
+# description	: A system-independent library for user-level network packet capture
+# depends	: bluez dbus libxcrypt libnl libusb
+
+name=libpcap
+version=1.10.5
+release=1
+options="!lto"
+source="https://www.tcpdump.org/release/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr
+	make
+
+	sed -i '/INSTALL_DATA.*libpcap.a\|RANLIB.*libpcap.a/ s/^/#/' Makefile
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

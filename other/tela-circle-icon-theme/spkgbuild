@@ -1,0 +1,23 @@
+# description	: A flat colorful design icon theme 
+# depends	: glibc
+
+name=tela-circle-icon-theme
+version=2025_02_10
+_pkgver="${pkgver//_/-}"
+release=1
+source="$name-$version.tar.gz::https://github.com/vinceliuice/Tela-circle-icon-theme/archive/$_pkgver.tar.gz
+        do_not_generate_cache_files.patch"
+
+build() {
+    patch -Np1 -i ../do_not_generate_cache_files.patch
+}
+
+package() {
+    cd $name-$version
+
+    install -d "$PKG"/usr/share/themes
+
+    for i standard black dracula nord ;do
+        ./install.sh -d "$PKG"/usr/share/icons $i
+    done
+}

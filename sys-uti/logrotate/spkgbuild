@@ -1,0 +1,28 @@
+# description	: Rotates, compresses, and mails system logs
+# depends	: popt acl fcron
+
+name=logrotate
+version=3.22.0
+release=1
+source="https://github.com/logrotate/logrotate/releases/download/$version/$name-$version.tar.xz
+        logrotate.conf sys.log logrotate.sh"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+
+    install -Dm 644 "$SRC"/logrotate.conf "$PKG"/etc/logrotate.conf 
+    mkdir -p "$PKG"/etc/logrotate.d
+    install -Dm 644 "$SRC"/sys.log "$PKG"/etc/logrotate.d/sys.log
+
+    install -Dm 754 "$SRC"/logrotate.sh "$PKG"/etc/cron.daily/logrotate.sh
+}

@@ -1,0 +1,23 @@
+# description	: Implementations of SIMD instruction sets
+# depends	: meson
+
+name=simde
+version=0.8.2
+release=1
+source="https://github.com/simd-everywhere/simde/archive/v$version/$name-v$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

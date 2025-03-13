@@ -1,0 +1,22 @@
+# description	: GNU macro processor
+# depends	: glibc xz
+
+name=m4
+version=1.4.19
+release=1
+options="!lto"
+source="https://ftp.gnu.org/gnu/m4/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr
+    make  
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

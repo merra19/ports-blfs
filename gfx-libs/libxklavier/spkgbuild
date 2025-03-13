@@ -1,0 +1,23 @@
+# description	: A library for the X Keyboard Extension (high-level API)
+# depends	: iso-codes glib libxml2 xkbcomp libx11 libxi libxkbfile
+# depends	: xkeyboard-config gobject-introspection
+
+name=libxklavier
+version=5.4
+release=1
+source="https://people.freedesktop.org/~svu/$name-$version.tar.bz2"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

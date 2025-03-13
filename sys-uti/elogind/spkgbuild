@@ -1,0 +1,38 @@
+# description	: The systemd project's logind, extracted to a standalone package
+# depends	: pam docbook-xml libxslt python3-lxml python3-jinja gperf 
+# depends	: util-linux libcap udev acl
+
+name=elogind
+version=255.17
+release=1
+source="https://github.com/elogind/elogind/archive/v$version/$name-$version.tar.gz
+        elogind-user"
+
+build() {
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D man=false \
+        -D docdir=/usr/share/doc/$name-$version \
+        -D cgroup-controller=elogind \
+        -D dev-kvm-mode=0660 \
+        -D dbuspolicydir=/etc/dbus-1/system.d \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+	DESTDIR="$PKG" ninja -C build install
+
+    ln -sfv  libelogind.pc "$PKG"/usr/lib/pkgconfig/libsystemd.pc &&
+    ln -sfvn elogind "$PKG"/usr/include/systemd
+
+    install -Dm 644 "$SRC"/elogind-user "$PKG"/etc/pam.d/elogind-user 
+
+    # conflict udev
+    #rm -rf "$PKG"/usr/lib/udev/rules.d
+}

@@ -1,0 +1,26 @@
+# description	: The Xfce Desktop Environment (meta package)
+# depends	: hicolor-icon-theme exo garcon libxfce4ui libxfce4util 
+# depends	: thunar thunar-volman adwaita-icon-theme tumbler xfconf
+# depends	: xfce4-appfinder xfce4-panel xfce4-session xfce4-settings 
+# depends	: xfce4-terminal xfdesktop xfwm4 xfce4-pulseaudio-plugin
+# depends	: ttf-dejavu noto-fonts-cjk noto-fonts wireplumber 
+# depends	: xcursor-themes polkit-gnome xfce4-notifyd
+
+name=xfce
+version=4.20.0
+release=1
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+
+    printf "\e[1;32m %s \e[0m\n" " usermod -a -G netdev <username>"
+
+    mkdir -p "$PKG"/etc/X11/xinit
+
+    echo "exec startxfce4" > "$PKG"/etc/X11/xinit/xinitrc
+}

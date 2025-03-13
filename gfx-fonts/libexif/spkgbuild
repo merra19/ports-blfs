@@ -1,0 +1,24 @@
+# description	: Library for parsing, editing, and saving EXIF data
+# depends	: glibc
+
+name=libexif
+version=0.6.24
+release=1
+options="!lto"
+source="https://github.com/libexif/libexif/releases/download/v$version/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --with-doc-dir=/usr/share/doc/$name-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

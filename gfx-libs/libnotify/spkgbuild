@@ -1,0 +1,28 @@
+# description	: A library for sending desktop notifications
+# depends	: glib gobject-introspection gdk-pixbuf docbook-xml 
+# depends	: libxslt
+
+name=libnotify
+version=0.8.4
+release=1
+source="https://download.gnome.org/sources/libnotify/${version%.*}/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk_doc=false \
+        -D man=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+
+    mv "$PKG"/usr/share/doc/libnotify{,-$version}
+}

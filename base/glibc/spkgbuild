@@ -1,0 +1,140 @@
+# description	: GNU libc C library
+# depends	: tzdata linux-api-headers
+
+name=glibc
+version=2.40
+release=2
+source="https://ftp.gnu.org/gnu/glibc/$name-$version.tar.xz
+        https://www.linuxfromscratch.org/patches/lfs/12.2/glibc-$version-fhs-1.patch
+        reenable_DT_HASH.patch 
+        ld.so.conf"
+nostrip="lib.*/ld-.*\.so$ lib.*/libc-.*\.so$ lib.*/libpthread-.*\.so$ lib.*/libthread_db-.*\.so$"	
+
+build() {
+
+    mkdir -p glibc-build lib32-glibc-build
+
+    [ -d glibc-$version ] && ln -s glibc-$version glibc
+    cd glibc
+
+
+    # which relies on DT_HASH to be present in these libs.
+    # reconsider 2023-01
+    patch -Np1 -i "$SRC"/reenable_DT_HASH.patch
+
+    patch -Np1 -i ../glibc-$version-fhs-1.patch
+
+    # Keep only the UTF-8 locales...
+    supported=./localedata/SUPPORTED
+    sed -nr '/^(#|SUPPORTED-LOCALES=|.*\/UTF-8)/p' $supported > $supported.new
+    mv -v $supported.new $supported
+
+    cd "$SRC"/glibc-build
+
+    echo 'int main(){}' > dummy.c
+    
+    if ( gcc -march=$MMARCH -dM -E  dummy.c   |  grep "__AVX2__" );then
+        export ASFLAGS="-D__AVX__=1 -D__AVX2__=1 -msse2avx -D__FMA__=1 "
+    fi
+
+    export CFLAGS="-O3 -march=$MMARCH -m64  -Wl,-z,max-page-size=0x1000 -fPIC"
+    export ASFLAGS="-D__AVX__=1 -D__AVX2__=1 -msse2avx -D__FMA__=1 "
+    unset LDFLAGS
+    export LDFLAGS="-Wl,-z,max-page-size=0x1000 "
+
+    CC="gcc -m64 -ffile-prefix-map=/tools=/usr" \
+    "$SRC"/glibc/configure \
+        --prefix=/usr \
+        --libdir=/usr/lib \
+        --disable-werror \
+        --enable-bind-now \
+		--enable-fortify-source \
+        --enable-cet \
+        --enable-kernel=4.19 \
+        --enable-stack-protector=strong \
+        --disable-nscd \
+        libc_cv_slibdir=/usr/lib \
+        --build=x86_64-pc-linux-gnu \
+        --host=x86_64-pc-linux-gnu
+    make
+
+    export CFLAGS="-O3 -march=$MMARCH -m32  -Wl,-z,max-page-size=0x1000 -fPIC"
+    unset ASFLAGS
+    unset LDFLAGS
+    export LDFLAGS="-Wl,-z,max-page-size=0x1000 "
+
+
+    cd "$SRC"/lib32-glibc-build
+
+    CC="gcc -ffile-prefix-map=/tools=/usr -m32 -mstackrealign" \
+    CXX="g++ -ffile-prefix-map=/tools=/usr -m32 -mstackrealign" \
+    "$SRC"/glibc/configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --disable-werror \
+        --enable-bind-now \
+		--enable-fortify-source \
+        --enable-kernel=4.19 \
+        --enable-stack-protector=strong \
+        --disable-nscd \
+        libc_cv_slibdir=/usr/lib32 \
+        --build=i686-pc-linux-gnu \
+        --host=i686-pc-linux-gnu  \
+        --target=i686-pc-linux-gnu  \
+        --disable-cet \
+        libc_cv_slibdir=/usr/lib32 \
+        libc_cv_can_use_register_asm_ebp=no
+    make
+
+    unset LDFLAGS
+    unset CFLAGS
+} 
+
+package() {
+    cd "$SRC"/glibc-build
+
+    unset LDFLAGS
+    unset CFLAGS
+
+    make install DESTDIR="$PKG" install_root="$PKG"
+
+    make -s -O localedata/install-locales install DESTDIR="$PKG" install_root="$PKG"
+
+    ## Generate UTF-8 locale-related data
+    make -s -O  localedata/install-locale-files DESTDIR="$PKG" install_root="$PKG"
+    for origpath in "$PKG"/usr/lib/locale/*.utf8*; do
+        rename -v .utf8 .UTF-8 "$origpath"
+    done
+
+    # Reduce footprint of localedata, since `make localedata/install-locale-files`
+    # passes the `--no-hard-links` option to `localedef`.
+    hardlink "$PKG"/usr/lib/locale
+
+    mv "$PKG"/sbin/* "$PKG"/usr/sbin/
+    rm -rf "$PKG"/sbin
+
+    # for oracle db installer (compat link)
+    ln -sf libpthread.a "$PKG"/usr/lib/libpthread_nonshared.a
+
+    install -Dm644 "$SRC"/ld.so.conf "$PKG"/etc/ld.so.conf
+
+    mkdir -pv "$PKG"/etc/ld.so.conf.d
+
+    # Fix hardcoded path to the executable loader in ldd script
+    sed '/RTLDLIST=/s@/usr@@g' -i "$PKG"/usr/bin/ldd
+
+    cd "$SRC"/lib32-glibc-build
+
+    make DESTDIR=$PWD/DESTDIR install_root=$PWD/DESTDIR install
+    mkdir -pv "$PKG"/usr/lib32/ "$PKG"/usr/include/gnu/ "$PKG"/lib
+    cp -a DESTDIR/usr/lib32/* "$PKG"/usr/lib32/
+    install -vm644 DESTDIR/usr/include/gnu/lib-names-32.h \
+                "$PKG"/usr/include/gnu/
+    install -vm644 DESTDIR/usr/include/gnu/stubs-32.h \
+                "$PKG"/usr/include/gnu/
+    ln -svf ../lib32/ld-linux.so.2 "$PKG"/usr/lib/ld-linux.so.2
+
+    mkdir -p "$PKG"/lib64
+    ln -sfv ../usr/lib/ld-linux-x86-64.so.2 "$PKG"/lib64
+    ln -sfv ../usr/lib/ld-linux-x86-64.so.2 "$PKG"/lib64/ld-lsb-x86-64.so.3
+}

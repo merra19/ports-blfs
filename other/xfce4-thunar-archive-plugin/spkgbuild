@@ -1,0 +1,26 @@
+# description	: Archive plug-in for the Thunar filemanager
+# depends	: hicolor-icon-theme glib gtk3 libxfce4util exo thunar
+# depends	: xarchiver
+
+name=xfce4-thunar-archive-plugin
+version=0.5.3
+release=1
+source="https://archive.xfce.org/src/thunar-plugins/thunar-archive-plugin/${version%.*}/thunar-archive-plugin-$version.tar.bz2"
+
+build() {
+	cd thunar-archive-plugin-$version
+
+    NOCONFIGURE=1 ./autogen.sh
+    
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --disable-static
+    make
+}
+
+package() {
+    cd thunar-archive-plugin-$version
+
+    make DESTDIR="$PKG" install
+}

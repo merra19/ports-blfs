@@ -1,0 +1,28 @@
+# description	: Create, destroy, resize, check, copy partitions and file systems
+# depends	: util-linux attr
+
+name=ntfs-3g
+version=2022.10.3
+release=1
+options="!lto"
+source="https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2022.10.3.tgz"
+
+build() {
+	cd $name_ntfsprogs-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --with-fuse=internal \
+        --docdir=/usr/share/doc/ntfs-3g-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+	make DESTDIR="$PKG" install
+
+    ln -sv ../bin/ntfs-3g "$PKG"/usr/sbin/mount.ntfs
+    ln -sv ntfs-3g.8 "$PKG"/usr/share/man/man8/mount.ntfs.8
+}

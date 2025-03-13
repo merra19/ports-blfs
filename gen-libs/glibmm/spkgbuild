@@ -1,0 +1,23 @@
+# description	: C++ interface for glib2
+# depends	: glib libsigc++
+
+name=glibmm
+version=2.66.7
+release=1
+source="https://download.gnome.org/sources/glibmm/${version%.*}/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        bld
+	ninja -C bld
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C bld  install
+}

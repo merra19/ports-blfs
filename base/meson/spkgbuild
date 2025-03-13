@@ -1,0 +1,32 @@
+# description	: Open source build system
+# depends	: ninja python3 python3-setuptools python3-wheel
+
+name=meson
+version=1.7.0
+release=1
+source="https://github.com/mesonbuild/meson/releases/download/$version/$name-$version.tar.gz
+        cross-lib32 native-clang"
+
+build() {
+    cd $name-$version
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+    cd $name-$version
+
+    python3 -m installer -d "$PKG" .dist/*.whl
+
+    install -vDm644 data/shell-completions/bash/meson "$PKG"/usr/share/bash-completion/completions/meson
+    install -vDm644 data/shell-completions/zsh/_meson "$PKG"/usr/share/zsh/site-functions/_meson
+
+    install -dm 0755 "$PKG"/usr/share/vim/vim82/{ftdetect,ftplugin,indent,syntax}
+    install -m0644 ./data/syntax-highlighting/vim/ftdetect/*   "$PKG"/usr/share/vim/vim82/ftdetect/
+    install -m0644 ./data/syntax-highlighting/vim/ftplugin/*   "$PKG"/usr/share/vim/vim82/ftplugin/
+    install -m0644 ./data/syntax-highlighting/vim/indent/*     "$PKG"/usr/share/vim/vim82/indent/
+    install -m0644 ./data/syntax-highlighting/vim/syntax/*     "$PKG"/usr/share/vim/vim82/syntax/
+
+    install -Dm644 ../cross-lib32 "$PKG"/usr/share/meson/cross/lib32
+    install -Dm644 ../native-clang "$PKG"/usr/share/meson/native/clang
+}

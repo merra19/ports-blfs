@@ -1,0 +1,36 @@
+# description	: Network Time Protocol suite/programs
+# depends	: libevent readline libcap openssl perl-io-socket-ssl
+
+name=ntp
+version=4.2.8p18
+release=1
+source="https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-${version%.*}/$name-$version.tar.gz
+        ntp.conf"
+backup="etc/ntp.conf"
+
+build() {
+    cd $name-$version
+
+    # Fix an type issue by executing
+    sed -e "s;pthread_detach(NULL);pthread_detach(0);" \
+        -i configure \
+        sntp/configure
+
+    ./configure \
+        --prefix=/usr \
+        --bindir=/usr/sbin \
+        --sysconfdir=/etc \
+        --enable-linuxcaps \
+        --with-lineeditlibs=readline \
+        --docdir=/usr/share/doc/$name-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+
+    install -v -o ntp -g ntp -d "$PKG"/var/lib/ntp
+    install -Dm 644 "$SRC"/ntp.conf "$PKG"/etc/ntp.conf
+}

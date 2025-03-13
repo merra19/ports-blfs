@@ -1,0 +1,45 @@
+# description	: Monospace bitmap font (for X11 and console)
+# depends	: python3 gzip gawk grub bdftopcf freetype fontconfig
+
+name=terminus-font
+version=4.49.1
+release=1
+source="https://downloads.sourceforge.net/project/$name/$name-${version%.1}/terminus-font-$version.tar.gz
+		fix-75-yes-terminus.patch"
+
+build() {
+	cd $name-$version
+
+	patch -p1 <"$SRC"/fix-75-yes-terminus.patch
+
+	./configure \
+		--prefix=/usr \
+        --x11dir=/usr/share/fonts/misc \
+		--otbdir=/usr/share/fonts/misc \
+		--psfdir=/usr/share/consolefonts
+	make all otb
+
+  # build grub fonts
+  for i in *.bdf; do
+    grub-mkfont -o "$(basename "$i" .bdf).pf2" "$i"
+  done
+
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install install-otb
+
+    install -Dm644 "75-yes-terminus.conf" \
+        "$PKG/usr/share/fontconfig/conf.avail/75-yes-terminus.conf"
+
+    install -d "$PKG/usr/share/fontconfig/conf.default"
+    ln -sr "$PKG/usr/share/fontconfig/conf.avail/75-yes-terminus.conf" \
+        "$PKG/usr/share/fontconfig/conf.default/75-yes-terminus.conf"
+
+    for i in *.pf2; do
+        install -D -m644 $i "$PKG/usr/share/grub/$i"
+    done
+
+}

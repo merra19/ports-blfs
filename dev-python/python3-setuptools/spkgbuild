@@ -1,0 +1,24 @@
+# description	: Collection of extensions to Distutils
+# depends	: python3 python3-packaging
+
+name=python3-setuptools
+version=75.8.1
+release=1
+source="https://files.pythonhosted.org/packages/source/s/${name#*-}/${name#*-}-$version.tar.gz"
+
+build() {
+	cd ${name#*-}-$version
+
+	export SETUPTOOLS_INSTALL_WINDOWS_SPECIFIC_FILES=0
+	python3 setup.py build
+	local pyver="$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')"
+	# Otherwise it complains that build/scripts-3.12 cannot be found
+	# no other changes noted
+	mkdir -p build/scripts-"$pyver"
+}
+
+package() {
+	cd ${name#*-}-$version
+
+	python3 setup.py install --root="$PKG" --skip-build
+}

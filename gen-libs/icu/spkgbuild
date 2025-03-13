@@ -1,0 +1,23 @@
+# description	: International Components for Unicode
+# depends	: glibc
+
+name=icu
+version=76.1
+vrs=$(echo $version | sed 's/\./_/g')
+_version=$(echo $version | sed 's/\./-/g')
+release=1
+source="https://github.com/unicode-org/icu/releases/download/release-${_version}/icu4c-$vrs-src.tgz"
+
+build() {
+    cd $name/source
+
+    CC="gcc" CXX="g++" \
+    ./configure \
+        --prefix=/usr
+}
+
+package() {
+    cd $name/source
+
+    make DESTDIR="$PKG" install
+}

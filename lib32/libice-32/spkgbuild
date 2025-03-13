@@ -1,0 +1,35 @@
+# description	: X.Org Inter-Client Exchange library
+# depends	: xorg-proto xtrans libice
+
+name=libice-32
+_name=libICE
+version=1.1.2
+release=1
+source=" https://www.x.org/pub/individual/lib/libICE-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --libdir=/usr/lib32 \
+        --host=i686-pc-linux-gnu
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PWD"/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+
+    rm -f "$PKG"/usr/lib32/*.la
+}

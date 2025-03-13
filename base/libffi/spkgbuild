@@ -1,0 +1,24 @@
+# description	: a portable, high level programming interface to various calling conventions
+# depends	: glibc
+
+name=libffi
+version=3.4.7
+release=1
+options="!lto"
+source="https://github.com/libffi/libffi/releases/download/v$version/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --with-gcc-arch=$MMARCH
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

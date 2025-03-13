@@ -1,0 +1,25 @@
+# description	: Window manager for the Xfce desktop environment
+# depends	: glib gtk3 libx11 libxext libxi libxrender libxpresent 
+# depends	: libxinerama libxrandr libxres pango libwnck3 libxfce4ui 
+# depends	: libxfce4util xfconf libepoxy startup-notification polkit
+# depends	: gettext pkgconf intltool libxcomposite libxdamage 
+# depends	: libxfixes
+
+name=xfwm4
+version=4.20.0
+release=1
+source="https://archive.xfce.org/src/xfce/xfwm4/${version%.*}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

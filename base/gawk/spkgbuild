@@ -1,0 +1,29 @@
+# description	: GNU awk pattern-matching language
+# depends	: readline bison texinfo
+
+name=gawk
+version=5.3.1
+release=1
+source="https://ftp.gnu.org/gnu/gawk/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    # Ensure some unneeded files are not installed
+    sed -i 's/extras//' Makefile.in
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+
+    ln -sv gawk.1 "$PKG"/usr/share/man/man1/awk.1
+
+    mkdir -pv  "$PKG"/usr/share/doc/$name-$version
+    cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} "$PKG"/usr/share/doc/$name-$version
+}

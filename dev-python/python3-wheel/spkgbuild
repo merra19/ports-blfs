@@ -1,0 +1,22 @@
+# description	: A built-package format for Python
+# depends	: python3 python3-setuptools python3-packaging 
+# depends	: python3-flit-core
+
+name=python3-wheel
+version=0.45.1
+release=1
+source="https://pypi.org/packages/source/w/wheel/wheel-$version.tar.gz"
+
+bsdtar() { tar $@;}
+
+build() {
+    cd ${name#*-}-$version
+
+	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${name#*-}-$version
+
+	python3 -m installer -d "$PKG" .dist/*.whl
+}

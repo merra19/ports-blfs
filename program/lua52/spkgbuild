@@ -1,0 +1,56 @@
+# description	: A powerful light-weight programming language designed for extending applications
+# depends	: readline
+
+name=lua52
+_name=lua
+version=5.2.4
+release=1
+options="!lto !asneeded"
+source="https://www.lua.org/ftp/${_name}-$version.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/12.0/${_name}-$version-shared_library-1.patch
+        lua.pc LICENSE"
+
+build() {
+	cd ${_name}-$version
+
+    cp ../lua.pc ./
+    cp ../LICENSE ./
+
+    patch -Np1 -i ../${_name}-$version-shared_library-1.patch
+
+    sed -i '/#define LUA_ROOT/s:/usr/local/:/usr/:' src/luaconf.h &&
+
+    sed -r -e '/^LUA_(SO|A|T)=/ s/lua/lua5.2/' \
+        -e '/^LUAC_T=/ s/luac/luac5.2/' \
+        -i src/Makefile
+
+    export CFLAGS="-O2 -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x4000 -march=$MMARCH -fno-lto -O3 -fno-lto -fstack-protector-strong -fzero-call-used-regs=used $DEBUGFLAGS"
+    export CXXFLAGS="$CFLAGS"
+    export FFLAGS="-O2 -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wno-error -Wl,-z,max-page-size=0x4000 -march=$MMARCH -O3 -fno-lto -fstack-protector-strong -fzero-call-used-regs=used $DEBUGFLAGS"
+    export FCFLAGS="$FFLAGS"
+
+    make linux MYCFLAGS="${CFLAGS} -fpic" MYLDFLAGS="${CFLAGS}"
+}
+
+package() {
+    cd ${_name}-$version
+
+    make TO_BIN='lua5.2 luac5.2' \
+        TO_LIB="liblua5.2.so liblua5.2.so.5.2 liblua5.2.so.5.2.4" \
+        INSTALL_DATA="cp -d" \
+        INSTALL_TOP="$PKG"/usr \
+        INSTALL_INC="$PKG"/usr/include/lua5.2 \
+        INSTALL_MAN="$PKG"/usr/share/man/man1 \
+        install 
+
+    install -Dm644 lua.pc "$PKG"/usr/lib/pkgconfig/lua52.pc &&
+
+    mkdir -pv "$PKG"/usr/share/doc/lua-$version
+    cp -v doc/*.{html,css,gif,png} "$PKG"/usr/share/doc/lua-$version
+
+    ln -s liblua5.2.so "$PKG"/usr/lib/liblua.so.5.2   &&
+    ln -s liblua5.2.so "$PKG"/usr/lib/liblua.so.5.2.4 &&
+
+    mv "$PKG"/usr/share/man/man1/{lua.1,lua5.2.1} &&
+    mv "$PKG"/usr/share/man/man1/{luac.1,luac5.2.1}
+}

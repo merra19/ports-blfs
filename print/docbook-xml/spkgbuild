@@ -1,0 +1,18 @@
+# description	: Document type definitions for verification of XML data files against the DocBook rule set
+# depends	: libxml2 sgml-common libarchive
+
+name=docbook-xml
+version=4.5
+release=2
+source="https://www.docbook.org/xml/$version/$name-$version.zip"
+
+build() {
+    :
+}
+
+package() {
+    install -v -d -m755 "${PKG}"/usr/share/xml/docbook/xml-dtd-$version
+    install -v -d -m755 "${PKG}"/etc/xml
+    cp -v -af --no-preserve=ownership docbook.cat *.dtd ent/ *.mod \
+        "${PKG}"/usr/share/xml/docbook/xml-dtd-$version
+}

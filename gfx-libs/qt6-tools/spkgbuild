@@ -1,0 +1,15 @@
+# description	: Qt Tools Collection
+# depends	: qt6-base qt6-declarative python3 vulkan-headers qt6-full
+
+name=qt6-tools
+version=6.8.2
+release=1
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+}

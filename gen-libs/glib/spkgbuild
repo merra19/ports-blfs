@@ -1,0 +1,74 @@
+# description	: Binding to the GLIB library for Gtk2Hs
+# depends	: docbook-xml meson libxslt pcre2 python3-packaging 
+# depends	: libffi zlib util-linux attr elfutils
+
+name=glib
+version=2.82.5
+release=1
+name2=gobject-introspection
+version2=1.82.0
+source="https://download.gnome.org/sources/glib/${version%.*}/$name-$version.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/12.2/glib-skip_warnings-1.patch
+        https://download.gnome.org/sources/gobject-introspection/${version2%.*}/${name2}-${version2}.tar.xz"
+
+build() {
+	cd $name-$version
+	
+	patch -Np1 -i ../glib-skip_warnings-1.patch
+
+    unset PATHFAKEROOT
+	if [ -n "$FAKEROOTKEY" ]; then
+        PATHFAKEROOT=/usr/lib/libfakeroot:/usr/lib32/libfakeroot
+	fi
+
+
+    local _prefix="$PWD/boostrap-glib"
+
+    meson setup \
+        --prefix="$_prefix" \
+        --buildtype=plain \
+        -D xattr=true \
+        -D introspection=disabled \
+        -D man-pages=disabled \
+        -D tests=false \
+        -D nls=enabled \
+        build
+    ninja -C build
+    ninja -C build install
+
+    cd "$SRC"/${name2}-${version2}
+
+    meson setup \
+        --prefix="$_prefix" \
+        --buildtype=plain \
+        --pkg-config-path="$_prefix"/lib/pkgconfig \
+        -D build_introspection_data=false \
+        -D doctool=disabled \
+        -D glib:nls=disabled \
+        build
+    ninja -C build
+    ninja -C build install
+
+    cd "$SRC"/$name-$version/build
+
+    PATH="$_prefix/bin:$PATH" LD_LIBRARY_PATH="$_prefix/lib:$PATHFAKEROOT" \
+    meson setup .. \
+        --reconfigure \
+        --pkg-config-path="$_prefix"/lib/pkgconfig \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D xattr=true \
+        -D introspection=enabled \
+        -D man-pages=disabled \
+        -D nls=enabled
+    PATH="$_prefix/bin:$PATH" LD_LIBRARY_PATH="$_prefix/lib:$PATHFAKEROOT" ninja
+}
+
+package() {
+    cd $name-$version/build
+
+    DESTDIR="$PKG" ninja install
+
+    mkdir -p "$PKG"/usr/share/doc/$name-$version &&
+    cp -r ../docs/reference/gio ../docs/reference/glib ../docs/reference/gobject "$PKG"/usr/share/doc/$name-$version
+}

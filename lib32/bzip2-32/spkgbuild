@@ -1,0 +1,35 @@
+# description	: A high-quality data compressor
+# depends	: bzip2
+
+name=bzip2-32
+_name=bzip2
+version=1.0.8
+release=1
+source="https://www.sourceware.org/pub/bzip2/${_name}-$version.tar.gz
+        https://www.linuxfromscratch.org/patches/lfs/12.1/bzip2-1.0.8-install_docs-1.patch"
+
+build() {
+    cd ${_name}-$version
+
+    patch -Np1 -i ../bzip2-1.0.8-install_docs-1.patch
+
+    # Ensures installation of symbolic links are relative
+    sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
+    # Ensure the man pages are installed into the correct location
+    sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
+
+    sed -e "s/^CC=.*/CC=gcc -m32 -mstackrealign/" -i Makefile{,-libbz2_so}
+    make -f Makefile-libbz2_so
+    make libbz2.a
+}
+
+package() {
+    cd ${_name}-$version
+
+    mkdir -p "$PKG"/usr/lib32
+    install -Dm755 libbz2.so.1.0.8 "$PKG"/usr/lib32/libbz2.so.1.0.8
+    ln -sf libbz2.so.1.0.8 "$PKG"/usr/lib32/libbz2.so
+    ln -sf libbz2.so.1.0.8 "$PKG"/usr/lib32/libbz2.so.1
+    ln -sf libbz2.so.1.0.8 "$PKG"/usr/lib32/libbz2.so.1.0
+    install -Dm644 libbz2.a "$PKG"/usr/lib32/libbz2.a
+}

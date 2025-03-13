@@ -1,0 +1,21 @@
+# description	: a realtime MPEG 1.0/2.0/2.5 audio player for layers 1, 2 and 3
+# depends	: alsa-lib libtool
+
+name=mpg123
+version=1.32.10
+release=1
+source="https://downloads.sourceforge.net/$name/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	./configure \
+		--prefix=/usr
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

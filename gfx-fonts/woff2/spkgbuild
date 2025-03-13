@@ -1,0 +1,23 @@
+# description	: Encode/decode WOFF2 font format
+# depends	: brotli cmake
+
+name=woff2
+version=1.0.2
+release=1
+source="https://github.com/google/woff2/archive/v$version/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    cmake -B out \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_SKIP_INSTALL_RPATH=ON
+    make -C out
+}
+
+package() {
+	cd $name-$version
+
+	make DESTDIR="$PKG" -C out install
+}

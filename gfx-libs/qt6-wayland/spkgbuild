@@ -1,0 +1,16 @@
+# description	: Wayland platform plugin for Qt
+# depends	: qt6-base python3 vulkan-headers qt6-declarative qt6-svg
+# depends	: qt6-full
+
+name=qt6-wayland
+version=6.8.2
+release=1
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+}

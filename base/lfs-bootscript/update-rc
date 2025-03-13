@@ -1,0 +1,116 @@
+#!/bin/sh
+
+initd="/etc/init.d"
+etcd="/etc/rc"
+
+
+checklinks() {
+    local i
+	for i in 0 1 2 3 4 5 6 S; do
+		dn="${etcd}${i}.d"
+		if [ ! -d $dn ]; then
+			continue;
+		fi
+		for f in ${dn}/[SK]??${bn}; do
+			if [ -L $f ]; then
+				if [ $remove -eq 0 ]; then
+					return 1
+				fi
+				echo "  $f"
+				rm $f
+			fi
+		done
+	done
+
+	return 0
+}
+
+while [ $# -gt 0 ]; do
+	case $1 in
+		-v)	verbose=1
+			shift
+			continue
+			;;
+		-h | --help)
+			usage
+			exit 0
+			;;
+		-*)
+			usage
+			exit 1
+			;;
+		*)
+			break
+			;;
+	esac
+done
+
+if [ $# -lt 2 ]; then
+	usage
+	exit 1
+fi
+
+bn=$1
+shift
+
+sn=$initd/$bn
+
+if [ -f "$sn" ]; then
+    if ! which readlink 2>/dev/null; then
+		echo "update-rc.d: readlink tool not present, cannot check whether \
+				$sn symlink points to a valid file." >&2
+	fi
+else
+    echo "update-rc.d: $initd/$bn: file does not exist" >&2
+    exit 1
+fi
+
+# letter $number $name
+#RC rc0-1 K ,rc2-4 S ,rc5-6 K ,rcS S 
+
+start=$(cat $initd/$bn | grep '# Default-Start:' | sed -e 's/# Default-Start://' -e 's/^[ \t]*//')
+stop=$(cat $initd/$bn  | grep '# Default-Stop:'  | sed -e 's/# Default-Stop://'  -e 's/^[ \t]*//')
+allrc="$start $stop"
+
+for i in $start;do
+    case $i in
+        2|3|4|S) ;;
+        *)
+			echo "Default-Start dont content value 2-4 or S , error $i" >&2
+			exit 1 
+            ;;   
+    esac
+done
+
+for i in $stop;do
+    case $i in
+        0|1|5|6) ;;
+        *)
+			echo "Default-Stop dont content value 2-4 or S , error $i" >&2
+			exit 1 
+            ;;   
+    esac
+done
+
+
+case $1 in
+	remove)
+		checklinks
+		;;
+	start) $sn start ;;
+    stop) $sn stop ;;
+    enable)
+        for i in $start;do
+            ln -s $sn $etcd/K$i
+        done
+
+    enable | disable)
+
+
+        ;;
+esac
+
+
+ #cat cups | grep '# Provides:' | sed -e 's/# Provides://' -e 's/ //g'
+ #cat cups | grep '# Default-Start:' | sed -e 's/# Default-Start://' -e 's/^[ \t]*//'
+ #cat cups | grep '# Default-Stop:' | sed -e 's/# Default-Stop://' -e 's/^[ \t]*//'

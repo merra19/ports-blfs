@@ -1,0 +1,21 @@
+# description	: Plasma Specific Protocols for Wayland
+# depends	: extra-cmake-modules qt6-base pcre2
+
+name=plasma-wayland-protocols
+version=1.16.0
+release=1
+source="https://download.kde.org/stable/plasma-wayland-protocols/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    cmake -B build \
+         -D CMAKE_INSTALL_PREFIX=/usr
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

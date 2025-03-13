@@ -1,0 +1,23 @@
+# description	: Desktop manager for the Xfce desktop environment
+# depends	: cairo glib gtk3 libwnck3 libx11 exo garcon libxfce4ui 
+# depends	: libxfce4util xfconf gettext pkgconf intltool libnotify 
+# depends	: thunar libxfce4windowing
+
+name=xfdesktop
+version=4.20.1
+release=1
+source="https://archive.xfce.org/src/xfce/xfdesktop/${version%.*}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,42 @@
+# description	: Provides a standard configuration setup for installing PKCS#11
+# depends	: libtasn1 libffi meson
+
+name=p11-kit
+version=0.25.5
+release=1
+options="!lto"
+source="https://github.com/p11-glue/p11-kit/releases/download/$version/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+	sed '20,$ d' -i trust/trust-extract-compat
+
+cat >> trust/trust-extract-compat << "EOF"
+# Copy existing anchor modifications to /etc/ssl/local
+/usr/libexec/make-ca/copy-trust-modifications
+
+# Update trust stores
+/usr/sbin/make-ca -r
+EOF
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+		-D trust_paths=/etc/pki/anchors \
+        -D nls=false \
+        -D gtk_doc=false \
+        p11-build
+    ninja -C p11-build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C p11-build install
+
+	ln -s /usr/libexec/p11-kit/trust-extract-compat  \
+		"$PKG"/usr/bin/update-ca-certificates
+
+	ln -sfv ./pkcs11/p11-kit-trust.so "$PKG"/usr/lib/libnssckbi.so
+}

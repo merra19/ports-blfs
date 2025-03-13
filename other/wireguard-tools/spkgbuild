@@ -1,0 +1,41 @@
+# description	: Required tools for WireGuard, such as wg(8) and wg-quick(8)
+# depends	: iptables
+
+name=wireguard-tools
+version=1.0.20210914
+release=1
+options="!lto"
+source="https://git.zx2c4.com/wireguard-tools/snapshot/$name-$version}.tar.xz
+        wireguard.conf wireguard.init"
+
+build() {
+    cd $name-$version
+
+    make -C src/
+}
+
+package() {
+    cd $name-$version
+
+	make -C src/ \
+		DESTDIR="$PKG" \
+		WITH_BASHCOMPLETION=yes \
+                WITH_WGQUICK=yes \
+                WITH_SYSTEMDUNITS=no \
+                install
+
+	cp -r contrib/ "$PKG"/usr/share/${pkgname}/examples/
+
+    install -Dm 0744 "$SRC"/wireguard.conf "$PKG"/etc/wireguard.conf
+    install -Dm 0755 "$SRC"/wireguard.init "$PKG"/etc/rc.d/init.d/wireguard
+    install -d "$PKG"/etc/modules-load.d
+    echo "wireguard" > "$PKG"/etc/modules-load.d/wireguard.conf
+
+    for i in 0 1 2 3 4 5 6 7 8 9; do
+        install -d "$PKG"/etc/rc.d/rc$i.d/$i
+        case $i in
+            0|1|6) ln -sf ../init.d/wireguard "$PKG"/etc/rc.d/rc$i.d/K30wireguard ;;
+            *) ln -sf ../init.d/wireguard "$PKG"/etc/rc.d/rc$i.d/S70wireguard ;;
+        esac
+    done
+}

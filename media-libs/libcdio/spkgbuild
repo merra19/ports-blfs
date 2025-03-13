@@ -1,0 +1,26 @@
+# description	: A library to encapsulate CD-ROM reading and control
+# depends	: ncurses libcddb
+
+name=libcdio
+version=2.1.0
+release=1
+options="!lto"
+source="https://ftp.gnu.org/gnu/libcdio/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+	
+    CFLAGS=$(echo "$CFLAGS" | sed 's/-Werror=format-security/-Wformat-security/')
+    CXXFLAGS=$(echo "$CXXFLAGS" | sed 's/-Werror=format-security/-Wformat-security/')
+
+	./configure \
+        --prefix=/usr \
+        --disable-static
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

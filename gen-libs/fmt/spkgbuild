@@ -1,0 +1,24 @@
+# description	: Small, safe and fast formatting library
+# depends	: glibc
+
+name=fmt
+version=11.1.4
+release=1
+source="https://github.com/fmtlib/fmt/archive/$version/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+    
+    cmake -B build -G Ninja \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBDIR=/usr/lib \
+        -D BUILD_SHARED_LIBS=ON \
+        -D FMT_TEST=OFF 
+    ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

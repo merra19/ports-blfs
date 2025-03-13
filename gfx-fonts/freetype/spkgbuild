@@ -1,0 +1,29 @@
+# description	: High-quality and portable font engine
+# depends	: libpng which zlib bzip2
+
+name=freetype
+version=2.13.3
+release=1
+source="https://downloads.sourceforge.net/freetype/freetype-$version.tar.xz
+        https://downloads.sourceforge.net/freetype/freetype-doc-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    sed -ri "s:.*(AUX_MODULES.*valid):\1:" modules.cfg &&
+
+    sed -r "s:.*(#.*SUBPIXEL_RENDERING) .*:\1:" \
+        -i include/freetype/config/ftoption.h
+
+    ./configure \
+        --prefix=/usr \
+        --enable-freetype-config \
+        --disable-static
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

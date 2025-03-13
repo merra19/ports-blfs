@@ -1,0 +1,28 @@
+# description	: Password hashing software that won the Password Hashing Competition (PHC)
+# depends	: glibc
+
+name=argon2
+version=20190702
+release=1
+source="https://github.com/P-H-C/phc-winner-argon2/archive/$version/$name-$version.tar.gz"
+
+build() {
+    cd phc-winner-$name-$version
+
+	gcc ${CFLAGS} ${CPPFLAGS} -P - <<-EOF &>/dev/null && OPTTEST=0
+		#if defined(__SSE2__)
+		true
+		#else
+		#error false
+		#endif
+	EOF
+
+    sed -i -e '/LIBRARIES =/s/\$(LIB_ST)//' Makefile
+    make ARGON2_version=$version OPTTARGET='none' LIBRARY_REL='lib'
+}
+
+package() {
+    cd phc-winner-$name-$version
+
+    make ARGON2_version=$version OPTTARGET='none' LIBRARY_REL='lib' DESTDIR="$PKG" install
+}

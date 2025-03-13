@@ -1,0 +1,25 @@
+# description	: C++ interface for GTK+
+# depends	: atkmm2 gtk4 pangomm254 cairomm116 glibmm28 libsigc++3 
+# depends	: libepoxy gdk-pixbuf
+
+name=gtkmm4
+_name=gtkmm
+version=4.16.0 
+release=1
+source="https://download.gnome.org/sources/gtkmm/${version%.*}/${_name}-$version.tar.xz"
+
+build() {
+	cd ${_name}-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        gtkmm4-build
+	ninja -C gtkmm4-build
+}
+
+package() {
+    cd ${_name}-$version
+
+    DESTDIR="$PKG" ninja -C gtkmm4-build install
+}

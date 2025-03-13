@@ -1,0 +1,40 @@
+# description	: A command scheduler with extended capabilities over cron and anacron
+# depends	: pam libxcrypt readline nano vim
+
+name=fcron
+version=3.2.1
+release=1
+options="!makeflags"
+source="http://fcron.free.fr/archives/$name-$version.src.tar.gz
+        run-parts systab.orig"
+backup="var/spool/fcron/systab.orig"
+
+build() {
+    cd $name-$version
+
+    #  fix some locations hard coded in the documentation
+    find doc -type f -exec sed -i 's:/usr/local::g' {} \;
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --without-sendmail \
+        --with-piddir=/run \
+        --with-boot-install=no \
+        --with-systemdsystemunitdir=no \
+        --with-editor=/usr/bin/vim
+    make
+}
+
+package() {
+    cd $name-$version
+
+    install -vdm755 "$PKG"/etc/pam.d
+
+    make DESTDIR="$PKG" install
+    
+    install -Dm755 ../run-parts "$PKG"/usr/bin/run-parts
+    install -vdm754 "$PKG"/etc/cron.{hourly,daily,weekly,monthly}
+    install -Dm644  ../systab.orig "$PKG"/var/spool/fcron/systab.orig
+}

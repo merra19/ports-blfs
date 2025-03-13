@@ -1,0 +1,35 @@
+# description	: Library providing a virtual terminal emulator widget
+# depends	: fribidi glib icu pango pcre2 gtk3 zlib lz4 cairo libxml2
+# depends	: gobject-introspection vala gnutls
+
+name=vte
+version=0.78.4
+release=1
+source="https://gitlab.gnome.org/GNOME/vte/-/archive/$version/$name-$version.tar.gz
+        defaults.patch"
+
+build() {
+    cd $name-$version
+
+    patch -Np1 -i ../defaults.patch
+
+    export CFLAGS="${CFLAGS} -fexceptions "
+    export CXXFLAGS="${CFLAGS} -fexceptions "
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D fribidi=false \
+        -D gtk4=false \
+        -D _systemd=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+	DESTDIR="$PKG" ninja -C build install
+
+    rm -v "$PKG"/etc/profile.d/vte.*
+}

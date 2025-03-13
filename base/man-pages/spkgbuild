@@ -1,0 +1,22 @@
+# description	: Linux man pages
+# depends	: bc
+
+name=man-pages
+version=6.11
+release=1
+source="https://www.kernel.org/pub/linux/docs/man-pages/$name-$version.tar.xz"
+
+build() {
+    :
+}
+
+package() {
+    cd "$SRC"/$name-$version
+
+    # Install man-pages
+    make DESTDIR="$PKG" -R GIT=false prefix=/usr install 
+
+    ## Remove excluded files
+    rm -f "$PKG"*/usr/share/man/man3/crypt.3
+    rm -f "$PKG"*/usr/share/man/man3/crypt_r.3
+}

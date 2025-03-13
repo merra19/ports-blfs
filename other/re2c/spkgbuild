@@ -1,0 +1,21 @@
+# description	: dav1d is an AV1 Decoder :)
+# depends	: glibc python3
+
+name=re2c
+version=4.1
+release=1
+source="$name-$version.tar.gz::https://github.com/skvadrik/re2c/archive/$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    cmake -B build \
+        -DCMAKE_INSTALL_PREFIX=/usr
+    cmake --build build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" cmake --install build
+}

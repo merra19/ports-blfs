@@ -1,0 +1,35 @@
+# description	: Image viewer by KDE
+# depends	: wayland kcompletion kconfig kconfigwidgets 
+# depends	: kcoreaddons kguiaddons ki18n kiconthemes kio 
+# depends	: kitemmodels kitemviews kjobwidgets knotifications 
+# depends	: kparts kservice kwidgetsaddons kxmlgui solid exiv2 
+# depends	: kcolorpicker kimageannotator lcms2 libjpeg-turbo libpng 
+# depends	: phonon libtiff plasma-activities libkdcraw purpose 
+# depends	: kwindowsystem libx11 wayland-protocols qt6-base qt6-svg 
+# depends	: qt6-wayland qt6-imageformats
+# optional	: semantic-desktop!!baloo 
+# optional	: semantic-desktop!!kfilemetadata
+
+name=gwenview
+version=24.12.2
+release=1
+options="!lto"
+source="https://download.kde.org/stable/release-service/$version/src/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

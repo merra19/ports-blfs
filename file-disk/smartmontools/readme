@@ -1,0 +1,15 @@
+Power management and ACPI options --->
+  CPU Frequency scaling --->
+    -*-   CPU Frequency scaling                                       [CPU_FREQ]
+    -*-     'performance' governor                    [CPU_FREQ_GOV_PERFORMANCE]
+    <*/M>   'powersave' governor                        [CPU_FREQ_GOV_POWERSAVE]
+    # Select if CPU is Intel:
+    [ /*]   Intel P state control                             [X86_INTEL_PSTATE]
+    # Select if CPU is AMD:
+    [ /*]   AMD Processor P-State driver                        [X86_AMD_PSTATE]
+
+Device Drivers --->
+  # Some drivers under this submenu provide "platform profile" support
+  # and power-profiles-daemon can take advantage from platform profiles;
+  # select a driver if suitable for your platform:
+  [ /*] X86 Platform Specific Device Drivers --->         [X86_PLATFORM_DEVICES]

@@ -1,0 +1,31 @@
+# description	: A toolkit for creating fast, portable, compelling dynamic UIs
+# depends	: glib gobject-introspection cogl gtk3 libinput json-glib
+# depends	: at-spi2-core libgudev libxkbcommon wayland
+
+name=clutter
+version=1.26.4
+release=1
+source="https://download.gnome.org/sources/$name/${version%.*}/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    NOCONFIGURE=1 ./autogen.sh
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --enable-introspection \
+        --enable-egl-backend \
+        --enable-x11-backend \
+        --enable-evdev-input \
+        --enable-wayland-backend \
+        --enable-wayland-compositor 
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

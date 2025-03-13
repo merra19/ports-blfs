@@ -1,0 +1,32 @@
+# description	: Access control list utilities, libraries, and headers
+# depends	: attr-32 acl
+
+name=acl-32
+_name=acl
+version=2.3.2
+release=1
+source="https://download.savannah.gnu.org/releases/acl/${_name}-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --libdir=/usr/lib32 \
+        --libexecdir=/usr/lib32 \
+        --host=i686-pc-linux-gnu
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR=$PWD/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

@@ -1,0 +1,22 @@
+# description	: A lightweight, speed optimized color management engine
+# depends	: libjpeg-turbo libtiff zlib
+
+name=lcms2
+version=2.17
+release=1
+source="https://downloads.sourceforge.net/lcms/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr \
+        --disable-static
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

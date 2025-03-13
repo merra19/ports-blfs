@@ -1,0 +1,25 @@
+# description	: Internationalization Tool Collection
+# depends	: perl-xml-parser gettext
+
+name=intltool
+version=0.51.0
+release=1
+source="https://launchpad.net/intltool/trunk/$version/+download/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    # First fix a warning that is caused by perl-5.22 and later
+    sed -i 's:\\\${:\\\$\\{:' intltool-update.in
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+    install -v -Dm644 doc/I18N-HOWTO "$PKG"/usr/share/doc/$name-$version/I18N-HOWTO
+}

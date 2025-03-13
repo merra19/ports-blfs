@@ -1,0 +1,27 @@
+# description	: Free lossless audio encoder and decoder
+# depends	: libogg xz gettext pkgconf
+
+name=flac
+version=1.5.0
+release=1
+source="https://downloads.xiph.org/releases/flac/$name-$version.tar.xz"
+
+bsdtar() {
+tar $@;
+}
+
+build() {
+    cd $name-$version
+
+	./configure \
+        --prefix=/usr \
+		--disable-thorough-tests \
+		--docdir=/usr/share/doc/$name-$version
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,29 @@
+# description	: HTTP client/server library for GNOME version 2
+# depends	: glib nghttp2 sqlite libpsl zlib gobject-introspection 
+# depends	: vala glib-networking libxml2
+# optional	: samba brotli
+
+name=libsoup2
+_name=libsoup
+version=2.74.3
+release=1
+source="https://download.gnome.org/sources/libsoup/${version%.*}/libsoup-$version.tar.xz"
+
+build() {
+	cd ${_name}-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D vapi=enabled \
+        -D gssapi="$(scratch isinstalled krb5 && echo "enabled" || echo "disabled")" \
+        -D sysprof=disabled \
+        build
+	ninja -C build
+}
+
+package() {
+    cd ${_name}-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

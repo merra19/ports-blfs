@@ -1,0 +1,33 @@
+# description	: An object-oriented scripting language
+# depends	: gdbm rustc openssl tcl tk libyaml libffi zlib libxcrypt
+
+name=ruby
+version=3.4.2
+release=1
+options="!lto"
+source="https://cache.ruby-lang.org/pub/ruby/${version%.*}/${name}-${version}.tar.xz"
+
+build() {
+	cd $name-$version
+
+    export CFLAGS="-O2 -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=64 -Wformat -Wformat-security  -Wno-error -ftree-vectorize -ftree-slp-vectorize -ftrivial-auto-var-init=zero  -ffunction-sections -fasynchronous-unwind-tables -Wp,-D_REENTRANT -fPIC -march=x86-64-v3"
+    export CXXFLAGS="$CFLAGS"
+
+    CC=clang CXX=clang++ \
+    ./configure \
+        --prefix=/usr \
+        --disable-rpath \
+        --enable-shared \
+        --without-valgrind \
+        --without-baseruby \
+        ac_cv_func_qsort_r=no \
+		--docdir=/usr/share/doc/$name-$version
+	make
+    make capi
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install 
+}

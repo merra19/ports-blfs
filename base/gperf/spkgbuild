@@ -1,0 +1,23 @@
+# description	: A perfect hash function generator
+# depends	: glibc
+
+name=gperf
+version=3.1
+release=1
+options="!makeflags"
+source="https://ftp.gnu.org/gnu/gperf/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --docdir=/usr/share/doc/$name-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,23 @@
+# description	: X keyboard configuration database
+# depends	: perl libxslt gettext xorg-proto
+
+name=xkeyboard-config
+version=2.44
+release=1
+source="https://www.x.org/pub/individual/data/xkeyboard-config/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

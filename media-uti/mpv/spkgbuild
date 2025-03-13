@@ -1,0 +1,38 @@
+# description	: Media player for the command line
+# depends	: libass libplacebo ffmpeg libx11 libxscrnsaver libxext 
+# depends	: libxpresent libxrandr libxv alsa-lib libarchive libdrm 
+# depends	: mesa libglvnd libjpeg-turbo lcms2 pipewire pulseaudio 
+# depends	: wireplumber libva libvdpau vulkan-loader wayland 
+# depends	: wayland-protocols libxkbcommon zlib xorg-proto luajit 
+# depends	: linux-api-headers shaderc
+# optional	: cdda!!libcdio-paranoia cdda!!libcdio sdl!!sdl2 
+# optional	: dvd!!libdvdnav dvd!!libdvdcss dvd!!libdvdread
+
+name=mpv
+version=0.39.0
+release=1
+options="!lto"
+source="https://github.com/mpv-player/mpv/archive/refs/tags/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    # Add a fix to build with FFMpeg > 7.0 
+    sed -i 's/AV_OPT_TYPE_CHANNEL_LAYOUT/AV_OPT_TYPE_CHLAYOUT/' filters/f_lavfi.c
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D x11=enabled \
+        -D sdl2="$(scratch isinstalled sdl2 && echo "enabled" || echo "disabled")" \
+        -D dvdnav="$(scratch isinstalled libdvdnav && echo "enabled" || echo "disabled")" \
+        -D lua=enabled \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

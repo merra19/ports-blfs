@@ -1,0 +1,28 @@
+# description	: Framework to collect user feedback for applications via telemetry and surveys
+# depends	: extra-cmake-modules qt6-base qt6-declarative qt6-svg 
+# depends	: qt6-tools
+
+name=kuserfeedback
+name=kuserfeedback
+version=6.11.0
+release=1
+source="https://download.kde.org/stable/frameworks/${version%.*}/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -D QT_MAJOR_VERSION=6 \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}
+

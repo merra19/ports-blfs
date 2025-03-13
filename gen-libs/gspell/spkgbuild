@@ -1,0 +1,24 @@
+# description	: Spell check library for GTK+ applications"
+# depends	: glib gobject-introspection gtk3 icu meson enchant
+
+name=gspell
+version=1.14.0
+release=1
+source="https://download.gnome.org/sources/gspell/${version%.*}/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk_doc=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+	DESTDIR="$PKG" ninja -C build install
+}

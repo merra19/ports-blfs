@@ -1,0 +1,26 @@
+# description	: X.Org Xi library
+# depends	: libx11 libxext libxfixes xorg-proto
+
+name=libxi
+_name=libXi
+version=1.8.2
+release=1
+source=" https://www.x.org/pub/individual/lib/libXi-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXi-$version
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

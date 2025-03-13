@@ -1,0 +1,27 @@
+# description	: Open-source JPEG 2000 library
+# depends	: cmake ninja lcms2 libpng libtiff zlib
+
+name=openjpeg2
+_name=openjpeg
+version=2.5.3
+release=1
+source="https://github.com/uclouvain/openjpeg/archive/v$version/openjpeg-$version.tar.gz"
+
+build() {
+	cd ${_name}-$version
+
+	cmake -B build \
+        -D CMAKE_BUILD_TYPE=Release \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D BUILD_STATIC_LIBS=OFF
+	make -C build
+}
+
+package() {
+    cd ${_name}-$version
+
+	make DESTDIR="$PKG" -C build install
+
+    mkdir -p "$PKG"/usr/share/man
+    cp -rv doc/man -T "$PKG"/usr/share/man
+}

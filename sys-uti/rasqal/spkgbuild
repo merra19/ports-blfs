@@ -1,0 +1,23 @@
+# description	: Library that handles Resource Description Framework (RDF)
+# depends	: libgcrypt libgmp util-linux libxml2 bison flex raptor
+
+name=rasqal
+version=0.9.33
+release=1
+options="!lto"
+source="https://download.librdf.org/source/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

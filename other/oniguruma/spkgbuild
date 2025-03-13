@@ -1,0 +1,21 @@
+# description	: A regular expressions library
+# depends	: glibc
+
+name=oniguruma
+version=6.9.9
+release=1
+source="https://github.com/kkos/oniguruma/releases/download/v$version/onig-$version.tar.gz"
+
+build() {
+	cd onig-$version
+
+	./configure \
+        --prefix=/usr
+	make
+}
+
+package() {
+    cd onig-$version
+
+    make DESTDIR="$PKG" install
+}

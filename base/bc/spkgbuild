@@ -1,0 +1,20 @@
+# description	: Implementation of POSIX bc with GNU extensions
+# depends	: readline ncurses
+
+name=bc
+version=7.0.3
+release=1
+source="https://github.com/gavinhoward/bc/releases/download/$version/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    ./configure --prefix=/usr -pGNU -l -G -O3 -r
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,26 @@
+# description	: X.Org Xxf86vm library
+# depends	: libx11 libxext xorg-proto
+
+name=libxxf86vm
+_name=libXxf86vm
+version=1.1.6
+release=1
+source="https://www.x.org/pub/individual/lib/libXxf86vm-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXxf86vm-$version
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

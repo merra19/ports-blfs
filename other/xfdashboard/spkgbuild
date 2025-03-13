@@ -1,0 +1,24 @@
+# description	: Maybe a GNOME shell like dashboard for the Xfce desktop environment
+# depends	: glib gtk3 clutter libwnck libx11 libxcomposite garcon
+# depends	: libxdamage libxinerama libxfce4ui libxfce4util xfconf
+
+name=xfdashboard
+version=1.0.0
+release=1
+source="https://archive.xfce.org/src/apps/xfdashboard/${version%.*}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --enable-maintainer-mode
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

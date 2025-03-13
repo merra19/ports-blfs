@@ -1,0 +1,28 @@
+# description	: v4l-utils libraries and optional utilities
+# depends	: glibc qt6-base qt6-5compat alsa-lib mesa json-c perl 
+# depends	: elfutils udev
+
+name=v4l-utils
+version=1.28.1
+release=1
+source="https://www.linuxtv.org/downloads/v4l-utils/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+
+    for prog in v4l2gl v4l2grab; do
+        cp -v build/contrib/test/$prog "$PKG"/usr/bin
+    done
+}

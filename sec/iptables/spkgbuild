@@ -1,0 +1,27 @@
+# description	: Linux kernel (2.4+) firewall, NAT and packet mangling tools
+# depends	: linux-api-headers flex bison
+
+name=iptables
+version=1.8.11
+release=1
+options="!lto"
+source="https://www.netfilter.org/projects/iptables/files/$name-$version.tar.xz
+        rc.iptables"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-nftables \
+        --enable-libipq
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+
+    install -Dm 700 ../rc.iptables "$PKG"/etc/rc.d/rc.iptables
+}

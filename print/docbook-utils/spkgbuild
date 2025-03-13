@@ -1,0 +1,32 @@
+# description	: Shell scripts to manage DocBook documents"
+# depends	: docbook-dsssl docbook-dtd perl-sgmlspm openjade
+
+name=docbook-utils
+version=0.6.14
+release=1
+source="https://sourceware.org/ftp/docbook-tools/new-trials/SOURCES/$name-$version.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/12.2/docbook-utils-0.6.14-grep_fix-1.patch"
+
+build() {
+    cd $name-$version
+
+    patch -Np1 -i ../docbook-utils-0.6.14-grep_fix-1.patch
+
+    sed -i 's:/html::' doc/HTML/Makefile.in    
+
+    ./configure \
+        --prefix=/usr \
+        --mandir=/usr/share/man
+    make 2>&1 | tee make.log
+}
+
+package() {
+    cd $name-$version
+
+    make docdir=/usr/share/doc DESTDIR="$PKG" install
+
+    for doctype in html ps dvi man pdf rtf tex texi txt
+    do
+        ln -svf docbook2$doctype "$PKG"/usr/bin/db2$doctype
+    done
+}

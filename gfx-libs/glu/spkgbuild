@@ -1,0 +1,25 @@
+# description	: The OpenGL Utility Library
+# depends	: libglvnd
+
+name=glu
+version=9.0.3
+release=1
+source="ftp://ftp.freedesktop.org/pub/mesa/glu/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gl_provider=gl \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+	DESTDIR="$PKG" ninja -C build install
+	rm -vf "$PKG"/usr/lib/libGLU.a
+}

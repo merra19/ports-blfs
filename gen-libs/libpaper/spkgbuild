@@ -1,0 +1,25 @@
+# description	: Library for handling paper characteristics
+# depends	: glibc
+
+name=libpaper
+version=2.2.6
+release=1
+source="https://github.com/rrthomas/libpaper/releases/download/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr  \
+		--sysconfdir=/etc \
+		--disable-static \
+		--enable-relocatable \
+		--docdir=/usr/share/doc/$name-$version
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

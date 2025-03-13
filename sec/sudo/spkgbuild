@@ -1,0 +1,34 @@
+# description	: Allows users or groups to run commands as other users
+# depends	: zlib pam openssl libxcrypt
+# optional	: gcrypt!!libgcrypt openldap
+
+name=sudo
+version=1.9.16p2
+release=1
+source="https://www.sudo.ws/dist/sudo-$version.tar.gz
+        00-sudo sudo"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --libexecdir=/usr/lib \
+        --with-secure-path \
+        --with-env-editor \
+        --docdir=/usr/share/doc/$name-$version \
+        --with-passprompt="[sudo] password for %p: " &&
+    make
+}
+
+package() {
+    cd $name-$version
+
+    mkdir -p "$PKG"/etc/pam.d
+
+    make DESTDIR="$PKG" install
+
+    install -Dm 644 ../00-sudo "$PKG"/etc/sudoers.d/00-sudo
+    install -Dm 644 ../sudo "$PKG"/etc/pam.d/sudo
+    install -dm 755 "$PKG"/etc/sudoers.d/
+}

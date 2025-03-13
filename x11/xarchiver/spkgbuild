@@ -1,0 +1,23 @@
+# description	: A GTK+ archive manager that can be used with Thunar
+# depends	: glib gtk3 cpio lzo unrar unzip zip 7zip intltool
+
+name=xarchiver
+version=0.5.4.23
+release=1
+source="https://github.com/ib/xarchiver/archive/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr \
+        --libexecdir=/usr/lib/xfce4 \
+        --docdir=/usr/share/doc/$name-$versio
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

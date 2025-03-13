@@ -1,0 +1,24 @@
+# description	: Typesafe callback system for standard C++
+# depends	: libxslt m4 
+
+name=libsigc++3
+_name=libsigc++
+version=3.6.0
+release=1
+source="https://download.gnome.org/sources/libsigc++/${version%.*}/${_name}-$version.tar.xz"
+
+build() {
+	cd ${_name}-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        bld
+	ninja -C bld
+}
+
+package() {
+    cd ${_name}-$version
+
+	DESTDIR="$PKG" ninja -C bld install
+}

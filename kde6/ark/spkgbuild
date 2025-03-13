@@ -1,0 +1,28 @@
+# description	: File archiver by KDE
+# depends	: libarchive kcompletion kconfig kconfigwidgets 
+# depends	: kcoreaddons kcrash kdbusaddons kfilemetadata ki18n 
+# depends	: kio kjobwidgets kparts kpty kservice kiconthemes
+# depends	: kwidgetsaddons kwindowsystem kxmlgui zlib unzip
+
+name=ark
+version=24.12.2
+release=1
+source="https://download.kde.org/stable/release-service/$version/src/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

@@ -1,0 +1,29 @@
+# description	: Qt-style client and server library wrapper for Wayland libraries
+# depends	: qt6-base qt6-wayland qt6-tools extra-cmake-modules 
+# depends	: libglvnd wayland  plasma-wayland-protocols 
+# depends	: wayland-protocols linux-api-headers
+
+name=kwayland
+version=6.3.2
+release=1
+source="https://download.kde.org/stable/plasma/$version/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_PREFIX_PATH=/usr \
+        -D CMAKE_SKIP_INSTALL_RPATH=ON  \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

@@ -1,0 +1,25 @@
+# description	: GtkSourceView-based text editors and IDE helper library
+# depends	: glib gobject-introspection gtk3 libgedit-gtksourceview
+# depends	: libgedit-gfls icu gsettings-desktop-schemas libhandy
+
+name=libgedit-tepl
+version=6.12.0
+release=1
+source="https://gitlab.gnome.org/World/gedit/libgedit-tepl/-/archive/$version/$name-$version.tar.bz2"
+
+build() {
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk_doc=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

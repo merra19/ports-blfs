@@ -1,0 +1,29 @@
+# description	: The web browser from Microsoft
+# depends	: at-spi2-core expat glib nspr nss liberation-fonts alsa-lib mesa curl cups dbus util-linux
+# depends	: glibc cairo gdk-pixbuf gtk3 libdrm libx11 libxcomposite libxdamage libxext libxfixes libxrandr
+# depends	: libxcb libxkbcommon libxshmfence pango xdg-utils qt6-base libsecret p11-kit
+
+name=microsoft-edge
+version=134.0.3124.51
+release=1
+options="!strip"
+source="${name}-${version}.deb::https://packages.microsoft.com/repos/edge/pool/main/m/$name-stable/$name-stable_$version-1_amd64.deb"
+#https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_120.0.2210.91-1_amd64.deb
+
+build() {
+    :
+}
+
+package() {
+    bsdtar -xf $name-$version.deb
+	bsdtar -xf data.tar.xz -C "$PKG"
+
+	# suid sandbox
+	chmod 4755 "$PKG"/opt/microsoft/msedge/msedge-sandbox
+
+	# copy icons
+	for size in 16 24 32 48 64 128 256; do
+        install -Dm644 "$PKG"/opt/microsoft/msedge/product_logo_$size.png \
+			"$PKG"/usr/share/icons/hicolor/$sizex$size/apps/microsoft-edge.png
+    done
+}

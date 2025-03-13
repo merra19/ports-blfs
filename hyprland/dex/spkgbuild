@@ -1,0 +1,19 @@
+# description	: DesktopEntry eXecution - tool to manage and launch autostart entries
+# depends	: python3 python3-sphinx
+
+name=dex
+version=0.10.1
+release=1
+source="$name-$version.tar.gz::https://github.com/jceb/dex/archive/refs/tags/v$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make install PREFIX=/usr MANPREFIX=/usr/share/man DESTDIR="$PKG"
+}

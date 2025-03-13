@@ -1,0 +1,33 @@
+# description	: Extended attributes tools
+# depends	: attr
+
+name=attr-32
+_name=attr
+version=2.5.2
+release=1
+options="!lto"
+source="https://download.savannah.gnu.org/releases/attr/${_name}-$version.tar.gz"
+
+build() {
+    cd ${_name}-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --sysconfdir=/etc \
+        --libdir=/usr/lib32 \
+        --host=i686-pc-linux-gnu
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR=$PWD/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

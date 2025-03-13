@@ -1,0 +1,84 @@
+# description	: Low Level Virtual Machine
+# depends	: cmake ninja libffi python3 zlib ncurses zstd perl 
+# depends	: binutils
+
+name=llvm
+version=19.1.7
+_version=19.1.7
+release=1
+options="!lto !asneeded"
+source="https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/llvm-$version.src.tar.xz
+        https://anduin.linuxfromscratch.org/BLFS/llvm/llvm-cmake-${_version}.src.tar.xz
+        https://anduin.linuxfromscratch.org/BLFS/llvm/llvm-third-party-${_version}.src.tar.xz
+        https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/clang-$version.src.tar.xz
+        https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/compiler-rt-$version.src.tar.xz
+        prefix.patch llvm-config.h"
+noextract="llvm-cmake-${_version}.src.tar.xz llvm-third-party-${_version}.src.tar.xz clang-$version.src.tar.xz compiler-rt-$version.src.tar.xz"
+
+build() {
+	cd $name-$version.src
+
+    export CFLAGS="-O2 -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x4000 -march=$MMARCH -fno-lto"
+    export CXXFLAGS="$CFLAGS"
+    export FFLAGS="-O2 -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wno-error -Wl,-z,max-page-size=0x4000 -march=$MMARCH -fno-lto"
+    export FCFLAGS="$FFLAGS"
+
+    tar -xf ../llvm-cmake-${_version}.src.tar.xz                 &&
+    tar -xf ../llvm-third-party-${_version}.src.tar.xz           &&
+    sed "/LLVM_COMMON_CMAKE_UTILS/s@../cmake@cmake-${_version}.src@" \
+        -i CMakeLists.txt                                        &&
+    sed "/LLVM_THIRD_PARTY_DIR/s@../third-party@third-party-${_version}.src@" \
+        -i cmake/modules/HandleLLVMOptions.cmake
+
+    tar -xf ../clang-$version.src.tar.xz -C tools &&
+    mv tools/clang-$version.src tools/clang
+
+    tar -xf ../compiler-rt-$version.src.tar.xz -C projects    &&
+    mv projects/compiler-rt-$version.src projects/compiler-rt &&
+    #sed '/^set(LLVM_COMMON_CMAKE_UTILS/d'                   \
+    #    -i projects/compiler-rt/CMakeLists.txt
+
+    # Fix python 
+    grep -rl '#!.*python' | xargs sed -i '1s/python$/python3/'
+
+    sed 's/utility/tool/' -i utils/FileCheck/CMakeLists.txt
+
+    patch -Np1 -i ../prefix.patch
+
+    CC="gcc" CXX="g++" \
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_SKIP_INSTALL_RPATH=ON \
+        -D LLVM_ENABLE_FFI=ON \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D LLVM_BUILD_LLVM_DYLIB=ON \
+        -D LLVM_LINK_LLVM_DYLIB=ON \
+        -D LLVM_ENABLE_RTTI=ON \
+        -D LLVM_TARGETS_TO_BUILD="X86;host;AMDGPU" \
+        -D LLVM_BINUTILS_INCDIR=/usr/include \
+        -D LLVM_INCLUDE_BENCHMARKS=OFF \
+        -D CLANG_DEFAULT_PIE_ON_LINUX=ON \
+        -D CLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang \
+        -Wno-dev -G Ninja
+    ninja -C build
+}
+
+package() {
+    cd $name-$version.src/build
+
+    DESTDIR="$PKG" ninja install 
+
+    cp bin/FileCheck "$PKG"/usr/bin
+    cd ..
+
+    mkdir -pv "$PKG"/etc/clang &&
+    for i in clang clang++; do
+        echo -fstack-protector-strong > "$PKG"/etc/clang/$i.cfg
+    done
+
+	# multilib stub
+	mv "$PKG"/usr/include/llvm/Config/llvm-config.h \
+	   "$PKG"/usr/include/llvm/Config/llvm-config-64.h
+	cp "$SRC"/llvm-config.h \
+	   "$PKG"/usr/include/llvm/Config/llvm-config.h	
+}

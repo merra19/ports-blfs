@@ -1,0 +1,23 @@
+# description	: Asynchronous input/output library that uses the kernels native interface
+# depends	: glibc
+
+name=libaio
+version=0.3.113
+release=1
+options="!lto"
+source="https://pagure.io/libaio/archive/libaio-$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	# disable the installation of the static library
+	sed '/install.*libaio.a/s/^/#/' src/Makefile
+
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

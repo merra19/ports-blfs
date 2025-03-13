@@ -1,0 +1,25 @@
+# description	: The Shared MIME-info Database specification
+# depends	: glib libxml2 xmlto docbook-xml
+
+name=shared-mime-info
+version=2.4
+release=1
+options="!makeflags"
+source="https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D update-mimedb=true \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

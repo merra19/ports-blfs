@@ -1,0 +1,25 @@
+# description	: Tool to display dialogs from the commandline and shell scripts
+# depends	: hicolor-icon-theme xfce4-panel glib meson 
+# depends	: xfce4-dev-tools
+
+name=xfce4-screenshooter
+version=1.11.1
+release=3
+source="http://archive.xfce.org/src/apps/$name/${version%.*}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+	./configure \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--disable-debug 
+	make
+
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,26 @@
+# description	: Configuration system for the Xfce desktop environment
+# depends	: glib fontconfig gtk3 libx11 libxi garcon exo libxfce4ui 
+# depends	: gettext pkgconf intltool xorg-proto libxfce4util xfconf 
+# depends	: xf86-input-libinput libnotify upower libxklavier 
+# depends	: libxcursor libxrandr wayland libcanberra
+# optional	: colord
+
+name=xfce4-settings
+version=4.20.1
+release=1
+source="https://archive.xfce.org/src/xfce/xfce4-settings/${version%.*}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

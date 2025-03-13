@@ -1,0 +1,20 @@
+# Begin /etc/fstab
+
+# file system  mount-point  type     options                dump  fsck
+#                                                                 order
+
+LABEL=LFSRAID                                 /                         btrfs    defaults            0     1
+LABEL=SWAPRAID                                swap                      swap     pri=1               0     0
+proc                                          /proc                     proc     nosuid,noexec,nodev 0     0
+sysfs                                         /sys                      sysfs    nosuid,noexec,nodev 0     0
+devpts                                        /dev/pts                  devpts   gid=5,mode=620      0     0
+tmpfs                                         /run                      tmpfs    defaults            0     0
+devtmpfs                                      /dev                      devtmpfs mode=0755,nosuid    0     0
+tmpfs                                         /dev/shm                  tmpfs    nosuid,nodev        0     0
+cgroup2                                       /sys/fs/cgroup            cgroup2  nosuid,noexec,nodev 0     0
+efivarfs                                      /sys/firmware/efi/efivars efivarfs defaults            0     0
+UUID=5FBE-9A17                                /boot/efi                 vfat     defaults            0     2
+# tmpfs /tmp tmpfs rw,nosuid,nodev 0 0
+
+# End /etc/fstab
+

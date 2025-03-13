@@ -1,0 +1,22 @@
+# description	: Cross-platform application development framework
+# depends	: zlib openssl udev zstd double-conversion glib pcre2 
+# depends	: icu dbus fontconfig freetype harfbuzz libjpeg-turbo 
+# depends	: libpng libdrm libxkbcommon libice libsm libx11 libxcb 
+# depends	: xcb-util-cursor xcb-util-image xcb-util-keysyms 
+# depends	: xcb-util-renderutil xcb-util-wm at-spi2-core mesa mtdev 
+# depends	: libinput libglvnd cups gdk-pixbuf gtk3 pango sqlite 
+# depends	: xorg-proto vulkan-headers qt6-full
+
+name=qt6-base
+version=6.8.2
+release=1
+options="!asneeded"
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+}

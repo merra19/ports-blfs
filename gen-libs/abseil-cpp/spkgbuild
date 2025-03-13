@@ -1,0 +1,24 @@
+# description	: Abseil Common Libraries (C++)
+# depends	: cmake python3
+
+name=abseil-cpp
+version=20250127.0
+release=1
+source="https://github.com/abseil/abseil-cpp/releases/download/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    cmake -B build -G Ninja \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D ABSL_PROPAGATE_CXX_STD=ON \
+        -D BUILD_SHARED_LIBS=ON
+    ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

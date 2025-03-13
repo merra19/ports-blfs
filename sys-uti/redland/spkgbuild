@@ -1,0 +1,27 @@
+# description	: High-level interface for the Resource Description Framework
+# depends	: libtool sqlite unixodbc rasqal raptor
+# optional	: mariadb postgresql
+
+name=redland
+version=1.0.17
+release=1
+options="!lto"
+source="https://download.librdf.org/source/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    scratch isinstalled postgresql ||  OPT_RED='--without-postgresql'
+
+	./configure \
+        --prefix=/usr \
+        --disable-static \
+        $OPT_RED
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,30 @@
+# description	: A fake root environment by means of LD_PRELOAD and SysV IPC (or TCP) trickery
+# depends	: glibc libcap acl sed bash util-linux
+
+name=fakeroot
+version=1.37
+release=1
+options="!lto"
+source="https://ftp.debian.org/debian/pool/main/f/$name/${name}_$version.orig.tar.gz"
+
+build() {
+	cd $name-$version
+	
+    autoreconf -fi
+
+	./configure \
+		--prefix=/usr \
+		--libdir=/usr/lib/libfakeroot \
+		--disable-static \
+		--with-ipc=sysv
+	make
+}
+
+package() {
+    cd $name-$version
+
+	make DESTDIR="$PKG" install
+
+	install -dm0755 "$PKG/usr/lib/ld.so.conf.d/"
+	echo '/usr/lib/libfakeroot' > "$PKG/usr/lib/ld.so.conf.d/fakeroot.conf"
+}

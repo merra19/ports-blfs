@@ -1,0 +1,33 @@
+# description	: A message bus system, a simple way for applications to talk to each other
+# depends	: expat xorg-proto libx11 libxt elogind
+
+name=dbus
+version=1.16.0
+release=1
+options="!lto"
+source="https://dbus.freedesktop.org/releases/dbus/$name-$version.tar.xz
+        malloc_trim.patch memory.patch"
+
+build() {
+    cd $name-$version
+
+    patch -Np1 -i ../malloc_trim.patch
+    patch -Np1 -i ../memory.patch
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --wrap-mode=nofallback \
+        -D systemd=disabled \
+        p11-build 
+    ninja -C p11-build 
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR=${PKG} ninja -C p11-build install
+   
+    chown -v root:messagebus "$PKG"/usr/libexec/dbus-daemon-launch-helper &&
+    chmod -v      4750       "$PKG"/usr/libexec/dbus-daemon-launch-helper
+}

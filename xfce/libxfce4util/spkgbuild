@@ -1,0 +1,21 @@
+# description	: A basic utility library for the Xfce desktop environment
+# depends	: glib gobject-introspection gettext pkgconf vala
+
+name=libxfce4util
+version=4.20.0
+release=1
+source="https://archive.xfce.org/src/xfce/libxfce4util/${version%.*}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

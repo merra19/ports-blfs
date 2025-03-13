@@ -1,0 +1,27 @@
+Kernel Configuration:
+
+Enable the following options in the kernel configuration and recompile the kernel:
+
+
+Note:
+
+There are several other Device Mapper options in the kernel beyond those listed below. In order
+to get reasonable results if running the regression tests, all must be enabled either internally
+or as a module. The tests will all time out if Magic SysRq key is not enabled.
+
+Device Drivers --->
+  [*] Block devices --->                                               [BLK_DEV]
+    <*/M> RAM block device support                                 [BLK_DEV_RAM]
+  [*] Multiple devices driver support (RAID and LVM) --->                   [MD]
+    <*/M> Device mapper support                                     [BLK_DEV_DM]
+    <*/M>   Crypt target support                                      [DM_CRYPT]
+    <*/M>   Snapshot target                                        [DM_SNAPSHOT]
+    <*/M>   Thin provisioning target                      [DM_THIN_PROVISIONING]
+    <*/M>   Cache target (EXPERIMENTAL)                               [DM_CACHE]
+    <*/M>   Mirror target                                            [DM_MIRROR]
+    <*/M>   Zero target                                                [DM_ZERO]
+    <*/M>   I/O delaying target                                       [DM_DELAY]
+
+Kernel hacking --->
+  Generic Kernel Debugging Instruments --->
+    [*] Magic SysRq key                                            [MAGIC_SYSRQ]

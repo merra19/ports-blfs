@@ -1,0 +1,25 @@
+# description	: DOS filesystem tools - provides mkdosfs, mkfs.msdos, mkfs.vfat
+# depends	: glibc
+
+name=dosfstools
+version=4.2
+release=1
+source="https://github.com/dosfstools/dosfstools/releases/download/v$version/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    ./autogen.sh
+    ./configure \
+        --prefix=/usr \
+		--enable-compat-symlinks \
+        --mandir=/usr/share/man \
+        --docdir=/usr/share/doc/$name-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

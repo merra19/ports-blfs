@@ -1,0 +1,16 @@
+# description	: Multimedia (audio, video, radio, camera) library for the Qt6 framework
+# depends	: qt6-base qt6-declarative cmake ffmpeg pulseaudio 
+# depends	: libxrandr qt6-shadertools qt6-full
+
+name=qt6-sensors
+version=6.8.2
+release=1
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+}

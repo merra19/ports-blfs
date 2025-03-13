@@ -1,0 +1,23 @@
+# description	: Audio codec to connect bluetooth HQ audio devices as headphones or loudspeakers
+# depends	: glibc
+
+name=sbc
+version=2.0
+release=1
+source="https://www.kernel.org/pub/linux/bluetooth/sbc-2.0.tar.xz"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --disable-tester
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

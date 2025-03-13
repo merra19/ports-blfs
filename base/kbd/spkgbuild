@@ -1,0 +1,35 @@
+# description	: Keyboard and console utilities
+# depends	: pam gzip
+
+name=kbd
+version=2.7.1
+release=1
+source="https://www.kernel.org/pub/linux/utils/kbd/$name-$version.tar.xz
+        https://www.linuxfromscratch.org/patches/lfs/development/kbd-$version-backspace-1.patch"
+
+build() {
+    cd $name-$version
+
+    patch -Np1 -i ../kbd-$version-backspace-1.patch
+
+    # Remove the redundant resizecons program (it requires the defunct svgalib
+    # to provide the video mode files - for normal use setfont sizes the console
+    # appropriately) together with its manpage
+    sed -i '/RESIZECONS_PROGS=/s/yes/no/' configure
+    sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+
+    mkdir -p "$PKG"/usr/share/doc/$name-$version
+    cp -R -v docs/doc -T "$PKG"/usr/share/doc/$name-$version
+
+    rm -rf "$PKG"/usr/share/doc/$name-$version/utf
+}

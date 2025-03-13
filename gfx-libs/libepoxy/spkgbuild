@@ -1,0 +1,23 @@
+# description	: Library for handling OpenGL function pointer management
+# depends	: mesa meson xorg-proto libx11
+
+name=libepoxy
+version=1.5.10
+release=1
+source="https://download.gnome.org/sources/libepoxy/1.5/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

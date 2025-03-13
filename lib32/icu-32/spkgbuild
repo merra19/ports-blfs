@@ -1,0 +1,32 @@
+# description	: International Components for Unicode
+# depends	: icu
+
+name=icu-32
+_name=icu
+version=76.1
+vrs=$(echo $version | sed 's/\./_/g')
+_version=$(echo $version | sed 's/\./-/g')
+release=1
+source="https://github.com/unicode-org/icu/releases/download/release-${_version}/icu4c-$vrs-src.tgz"
+
+build() {
+    cd ${_name}/source
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    ./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --host=i686-pc-linux-gnu 
+    make
+}
+
+package() {
+    cd ${_name}/source
+
+    make DESTDIR="$PWD"/DESTDIR install
+    rm -fr DESTDIR/usr/{bin,sbin,share,include}
+    cp -Rv DESTDIR/* "$PKG"/
+}

@@ -1,0 +1,24 @@
+# description	: Basepack of plugins for gstreamer
+# depends	: gst-plugins-base meson python3
+
+name=gst-plugins-ugly
+version=1.24.12
+release=1
+source="https://gstreamer.freedesktop.org/src/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gpl=enabled \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

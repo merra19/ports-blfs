@@ -1,0 +1,42 @@
+# description	: KDE Plasma Desktop
+# depends	: attica karchive kauth kbookmarks kcmutils kcodecs 
+# depends	: kcompletion kconfig kconfigwidgets kcoreaddons kio
+# depends	: kcrash kdbusaddons kded kglobalaccel kguiaddons 
+# depends	: ki18n kiconthemes kitemmodels kitemviews kpackage
+# depends	: kjobwidgets knewstuff knotifications knotifyconfig
+# depends	: kparts krunner kservice ksvg kwidgetsaddons kwin
+# depends	: kwindowsystem kxmlgui solid sonnet libksysguard 
+# depends	: libplasma plasma-activities plasma-activities-stats 
+# depends	: plasma-workspace plasma5support libcanberra libx11 
+# depends	: libxi libxcb libxcursor libxkbcommon libxkbfile boost
+# depends	: wayland-protocols xorg-proto xf86-input-evdev util-linux
+# depends	: xf86-input-libinput xf86-input-synaptics qt6-base 
+# depends	: qt6-declarative qt6-5compat qt6-wayland setxkbmap 
+# depends	: xdg-user-dirs kirigami-addons qqc2-desktop-style 
+# depends	: oxygen extra-cmake-modules kdoctools
+
+name=plasma-desktop
+version=6.3.2
+release=1
+source="https://download.kde.org/stable/plasma/$version/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -D BUILD_KCM_TABLET=oFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+
+    rm -rf "$PKG"/usr/lib/systemd
+}

@@ -1,0 +1,58 @@
+#!/bin/sh
+########################################################################
+# Begin fcron
+#
+# Description : Fcron cron init script
+#
+# Author      : Name - name@linuxfromscratch.org
+#
+# Version     : BLFS 7.0
+#
+########################################################################
+
+### BEGIN INIT INFO
+# Provides:            wireguard
+# Required-Start:      $local_fs $network
+# Required-Stop:       $local_fs $network
+# Default-Start:       2 3 4 5
+# Default-Stop:        0 1 6
+# Short-Description:   Starts fcron.
+# Description:         Starts fcron daemon.
+# X-LFS-Provided-By:   BLFS
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+interface="wg0"
+
+case "$1" in
+   start)
+      log_info_msg "Enabling wireguard..."
+      /usr/bin/wg-quick up $interface 
+      evaluate_retval
+      ;;
+
+   stop)
+      log_info_msg "Removing fcron..."
+      /usr/bin/wg-quick down $interface
+      evaluate_retval
+      ;;
+
+   restart)
+      $0 stop
+      sleep 1
+      $0 start
+      ;;
+
+   status)
+       /usr/bin/wg show $interface
+       evaluate_retval
+      ;;
+
+   *)
+      echo "Usage: $0 {start|stop|restart|status}"
+      exit 1
+      ;;
+esac
+
+# End /etc/init.d/fcron

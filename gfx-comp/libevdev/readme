@@ -1,0 +1,8 @@
+ Enable the following options in the kernel
+
+Device Drivers  --->
+  Input device support --->
+    <*> Generic input layer (needed for keyboard, mouse, ...) [CONFIG_INPUT]
+    <*>   Event interface                   [CONFIG_INPUT_EVDEV]
+    [*]   Miscellaneous devices  --->       [CONFIG_INPUT_MISC]
+      <*/m>    User level driver support    [CONFIG_INPUT_UINPUT]

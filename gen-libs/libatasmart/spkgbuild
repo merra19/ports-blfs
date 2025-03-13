@@ -1,0 +1,22 @@
+# description	: A small and lightweight parser library for ATA S.M.A.R.T. hard disks
+# depends	: udev
+
+name=libatasmart
+version=0.19
+release=1
+source="http://0pointer.de/public/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr \
+        --disable-static
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" docdir=/usr/share/doc/$name-$version install
+}

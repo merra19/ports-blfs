@@ -1,0 +1,27 @@
+# description	: zstd fast compression library
+# depends	: glibc zlib-32 zstd
+
+name=zstd-32
+_name=zstd
+version=1.5.7
+release=1
+source="https://github.com/facebook/zstd/releases/download/v$version/${_name}-$version.tar.gz"
+
+build() {
+    cd ${_name}-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    make prefix=/usr
+}
+
+package() {
+    cd ${_name}-$version
+
+    make prefix=/usr DESTDIR=$PWD/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib/* "$PKG"/usr/lib32
+    sed -e "/^libdir/s/lib$/lib32/" -i "$PKG"/usr/lib32/pkgconfig/libzstd.pc
+}

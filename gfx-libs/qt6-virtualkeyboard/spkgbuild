@@ -1,0 +1,15 @@
+# description	: Customizable input framework and virtual keyboard for Qt
+# depends	: qt6-base qt6-declarative cmake ninja qt6-full
+
+name=qt6-virtualkeyboard
+version=6.8.2
+release=1
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+}

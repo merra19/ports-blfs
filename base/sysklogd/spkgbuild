@@ -1,0 +1,27 @@
+# description	: Standard log daemons
+# depends	: acl
+
+name=sysklogd
+version=2.7.0
+release=1
+source="https://github.com/troglobit/sysklogd/releases/download/v$version/$name-$version.tar.gz
+        syslog.conf"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --runstatedir=/run \
+        --without-logger \
+        --docdir=/usr/share/doc/$name-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make  DESTDIR="$PKG" install
+    install -Dm 644 ../syslog.conf  "$PKG"/etc/syslog.conf
+}

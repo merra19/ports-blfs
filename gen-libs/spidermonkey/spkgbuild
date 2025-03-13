@@ -1,0 +1,45 @@
+# description	: SpiderMonkey is Mozilla's JavaScript engine written in C and C++
+# depends	: llvm rustc icu nspr readline zlib which python3-six 
+# depends	: cbindgen
+
+name=spidermonkey
+version=128.8.0
+release=1
+options="!lto"
+source="https://archive.mozilla.org/pub/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz"
+
+build() {
+    cd firefox-$version
+
+    # With  ICU-76.1 or later, adapt the build system to use the correct library
+    sed -i 's/icu-i18n/icu-uc &/' js/moz.configure
+
+    export CFLAGS="-Os -falign-functions=4 -fno-semantic-interposition -fno-signed-zeros -march=$MMARCH -fno-delete-null-pointer-checks -fno-strict-aliasing "
+    export CXXFLAGS="-Os -falign-functions=4 -fno-semantic-interposition -fno-signed-zeros -march=$MMARCH  -fno-delete-null-pointer-checks -fno-strict-aliasing "
+
+    mountpoint -q /dev/shm || mount -t tmpfs devshm /dev/shm
+
+    mkdir obj
+    cd    obj
+
+    export CC=gcc CXX=g++
+
+    ../js/src/configure \
+            --prefix=/usr \
+            --disable-debug-symbols \
+            --disable-jemalloc \
+            --enable-readline \
+            --with-intl-api \
+            --with-system-icu \
+            --with-system-zlib \
+            --enable-optimize="-O3"
+    make
+}
+
+package() {
+    cd firefox-$version
+
+    make DESTDIR="$PKG" -C obj install
+    rm -v "$PKG"/usr/lib/libjs_static.ajs
+    sed -i '/@NSPR_CFLAGS@/d' "$PKG"/usr/bin/js128-config
+}

@@ -1,0 +1,21 @@
+# description	: Standard tool to compile source trees
+# depends	: glibc
+
+name=make
+version=4.4.1
+release=1
+source="https://ftp.gnu.org/gnu/make/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

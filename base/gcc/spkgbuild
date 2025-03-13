@@ -1,0 +1,104 @@
+# description	: The GNU Compiler Collection
+# depends	: glibc zlib libgmp libmpc libmpfr binutils bison flex
+# depends	: libisl
+
+name=gcc
+version=14.2.0
+release=2
+options="!strip"
+source="https://ftp.gnu.org/gnu/gcc/gcc-$version/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    # Change the default directory name for 64-bit libraries to “lib”
+    sed -i -e 's@/lib/ld-linux.so.2@/lib32/ld-linux.so.2@g' gcc/config/i386/linux64.h
+    sed -i -e '/MULTILIB_OSDIRNAMES/d' gcc/config/i386/t-linux64
+    echo "MULTILIB_OSDIRNAMES = m64=../lib m32=../lib32 mx32=../libx32" >> gcc/config/i386/t-linux64
+
+    mkdir -p gcc-build
+    cd  gcc-build
+
+    unset CFLAGS
+    unset CXXFLAGS
+    unset LDFLAGS
+
+    export CFLAGS="-march=$MMARCH -fstack-protector -g1 -O2 -Wl,-z -Wl,now -Wl,-z -Wl,relro -Wl,-z,max-page-size=0x1000 -fPIC -falign-functions=32"
+    export CXXFLAGS="-march=$MMARCH -fstack-protector -g1 -O2 -Wl,-z,max-page-size=0x1000 -fPIC "
+    export CFLAGS_FOR_TARGET="$CFLAGS -march=$MMARCH -fstack-protector -fno-semantic-interposition "
+    export CXXFLAGS_FOR_TARGET="$CXXFLAGS -march=$MMARCH -fstack-protector -fno-semantic-interposition "
+    export FFLAGS_FOR_TARGET="$FFLAGS -march=$MMARCH  -fstack-protector -fno-semantic-interposition "
+
+    # System-dependent
+    MACHINE="$(gcc -dumpmachine)"
+
+    ../configure \
+        --prefix=/usr \
+        LD=ld \
+        --enable-languages=c,c++,lto,fortran \
+        --enable-default-pie \
+        --enable-default-ssp \
+        --enable-multilib \
+        --disable-fixincludes \
+        --with-system-zlib \
+        --enable-multilib \
+        --with-multilib-list=m32,m64 \
+        --build=$MACHINE \
+        --host=$MACHINE \
+        --target=$MACHINE \
+        --with-arch=$MMARCH \
+        --enable-libsanitizer \
+        --enable-threads=posix \
+        --enable-__cxa_atexit \
+        --enable-clocale=gnu \
+        --enable-host-pie \
+        --enable-bootstrap 
+    if [ -n "$FAKEROOTKEY" ]; then
+        make
+	else
+        make profiledbootstrap
+    fi
+}
+
+package() {
+    cd $name-$version/gcc-build
+
+    export CFLAGS="-march=$MMARCH -fstack-protector -g1 -O2 -Wl,-z -Wl,now -Wl,-z -Wl,relro -Wl,-z,max-page-size=0x1000 -fPIC -falign-functions=32"
+    export CXXFLAGS="-march=$MMARCH -fstack-protector -g1 -O2 -Wl,-z,max-page-size=0x1000 -fPIC "
+    export CFLAGS_FOR_TARGET="$CFLAGS -march=$MMARCH -fstack-protector -fno-semantic-interposition "
+    export CXXFLAGS_FOR_TARGET="$CXXFLAGS -march=$MMARCH -fstack-protector -fno-semantic-interposition "
+    export FFLAGS_FOR_TARGET="$FFLAGS -march=$MMARCH  -fstack-protector -fno-semantic-interposition "
+
+    make DESTDIR="$PKG" install 
+
+    mkdir -pv "$PKG"/usr/lib/gcc/x86_64-pc-linux-gnu/$version/include
+    mkdir -pv "$PKG"/usr/lib/gcc/x86_64-pc-linux-gnu/$version/include-fixed
+    chown -v -R root:root \
+        "$PKG"/usr/lib/gcc/x86_64-pc-linux-gnu/$version/include
+    chown -v -R root:root \
+        "$PKG"/usr/lib/gcc/x86_64-pc-linux-gnu/$version/include-fixed
+
+    ln -svr /usr/bin/cpp "$PKG"/usr/lib
+    ln -sv gcc.1 "$PKG"/usr/share/man/man1/cc.1
+
+    chmod 0755 "$PKG"*/usr/lib/libgcc_s.so.1
+    chmod 0755 "$PKG"*/usr/lib32/libgcc_s.so.1
+    
+    chmod a+x "$PKG"*/usr/bin
+    chmod a+x "$PKG"*/usr/lib
+    find "$PKG"*/usr/lib "$PKG"/usr/lib*/gcc -name '*.so*' -print0 | xargs -r0 chmod -f 755
+    find "$PKG"*/usr/lib "$PKG"/usr/lib*/gcc -name '*.o' -print0 | xargs -r0 chmod -f 644
+
+    # Add a compatibility symlink to enable building programs with Link Time Optimization (LTO)
+    mkdir -pv "$PKG"/usr/lib/bfd-plugins
+    ln -sfv ../../libexec/gcc/x86_64-pc-linux-gnu/$version/liblto_plugin.so \
+            "$PKG"/usr/lib/bfd-plugins/
+
+    # This is only for gdb
+    mkdir -p "$PKG"/usr/share/gdb/auto-load/usr/lib
+    mkdir -p "$PKG"/usr/share/gdb/auto-load/usr/lib32
+    mv "$PKG"/usr/lib/libstdc++.so.*-gdb.py "$PKG"/usr/share/gdb/auto-load/usr/lib/.
+    mv "$PKG"/usr/lib32/libstdc++.so.*-gdb.py "$PKG"/usr/share/gdb/auto-load/usr/lib32/.
+
+    ln -sfv gcc "$PKG"/usr/bin/cc
+}

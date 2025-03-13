@@ -1,0 +1,21 @@
+# description	: Just-in-time compiler and drop-in replacement for Lua 5.1
+# depends	: gcc
+
+name=luajit
+version=20250212
+release=1
+options="!lto !asneeded"
+source="https://anduin.linuxfromscratch.org/BLFS/luajit/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    make PREFIX=/usr amalg
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" PREFIX=/usr install
+    rm -v "$PKG"/usr/lib/libluajit-5.1.a
+}

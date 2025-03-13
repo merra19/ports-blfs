@@ -1,0 +1,40 @@
+# description	: Collection of tools, libraries and tests for shader compilation
+# depends	: spirv-headers spirv-tools glslang
+
+name=shaderc
+version=2024.4
+release=1
+source="https://github.com/google/shaderc/archive/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+        # de-vendor libs and disable git versioning
+        sed '/examples/d;/third_party/d' -i CMakeLists.txt
+        sed '/build-version/d' -i glslc/CMakeLists.txt
+
+cat <<- EOF > glslc/src/build-version.inc
+"$version\\n"
+"$(prt-get printf '%v\n' --filter=spirv-tools)"
+"$(prt-get printf '%v\n' --filter=glslang)"
+EOF
+
+	sed -i -e "s|\$<TARGET_FILE:spirv-dis>|spirv-dis|" \
+            glslc/test/CMakeLists.txt
+
+	cmake -B build -G Ninja \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_INSTALL_LIBDIR=lib \
+		-D CMAKE_BUILD_TYPE=Release \
+		-D CMAKE_CXX_FLAGS_RELEASE="${CXXFLAGS}" \
+		-D SHADERC_SKIP_TESTS=ON \
+		-D glslang_SOURCE_DIR:PATH='/usr/include/glslang' \
+		-Wno-dev
+	ninja -C build 
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja install -C build 
+}

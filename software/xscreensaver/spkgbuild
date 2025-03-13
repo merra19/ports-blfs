@@ -1,0 +1,32 @@
+# description	: System service to accurately color manage input and output devices
+# depends	: libxml2 libx11 libxext libxi libxrandr libxxf86vm
+# depends	: libxt elogind gdk-pixbuf gtk3 libjpeg-turbo glu mesa
+# depends	: pam libpng libxft libxinerama libgcrypt
+
+name=xscreensaver
+version=6.09
+release=1
+source="https://www.jwz.org/xscreensaver/$name-$version.tar.gz
+        xscreensaver"
+
+build() {
+    cd $name-$version
+
+    # Change a hardcoded library name, which prevents 
+    # using the settings found by configure
+    sed -i 's/-lsystemd/-lelogind/' driver/Makefile.in
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    mkdir -p "$PKG"/etc/pam.d
+
+	make install_prefix="$PKG" install
+
+    install -Dm 644 "$SRC"/xscreensaver "$PKG"/etc/pam.d/xscreensaver
+}

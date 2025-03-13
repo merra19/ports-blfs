@@ -1,0 +1,31 @@
+# description	: Extra Plasma applets and engines
+# depends	: icu kauth kcmutils kconfig kcoreaddons kdeclarative 
+# depends	: kglobalaccel kholidays ki18n kio knewstuff ksvg
+# depends	: knotifications kpackage krunner kservice kxmlgui
+# depends	: kunitconversion kwidgetsaddons sonnet libplasma 
+# depends	: plasma5support purpose kirigami-addons kirigami 
+# depends	: kitemmodels qt6-base qt6-declarative qt6-5compat 
+# depends	: qt6-quick3d
+
+name=kdeplasma-addons
+version=6.3.2
+release=1
+source="https://download.kde.org/stable/plasma/$version/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

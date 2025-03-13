@@ -1,0 +1,31 @@
+# description	: D-Bus abstraction for enumerating power devices, querying history and statistics
+# depends	: glib libgudev polkit upower bash-completion meson
+# depends	: python3-shtab python3-gobject3 gtk-doc
+
+name=power-profiles-daemon
+version=0.30
+release=1
+source="https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/archive/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk_doc=true \
+        -D tests=false \
+        -D systemdsystemunitdir=/tmp \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+	DESTDIR="$PKG" ninja -C build install
+
+    rm -rf "$PKG"/tmp
+
+	install -vdm755 "$PKG"/var/lib/power-profiles-daemon
+}

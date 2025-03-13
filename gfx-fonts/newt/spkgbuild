@@ -1,0 +1,29 @@
+# description	: Redhat's Newt windowing toolkit development files
+# depends	: popt slang tcl gpm
+
+name=newt
+version=0.52.24
+release=1
+options="!makeflags"
+source="http://fedorahosted.org/releases/n/e/newt/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    sed -e '/install -m 644 $(LIBNEWT)/ s/^/#/' \
+        -e '/$(LIBNEWT):/,/rv/ s/^/#/' \
+        -e 's/$(LIBNEWT)/$(LIBNEWTSH)/g' \
+        -i Makefile.in     
+
+	./configure \
+        --prefix=/usr \
+        --with-python=python3.12 \
+		--with-gpm-support
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

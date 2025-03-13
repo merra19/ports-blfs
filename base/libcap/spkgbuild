@@ -1,0 +1,22 @@
+# description	: POSIX 1003.1e capabilities
+# depends	: diffutils pam
+
+name=libcap
+version=2.73
+release=1
+source="https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    # Prevent static libraries from being installed
+    sed -i '/install -m.*STA/d' libcap/Makefile
+
+    make CC="gcc" prefix=/usr lib=lib
+}
+
+package() {
+    cd $name-$version
+
+     make CC="gcc" DESTDIR="$PKG" prefix=/usr lib=lib install
+}

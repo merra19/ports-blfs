@@ -1,0 +1,15 @@
+# description	: Qt module for keyframe-based timeline construction
+# depends	: qt6-base qt6-declarative cmake qt6-full
+
+name=qt6-quicktimeline
+version=6.8.2
+release=1
+source=""
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr
+}

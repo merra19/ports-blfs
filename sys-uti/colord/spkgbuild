@@ -1,0 +1,40 @@
+# description	: System service to accurately color manage input and output devices
+# depends	: glib lcms2 sqlite dbus polkit gobject-introspection 
+# depends	: docbook-xml vala libgusb libgudev udev docbook-xsl-ns
+# depends	: libxslt
+
+name=colord
+version=1.4.7
+release=1
+source="https://www.freedesktop.org/software/colord/releases/$name-$version.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/svn/colord-1.4.7-upstream_fixes-1.patch"
+
+build() {
+    cd $name-$version
+
+    # Fix a misuse of sqlite API causing a test failure and potential runtime crash
+    patch -Np1 -i ../colord-1.4.7-upstream_fixes-1.patch
+    
+    sed -e '/class="manual"/i<refmiscinfo class="source">colord</refmiscinfo>' \
+        -i man/*.xml 
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D daemon_user=colord \
+        -D vapi=true \
+        -D systemd=false \
+        -D libcolordcompat=true \
+        -D argyllcms_sensor=false \
+        -D bash_completion=false \
+        -D docs=false \
+        -D man=true \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

@@ -1,0 +1,41 @@
+# description	: A powerful light-weight programming language designed for extending applications
+# depends	: readline
+
+name=lua
+version=5.4.7
+release=1
+options="!lto !asneeded"
+source="https://www.lua.org/ftp/$name-$version.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/$name-$version-shared_library-1.patch
+        lua.pc LICENSE"
+
+build() {
+	cd $name-$version
+
+    cp ../lua.pc ./
+    cp ../LICENSE ./
+
+    patch -Np1 -i ../$name-$version-shared_library-1.patch
+
+    export CFLAGS="-O2 -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x4000 -march=$MMARCH -fno-lto -O3 -fno-lto -fstack-protector-strong -fzero-call-used-regs=used $DEBUGFLAGS"
+    export CXXFLAGS="$CFLAGS"
+    export FFLAGS="-O2 -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wno-error -Wl,-z,max-page-size=0x4000 -march=$MMARCH -O3 -fno-lto -fstack-protector-strong -fzero-call-used-regs=used $DEBUGFLAGS"
+    export FCFLAGS="$FFLAGS"
+
+    make CC=gcc linux MYCFLAGS="${CFLAGS} -fpic -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" MYLDFLAGS="${CFLAGS}"
+}
+
+package() {
+    cd $name-$version
+
+    make CC=clan INSTALL_TOP="$PKG"/usr \
+        INSTALL_DATA="cp -d" \
+        INSTALL_MAN="$PKG"/usr/share/man/man1 \
+        TO_LIB="liblua.so liblua.so.${version%.*} liblua.so.$version" \
+        install
+
+    mkdir -pv  "$PKG"/usr/share/doc/$name-$version
+    cp -v doc/*.html doc/*.css doc/*.gif doc/*.png "$PKG"/usr/share/doc/$name-$version
+
+    install -v -m644 -D lua.pc "$PKG"/usr/lib/pkgconfig/lua.pc
+}

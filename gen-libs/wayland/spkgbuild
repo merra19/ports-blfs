@@ -1,0 +1,25 @@
+# description	: Wayland protocol libraries
+# depends	: libffi meson
+
+name=wayland
+version=1.23.0
+release=1
+source="https://gitlab.freedesktop.org/wayland/wayland/-/releases/$version/downloads/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D documentation=false \
+        -D scanner=true \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

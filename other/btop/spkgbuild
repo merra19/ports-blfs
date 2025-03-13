@@ -1,0 +1,19 @@
+# description	: A monitor of resources
+# depends	: glibc gcc
+
+name=btop
+version=1.4.0
+release=1
+source="https://github.com/aristocratos/btop/archive/v$version/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    make all
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" PREFIX=/usr install
+}

@@ -1,0 +1,35 @@
+# description	: Universal document viewer based on KDE Frameworks
+# depends	: libkexiv2 karchive kbookmarks kcolorscheme kcrash
+# depends	: kcompletion kconfig kconfigwidgets kcoreaddons 
+# depends	: ki18n kio kitemviews kparts kpty ktextwidgets 
+# depends	: kwidgetsaddons kwindowsystem kxmlgui threadweaver 
+# depends	: plasma-activities freetype libjpeg-turbo zlib kwallet 
+# depends	: poppler phonon purpose qt6-base qt6-declarative 
+# depends	: qt6-speech qt6-svg libtiff
+
+name=okular
+version=24.12.2
+release=1
+options="!zipman"
+source="https://download.kde.org/stable/release-service/$version/src/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    SKIP_OPTIONAL='Discount;DjVuLibre;EPub;LibSpectre;LibZip'
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -D FORCE_NOT_REQUIRED_DEPENDENCIES="$SKIP_OPTIONAL" \
+        -D CMAKE_DISABLE_FIND_PACKAGE_Qt5TextToSpeech="$(scratch isinstalled qt5-speech && echo "OFF" || echo "ON")" \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

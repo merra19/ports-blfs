@@ -1,0 +1,33 @@
+# description	: PostgreSQL RDBMS
+# depends	: less intltool icu pam perl python3 readline openssl tcl 
+# depends	: libxml2 zlib zstd util-linux
+# optional	: krb5!!openldap
+
+name=postgresql
+version=17.4
+release=1
+source="https://ftp.postgresql.org/pub/source/v$version/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    sed -i '/DEFAULT_PGSOCKET_DIR/s@/tmp@/run/postgresql@' src/include/pg_config_manual.h &&
+
+    ./configure \
+        --prefix=/usr \
+        --enable-nls \
+        --enable-thread-safety \
+        --docdir=/usr/share/doc/$name-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+	make DESTDIR="$PKG" install
+    make DESTDIR="$PKG" install-docs
+
+    install -v -dm700 "$PKG"/srv/pgsql/data &&
+    install -v -dm755 "$PKG"/run/postgresql &&
+    chown -Rv postgres:postgres "$PKG"/srv/pgsql "$PKG"/run/postgresql
+}

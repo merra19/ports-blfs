@@ -1,0 +1,46 @@
+# description	: Gimp ToolKit +2
+# depends	: glib gobject-introspection at-spi2-core fontconfig cairo
+# depends	: gdk-pixbuf pango shared-mime-info cups libX11 libXcursor
+# depends	: libXcomposite libXdamage libXext libXfixes libXi librsvg
+# depends	: libXrandr libXrender libXinerama xorg-proto libxslt
+# depends	: adwaita-icon-theme gnome-themes-extra gtk-doc
+# depends	: hicolor-icon-theme
+
+name=gtk2
+version=2.24.33
+release=1
+source="https://download.gnome.org/sources/gtk+/${version%.*}/gtk+-$version.tar.xz"
+
+build() {    
+    cd gtk+-$version
+
+	# fix build with GCC 14
+	export CFLAGS="$CFLAGS -Wno-incompatible-pointer-types -Wno-implicit-int"
+
+	rm -v gdk/gdkmarshalers.{c,h} gtk/gtkmarshal.{c,h} gtk/gtkmarshalers.{c,h} \
+		perf/marshalers.{c,h} gtk/gtkaliasdef.c gtk/gtkalias.h 
+
+    sed -e 's#l \(gtk-.*\).sgml#& -o \1#' \
+        -i docs/{faq,tutorial}/Makefile.in
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --with-xinput=yes 
+    make
+}
+
+package() {
+    cd gtk+-$version
+
+    make DESTDIR="$PKG" install
+
+	cat > $PKG/etc/gtk-2.0/gtkrc << "EOF"
+gtk-icon-theme-name = "Adwaita"
+gtk-theme-name = "Adwaita"
+gtk-font-name = "Cantarell 10"
+EOF
+
+    rm -f $PKG/usr/bin/gtk-update-icon-cache
+
+}

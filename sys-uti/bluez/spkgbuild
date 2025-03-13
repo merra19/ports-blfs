@@ -1,0 +1,49 @@
+# description	: Bluetooth Tools and System Daemons for Linux
+# depends	: dbus glib libical python3-docutils cups alsa-lib 
+# depends	: readline
+
+name=bluez
+version=5.79
+release=1
+options="!lto"
+source="https://www.kernel.org/pub/linux/bluetooth/$name-$version.tar.xz
+        rfcomm.conf uart.conf"
+backup="etc/bluetooth/main.conf"
+
+build() {
+	cd $name-$version
+
+	./configure \
+        --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-library \
+		--enable-manpages \
+        --disable-systemd 
+	make
+}
+
+package() {
+    cd $name-$version
+
+	make DESTDIR="$PKG" install
+
+	install -d "$PKG"/usr/sbin
+	ln -svf ../libexec/bluetooth/bluetoothd "$PKG"/usr/sbin
+
+	install -v -dm755 "$PKG"/etc/bluetooth &&
+	install -v -m644 src/main.conf "$PKG"/etc/bluetooth/main.conf
+
+	install  -Dm644 ../rfcomm.conf "$PKG"/etc/bluetooth/rfcomm.conf
+	install  -Dm644 ../uart.conf "$PKG"/etc/bluetooth/uart.conf
+
+    install -v -dm755 "$PKG"/usr/share/doc/$name-$version
+    install -v -m644 doc/*.txt "$PKG"/usr/share/doc/$name-$version
+
+    # Install a missing D-Bus service 
+    install -d "$PKG"/usr/share/dbus-1/services
+    install -m644 ./obexd/src/org.bluez.obex.service "$PKG"/usr/share/dbus-1/services
+
+    # conflict with bluez-headers
+    rm -rf "$PKG"/usr/include/bluetooth
+}

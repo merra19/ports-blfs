@@ -1,0 +1,35 @@
+# description	: A JavaScript runtime built on Chrome's V8 JavaScript engine
+# depends	: glibc brotli sqlite c-ares nghttp2 zlib icu openssl
+# depends	: coreutils meson
+
+name=nodejs
+version=22.14.0
+release=1
+options="!lto"
+source="https://nodejs.org/dist/v$version/node-v$version.tar.xz"
+
+build() {
+	cd node-v$version
+
+    # shrink the build log size from ~104MiB to ~800KiB.
+    export CXXFLAGS="$CXXFLAGS -Wno-class-memaccess -Wno-comment -Wno-int-in-bool-context"
+
+	./configure \
+        --prefix=/usr \
+        --shared-brotli \
+        --shared-cares \
+        --shared-libuv \
+        --shared-openssl \
+        --shared-nghttp2 \
+        --shared-zlib \
+        --with-intl=system-icu
+	make
+}
+
+package() {
+    cd node-v$version
+
+    make DESTDIR="$PKG" install
+
+    ln -sf node /usr/share/doc/node-$version
+}

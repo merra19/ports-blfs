@@ -1,0 +1,35 @@
+# description	: xdg-desktop-portal backend for hyprland
+# depends	: hyprlang hyprutils hyprwayland-scanner inih sdbus-cpp
+# depends	: util-linux pipewire qt6-base qt6-wayland 
+# depends	: xdg-desktop-portal cmake wayland wayland-protocols
+
+name=xdg-desktop-portal-hyprland
+version=1.3.9
+_protocolver=4d29e48433270a2af06b8bc711ca1fe5109746cd
+release=5
+source="$name-$version.tar.gz::https://github.com/hyprwm/$name/archive/refs/tags/v$version.tar.gz
+        https://github.com/hyprwm/hyprland-protocols/archive/$_protocolver.tar.gz
+        hyprland-portals.conf"
+
+build() {
+	cd $name-$version
+
+	rm -rf hyprland-protocols sdbus-cpp
+	ln -sfT "$SRC/hyprland-protocols-$_protocolver" hyprland-protocols
+
+
+	cmake -B build \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_INSTALL_LIBEXECDIR=/usr/lib \
+		-D CMAKE_BUILD_TYPE=Release
+	cmake --build build
+
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" cmake --install build
+
+    install -Dm0644 -t "$PKG"/usr/share/xdg-desktop-portal/ "$SRC"/hyprland-portals.conf
+}

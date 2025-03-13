@@ -1,0 +1,22 @@
+# description	: The GNU info program and utilities
+# depends	: ncurses perl
+
+name=texinfo
+version=7.2
+release=1
+source="https://ftp.gnu.org/gnu/texinfo/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+    make DESTDIR="$PKG" TEXMF=/usr/share/texmf install-tex
+}

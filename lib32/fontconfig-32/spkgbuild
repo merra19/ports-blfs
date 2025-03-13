@@ -1,0 +1,35 @@
+# description	: A library for configuring and customizing font access
+# depends	: freetype-32 expat-32 gperf json-c-32 fontconfig 
+# depends	: json-c-32
+
+name=fontconfig-32
+_name=fontconfig
+version=2.16.0
+release=1
+source="https://www.freedesktop.org/software/fontconfig/release/${_name}-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    autoreconf -fiv
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --libdir=/usr/lib32 \
+        --localstatedir=/var \
+		--disable-docs \
+        --host=i686-pc-linux-gnu
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PWD"/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

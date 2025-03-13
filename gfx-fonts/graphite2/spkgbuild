@@ -1,0 +1,24 @@
+# description	: Library providing rendering capabilities for complex non-Roman writing systems
+# depends	: cmake ninja freetype ttf-linux-libertine perl
+
+name=graphite2
+version=1.3.14
+release=1
+options="!lto"
+source="https://github.com/silnrsi/graphite/releases/download/$version/$name-$version.tgz"
+
+build() {
+	cd $name-$version
+
+    sed -i '/cmptest/d' tests/CMakeLists.txt
+
+	cmake -B build \
+         -D CMAKE_INSTALL_PREFIX=/usr
+	make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

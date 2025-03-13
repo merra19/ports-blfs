@@ -1,0 +1,64 @@
+# description	: The PHP language runtime engine
+# depends	: sqlite libxml2 pcre2 lmdb aspell aspell-en 
+# depends	: enchant libxslt freetype libexif libjpeg-turbo libpng 
+# depends	: libtiff libwebp gdbm xz libxcrypt argon2 bzip2 curl 
+# depends	: libffi libgmp icu readline openssl libxpm zlib libavif 
+# depends	: acl aspell-fr
+
+name=php
+version=8.4.4
+release=1
+options="!lto"
+source="https://www.php.net/distributions/$name-$version.tar.xz
+        https://pear.php.net/go-pear.phar"
+backup="etc/php-fpm.conf.default etc/php-fpm.d/www.conf.default etc/php.ini"
+
+build() {
+	cd $name-$version
+
+    export LDFLAGS="-Wl,-O1 -Wl,--as-needed -Wl,-z,now,-z,relro,-z,separate-code -Wl,--enable-new-dtags"
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --datadir=/usr/share/php \
+        --mandir=/usr/share/man \
+        --without-pear \
+        --enable-fpm \
+        --with-fpm-user=apache \
+        --with-fpm-group=apache \
+        --with-config-file-path=/etc \
+        --with-zlib \
+        --enable-bcmath \
+        --with-bz2 \
+        --enable-calendar \
+        --enable-dba=shared \
+        --with-gdbm \
+        --with-gmp \
+        --enable-ftp \
+        --with-gettext \
+        --enable-mbstring \
+        --disable-mbregex \
+        --with-readline   
+    make
+
+}
+
+package() {
+    cd $name-$version
+
+    export LDFLAGS="-Wl,-O1 -Wl,--as-needed -Wl,-z,now,-z,relro,-z,separate-code -Wl,--enable-new-dtags"
+
+	make -j1 INSTALL_ROOT="$PKG" DESTDIR="$PKG" install
+
+    install -v -m644 php.ini-production "$PKG"/etc/php.ini &&
+
+    install -v -m755 -d "$PKG"/usr/share/doc/${name}-${version}
+    install -v -m644    CODING_STANDARDS* EXTENSIONS NEWS README* UPGRADING* \
+                        "$PKG"/usr/share/doc/${name}-${version}
+
+    sed -i 's@php/includes"@&\ninclude_path = ".:/usr/lib/php"@' \
+        "$PKG"/etc/php.ini
+}
+

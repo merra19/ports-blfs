@@ -1,0 +1,25 @@
+# description	: High performance source code search tool
+# depends	: meson
+
+name=highway
+version=1.2.0
+release=1
+source="https://github.com/google/highway/archive/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -D BUILD_SHARED_LIBS=ON \
+        -G Ninja 
+    ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+	DESTDIR="$PKG" ninja -C build install
+}

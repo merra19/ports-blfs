@@ -1,0 +1,31 @@
+# description	: a portable, high level programming interface to various calling conventions
+# depends	: libffi
+
+name=libffi-32
+_name=libffi
+version=3.4.7
+release=1
+source="https://github.com/libffi/libffi/releases/download/v$version/${_name}-$version.tar.gz"
+
+build() {
+    cd ${_name}-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    ./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --with-gcc-arch=i686 \
+        --host=i686-pc-linux-gnu
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR=$PWD/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

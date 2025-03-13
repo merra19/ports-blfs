@@ -1,0 +1,25 @@
+# description	: Hyprland utilities library used across the ecosystem
+# depends	: pixman cmake
+
+name=hyprutils
+version=0.5.1
+release=1
+source="$name-$version.tar.gz::https://github.com/hyprwm/$name/archive/refs/tags/v$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	cmake \
+        --no-warn-unused-cli \
+        -D CMAKE_BUILD_TYPE:STRING=Release \
+        -D CMAKE_INSTALL_PREFIX:PATH=/usr -S . \
+        -B ./build
+	cmake --build ./build --config Release --target all
+
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" cmake --install build
+}

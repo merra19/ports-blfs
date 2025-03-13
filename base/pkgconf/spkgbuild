@@ -1,0 +1,36 @@
+# description	: pkg-config compatible replacement with no dependencies other than C99
+# depends	: glibc
+
+name=pkgconf
+version=2.3.0
+release=1
+options="!lto"
+source="https://distfiles.ariadne.space/pkgconf/$name-$version.tar.xz
+        x86_64-pc-linux-gnu.personality i686-pc-linux-gnu.personality"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --docdir=/usr/share/doc/$name-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+    
+    ln -sv pkgconf   "$PKG"/usr/bin/pkg-config
+    ln -sv pkgconf.1 "$PKG"/usr/share/man/man1/pkg-config.1
+
+
+    cd "$SRC"
+    local p
+    for p in {x86_64,i686}-pc-linux-gnu; do
+        install -Dt "$PKG/usr/share/pkgconfig/personality.d" -m644 $p.personality
+        ln -s pkgconf "$PKG/usr/bin/$p-pkg-config"
+    done
+}

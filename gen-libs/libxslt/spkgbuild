@@ -1,0 +1,24 @@
+# description	: XSLT libraries and tools
+# depends	: libxml2 python3
+
+name=libxslt
+version=1.1.42
+release=1
+source="https://download.gnome.org/sources/libxslt/1.1/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        PYTHON=/usr/bin/python3 \
+        --docdir=/usr/share/doc/$name-$version
+    make    
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

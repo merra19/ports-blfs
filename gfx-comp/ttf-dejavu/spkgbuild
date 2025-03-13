@@ -1,0 +1,34 @@
+# description	: DejaVu fonts, bitstream vera with ISO-8859-2 characters
+# depends	: fontconfig xorg-fonts mkfontscale
+
+name=ttf-dejavu
+version=2.37
+release=1
+source="https://downloads.sourceforge.net/project/dejavu/dejavu/$version/dejavu-fonts-ttf-$version.tar.bz2
+        https://downloads.sourceforge.net/project/dejavu/dejavu/$version/dejavu-lgc-fonts-ttf-$version.tar.bz2
+        45-dejavu.conf
+        90-tt-dejavu.conf"
+
+build() {
+    :
+}
+
+package() {
+	mkdir -p "$PKG"/etc/fonts/conf.d
+
+	install -Dm644 \
+		dejavu-fonts-ttf-$version/ttf/*.ttf \
+		-t "$PKG"/usr/share/fonts/dejavu
+
+	install -Dm644 \
+		"$SRC"/dejavu-fonts-ttf-$version/fontconfig/*.conf \
+		"$SRC"/dejavu-lgc-fonts-ttf-$version/fontconfig/*.conf \
+		-t "$PKG"/etc/fonts/conf.avail/
+
+	cd "$PKG"/etc/fonts/conf.d
+	local j
+	for j in "$SRC"/*.conf; do
+		install -Dm644 "$j" -t "$PKG"/etc/fonts/conf.avail/
+		ln -sf ../conf.avail/${j##*/}
+	done
+}

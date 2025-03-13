@@ -1,0 +1,28 @@
+# description	: Google's font family that aims to support all the world's languages
+# depends	: fontconfig noto-fonts-cjk
+
+name=noto-fonts
+version=2024.11.01
+release=1
+options="!lto"
+source="https://github.com/notofonts/notofonts.github.io/archive/refs/tags/noto-monthly-release-$version.tar.gz
+        66-noto-sans.conf 66-noto-serif.conf 66-noto-mono.conf
+        46-noto-sans.conf 46-noto-serif.conf 46-noto-mono.conf"
+
+build() {
+    :
+}
+
+package() {
+    cd notofonts.github.io-noto-monthly-release-$version
+
+    install -Dm644 fonts/*/hinted/ttf/*.tt[fc] -t "$PKG"/usr/share/fonts/noto
+    install -Dm644 fonts/*/hinted/ttf/*-Condensed*.tt[fc] fonts/*/hinted/ttf/*-Semi*.tt[fc] fonts/*/hinted/ttf/*-Extra*.tt[fc] -t "$PKG"/usr/share/fonts/noto
+
+    # Install fontconfig files
+    install -Dm644 ../*.conf -t "$PKG"/usr/share/fontconfig/conf.avail/
+    install -d "$PKG"/usr/share/fontconfig/conf.default
+    ln -rs "$PKG"/usr/share/fontconfig/conf.avail/* "$PKG"/usr/share/fontconfig/conf.default
+
+    install -Dm644 fonts/*/hinted/ttf/*-Condensed*.tt[fc] fonts/*/hinted/ttf/*-Semi*.tt[fc] fonts/*/hinted/ttf/*-Extra*.tt[fc] -t "$PKG"/usr/share/fonts/noto
+}

@@ -1,0 +1,24 @@
+# description	: C++ Multi-format 1D/2D barcode image processing library
+# depends	: glibc cmake
+
+name=zxing-cpp
+version=2.3.0
+release=1
+source="https://github.com/zxing-cpp/zxing-cpp/archive/v$version/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    cmake -B out \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D ZXING_EXAMPLES=OFF \
+        -W no-dev
+    make -C out
+}
+
+package() {
+	cd $name-$version
+
+	make DESTDIR="$PKG" -C out install
+}

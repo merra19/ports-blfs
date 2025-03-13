@@ -1,0 +1,24 @@
+# description	: Aquamarine is a very light linux rendering backend library
+# depends	: hyprutils hyprwayland-scanner libglvnd libdisplay-info
+# depends	: libdrm libinput seatd udev wayland mesa pixman pugixml
+# depends	: seatd wayland-protocols cmake
+
+name=aquamarine
+version=0.7.2
+release=1
+source="$name-$version.tar.gz::https://github.com/hyprwm/$name/archive/refs/tags/v$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	cmake -B build \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=Release
+	cmake --build build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" cmake --install build
+}

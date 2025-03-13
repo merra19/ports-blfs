@@ -1,0 +1,15 @@
+Enable Kernel 
+
+File systems --->
+  [*] Inotify support for userspace                               [INOTIFY_USER]
+  Pseudo filesystems --->
+    [*] Tmpfs virtual memory file system support (former shm fs)         [TMPFS]
+    [*]   Tmpfs POSIX Access Control Lists                     [TMPFS_POSIX_ACL]
+
+ some tests need the userspace cryptographic kernel API, which is enabled with:
+
+-*- Cryptographic API --->                                              [CRYPTO]
+  Crypto core or helper --->
+    <*/M> Userspace cryptographic algorithm configuration          [CRYPTO_USER]
+  Userspace interface --->
+    <*/M> Hash algorithms                                 [CRYPTO_USER_API_HASH]

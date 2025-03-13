@@ -1,0 +1,25 @@
+# description	: GNU regular expression matche
+# depends	: glibc
+
+name=grep
+version=3.11
+release=1
+source="https://ftp.gnu.org/gnu/grep/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    # First, remove a warning about using egrep and fgrep that makes tests
+    # on some packages fail
+    sed -i "s/echo/#echo/" src/egrep.sh
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

@@ -1,0 +1,27 @@
+# description	: Library to create desktop components for Wayland using the Layer Shell protocol
+# depends	: wayland-protocols wayland gtk3 pkgconf xorg-proto vala
+
+name=gtk-layer-shell
+version=0.9.0
+release=1
+source="$name-$version.tar.gz::https://github.com/wmww/$name/archive/refs/tags/v$version.tar.gz"
+
+build() {    
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --wrap-mode=nofallback \
+        -D tests=false \
+        -D docs=false \
+        -D introspection=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

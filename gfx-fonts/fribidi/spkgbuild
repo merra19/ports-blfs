@@ -1,0 +1,23 @@
+# description	: A free implementation of the unicode bidirectional algorithm"
+# depends	: meson
+
+name=fribidi
+version=1.0.16
+release=1
+source="https://github.com/fribidi/fribidi/releases/download/v$version/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

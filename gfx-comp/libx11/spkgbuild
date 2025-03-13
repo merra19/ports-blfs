@@ -1,0 +1,28 @@
+# description	: X.Org X11 library
+# depends	: libxcb xtrans xorg-proto
+
+name=libx11
+_name=libX11
+version=1.8.11
+release=1
+source="https://www.x.org/pub/individual/lib/libX11-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+    
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libX11-$version
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+
+    rm -f "$PKG"/usr/lib/*.la
+}

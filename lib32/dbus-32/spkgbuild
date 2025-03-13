@@ -1,0 +1,40 @@
+# description	: A message bus system, a simple way for applications to talk to each other
+# depends	: expat-32 elogind-32 xorg-proto libx11-32 libxt-32 
+
+name=dbus-32
+_name=dbus
+version=1.16.0
+release=1
+source="https://dbus.freedesktop.org/releases/dbus/${_name}-$version.tar.xz
+        malloc_trim.patch memory.patch"
+
+build() {
+    cd ${_name}-$version
+
+    patch -Np1 -i ../malloc_trim.patch
+    patch -Np1 -i ../memory.patch
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --libdir=/usr/lib32 \
+        --wrap-mode=nofallback \
+        p11-build 
+    ninja -C p11-build 
+}
+
+package() {
+    cd ${_name}-$version
+
+    DESTDIR="$PWD"/DESTDIR ninja -C p11-build install
+
+    rm -fr DESTDIR/{var,etc,usr/{bin,share,lib,include}}
+    cp -Rv DESTDIR/* "$PKG"/
+
+    chown -v root:messagebus "$PKG"/usr/lib32/dbus/dbus-daemon-launch-helper &&
+    chmod -v      4750       "$PKG"/usr/lib32/dbus/dbus-daemon-launch-helper
+}

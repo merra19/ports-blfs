@@ -1,0 +1,24 @@
+# description	: Various utilities dealing with the PCI bus
+# depends	: wget which kmod hwdata
+
+name=pciutils
+version=3.13.0
+release=1
+source="https://mj.ucw.cz/download/linux/pci/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    #  Prevent the installation of the pci.ids file to avoid a conflict with the hwdata
+    sed -r '/INSTALL.*(PCI_IDS|update-pciids)/d' -i Makefile
+
+    make OPT="${CFLAGS}" PREFIX=/usr SHAREDIR=/usr/share/hwdata SHARED=yes
+}
+
+package() {
+    cd $name-$version
+
+    make PREFIX=/usr SHAREDIR=/usr/share/hwdata SHARED=yes DESTDIR="$PKG" install install-lib 
+
+    chmod -v 755 "$PKG"/usr/lib/libpci.so
+}

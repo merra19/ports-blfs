@@ -1,0 +1,23 @@
+# description	: Qualcomm MSM (Mobile Station Modem) Interface (QMI) modem protocol
+# depends	: gobject-introspection glib libgudev libmbim help2man
+
+name=libqmi
+version=1.30.8
+release=1
+source="https://www.freedesktop.org/software/libqmi/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    PYTHON=python3 \
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

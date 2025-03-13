@@ -1,0 +1,44 @@
+# description	: Console display library
+# depends	: glibc
+
+name=ncurses
+version=6.5
+version_pkg="6.5"
+release=1
+source="https://invisible-mirror.net/archives/ncurses/$name-${version_pkg}.tar.gz"
+
+build() {
+    cd $name-${version_pkg}
+
+    ./configure \
+        --prefix=/usr \
+        --mandir=/usr/share/man \
+        --with-shared \
+        --without-debug \
+        --without-normal \
+        --with-cxx-shared \
+        --enable-pc-files \
+        --with-pkg-config-libdir=/usr/lib/pkgconfig
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR=$PWD/dest install
+    mkdir -p "$PKG"/usr/lib
+    install -vm755 dest/usr/lib/libncursesw.so.$version "$PKG"/usr/lib
+    rm -v  dest/usr/lib/libncursesw.so.$version
+    sed -e 's/^#if.*XOPEN.*$/#if 1/' -i dest/usr/include/curses.h
+    cp -av dest/* "$PKG"/
+
+    for lib in ncurses form panel menu ; do
+        ln -sfv lib${lib}w.so "$PKG"/usr/lib/lib${lib}.so
+        ln -sfv ${lib}w.pc    "$PKG"/usr/lib/pkgconfig/${lib}.pc
+    done
+
+    ln -sfv libncursesw.so "$PKG"/usr/lib/libcurses.so
+
+    install -d -m755 "$PKG"/usr/share/doc/$name-$version
+    cp -v -R doc -T "$PKG"/usr/share/doc/$name-$version
+}

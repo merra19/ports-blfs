@@ -1,0 +1,28 @@
+# description	: Monitors S.M.A.R.T. capable devices for imminent failure
+# depends	: glibc kauth kcmutils kconfig kcoreaddons kdbusaddons
+# depends	: ki18n kinfocenter kio kirigami knotifications kservice
+# depends	: qt6-base qt6-declarative smartmontools solid
+# depends	: extra-cmake-modules
+
+name=plasma-disks
+version=6.3.2
+release=1
+source="https://download.kde.org/stable/plasma/$version/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

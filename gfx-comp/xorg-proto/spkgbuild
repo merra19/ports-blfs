@@ -1,0 +1,25 @@
+# description	: X.Org combined protocol headers
+# depends	: meson util-macros
+
+name=xorg-proto
+_name=xorgproto
+version=2024.1
+release=1
+source="https://xorg.freedesktop.org/archive/individual/proto/${_name}-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    meson setup \
+        --prefix=/usr \
+        build
+    ninja -C build
+}
+
+package() {
+    cd ${_name}-$version
+
+    DESTDIR="$PKG" ninja -C build install
+
+    mv -v "$PKG"/usr/share/doc/xorgproto{,-$version}
+}

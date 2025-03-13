@@ -1,0 +1,36 @@
+# description	: Extended crypt library for descrypt, md5crypt, bcrypt, and others
+# depends	: glibc perl libxcrypt
+
+name=libxcrypt-32
+_name=libxcrypt
+version=4.4.38
+release=1
+source="https://github.com/besser82/libxcrypt/releases/download/v$version/${_name}-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    ./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --disable-werror \
+        --enable-hashes=strong,glibc \
+        --enable-obsolete-api=no \
+        --disable-static \
+        --disable-failure-tokens \
+        --host=i686-pc-linux-gnu
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    mkdir -p "$PKG"/usr/lib32
+    cp -av .libs/libcrypt.so* "$PKG"/usr/lib32/ &&
+    make DESTDIR="$PKG" install-pkgconfigDATA &&
+    ln -svf libxcrypt.pc "$PKG"/usr/lib32/pkgconfig/libcrypt.pc
+}

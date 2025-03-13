@@ -1,0 +1,19 @@
+# description	: LinuxFromScratch initramfs
+# depends	: cpio mdadm kmod
+
+name=initramfs
+version=2.5
+release=1
+source="mkinitramfs init.in drak"
+
+build() {
+    :
+}
+
+package() {
+    mkdir -p "$PKG"/usr/sbin/ "$PKG"/usr/share/mkinitramfs 
+    install -Dm 755 mkinitramfs "$PKG"/usr/sbin/mkinitramfs
+    cp init.in "$PKG"/usr/share/mkinitramfs/
+
+    install -Dm 755 "$SRC"/drak "$PKG"/usr/bin/drak
+}

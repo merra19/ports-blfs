@@ -1,0 +1,24 @@
+# description	: A module dedicated to file loading and saving
+# depends	: glib gobject-introspection gtk3
+
+name=libgedit-gfls
+version=0.2.1
+release=1
+source="https://gitlab.gnome.org/World/gedit/libgedit-gfls/-/archive/$version/$name-$version.tar.bz2"
+
+build() {
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk_doc=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

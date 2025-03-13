@@ -1,0 +1,41 @@
+# description	: PC/SC Architecture smartcard middleware library
+# depends	: glibc polkit udev python3 meson
+
+name=pcsclite
+version=2.3.1
+release=1
+source="$name-$version.tar.gz::https://github.com/LudovicRousseau/PCSC/archive/refs/tags/$version.tar.gz
+        pcsclite.init"
+
+build() {
+	cd PCSC-$version
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D libsystemd=false \
+        -D libudev=true \
+        -D polkit=true \
+        -D serial=true \
+        build
+    ninja -C build
+}
+
+package() {
+    cd PCSC-$version
+
+    DESTDIR="$PKG" ninja -C build install
+
+    install -d "$PKG/usr/lib/pcsc/drivers"
+
+    install -Dm 0755 "$SRC"/pcsclite.init "$PKG"/etc/rc.d/init.d/pcsclite
+
+    for i in 0 1 2 3 4 5 6; do
+        #install -d "$PKG"/etc/rc.d/rc$i.d/$i
+        case $i in
+            #0|1|6) ln -sf ../init.d/pcsclite "$PKG"/etc/rc.d/rc$i.d/K30pcsclite ;;
+            #*) ln -sf ../init.d/pcsclite "$PKG"/etc/rc.d/rc$i.d/S70pcsclite ;;
+            *) ;;
+        esac
+    done
+}

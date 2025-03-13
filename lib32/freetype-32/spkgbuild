@@ -1,0 +1,40 @@
+# description	: High-quality and portable font engine
+# depends	: libpng-32 which zlib-32 bzip2-32 freetype
+
+name=freetype-32
+_name=freetype
+version=2.13.3
+release=1
+source="https://downloads.sourceforge.net/freetype/freetype-$version.tar.xz
+        https://downloads.sourceforge.net/freetype/freetype-doc-$version.tar.xz"
+
+build() {
+    cd ${_name}-$version
+
+    sed -ri "s:.*(AUX_MODULES.*valid):\1:" modules.cfg &&
+
+    sed -r "s:.*(#.*SUBPIXEL_RENDERING) .*:\1:" \
+        -i include/freetype/config/ftoption.h
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+    
+    ./configure \
+        --prefix=/usr \
+        --enable-freetype-config \
+        --disable-static \
+        --with-harfbuzz=no \
+        --with-brotli=no \
+        --libdir=/usr/lib32 \
+        --host=i686-pc-linux-gnu
+    make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PWD"/DESTDIR install
+    mkdir -p "$PKG"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+}

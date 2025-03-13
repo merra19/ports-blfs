@@ -1,0 +1,25 @@
+# description	: Notification daemon for the Xfce desktop environment
+# depends	: sqlite glib dbus gtk3 wayland libnotify libxfce4ui
+# depends	: libxfce4util xfce4-panel xfconf libcanberra intltool
+# depends	: gtk-layer-shell libx11
+
+name=xfce4-notifyd
+version=0.9.7
+release=1
+source="https://archive.xfce.org/src/apps/xfce4-notifyd/${version%.*}/$name-$version.tar.bz2"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --disable-systemd 
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

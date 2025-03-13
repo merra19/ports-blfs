@@ -1,0 +1,35 @@
+# description	: Open codec for interactive speech and music transmission over the Internet
+# depends	: glibc
+
+name=opus
+version=1.5.2
+release=1
+options="!lto"
+source=" https://downloads.xiph.org/releases/opus/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    if echo "$CFLAGS" | grep -q "\-Ofast"; then
+
+        ./configure \
+            --prefix=/usr \
+            --disable-static \
+            --enable-intrinsics \
+            --enable-float-approx \
+            --docdir=/usr/share/doc/$name-$version
+    else
+        ./configure \
+            --prefix=/usr \
+            --disable-static \
+            --docdir=/usr/share/doc/$name-$version
+    fi
+
+	make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

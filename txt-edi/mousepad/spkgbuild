@@ -1,0 +1,23 @@
+# description	: GTK+-based editor for the Xfce Desktop Environment
+# depends	: glib gtk3 gtksourceview4 polkit gspell libxfce4ui
+
+name=mousepad
+version=0.6.3
+release=1
+source="https://archive.xfce.org/src/apps/mousepad/${version%.*}/${name}-${version}.tar.bz2"
+
+build() {
+	cd $name-v$version
+
+    ./configure \
+        --prefix=/usr \
+        --enable-gtksourceview4 \
+        --enable-keyfile-settings
+    make
+}
+
+package() {
+    cd $name-v$version
+
+    make DESTDIR="$PKG" install
+}

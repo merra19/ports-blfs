@@ -1,0 +1,49 @@
+# description	: A free, object-oriented toolkit for SGML parsing and entity management
+# depends	: perl bison xmlto sgml-common libnsl
+
+name=opensp
+_name=OpenSP
+version=1.5.2
+release=2
+options="!lto"
+source="https://downloads.sourceforge.net/openjade/OpenSP-$version.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/OpenSP-1.5.2-gcc14-1.patch"
+
+build() {
+    cd ${_name}-$version
+
+    patch -Np1 -i ../OpenSP-1.5.2-gcc14-1.patch 
+
+    sed -i 's/32,/253,/' lib/Syntax.cxx &&
+    sed -i 's/LITLEN          240 /LITLEN          8092/' \
+        unicode/{gensyntax.pl,unicode.syn} &&
+
+    export CXXFLAGS+=" -std=gnu++11"
+
+    autoreconf -fi
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --disable-doc-build \
+        --disable-nls \
+        --enable-default-catalog=/etc/sgml/catalog \
+        --enable-http \
+        --enable-default-search-path=/usr/share/sgml
+    make pkgdatadir=/usr/share/sgml/OpenSP
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" pkgdatadir=/usr/share/sgml/OpenSP docdir=/usr/share/doc/OpenSP-$version install
+
+    ln -v -sf onsgmls   "$PKG"/usr/bin/nsgmls   &&
+    ln -v -sf osgmlnorm "$PKG"/usr/bin/sgmlnorm &&
+    ln -v -sf ospam     "$PKG"/usr/bin/spam     &&
+    ln -v -sf ospcat    "$PKG"/usr/bin/spcat    &&
+    ln -v -sf ospent    "$PKG"/usr/bin/spent    &&
+    ln -v -sf osx       "$PKG"/usr/bin/sx       &&
+    ln -v -sf osx       "$PKG"/usr/bin/sgml2xml &&
+    ln -v -sf libosp.so "$PKG"/usr/lib/libsp.so
+}

@@ -1,0 +1,31 @@
+# description	: A man replacement that utilizes dbm instead of flat files
+# depends	: gdbm libpipeline zlib xz groff libseccomp
+
+name=man-db
+version=2.13.0
+release=1
+source="https://download.savannah.gnu.org/releases/man-db/$name-$version.tar.xz"
+backup="etc/man_db.conf"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --disable-setuid \
+        --enable-cache-owner=bin \
+        --with-browser=/usr/bin/lynx \
+        --with-vgrind=/usr/bin/vgrind \
+        --with-grap=/usr/bin/grap \
+        --with-systemdtmpfilesdir= \
+        --with-systemdsystemunitdir= \
+        --docdir=/usr/share/doc/$name-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

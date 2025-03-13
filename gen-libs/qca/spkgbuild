@@ -1,0 +1,29 @@
+# description	: Qt Cryptographic Architecture (QCA)
+# depends	: p11-kit cmake qt6-base qt6-5compat which gnupg libgcrypt 
+# depends	: botan nss
+
+name=qca
+version=2.3.9
+release=1
+source="https://download.kde.org/stable/qca/$version/$name-$version.tar.xz"
+
+build() {
+    cd $name-$version
+
+    # Fix the location of the CA certificates:
+    #sed -i 's@cert.pem@certs/ca-bundle.crt@' CMakeLists.txt
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D QCA_MAN_INSTALL_DIR:PATH=/usr/share/man \
+        -D QT6=ON \
+        -D WITH_ossl_PLUGIN=OFF
+    make -C build 
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

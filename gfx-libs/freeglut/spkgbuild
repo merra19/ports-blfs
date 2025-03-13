@@ -1,0 +1,25 @@
+# description	: A free OpenGL utility toolkit, the open-sourced alternative to the GLUT library
+# depends	: libxi libx11 libxrandr libxxf86vm mesa glu cmake
+
+name=freeglut
+version=3.6.0
+release=1
+source="https://downloads.sourceforge.net/freeglut/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=Release \
+		-D FREEGLUT_BUILD_DEMOS=OFF \
+		-D FREEGLUT_BUILD_STATIC_LIBS=OFF \
+		-Wno-dev
+	make -C build 
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

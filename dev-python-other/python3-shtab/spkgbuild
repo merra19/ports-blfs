@@ -1,0 +1,19 @@
+# description	: Automagic shell tab completion for Python CLI applications
+# depends	: python3 python3-gpep517 python3-setuptools python3-wheel
+
+name=python3-shtab
+version=1.7.1
+release=1
+source="https://github.com/iterative/shtab/releases/download/v$version/shtab-$version.tar.gz"
+
+build() {
+	cd ${name#*-}-$version
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${name#*-}-$version
+
+	python3 -m installer -d "$PKG" .dist/*.whl
+}

@@ -1,0 +1,24 @@
+# description	: X Window System initializer
+# depends	: libx11 xauth xrdb
+
+name=xinit
+version=1.4.3
+release=1
+source="https://www.x.org/pub/individual/app/xinit-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --with-xinitdir=/etc/X11/app-defaults
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

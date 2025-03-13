@@ -1,0 +1,61 @@
+# description	: Controlling the startup, running, and shutdown of the system
+# depends	: meson acl-32 kbd kmod openssl-32 xz-32 python3-jinja 
+# depends	: gperf zstd-32 libgcrypt-32 libxcrypt-32 libcap-32 udev
+
+name=udev-32
+_name=systemd
+version=257.3
+release=1
+source="https://github.com/systemd/systemd/archive/v$version/systemd-$version.tar.gz"
+
+build() {
+    cd ${_name}-$version
+
+
+    xxxxxxxxxxxxx
+
+    # Remove two unneeded groups, render and sgx, from the default udev rules:
+    sed  -i -e 's/GROUP="render"/GROUP="video"/' \
+            -e 's/GROUP="sgx", //' rules.d/50-udev-default.rules.in
+
+    # Remove one udev rule requiring a full Systemd installation:
+    sed '/systemd-sysctl/s/^/#/' -i rules.d/99-systemd.rules.in
+
+    # Adjust the hardcoded paths to network configuration files for the standalone udev installation
+    sed '/NETWORK_DIRS/s/systemd/udev/' -i src/basic/path-lookup.h
+
+    mkdir build32
+    cd build32
+    
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    LANG=en_US.UTF-8 \
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D mode=release \
+        -D dev-kvm-mode=0660 \
+        -D link-udev-shared=false \
+        -D logind=false \
+        -D vconsole=false \
+        -D acl=enabled \
+        -D kmod=disabled \
+        -D seccomp=disabled \
+        -D libcryptsetup=disabled \
+        -D libcryptsetup-plugins=disabled \
+        ..
+    ninja \
+      $(grep -o -E "^build (src/libudev|src/udev)[^:]*" \
+        build.ninja | awk '{ print $2 }') \
+      $(realpath libudev.so --relative-to .)
+}
+
+package() {
+    cd ${_name}-$version
+
+    mkdir -pv "$PKG"/usr/lib32/pkgconfig &&
+    cp -av libudev.so{,*[0-9]} "$PKG"/usr/lib32/ &&
+    sed -e "s;/usr/lib;&32;g" src/libudev/libudev.pc > "$PKG"/usr/lib32/pkgconfig/libudev.pc
+}

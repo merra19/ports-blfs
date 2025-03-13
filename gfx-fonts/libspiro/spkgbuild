@@ -1,0 +1,22 @@
+# description	: Library that simplifies the drawing of beautiful curves
+# depends	: glibc
+
+name=libspiro
+version=20220722
+release=1
+source="https://github.com/fontforge/libspiro/releases/download/$version/$name-dist-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

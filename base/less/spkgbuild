@@ -1,0 +1,23 @@
+# description	: Excellent text file viewer
+# depends	: ncurses
+
+name=less
+version=668
+release=1
+options="!lto"
+source="https://www.greenwoodsoftware.com/less/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

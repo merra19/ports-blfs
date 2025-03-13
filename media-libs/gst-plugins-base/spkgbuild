@@ -1,0 +1,27 @@
+# description	: Basepack of plugins for gstreamer
+# depends	: alsa-lib gstreamer libgudev libvorbis libogg 
+# depends	: gobject-introspection iso-codes meson mesa graphene
+# depends	: libjpeg-turbo wayland-protocols pango libx11 libxext 
+# depends	: libxv libdrm wayland zlib libpng
+
+name=gst-plugins-base
+version=1.24.12
+release=1
+source="http://gstreamer.freedesktop.org/src/$name/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --wrap-mode=nodownload \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

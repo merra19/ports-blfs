@@ -1,0 +1,33 @@
+# description	: KIO plugins present a filesystem-like view of arbitrary data
+# depends	: qcoro6 libkexiv2 karchive kcmutils kcodecs kconfig 
+# depends	: kconfigwidgets kcoreaddons kdbusaddons kdnssd 
+# depends	: kguiaddons ki18n kio kparts kservice ktextwidgets 
+# depends	: kxmlgui solid syntax-highlighting plasma-activities 
+# depends	: plasma-activities-stats phonon libx11 libxcursor 
+# depends	: extra-cmake-modules gperf kdoctools qt6-5compat 
+# depends	: qt6-base qt6-svg
+# optional	: samba samba!!kdsoap taglib 
+# optional	: samba!!kdsoap-ws-discovery-client
+
+name=kio-extras
+version=24.12.2
+release=1
+source="https://download.kde.org/stable/release-service/$version/src/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -D BUILD_ACTIVITIES="OFF" \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

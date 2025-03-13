@@ -1,0 +1,19 @@
+# description	    : A simple, correct PEP517 package builder
+# depends	: python3-packaging python3-wheel python3-pyproject_hooks 
+# depends	: python3-installer
+
+name=python3-build
+version=1.0.3
+release=1
+source="${name}-${version}.tar.gz::https://pypi.python.org/packages/source/b/build/build-${version}.tar.gz"
+
+build() {
+    :
+}
+
+package() {
+     cd build-${version}
+
+     
+    pip3 install --isolate --root="$PKG" --ignore-installed --no-deps build
+}

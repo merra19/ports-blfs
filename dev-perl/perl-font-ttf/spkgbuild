@@ -1,0 +1,21 @@
+# description	: Module for compiling and altering fonts
+# depends	: perl perl-io-string
+
+name=perl-font-ttf
+_name=Font-TTF
+version=1.06
+release=1
+source="https://cpan.metacpan.org/authors/id/O/OA/OALDERS/Font-TTF-$version.tar.gz"
+
+build() {
+	cd ${_name}-$version
+
+	PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+	make
+}
+
+package() {
+    cd ${_name}-$version
+
+    make DESTDIR="$PKG" install
+}

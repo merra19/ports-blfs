@@ -1,0 +1,38 @@
+# description	: Bi-directional translator between SPIR-V and LLVM IR
+# depends	: llvm32 libxml2-32 spirv-tools-32 spirv-headers 
+# depends	: spirv-llvm-translator
+
+name=spirv-llvm-translator-32
+version=19.1.4
+release=1
+source="https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v$version/SPIRV-LLVM-Translator-$version.tar.gz"
+
+build() {
+    cd SPIRV-LLVM-Translator-$version
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    cmake -B build32 \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_SHARED_LIBS=ON \
+        -D CMAKE_SKIP_INSTALL_RPATH=ON \
+        -D CMAKE_POSITION_INDEPENDENT_CODE=ON \
+        -D LLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=/usr \
+        -D CMAKE_INSTALL_LIBDIR=lib32 \
+		-D CMAKE_C_FLAGS_RELEASE="$CFLAGS -m32" \
+		-D CMAKE_CXX_FLAGS_RELEASE="$CXXFLAGS -m32" \
+        -D LLVM_CONFIG="/usr/bin/llvm-config" 
+    make -C build32
+}
+
+package() {
+    cd SPIRV-LLVM-Translator-$version
+
+    make DESTDIR="$PWD/dest" -C build32 install
+
+    rm -r dest/usr/{bin,include}
+    cp -R dest/* "$PKG"/
+}

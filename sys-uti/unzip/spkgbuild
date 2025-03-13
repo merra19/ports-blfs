@@ -1,0 +1,26 @@
+# description	: unzipper for pkzip-compressed files
+# depends	: bzip2
+
+name=unzip
+version=6.0
+_version=$(echo $version  | sed 's/\.//')
+release=1
+options="!lto"
+source="https://downloads.sourceforge.net/infozip/unzip$_version.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/unzip-$version-consolidated_fixes-1.patch
+        https://www.linuxfromscratch.org/patches/blfs/svn/unzip-$version-gcc14-1.patch"
+
+build() {
+    cd $name$_version
+
+    patch -Np1 -i ../unzip-6.0-consolidated_fixes-1.patch
+    patch -Np1 -i ../unzip-6.0-gcc14-1.patch
+
+    make -f unix/Makefile prefix=/usr LF2="$LDFLAGS" CF="$CFLAGS $CPPFLAGS -I." generic
+}
+
+package() {
+    cd $name$_version
+
+    make -f unix/Makefile prefix="${PKG}"/usr MANDIR="${PKG}"/usr/share/man/man1 install
+}

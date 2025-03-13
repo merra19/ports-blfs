@@ -1,0 +1,42 @@
+# description	: networked sound server
+# depends	: alsa-lib libatomic_ops dbus elogind glib libsndfile 
+# depends	: libx11 libice libsm libxtst libxcb speexdsp bluez sbc 
+# depends	: libcap avahi
+
+name=pulseaudio
+version=17.0
+release=2
+options="!lto"
+source="https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-$version.tar.xz"
+backup="etc/pulse/client.conf etc/pulse/daemon.conf etc/pulse/default.pa etc/pulse/system.pa"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+		-D database=gdbm \
+		-D doxygen=false \
+		-D bluez5=disabled \
+        -D tests="$(scratch isinstalled check && echo "true" || echo "false")" \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+	DESTDIR="$PKG" ninja -C build install
+
+    ######################
+   
+    rm -fv "$PKG"/usr/share/dbus-1/system.d/pulseaudio-system.conf
+    mkdir -p "$PKG"/etc/pulse/default.pa.d
+
+    sed '2i exit # nouse' -i "$PKG"/etc/xdg/Xwayland-session.d/00-pulseaudio-x11
+    sed '$a Hidden=true'  -i "$PKG"/etc/xdg/autostart/pulseaudio.desktop
+
+    #rm -fv "$PKG"/etc/xdg/autostart/pulseaudio.desktop
+    sed  's/; autospawn = yes/ autospawn = no/g' -i "$PKG"/etc/pulse/client.conf
+}

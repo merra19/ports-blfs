@@ -1,0 +1,122 @@
+#!/bin/sh
+
+usage() {
+    cat<< EOF
+Usage:
+    $(basename "$0") <options> [<arg>]
+Options:
+
+    status <service> 
+    start <service>  
+    stop <service>  
+    restart <service> 
+    enable <service>  
+    disable <service> 
+
+Services:
+
+maria (mysql) apache (httpd)  cyrus-sasl (saslauthd)
+
+init:
+accounts-daemon acpid alsa atd autofs avahi bind bluetooth cups dbus dhcpd 
+dovecot exim fcron firewalld git-daemon gpm httpd iptables kea-dhcpd krb5
+mysql netfs networkmanager nfs-client nfs-server nftables ntpd php-fpm
+postfix postgresql proftpd random rpcbind rsyncd samba saslauthd sendmail 
+slapd smartd sshd stunnel svn sysstat unbound vsftpd winbindd xdm
+lighhttpd
+
+service:
+bridge dhclient dhcpcd  wpa
+
+EOF
+}
+
+msgwarn() {
+    printf  "%s" "$1"
+}
+
+checkservice() {
+    if  [ ! -f /etc/init.d/"$service" ]; then 
+        msgwarn "service ${RED} $service ${NC} not found"
+        exit 1
+    fi
+}
+
+
+specialservice() {
+    if [ "$command" = "enable" ];then
+        case $service in
+            lighttpd)
+                ln -sf  ../init.d/lighttpd /etc/rc.d/rc0.d/K28lighttpd
+                ln -sf  ../init.d/lighttpd /etc/rc.d/rc1.d/K28lighttpd
+                ln -sf  ../init.d/lighttpd /etc/rc.d/rc2.d/S32lighttpd
+                ln -sf  ../init.d/lighttpd /etc/rc.d/rc3.d/S32lighttpd
+                ln -sf  ../init.d/lighttpd /etc/rc.d/rc4.d/S32lighttpd
+                ln -sf  ../init.d/lighttpd /etc/rc.d/rc5.d/S32lighttpd
+                ln -sf  ../init.d/lighttpd /etc/rc.d/rc6.d/K28lighttpd
+                ;;
+        esac
+    else
+        case $service in
+            lighttpd)
+                rm -f /etc/rc.d/init.d/httpd
+                rm -f /etc/rc.d/rc0.d/K28httpd
+                rm -f /etc/rc.d/rc1.d/K28httpd
+                rm -f /etc/rc.d/rc2.d/S32httpd
+                rm -f /etc/rc.d/rc3.d/S32httpd
+                rm -f /etc/rc.d/rc4.d/S32httpd
+                rm -f /etc/rc.d/rc5.d/S32httpd
+                rm -f /etc/rc.d/rc6.d/K28httpd
+                ;;
+        esac
+    fi
+}
+
+list="status start stop restart enable disable help"
+service="$1"
+command="$2"
+
+if echo "$list" | (! grep -qw "$command"); then
+    msgwarn "command ${RED}$command ${NC}not found"
+    usage
+    exit 1
+fi
+
+checkservice
+
+case $command in
+    status)  /etc/init.d/"$service" status ; exit 0 ;;
+    start)   /etc/init.d/"$service" start ; exit 0 ;;
+    stop)    /etc/init.d/"$service" stop ; exit 0 ;;
+    restart) /etc/init.d/"$service" restart ; exit 0 ;;
+esac
+
+
+if [ "$service" = "samba" ]; then
+    echo "With samba service, Don't forget the winbindd service"
+fi
+
+case $service in
+    httpd) specialservice; exit 0 ;;
+esac
+
+cd /usr/share/blfs-bootscripts 
+
+if [ -f init.d/"$service"  ] ;then
+    if [ "$command" = "enable" ];then
+        make install-"$service"
+    else
+        make uninstall-"$service" 
+    fi
+elif [ -f services/"$service"  ] ;then
+    if [ "$command" = "enable" ];then
+        make install-service-"$service" 
+    else
+        make uninstall-service-"$service" 
+    fi
+else
+    msgwarn "service ${RED} $service ${NC} not found"
+    usage
+    exit 1
+fi
+

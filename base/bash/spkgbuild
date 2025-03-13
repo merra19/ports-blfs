@@ -1,0 +1,28 @@
+# description	: The standard GNU Bourne again shell
+# depends	: ncurses readline bison
+
+name=bash
+version=5.2.37
+release=1
+options="!lto"
+source="https://ftp.gnu.org/gnu/bash/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --with-installed-readline \
+        --without-bash-malloc \
+        bash_cv_strtold_broken=no \
+        --docdir=/usr/share/doc/$name-$version
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+
+    ln -sv bash "$PKG"/usr/bin/sh
+}

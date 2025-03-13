@@ -1,0 +1,58 @@
+# description	: Systems programming language from Mozilla
+# depends	: cmake curl llvm llvm32 xz zlib openssl lld
+
+name=rustc
+version=1.85.0
+version2=1.84.0
+daterust=2025-01-09
+release=1
+options="!strip"
+source="https://static.rust-lang.org/dist/$name-$version-src.tar.xz
+        https://static.rust-lang.org/dist/${daterust}/rust-std-${version2}-x86_64-unknown-linux-gnu.tar.xz
+        https://static.rust-lang.org/dist/${daterust}/rustc-${version2}-x86_64-unknown-linux-gnu.tar.xz
+        https://static.rust-lang.org/dist/${daterust}/cargo-${version2}-x86_64-unknown-linux-gnu.tar.xz
+        config.toml"
+noextract="rust-std-${version2}-x86_64-unknown-linux-gnu.tar.xz rustc-${version2}-x86_64-unknown-linux-gnu.tar.xz cargo-${version2}-x86_64-unknown-linux-gnu.tar.xz"
+
+build() {
+	cd $name-$version-src
+
+    CFLAGS=${CFLAGS/-m64/}
+    CXXFLAGS=${CXXFLAGS/-m64/}
+
+	mkdir -p build/cache/${daterust}
+	mv ../rust-std-${version2}-x86_64-unknown-linux-gnu.tar.xz build/cache/${daterust}
+	mv ../rustc-${version2}-x86_64-unknown-linux-gnu.tar.xz build/cache/${daterust}
+	mv ../cargo-${version2}-x86_64-unknown-linux-gnu.tar.xz build/cache/${daterust}
+
+    cp ../config.toml ./
+
+    # add change-id & version to config.toml
+    sed 's/YYYY/134650/' -i config.toml
+    sed "s/XXXX/$version/g" -i config.toml
+
+    # Remove some tests triggering a full rebuild of the Rust standard library and compiler
+    sed '/MirOpt/d' -i src/bootstrap/src/core/builder/mod.rs
+
+	[ ! -e /usr/include/libssh2.h ] || export LIBSSH2_SYS_USE_PKG_CONFIG=1; 
+    [ ! -e /usr/include/sqlite3.h ] || export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+	./x.py build 
+}
+
+package() {
+    cd $name-$version-src
+
+	DESTDIR="$PKG" ./x.py install rustc std 
+    DESTDIR="$PKG" ./x.py install --stage=1 cargo clippy rustfmt
+
+    mkdir -p "$PKG"/usr/bin "$PKG"/usr/share/man/man1 "$PKG"/usr/share/bash-completion/completions
+
+    rm -fv "$PKG"/usr/share/doc/rustc-$version/*.old 
+
+    install -vm644 README.md                                \
+               "$PKG"/usr/share/doc/rustc-$version
+
+    mv -v "$PKG"/etc/bash_completion.d/cargo "$PKG"/usr/share/bash-completion/completions
+
+    unset LIB{SSH2,SQLITE3}_SYS_USE_PKG_CONFIG
+}

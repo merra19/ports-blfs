@@ -1,0 +1,35 @@
+# description	: Programmable completion for the bash shell
+# depends	: bash
+
+name=bash-completion
+version=2.16.0
+release=1
+options="!makeflags !lto"
+source="https://github.com/scop/bash-completion/releases/download/$version/$name-$version.tar.xz"
+
+bsdtar() {
+tar $@;
+}
+
+build() {
+    cd $name-$version
+
+    autoreconf -fiv
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+
+    # remove Slackware's makepkg completion
+    rm "$PKG/usr/share/bash-completion/completions/makepkg"
+    # conflict 
+    rm -f "$PKG"/etc/profile.d/bash_completion.sh
+
+    echo "complete -W 'build install sync upgrade remove redeps cat config dependent depends installed integrity search' scratch" > "$PKG"/etc/bash_completion.d/010-scratch.bash
+}

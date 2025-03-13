@@ -1,0 +1,43 @@
+# description	: Console-based mouse driver
+# depends	: xz ncurses texinfo
+
+name=gpm
+version=1.20.7
+release=1
+options="!lto"
+source="https://anduin.linuxfromscratch.org/BLFS/gpm/$name-$version.tar.bz2
+        https://www.linuxfromscratch.org/patches/blfs/svn/gpm-1.20.7-consolidated-1.patch
+        mouse"
+
+build() {
+    cd $name-$version
+    
+    patch -Np1 -i ../gpm-1.20.7-consolidated-1.patch
+    
+    ./autogen.sh
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        ac_cv_path_emacs=no
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+    install-info --dir-file="$PKG"/usr/share/info/dir \
+                "$PKG"/usr/share/info/gpm.info
+
+    rm -fv "$PKG"/usr/lib/libgpm.a  
+    ln -sfv libgpm.so.2.1.0 "$PKG"/usr/lib/libgpm.so 
+    install -v -m644 conf/gpm-root.conf "$PKG"/etc 
+
+    install -v -m755 -d "$PKG"/usr/share/doc/$name-$version/support
+    install -v -m644    doc/support/*  \
+                        "$PKG"/usr/share/doc/$name-$version/support
+    install -v -m644    doc/{FAQ,HACK_GPM,README*} \
+                        "$PKG"/usr/share/doc/$name-$version
+
+    install -Dm 0644 "$SRC"/mouse "$PKG"/etc/sysconfig/mouse
+}

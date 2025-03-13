@@ -1,0 +1,9 @@
+Enable the following options in the kernel configuration
+
+File systems --->
+  <*/M> Btrfs filesystem support                                      [BTRFS_FS]
+
+With LVM2
+File systems --->
+  <*/M> Btrfs filesystem support                                      [BTRFS_FS]
+  [*]     Btrfs POSIX Access Control Lists                  [BTRFS_FS_POSIX_ACL]

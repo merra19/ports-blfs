@@ -1,0 +1,29 @@
+# description	: A small build system similar to make
+# depends	: python3 re2c
+
+name=ninja
+version=1.12.1
+release=1
+source="https://github.com/ninja-build/ninja/archive/v$version/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    sed -i '/int Guess/a \
+    int   j = 0;\
+    char* jobs = getenv( "NINJAJOBS" );\
+    if ( jobs != NULL ) j = atoi( jobs );\
+    if ( j > 0 ) return j;\
+    ' src/ninja.cc
+
+    python3 configure.py --bootstrap    
+}
+
+package() {
+    cd $name-$version
+
+    mkdir -pv "$PKG"/usr/bin/
+    install -vm755 ninja "$PKG"/usr/bin/
+    install -vDm644 misc/bash-completion "$PKG"/usr/share/bash-completion/completions/ninja
+    install -vDm644 misc/zsh-completion  "$PKG"/usr/share/zsh/site-functions/_ninja
+}

@@ -1,0 +1,65 @@
+# description	: Utils for managing LZMA compressed files
+# depends	: glibc
+
+name=xz
+version=5.6.4
+release=1
+source="https://github.com/tukaani-project/xz/releases/download/v$version/$name-$version.tar.xz"
+
+build_pgo() {
+    export LD_LIBRARY_PATH="$(pwd)"
+
+    CFLAGS="${CFLAGS_GENERATE}" CXXFLAGS="${CXXFLAGS_GENERATE}" FFLAGS="${FFLAGS_GENERATE}" \
+    FCFLAGS="${FCFLAGS_GENERATE}" LDFLAGS="${LDFLAGS_GENERATE}" \
+    ./configure \
+        --prefix=/usr \
+        --enable-assume-ram=1024
+    make 
+    make check 
+
+    make clean
+    unset LD_LIBRARY_PATH
+
+    CFLAGS="${CFLAGS_USE}" CXXFLAGS="${CXXFLAGS_USE}" FFLAGS="${FFLAGS_USE}" \
+    FCFLAGS="${FCFLAGS_USE}" LDFLAGS="${LDFLAGS_USE}" \
+    ./configure \
+        --prefix=/usr \
+        --enable-assume-ram=1024 \
+        --docdir=/usr/share/doc/$name-$version
+    make 
+}
+
+build_nopgo() {
+    ./configure \
+        --prefix=/usr \
+        --enable-assume-ram=1024 \
+        --docdir=/usr/share/doc/$name-$version
+    make 
+}
+
+build() {
+    cd $name-$version
+
+    export CFLAGS_GENERATE="$CFLAGS -fprofile-generate -fprofile-update=atomic "
+    export FCFLAGS_GENERATE="$FCFLAGS -fprofile-generate -fprofile-update=atomic "
+    export FFLAGS_GENERATE="$FFLAGS -fprofile-generate -fprofile-update=atomic "
+    export CXXFLAGS_GENERATE="$CXXFLAGS -fprofile-generate -fprofile-update=atomic "
+    export LDFLAGS_GENERATE="$LDFLAGS -fprofile-generate -fprofile-update=atomic "
+    export CFLAGS_USE="$CFLAGS -fprofile-use -fprofile-correction "
+    export FCFLAGS_USE="$FCFLAGS -fprofile-use -fprofile-correction "
+    export FFLAGS_USE="$FFLAGS -fprofile-use -fprofile-correction "
+    export CXXFLAGS_USE="$CXXFLAGS -fprofile-use -fprofile-correction "
+    export LDFLAGS_USE="$LDFLAGS -fprofile-use -fprofile-correction "
+    
+    if [ $BUILD_PGO = "yes" ];then
+        build_pgo
+    else
+        build_nopgo
+    fi
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}

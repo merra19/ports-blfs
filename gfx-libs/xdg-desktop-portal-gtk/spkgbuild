@@ -1,0 +1,27 @@
+# description	: Backend implementation for xdg-desktop-portal using GTK+
+# depends	: cmake glib gsettings-desktop-schemas fontconfig dbus 
+# depends	: xdg-desktop-portal cairo gdk-pixbuf gtk3
+
+name=xdg-desktop-portal-gtk
+version=1.15.2
+release=1
+source="https://github.com/flatpak/xdg-desktop-portal-gtk/releases/download/$version/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D wallpaper=disabled \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+
+    rm -rf "$PKG"/usr/lib/systemd
+}

@@ -1,0 +1,59 @@
+#!/bin/sh
+########################################################################
+# Begin pcsclite
+#
+# Description : Pcsclite cron init script
+#
+# Author      : Name - name@linuxfromscratch.org
+#
+# Version     : BLFS 7.0
+#
+########################################################################
+
+### BEGIN INIT INFO
+# Provides:            pcsclite
+# Required-Start:      $local_fs $network udev dbus
+# Required-Stop:       
+# Default-Start:       2 3 4 5
+# Default-Stop:        0 1 6
+# Short-Description:   Starts pcsclite.
+# Description:         Starts pcsclite daemon.
+# X-LFS-Provided-By:   BLFS
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+BIN_FILE="/usr/sbin/pcscd"
+
+case "$1" in
+   start)
+      install -d -g pcscd -m 775 /run/pcscd
+      log_info_msg "Enabling Pcsclite..."
+      start_daemon ${BIN_FILE} -f &
+      evaluate_retval
+      ;;
+
+   stop)
+      log_info_msg "Removing Pcsclite..."
+      killproc ${BIN_FILE}
+      evaluate_retval
+      ;;
+
+   restart)
+      $0 stop
+      sleep 1
+      $0 start
+      ;;
+
+   status)
+       statusproc ${BIN_FILE}
+       evaluate_retval
+      ;;
+
+   *)
+      echo "Usage: $0 {start|stop|restart|status}"
+      exit 1
+      ;;
+esac
+
+# End /etc/init.d/fcron
