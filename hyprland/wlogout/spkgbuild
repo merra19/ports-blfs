@@ -7,8 +7,6 @@ release=1
 source="$name-$version.tar.gz::https://github.com/ArtsyMacaw/$name/releases/download/$version/$name.tar.gz"
 
 build() {
-	cd $name-$version
-
     meson setup \
         --prefix=/usr \
         --buildtype=plain \
@@ -17,7 +15,5 @@ build() {
 }
 
 package() {
-    cd $name-$version
-
     DESTDIR="$PKG" ninja -C build install
 }
