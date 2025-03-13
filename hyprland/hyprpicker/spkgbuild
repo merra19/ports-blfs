@@ -1,0 +1,25 @@
+# description	: 
+# depends	: cairo hyprutils hyprwayland-scanner libxkbcommon wayland
+# depends	: wl-clipboard cmake libglvnd libjpeg-turbo pango meson
+# depends	: wayland-protocols wlroots
+
+name=hyprpicker
+version=0.4.2
+release=3
+source="$name-$version.tar.gz::https://github.com/hyprwm/$name/archive/refs/tags/v$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=None \
+        -D CMAKE_INSTALL_MANDIR=/usr/share/man
+	make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

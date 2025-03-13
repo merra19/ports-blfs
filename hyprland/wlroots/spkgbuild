@@ -1,0 +1,27 @@
+# description	: Lightweight KMS plane library
+# depends	: wayland libglvnd mesa libdrm libxkbcommon pixman lcms2
+# depends	: libdisplay-info hwdata libliftoff libinput glslang 
+# depends	: vulkan-headers vulkan-loader libxcb xcb-util-renderutil 
+# depends	: xcb-util-wm xwayland udev wayland-protocols
+# optional	: seatd xcb-util-errors 
+
+name=wlroots
+version=0.18.2
+release=1
+source="https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/$version/downloads/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

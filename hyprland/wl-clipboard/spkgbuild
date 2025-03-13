@@ -1,0 +1,23 @@
+# description	: Wayland clipboard utilities
+# depends	: wayland mailcap xdg-utils meson wayland-protocols 
+
+name=wl-clipboard
+version=2.2.1
+release=2
+source="$name-$version.tar.gz::https://github.com/bugaevc/wl-clipboard/archive/v$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

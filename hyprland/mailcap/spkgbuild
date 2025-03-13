@@ -1,0 +1,21 @@
+# description	: Helper application and MIME type associations for file types
+# depends	: python3
+
+name=mailcap
+version=2.1.54
+release=2
+commit=9699055a1b4dfb90f7594ee2e8dda705fa56d3b8
+source="git+https://pagure.io/mailcap#commit=$commit"
+backup="etc/mailcap etc/mime.types etc/nginx/mime.types"
+IGNORE_CHECKSUM="yes"
+
+build() {
+  cd mailcap
+
+  make
+}
+
+package() {
+    cd mailcap
+    make DESTDIR="$PKG" install
+}
