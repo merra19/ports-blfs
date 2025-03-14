@@ -24,6 +24,7 @@ create_hyprland() {
 
     install -Dm 0644 /usr/local/share/hyprland/waybar ~/.config/waybar/config
     install -Dm 0755 /usr/local/share/hyprland/xdg-portal-hyprland ~/.config/hypr/xdg-portal-hyprland
+    install -Dm 0644 /usr/local/share/hyprland/kitty.conf ~/.config/kitty/kitty.conf
 }
 
 if [[ $EUID -eq 0 ]]; then

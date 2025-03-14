@@ -5,7 +5,7 @@
 name=xorg
 version=1.0
 release=2
-source="setup hyprland.conf waybar xdg-portal-hyprland"
+source="setup hyprland.conf waybar xdg-portal-hyprland kitty.conf"
 
 build() {
     :
@@ -14,8 +14,7 @@ build() {
 package() {
     install -Dm 755 setup "$PKG"/usr/local/bin/setup
 
-    for i in hyprland.conf \
-        waybar xdg-portal-hyprland;do
+    for i in hyprland.conf kitty.conf waybar xdg-portal-hyprland;do
         install -Dm 644 $i "$PKG"/usr/local/share/hyprland/$i
     done
 }
