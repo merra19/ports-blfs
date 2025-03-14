@@ -1,5 +1,5 @@
 # description	: Hyprshot is a utility to easily take screenshot in Hyprland using your mouse
-# depends	: bash grim libnotify slurp wl-clipboard hyprpicker
+# depends	: bash grim libnotify slurp wl-clipboard hyprpicker jq
 
 name=hyprshot
 version=1.3.0
