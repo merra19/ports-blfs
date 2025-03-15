@@ -10,12 +10,7 @@ source="https://files.pythonhosted.org/packages/source/a/asciidoc/asciidoc-${ver
 build() {
 	cd asciidoc-${version}
 
-    # Fix an issue causing thousands of lines of “invalid escape sequence” warnings outputted when 
-    # generating the documentation of some packages with Asciidoc and Python 3.12+
-    sed '/self.separator =/s/"/r"/' -i asciidoc/asciidoc.py
-
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-
 }
 
 package() {
