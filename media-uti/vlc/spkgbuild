@@ -27,7 +27,8 @@ build() {
 
     BUILDCC=gcc ./configure \
         --prefix=/usr \
-        --disable-libplacebo
+        --disable-libplacebo \
+        --enable-qt
     make
 }
 
