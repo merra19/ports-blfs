@@ -1,4 +1,4 @@
-# description	: Lightweight KMS plane library
+# description	: Pluggable, composable, unopinionated modules for building a Wayland compositor
 # depends	: wayland libglvnd mesa libdrm libxkbcommon pixman lcms2
 # depends	: libdisplay-info hwdata libliftoff libinput glslang 
 # depends	: vulkan-headers vulkan-loader libxcb xcb-util-renderutil 

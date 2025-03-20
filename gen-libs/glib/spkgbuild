@@ -1,4 +1,4 @@
-# description	: Binding to the GLIB library for Gtk2Hs
+# description	: The GLib library of C routines
 # depends	: docbook-xml meson libxslt pcre2 python3-packaging 
 # depends	: libffi zlib util-linux attr elfutils
 

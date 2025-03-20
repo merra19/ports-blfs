@@ -1,4 +1,4 @@
-# description	: Task management and system monitoring library
+# description	: Plasma library and runtime components based upon KF6 and Qt6
 # depends	: karchive kcmutils kconfig kconfigwidgets ki18n
 # depends	: kcoreaddons kglobalaccel kguiaddons kiconthemes kio 
 # depends	: kirigami knotifications kpackage ksvg wayland

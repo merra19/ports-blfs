@@ -1,4 +1,4 @@
-# description	: Multimedia (audio, video, radio, camera) library for the Qt6 framework
+# description	: Hardware sensor access library for the Qt6 framework
 # depends	: qt6-base qt6-declarative cmake ffmpeg pulseaudio 
 # depends	: libxrandr qt6-shadertools qt6-quick3d qt6-full
 

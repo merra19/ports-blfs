@@ -1,4 +1,4 @@
-# description	: A configurable sidebar-enabled Sphinx theme
+# description	: A certifi hack to use system trust store on Linux/FreeBSD
 # depends	: python3 python3-gpep517 python3-setuptools python3-wheel 
 # depends	: make-ca
 

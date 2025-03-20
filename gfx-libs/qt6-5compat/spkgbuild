@@ -1,4 +1,4 @@
-# description	: SVG rendering library for the Qt6 framework
+# description	: Qt module containing the unsupported Qt 5 APIs
 # depends	: qt6-base qt6-declarative qt6-shadertools python3 
 # depends	: vulkan-headers qt6-full
 

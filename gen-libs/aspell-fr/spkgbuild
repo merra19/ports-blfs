@@ -1,4 +1,4 @@
-# description	: Aspell (English and French) language dictionary
+# description	: Aspell (French) language dictionary
 # depends	: which aspell
 
 name=aspell-fr

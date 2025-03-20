@@ -1,4 +1,4 @@
-# description	: Plasma Specific Protocols for Wayland
+# description	: Qt bindings for pulseaudio
 # depends	: extra-cmake-modules qt6-base glib pulseaudio 
 
 name=pulseaudio-qt

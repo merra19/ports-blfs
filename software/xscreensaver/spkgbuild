@@ -1,4 +1,4 @@
-# description	: System service to accurately color manage input and output devices
+# description	: Modular screen saver and locker for the X Window System
 # depends	: libxml2 libx11 libxext libxi libxrandr libxxf86vm
 # depends	: libxt elogind gdk-pixbuf gtk3 libjpeg-turbo glu mesa
 # depends	: pam libpng libxft libxinerama libgcrypt

@@ -1,4 +1,4 @@
-# description	: Easy-to-use Python module for text parsing
+# description	: Fast array and numerical python library
 # depends	: python3-flit-core python3-gpep517 python3-cython 
 # depends	: python3-meson python3-pyproject-metadata
 

@@ -1,4 +1,4 @@
-# description	: Cross platform Make
+# description	: Helper program to build and install c-like libraries
 # depends	: rustc libssh2 sqlite curl zlib
 
 name=cargo-c

@@ -1,4 +1,4 @@
-# description	: An object oriented GL/GLES Abstraction/Utility Layer
+# description	: A library for using 3D graphics hardware to draw pretty pictures
 # depends	: gdk-pixbuf libdrm libxcomposite libxdamage libxext
 # depends	: libxrandr mesa pango gobject-introspection wayland
 

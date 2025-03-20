@@ -1,4 +1,4 @@
-# description	: Create, destroy, resize, check, copy partitions and file systems
+# description	: Open source read-write NTFS driver that runs under FUSE
 # depends	: util-linux attr
 
 name=ntfs-3g

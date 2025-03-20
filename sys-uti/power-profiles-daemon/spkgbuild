@@ -1,4 +1,4 @@
-# description	: D-Bus abstraction for enumerating power devices, querying history and statistics
+# description	: Makes power profiles handling available over D-Bus
 # depends	: glib libgudev polkit upower bash-completion meson
 # depends	: python3-shtab python3-gobject3 gtk-doc
 

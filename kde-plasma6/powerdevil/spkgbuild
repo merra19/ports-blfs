@@ -1,4 +1,4 @@
-# description	: Manages the power consumption settings of a Plasma Shell
+# description	: Power management for KDE Plasma Shell
 # depends	: kauth kconfig kconfigwidgets kcoreaddons kcrash 
 # depends	: kdbusaddons kglobalaccel ki18n kidletime kio 
 # depends	: kirigami kitemmodels knotifications kservice 

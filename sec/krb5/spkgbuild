@@ -1,4 +1,4 @@
-# description	: An ultra-fast, ultra-compact key-value embedded data store
+# description	: MIT Kerberos V
 # depends	: e2fsprogs keyutils lmdb yasm
 
 name=krb5

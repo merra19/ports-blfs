@@ -1,4 +1,4 @@
-# description	: Canonical source for classifiers on PyPI (pypi.org)
+# description	: ASCII quote-dot-dash to HTML entity converter
 # depends	: python3 python3-gpep517 python3-setuptools python3-wheel 
 # depends	: python3-calver
 

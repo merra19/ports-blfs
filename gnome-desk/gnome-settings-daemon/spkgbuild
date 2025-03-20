@@ -1,11 +1,10 @@
 # description	: Gnome Settings Daemon
 # depends	: glib gobject-introspection geocode-glib gnome-desktop
-# depends	: gsettings-desktop-schemas gsettings-desktop-schemas gtk3
-# depends	: libgweather colord libcanberra geoclue libnotify polkit
-# depends	: pulseaudio upower libx11 libxfixes libgudev wayland
-# depends	: libwacom pango gdk-pixbuf gcr4 cups alsa-lib libxi
-# depends	: libxext fontconfig elogind xorg-proto dconf
-# depends	: linux-api-headers networkmanager
+# depends	: gsettings-desktop-schemas gtk3 libgweather colord upower
+# depends	: libcanberra geoclue libnotify polkit pulseaudio libx11
+# depends	: libxfixes libgudev wayland libwacom pango gdk-pixbuf
+# depends	: gcr4 cups alsa-lib libxi libxext fontconfig elogind
+# depends	: xorg-proto dconf linux-api-headers networkmanager
 # optional  : modemmanager modemmanager!!gcr3
 
 name=gnome-settings-daemon

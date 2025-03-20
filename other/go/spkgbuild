@@ -1,4 +1,4 @@
-# description	: C++ crypto library
+# description	: A concurrent garbage collected and typesafe programming language
 # depends	: sqlite xz python3 zlib bzip2 ninja boost
 
 name=go

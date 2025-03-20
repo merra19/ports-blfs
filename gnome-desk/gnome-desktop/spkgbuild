@@ -1,4 +1,4 @@
-# description	: GNOME compositing window manager based on Clutter
+# description	: Library with common API for various GNOME modules
 # depends	: glib gobject-introspection gdk-pixbuf gtk3 libxkbcommon
 # depends	: gsettings-desktop-schemas xkeyboard-config iso-codes 
 # depends	: udev libseccomp cairo fontconfig bubblewrap itstool

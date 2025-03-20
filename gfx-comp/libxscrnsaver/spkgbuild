@@ -1,4 +1,4 @@
-# description	: X.Org X11 library
+# description	: X.Org XScrnSaver library
 # depends	: libx11 libxext xorg-proto
 
 name=libxscrnsaver

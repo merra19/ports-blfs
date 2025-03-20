@@ -1,4 +1,4 @@
-# description	: Advanced Linux Sound Architecture Library
+# description	: ALSA extra plugins
 # depends	: alsa-lib ffmpeg libsamplerate pulseaudio speex speexdsp
 
 name=alsa-plugins

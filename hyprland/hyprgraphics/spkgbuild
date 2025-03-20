@@ -1,4 +1,4 @@
-# description	: A dynamic tiling Wayland compositor that doesn't sacrifice on its looks
+# description	: Hyprland graphics / resource utilities
 # depends	: cairo file hyprutils libjpeg-turbo libjxl libspng 
 # depends	: libwebp pixman cmake 
 

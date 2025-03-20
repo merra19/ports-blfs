@@ -1,4 +1,4 @@
-# description	: Manages the power consumption settings of a Plasma Shell
+# description	: Manage CUPS print jobs and printers in Plasma
 # depends	: kcmutils kconfig kconfigwidgets kcoreaddons kio
 # depends	: kdbusaddons ki18n kiconthemes kirigami libplasma
 # depends	: knotifications kservice kwindowsystem cups

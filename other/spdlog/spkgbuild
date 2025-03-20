@@ -1,6 +1,5 @@
-# description	Fast C++ logging library
+# description :	Fast C++ logging library
 # depends	: cmake fmt
-
 
 name=spdlog
 version=1.15.1

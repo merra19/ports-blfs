@@ -1,6 +1,5 @@
-# description	: 
-# depends	: 
-# depends	: 
+# description	: High number of extra glyphs from popular 'iconic fonts' (common files)
+# depends	: glibc
 
 name=ttf-nerd-fonts-symbols
 version=3.3.0

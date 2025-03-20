@@ -1,0 +1,10 @@
+ttf-nerd-fonts-symbols-3.3.0-1
+drwxr-xr-x root/root    usr/
+drwxr-xr-x root/root    usr/share/
+drwxr-xr-x root/root    usr/share/fontconfig/
+drwxr-xr-x root/root    usr/share/fontconfig/conf.avail/
+-rw-r--r-- root/root    usr/share/fontconfig/conf.avail/10-nerd-font-symbols.conf
+drwxr-xr-x root/root    usr/share/fonts/
+drwxr-xr-x root/root    usr/share/fonts/TTF/
+-rw-r--r-- root/root    usr/share/fonts/TTF/SymbolsNerdFont-Regular.ttf
+-rw-r--r-- root/root    usr/share/fonts/TTF/SymbolsNerdFontMono-Regular.ttf

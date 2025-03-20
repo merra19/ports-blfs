@@ -1,4 +1,4 @@
-# description	: Wofi is a launcher/menu program for wlroots based wayland compositors like sway
+# description	: Efficient animated wallpaper daemon for wayland, controlled at runtime
 # depends	: glibc lz4 rustc
 
 name=swww

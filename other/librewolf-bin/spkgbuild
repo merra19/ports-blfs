@@ -1,4 +1,5 @@
 # description	: Community-maintained fork of Firefox, focused on privacy, security and freedom.
+# url=https://codeberg.org/librewolf
 # depends	: unzip at-spi2-core glib alsa-lib fontconfig freetype 
 # depends	: dbus cairo gdk-pixbuf gtk3 libx11 libxcomposite libxcb
 # depends	: libxcursor libxdamage libxext libxfixes libxi libxrandr

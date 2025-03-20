@@ -1,6 +1,5 @@
-# description	: GTK+ Documentation Generator
+# description	: Processor for converting AsciiDoc into HTML 5, DocBook 4.5 and other formats
 # depends	: ruby
-
 
 name=asciidoctor
 version=2.0.23

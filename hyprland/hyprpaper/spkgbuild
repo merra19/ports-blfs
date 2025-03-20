@@ -1,4 +1,4 @@
-# description	: Hyprland utilities library used across the ecosystem
+# description	: Blazing fast wayland wallpaper utility with IPC controls.
 # depends	: cairo hyprgraphics hyprlang hyprutils libglvnd cmake
 # depends	: hyprwayland-scanner pango wayland wayland-protocols
 # depends	: xorg-proto

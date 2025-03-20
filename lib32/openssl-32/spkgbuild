@@ -1,4 +1,4 @@
-# description	: full-strength general purpose cryptography library (including SSL and TLS)
+# description	: Robust, full-featured Open Source Toolkit for the Transport Layer Security (TLS)
 # depends	: perl openssl
 
 name=openssl-32

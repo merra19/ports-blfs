@@ -1,4 +1,4 @@
-# description	: DSSSL Stylesheets for DocBook
+# description	: DTD Stylesheets for DocBook
 # depends	: sgml-common libarchive
 
 name=docbook-dtd

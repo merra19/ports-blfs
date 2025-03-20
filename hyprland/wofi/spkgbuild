@@ -1,6 +1,5 @@
 # description	: Wofi is a launcher/menu program for wlroots based wayland compositors like sway
-# depends	: glibc cairo gdk-pixbuf glib gtk3 cairo pango wayland
-# depends	: meson
+# depends	: glibc cairo gdk-pixbuf glib gtk3 pango wayland meson
 
 name=wofi
 version=1.4.1

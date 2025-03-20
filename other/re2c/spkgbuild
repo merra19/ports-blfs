@@ -1,4 +1,4 @@
-# description	: dav1d is an AV1 Decoder :)
+# description	: Tool for generating C-based recognizers from regular expressions
 # depends	: glibc python3
 
 name=re2c

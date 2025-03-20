@@ -1,4 +1,4 @@
-# description	: Core utilities for Python packages
+# description	: Python bindings for the CUPS API
 # depends	: python3-flit-core python3-gpep517 python3-setuptools
 
 name=python3-pycups
