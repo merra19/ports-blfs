@@ -5,7 +5,7 @@
 # depends	: libxrender pango pulseaudio
 
 name=librewolf-bin
-version=135.0_p1
+version=136.0.1_p1
 _version=${version/_p[0-9]/}
 release=1
 source="https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/${_version}-${release}/librewolf-${_version}-${release}-linux-x86_64-package.tar.xz
