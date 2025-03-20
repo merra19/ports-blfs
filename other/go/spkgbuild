@@ -46,5 +46,4 @@ package() {
 	rm -rf "$SRC"/go/pkg/obj/go-build/*
 	find "$PKG" \( -name "README*" -o -name "AUTHORS" -o -name "TODO" \) -delete
 	rm "$PKG"/usr/lib/go/src/*.bat
-
 }

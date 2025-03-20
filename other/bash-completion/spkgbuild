@@ -32,4 +32,5 @@ package() {
     rm -f "$PKG"/etc/profile.d/bash_completion.sh
 
     echo "complete -W 'build install sync upgrade remove redeps cat config dependent depends installed integrity search' scratch" > "$PKG"/etc/bash_completion.d/010-scratch.bash
+    chmod 0755 "$PKG"/etc/bash_completion.d/010-scratch.bash
 }
