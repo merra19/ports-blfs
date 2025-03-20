@@ -6,7 +6,7 @@
 # depends	: pango ffmpeg qt6-base
 
 name=opera
-version=117.0.5408.32
+version=117.0.5408.93
 release=1
 source="https://get.geo.opera.com/ftp/pub/$name/desktop/$version/linux/$name-stable_${version}_amd64.deb
         opera default"

@@ -3,7 +3,7 @@
 # depends	: hicolor-icon-theme libusb pcsclite
 
 name=keepassxc
-version=2.7.9
+version=2.7.10
 release=1
 options="!lto"
 source="https://github.com/keepassxreboot/keepassxc/releases/download/$version/$name-$version-src.tar.xz"
