@@ -1,4 +1,4 @@
-# description	: GNU rewrite of netcat, the network piping application
+# description	: Iconic font aggregator, collection, and patcher
 # depends	: glibc
 
 name=nerd-fonts
