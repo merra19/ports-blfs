@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if [[ $EUID -eq 0 ]]; then
+    echo "This script must be NOT run as root" 1>&2
+    exit 1
+fi
+
+cd /usr/local/share/hyprland-dots
+
+# waybar
+install -Dm 0644  config.jsonc  ~/.config/waybar/config.jsonc
+install -Dm 0644  mocha.css  ~/.config/waybar/mocha.css
+install -Dm 0644  style.css  ~/.config/waybar/style.css
+install -Dm 0644  power_menu.xml  ~/.config/waybar/power_menu.xml
+
+# kitty
+install -Dm 0644  current-theme.conf  ~/.config/kitty/current-theme.conf
+install -Dm 0644  kitty.conf  ~/.config/kitty/kitty.conf
+
+# hyprland
+install -Dm 0644  hyprland.conf  ~/.config/hypr/hyprland.conf
+install -Dm 0644  mocha.conf  ~/.config/hypr/mocha.conf
+
+# alacritty
+install -Dm 0644  alacritty.toml ~/.config/hypr/alacritty.toml
+install -Dm 0644  catppuccin-mocha.toml  ~/.config/hypr/catppuccin-mocha.toml
+
+# hyprpaper
+
+install -Dm 0644  hyprpaper.conf ~/.config/hyprpaper/hyprpaper.conf
+install -Dm 0644  White-Haired_Anime_Girl_in_Garden.png ~/.config/backgrounds/White-Haired_Anime_Girl_in_Garden.png
+
+
