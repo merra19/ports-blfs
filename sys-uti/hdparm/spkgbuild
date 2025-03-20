@@ -1,0 +1,22 @@
+# description	: Utility to change hard drive performance parameters
+# depends	: glibc
+
+name=hdparm
+version=9.65
+release=1
+source="https://downloads.sourceforge.net/hdparm/$name-$version.tar.gz
+        pass-ldflags.patch"
+
+build() {
+	cd $name-$version
+
+    patch -Np1 -i ../pass-ldflags.patch
+
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make binprefix=/usr DESTDIR="$PKG" install
+}

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 usage() {
 	cat <<-__EOF__
@@ -29,11 +29,6 @@ create_hyprland() {
 
 if [[ $EUID -eq 0 ]]; then
     echo "This script must be NOT run as root" 1>&2
-    exit 1
-fi
-
-if ( ! getent passwd $users > /dev/null ) ;then
-    echo " user:$users doesnt exit"
     exit 1
 fi
 

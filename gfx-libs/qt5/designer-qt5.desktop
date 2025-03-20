@@ -2,7 +2,7 @@
 Name=Qt5 Designer
 GenericName=Interface Designer
 Comment=Design GUIs for Qt5 applications
-Exec=/opt/qt5/bin/designer
+Exec=/usr/bin/designer
 Icon=designer-qt5.png
 MimeType=application/x-designer;
 Terminal=false

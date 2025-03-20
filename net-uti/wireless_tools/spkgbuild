@@ -1,0 +1,23 @@
+# description	: A collection of tools to configure IEEE 802.11 wireless LAN card
+# depends	: glibc
+
+name=wireless_tools
+version=29
+release=1
+source="https://hewlettpackard.github.io/wireless-tools/$name-.$version.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/12.3/$name-$version-fix_iwlist_scanning-1.patch"
+backup="etc/wgetrc"
+
+build() {
+    cd $name-$version
+
+    patch -Np1 -i ../wireless_tools-$version-fix_iwlist_scanning-1.patch
+
+    make CFLAGS="${CFLAGS} -I." LDFLAGS="${LDFLAGS}"
+}
+
+package() {
+    cd $name--$version
+
+    make PREFIX="$PKG"/usr INSTALL_MAN="$PKG"/usr/share/man install
+}

@@ -1,7 +1,6 @@
 # description	: Wofi is a launcher/menu program for wlroots based wayland compositors like sway
 # depends	: glibc lz4 rustc
 
-
 name=swww
 version=0.9.5
 release=2
@@ -9,8 +8,6 @@ source="$name-$version.tar.gz::https://github.com/LGFae/swww/archive/v$version.t
 
 build() {
 	cd $name-$version
-
-    xxxxxxxxxxxx
 
     export RUSTUP_TOOLCHAIN=stable
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"

@@ -26,8 +26,8 @@ source="https://download.qt.io/archive/qt/${version%.*}/$version/single/qt-every
         qtbase-everywhere-src-5.14.2-no_relocatable.patch
         qtbase-everywhere-src-5.15.2-libglvnd.patch
         qtbase-use-wayland-on-gnome.patch
-		qt5.sh qt qt5.conf
-        assistant-qt5.desktop designer-qt5.desktop linguist-qt5.desktop qdbusviewer-qt5.desktop"
+		qt5.sh assistant-qt5.desktop designer-qt5.desktop
+        linguist-qt5.desktop qdbusviewer-qt5.desktop qt"
 
 build() {
 	cd qt-everywhere-src-$version
@@ -54,12 +54,22 @@ build() {
 	ls -Fd qt* | grep / | sed 's/^/-skip /;s@/@@' > qtconf
 	sed -i -r '/base|tools|x11extras|svg|declarative|quickcontrols|quickcontrols2|tools|translations|wayland|webchannel/d' qtconf
 
-	export QT5PREFIX=/opt/qt5
+	export QT5PREFIX=/usr
     export OPENSSL_LIBS=" -lssl -lcrypto"
 
     ./configure \
         -prefix $QT5PREFIX \
         -sysconfdir /etc/xdg \
+		-archdatadir /usr/lib/qt5 \
+		-bindir /usr/lib/qt5/bin \
+		-plugindir /usr/lib/qt5/plugins \
+		-importdir /usr/lib/qt5/imports \
+		-datadir /usr/share/qt5 \
+		-docdir /usr/share/doc/qt5 \
+		-translationdir /usr/share/qt5/translations \
+		-examplesdir /usr/share/doc/qt5/examples \
+		-headerdir /usr/include/qt5 \
+        -libdir /usr/lib \
         -confirm-license \
         -opensource \
         -dbus-linked \
@@ -99,7 +109,7 @@ build() {
 package() {
 	cd qt-everywhere-src-$version
 
-	export QT5PREFIX=/opt/qt5
+	export QT5PREFIX=/usr
     export OPENSSL_LIBS=" -lssl -lcrypto"
 
 	make INSTALL_ROOT="$PKG" install
@@ -125,14 +135,13 @@ package() {
 
 	install -dm755 "$PKG"/usr/share/applications &&
 
-    install -Dm 644 "$SRC"/qt5.conf "$PKG"/etc/ld.so.conf.d/qt5.conf
-
-	mkdir -p "$PKG"/usr/bin
-
-	for file in moc uic rcc qmake lconvert lrelease lupdate; do
-		ln -sfvn $QT5BINDIR/$file "$PKG"/usr/bin/$file-qt5
+	# Install useful symlinks
+	install -d "$PKG"/usr/bin
+	for file in "$PKG"/usr/lib/qt5/bin/*; do
+		ln -s ../lib/qt5/bin/$(basename $file) "$PKG"/usr/bin/$(basename $file)-qt5
+		ln -s ../lib/qt5/bin/$(basename $file) $PKG/usr/bin/$(basename $file)
 	done
 
-    install -Dm 755 ${SRC}/qt5.sh "$PKG"/etc/profile.d/qt5.sh
-    install -Dm 644 ${SRC}/qt "$PKG"/etc/sudoers.d/qt 
+    install -Dm 755 "$SRC"/qt5.sh "$PKG"/etc/profile.d/qt5.sh
+    install -Dm 644 "$SRC"/qt "$PKG"/etc/sudoers.d/qt 
 }

@@ -29,12 +29,12 @@ build() {
         sed -e "/^#elif defined(Q_CC_GNU_ONLY)/s/.*/& \&\& 0/" \
             -i src/corelib/global/qtypes.h
     fi
-
     ./configure \
         -prefix /usr  \
         -sysconfdir /etc/xdg \
         -archdatadir /usr/lib/qt6 \
-        -bindir /usr/bin \
+        -bindir /usr/lib/qt6/bin  \
+        -libexecdir /usr/lib/qt6 \
         -plugindir /usr/lib/qt6/plugins \
         -headerdir /usr/include/qt6 \
         -datadir /usr/share/qt6 \
@@ -50,7 +50,7 @@ build() {
         -skip qt3d \
         -skip qtquick3dphysics \
         -skip qtwebengine \
-        -- -Wno-dev
+        -- -Wno-dev -D INSTALL_PUBLICBINDIR=usr/bin
     ninja
 }
 
@@ -84,6 +84,13 @@ package() {
 
     popd
 
-    install -Dm 0755 ${SRC}/qt6.sh "$PKG"/etc/profile.d/qt6.sh
-    install -Dm 0644 ${SRC}/qt6 "$PKG"/etc/sudoers.d/qt6 
+    install -Dm 755 "$SRC"/qt6.sh "$PKG"/etc/profile.d/qt6.sh
+    install -Dm 644 "$SRC"/qt6 "$PKG"/etc/sudoers.d/qt6
+
+	# Install useful symlinks
+	install -d "$PKG"/usr/bin
+	for file in "$PKG"/usr/lib/qt6/bin/*; do
+		ln -s ../lib/qt6/bin/$(basename $file) "$PKG"/usr/bin/$(basename $file)-qt6
+		#ln -s ../lib/qt6/bin/$(basename $file) $PKG/usr/bin/$(basename $file)
+	done
 }
