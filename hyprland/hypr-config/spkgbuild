@@ -7,7 +7,7 @@ release=1
 source="mocha.conf hyprland.conf current-theme.conf kitty.conf
         setup-hypr config.jsonc mocha.css style.css power_menu.xml
         alacritty.toml catppuccin-mocha.toml hyprpaper.conf
-        White-Haired_Anime_Girl_in_Garden.png"
+        White-Haired_Anime_Girl_in_Garden.png xdg-portal-hyprland"
 
 build() {
     :
@@ -21,7 +21,7 @@ package() {
     for i in mocha.conf hyprland.conf hyprpaper.conf \
         current-theme.conf kitty.conf config.jsonc mocha.css style.css \
         power_menu.xml alacritty.toml catppuccin-mocha.toml \
-        White-Haired_Anime_Girl_in_Garden.png;do
+        xdg-portal-hyprland White-Haired_Anime_Girl_in_Garden.png;do
         install -Dm 0644 $i "$PKG"/usr/local/share/hyprland-dots/$i
     done
 }

@@ -20,6 +20,7 @@ install -Dm 0644  kitty.conf  ~/.config/kitty/kitty.conf
 # hyprland
 install -Dm 0644  hyprland.conf  ~/.config/hypr/hyprland.conf
 install -Dm 0644  mocha.conf  ~/.config/hypr/mocha.conf
+install -Dm 0755  xdg-portal-hyprland  ~/.config/hypr/xdg-portal-hyprland
 
 # alacritty
 install -Dm 0644  alacritty.toml ~/.config/hypr/alacritty.toml
