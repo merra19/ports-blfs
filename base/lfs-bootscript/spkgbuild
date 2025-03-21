@@ -19,7 +19,7 @@ package() {
     cp -r Makefile blfs "$PKG"/usr/share/blfs-bootscripts
 
     cd "$SRC"/lfs-bootscripts-$versionlfs
-    make -j${jobs} DESTDIR="$PKG" install
+    make DESTDIR="$PKG" install
 
     rm -rf "$PKG"/etc/sysconfig/rc.site
 

@@ -19,5 +19,5 @@ build() {
 package() {
     cd gtksourceview-$version
 
-    DESTDIR="$PKG" ninja -j${jobs} -C build install
+    DESTDIR="$PKG" ninja -C build install
 }
