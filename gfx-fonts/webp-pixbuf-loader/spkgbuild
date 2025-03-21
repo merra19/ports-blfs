@@ -1,0 +1,23 @@
+# description	:WebP GDK Pixbuf Loader library
+# depends	: gdk-pixbuf libwebp
+
+name=webp-pixbuf-loader
+version=0.2.7
+release=1
+source="https://github.com/aruiz/webp-pixbuf-loader/archive/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}
