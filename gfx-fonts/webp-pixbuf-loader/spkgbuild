@@ -1,4 +1,4 @@
-# description	:WebP GDK Pixbuf Loader library
+# description	: WebP GDK Pixbuf Loader library
 # depends	: gdk-pixbuf libwebp
 
 name=webp-pixbuf-loader
