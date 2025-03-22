@@ -1,5 +1,5 @@
 # description	: Boost Libraries for C++"
-# depends	: zlib bzip2 which icu python3 xz zstd python3-numpy
+# depends	: zlib bzip2 which icu python3 xz zstd py3-numpy
 
 name=boost
 version=1.87.0

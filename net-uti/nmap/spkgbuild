@@ -1,6 +1,6 @@
 # description	: Network exploration tool and security / port scanner
-# depends	: liblinear libpcap libssh2 lua pcre2 python3-gobject3
-# depends	: zlib openssl python3-build python3-pyproject_hooks
+# depends	: liblinear libpcap libssh2 lua pcre2 py3-gobject3 zlib
+# depends	: openssl py3-build py3-pyproject_hooks
 
 name=nmap
 version=7.95

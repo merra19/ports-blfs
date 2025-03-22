@@ -1,0 +1,23 @@
+# description	: Canonical source for classifiers on PyPI (pypi.org)
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel 
+# depends	: py3-calver
+
+name=py3-trove-classifiers
+_name=trove_classifiers
+version=2025.1.15.22
+release=1
+source="https://files.pythonhosted.org/packages/source/t/trove_classifiers/trove_classifiers-$version.tar.gz"
+
+build() {
+	cd ${_name}-$version
+    
+    echo "Version: $version" > PKG-INFO
+   
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${_name}-$version
+
+	python3 -m installer -d "$PKG" .dist/trove_classifiers-$version-py3-none-any.whl
+}

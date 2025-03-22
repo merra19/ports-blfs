@@ -5,7 +5,7 @@
 # depends	: vulkan-loader wayland wayland-protocols mesa fontconfig
 # depends	: shaderc libx11 libxi libxext libxrandr libxcursor
 # depends	: libxfixes libxdamage libxinerama linux-api-headers
-# depends	: xorg-proto librsvg adwaita-icon-theme python3-gobject3
+# depends	: xorg-proto librsvg adwaita-icon-theme py3-gobject3
 # optional	: cloudproviders!!libcloudproviders colord gstreamer
 # optional	: gstreamer!!gst-plugins-bad
 

@@ -1,6 +1,6 @@
 # description	: Controlling the startup, running, and shutdown of the system
-# depends	: meson acl-32 kbd kmod openssl-32 xz-32 python3-jinja 
-# depends	: gperf zstd-32 libgcrypt-32 libxcrypt-32 libcap-32 udev
+# depends	: meson acl-32 kbd kmod openssl-32 xz-32 py3-jinja gperf
+# depends	: zstd-32 libgcrypt-32 libxcrypt-32 libcap-32 udev
 
 name=udev-32
 _name=systemd
@@ -10,9 +10,6 @@ source="https://github.com/systemd/systemd/archive/v$version/systemd-$version.ta
 
 build() {
     cd ${_name}-$version
-
-
-    xxxxxxxxxxxxx
 
     # Remove two unneeded groups, render and sgx, from the default udev rules:
     sed  -i -e 's/GROUP="render"/GROUP="video"/' \

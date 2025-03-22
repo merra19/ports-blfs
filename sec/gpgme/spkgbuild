@@ -1,6 +1,6 @@
 # description	: GnuPG Made Easy is a library for making GnuPG easier to use
 # depends	: gnupg swig libassuan libgpg-error python3 clisp 
-# depends	: python3-gpep517 python3-setuptools python3-wheel
+# depends	: py3-gpep517 py3-setuptools py3-wheel
 
 name=gpgme
 version=1.24.2

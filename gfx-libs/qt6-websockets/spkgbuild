@@ -1,15 +1,21 @@
 # description	: Implementation of the WebSocket protocol for the Qt6 framework
-# depends	: qt6-base qt6-declarative qt6-full
+# depends	: qt6-base qt6-declarative
 
 name=qt6-websockets
 version=6.8.2
 release=1
-source=""
+source="https://download.qt.io/official_releases/qt/${version%.*}/$version/submodules/qtwebsockets-everywhere-src-$version.tar.xz"
 
 build() {
-    :
+    cd qtwebsockets-everywhere-src-$version
+
+    cmake -B build -G Ninja \
+        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS
+    cmake --build build
 }
 
 package() {
-    mkdir -p "$PKG"/usr
+    cd qtwebsockets-everywhere-src-$version
+
+    DESTDIR="$PKG" cmake --install build
 }

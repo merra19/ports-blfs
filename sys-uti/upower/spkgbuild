@@ -1,6 +1,6 @@
 # description	: D-Bus abstraction for enumerating power devices, querying history and statistics
-# depends	: libgudev gobject-introspection meson glib dbus
-# depends	: python3-gobject3 libxslt docbook-xsl-nons
+# depends	: libgudev gobject-introspection meson glib dbus libxslt
+# depends	: py3-gobject3 docbook-xsl-nons
 
 name=upower
 version=1.90.7

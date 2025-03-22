@@ -1,12 +1,11 @@
 # description	: A set of co-operative tools that make networking simple and straightforward
 # depends	: gobject-introspection vala glib libndp curl util-linux 
 # depends	: nss nspr readline newt intltool libxslt dbus polkit 
-# depends	: python3-gobject3 wpa_supplicant udev libpsl bluez 
-# depends	: linux-api-headers perl jansson elogind
+# depends	: py3-gobject3 wpa_supplicant udev libpsl bluez perl
+# depends	: linux-api-headers jansson elogind
 # optional	: modemmanager dhcpcd
 
 name=networkmanager
-_name=NetworkManager
 version=1.50.0
 release=1
 source="$name-$version.tar.xz::https://download.gnome.org/sources/NetworkManager/${version%.*}/NetworkManager-$version.tar.xz
@@ -14,7 +13,7 @@ source="$name-$version.tar.xz::https://download.gnome.org/sources/NetworkManager
 backup="etc/NetworkManager/NetworkManager.conf"
 
 build() {
-	cd ${_name}-$version
+	cd NetworkManager-$version
 
 	grep -rl '^#!.*python$' | xargs sed -i '1s/python/&3/'
 
@@ -38,7 +37,7 @@ build() {
 }
 
 package() {
-    cd ${_name}-$version
+    cd NetworkManager-$version
 
 	DESTDIR="$PKG" ninja -C build install
 

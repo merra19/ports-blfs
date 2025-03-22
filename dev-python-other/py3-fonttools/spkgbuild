@@ -1,0 +1,22 @@
+# description	: Library for manipulating TrueType, OpenType, AFM and Type1 fonts
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel py3-cython
+
+name=py3-fonttools
+version=4.54.1
+release=1
+source="$name-$version.tar.gz::https://github.com/fonttools/fonttools/archive/refs/tags/$version.tar.gz"
+
+build() {
+    cd ${name#*-}-$version
+    
+	# remove interpreter line
+	sed -i '1d' Lib/fontTools/mtiLib/__init__.py
+    
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${name#*-}-$version
+
+	python3 -m installer -d "$PKG" .dist/fonttools-$version-*.whl
+}

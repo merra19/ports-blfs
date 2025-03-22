@@ -1,0 +1,22 @@
+# description	: HTTP library with thread-safe connection pooling, file post, and more
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel py3-build
+# depends	: py3-hatchling py3-pyproject_hooks py3-hatch-vcs
+
+name=py3-urllib3
+version=2.3.0
+release=1
+source="https://files.pythonhosted.org/packages/source/u/urllib3/urllib3-$version.tar.gz"
+
+build() {
+	cd ${name#*-}-$version
+
+    #gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+    python3 -m build --wheel --no-isolation
+}
+
+package() {
+	cd ${name#*-}-$version
+
+	#python3 -m installer -d "$PKG" .dist/*.whl
+    python -m installer --destdir="$PKG" dist/*.whl
+}

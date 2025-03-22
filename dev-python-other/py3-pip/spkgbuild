@@ -1,0 +1,28 @@
+# description	: The PyPA recommended tool for installing Python packages
+# depends	: python3 py3-setuptools py3-yaml
+
+name=py3-pip
+version=24.2
+release=1
+source="https://pypi.io/packages/source/p/pip/pip-$version.tar.gz"
+
+build() {
+	cd ${name#*-}-$version
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+    cd ${name#*-}-$version
+
+    python3 -m installer -d "$PKG" .dist/*.whl
+
+	local _py3ver=$(python3 -c 'import sys; print("{}.{}".format(sys.version_info.major, sys.version_info.minor))')
+	PYTHONPATH="$PKG"/usr/lib/python$_py3ver/site-packages "$PKG"/usr/bin/pip \
+		completion --bash | \
+		install -Dm644 /dev/stdin "$PKG"/usr/share/bash-completion/completions/pip
+
+	PYTHONPATH="$PKG"/usr/lib/python$_py3ver/site-packages "$PKG"/usr/bin/pip \
+		completion --zsh | \
+		install -Dm644 /dev/stdin "$PKG"/usr/share/zsh/site-functions/_pip
+}

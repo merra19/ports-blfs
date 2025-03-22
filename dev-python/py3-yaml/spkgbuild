@@ -1,0 +1,23 @@
+# description	: YAML parser and emitter for Python
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel py3-pygdbmi
+# depends	: libyaml py3-cython
+
+name=py3-yaml
+version=6.0.2
+release=1
+source="https://files.pythonhosted.org/packages/source/P/PyYAML/pyyaml-$version.tar.gz"
+
+build() {
+    cd pyyaml-$version
+
+    # Make a change so the package will build with cython-3.0.10:
+    sed -i '/Cython/s/ import build_ext/.old_build_ext import old_build_ext/' setup.py
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+    cd pyyaml-$version
+
+    python3 -m installer -d "$PKG" .dist/*.whl
+}

@@ -1,17 +1,23 @@
 # description	: Qt module and API for defining 3D content in Qt QuickTools
-# depends	: qt6-base qt6-declarative cmake qt6-shadertools qt6-full
-# depends	: qt6-quicktimeline zlib 
+# depends	: qt6-base qt6-declarative cmake qt6-shadertools zlib
+# depends	: qt6-quicktimeline
 
 name=qt6-quick3d
 version=6.8.2
 release=1
 options="!asneeded"
-source=""
+source="https://download.qt.io/official_releases/qt/${version%.*}/$version/submodules/qtquick3d-everywhere-src-$version.tar.xz"
 
 build() {
-    :
+    cd qtquick3d-everywhere-src-$version
+
+    cmake -B build -G Ninja \
+        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS
+    cmake --build build
 }
 
 package() {
-    mkdir -p "$PKG"/usr
+    cd qtquick3d-everywhere-src-$version
+
+    DESTDIR="$PKG" cmake --install build
 }

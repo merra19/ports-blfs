@@ -1,5 +1,5 @@
 # description	: Generator for loading Vulkan, OpenGL, EGL, GLES, and GLX contexts
-# depends	: python3-gpep517 python3-setuptools python3-wheel
+# depends	: py3-gpep517 py3-setuptools py3-wheel
 
 name=glad
 version=2.0.8

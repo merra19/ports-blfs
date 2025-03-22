@@ -1,5 +1,5 @@
 # description	: high level interface to Linux seccomp filter
-# depends	: which gperf python3-cython
+# depends	: which gperf py3-cython
 
 name=libseccomp
 version=2.6.0

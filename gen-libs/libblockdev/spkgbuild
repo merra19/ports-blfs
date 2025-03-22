@@ -1,7 +1,7 @@
 # description	: A library for manipulating block devices
 # depends	:  gobject-introspection libbytesize libnvme parted  
 # depends	: libyaml cryptsetup glib gptfdisk kmod util-linux   
-# depends	: lvm2 udev python3-gobject3 keyutils json-glib
+# depends	: lvm2 udev py3-gobject3 keyutils json-glib
 # optional	: escrow!!nss escrow!!volume_key 
 
 name=libblockdev

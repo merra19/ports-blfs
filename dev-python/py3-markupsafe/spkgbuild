@@ -1,0 +1,21 @@
+# description	: Implements a XML/HTML/XHTML Markup safe string for Python
+# depends	: python3 py3-wheel py3-gpep517 py3-setuptools
+
+name=py3-markupsafe
+version=3.0.2
+release=1
+options="!lto"
+source="https://files.pythonhosted.org/packages/source/M/MarkupSafe/markupsafe-$version.tar.gz"
+
+build() {
+    cd ${name#*-}-$version
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${name#*-}-$version
+
+    python3 -m installer -d "$PKG" .dist/*.whl
+	find "$PKG" -name "*.c" -delete   
+}

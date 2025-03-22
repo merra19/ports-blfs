@@ -1,15 +1,47 @@
 # description	: Qt Tools Collection
-# depends	: qt6-base qt6-declarative python3 vulkan-headers qt6-full
+# depends	: qt6-base qt6-declarative python3 vulkan-headers 
 
 name=qt6-tools
 version=6.8.2
 release=1
-source=""
+source="https://download.qt.io/official_releases/qt/${version%.*}/$version/submodules/qttools-everywhere-src-$version.tar.xz"
 
 build() {
-    :
+    cd qttools-everywhere-src-$version
+
+    cmake -B build -G Ninja \
+        -D INSTALL_PUBLICBINDIR=usr/bin \
+        -D QT_INSTALL_XDG_DESKTOP_ENTRIES=ON \
+        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS \
+        -D CMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects"
+    cmake --build build
 }
 
 package() {
-    mkdir -p "$PKG"/usr
+    cd qttools-everywhere-src-$version
+
+    DESTDIR="$PKG" cmake --install build
+
+	install -v -dm755 "$PKG"/usr/share/pixmaps/                  &&
+
+	install -v -Dm644 src/assistant/assistant/images/assistant-128.png \
+					"$PKG"/usr/share/pixmaps/assistant-qt6.png &&
+
+	install -v -Dm644 src/designer/src/designer/images/designer.png \
+					"$PKG"/usr/share/pixmaps/designer-qt6.png  &&
+
+	install -v -Dm644 src/linguist/linguist/images/icons/linguist-128-32.png \
+					"$PKG"/usr/share/pixmaps/linguist-qt6.png  &&
+
+	install -v -Dm644 src/qdbus/qdbusviewer/images/qdbusviewer-128.png \
+					"$PKG"/usr/share/pixmaps/qdbusviewer-qt6.png &&
+
+	install -dm755 "$PKG"/usr/share/applications &&
+
+    # Install useful symlinks
+    cd "$PKG"
+    mkdir -p usr/bin
+    while read -r _line; do
+        ln -sv $_line
+    done < "$SRC"/qttools-everywhere-src-$version/build/user_facing_tool_links.txt
 }

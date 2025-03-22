@@ -1,10 +1,9 @@
 # description	: OpenGL-like graphic library for Linux
-# depends	: python3-mako elfutils bison flex libdrm llvm libglvnd 
+# depends	: py3-mako elfutils bison flex libdrm llvm libglvnd 
 # depends	: vulkan-loader wayland-protocols lm-sensors wayland 
 # depends	: glslang expat zlib zstd xorg-proto libxrandr libx11 
 # depends	: libxshmfence libxxf86vm libxfixes libxext libxcb libclc 
-# depends	: python3-ply rust-bindgen cbindgen libva libvdpau 
-# depends	: python3-yaml
+# depends	: py3-ply rust-bindgen cbindgen libva libvdpau py3-yaml
 
 name=mesa
 version=24.3.4

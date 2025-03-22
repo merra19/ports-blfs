@@ -1,5 +1,5 @@
 # description	: Controlling the startup, running, and shutdown of the system
-# depends	: meson acl xz python3-jinja gperf libcap
+# depends	: meson acl xz py3-jinja gperf libcap
 
 name=udev
 _name=systemd

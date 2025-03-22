@@ -4,7 +4,7 @@
 # depends	: fontforge graphite2 fontconfig freetype harfbuzz lcms2 
 # depends	: libepoxy libjpeg-turbo libpng libwebp openjpeg2 libtiff 
 # depends	: curl zlib mesa cairo libxinerama libxrandr libxrender 
-# depends	: python3-lxml glib bluez cups dbus dconf apache-ant
+# depends	: py3-lxml glib bluez cups dbus dconf apache-ant
 # depends	: at-spi2-core gobject-introspection gtk3 pango poppler 
 # depends	: qt6-base libatomic_ops gperf xorg-proto libxt libxtst
 # depends	: liberation-fonts java xdg-utils glm nasm abseil-cpp 

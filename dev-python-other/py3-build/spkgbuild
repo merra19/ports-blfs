@@ -1,0 +1,21 @@
+# description	    : A simple, correct PEP517 package builder
+# depends	: py3-packaging py3-wheel py3-pyproject_hooks py3-gpep517
+# depends	: py3-installer
+
+name=py3-build
+version=1.0.3
+release=1
+source="$name-$version.tar.gz::https://pypi.python.org/packages/source/b/build/build-$version.tar.gz"
+
+build() {
+    cd build-$version
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+    cd build-$version
+
+     
+    python3 -m installer -d "$PKG" .dist/*.whl
+}

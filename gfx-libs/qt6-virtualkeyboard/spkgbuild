@@ -1,15 +1,22 @@
 # description	: Customizable input framework and virtual keyboard for Qt
-# depends	: qt6-base qt6-declarative cmake ninja qt6-full
+# depends	: qt6-base qt6-declarative cmake ninja qt6-multimedia
+# depends	: qt6-svg
 
 name=qt6-virtualkeyboard
 version=6.8.2
 release=1
-source=""
+source="https://download.qt.io/official_releases/qt/${version%.*}/$version/submodules/qtvirtualkeyboard-everywhere-src-$version.tar.xz"
 
 build() {
-    :
+    cd qtvirtualkeyboard-everywhere-src-$version
+
+    cmake -B build -G Ninja \
+        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS
+    cmake --build build
 }
 
 package() {
-    mkdir -p "$PKG"/usr
+    cd qtvirtualkeyboard-everywhere-src-$version
+
+    DESTDIR="$PKG" cmake --install build
 }

@@ -1,6 +1,6 @@
 # description	: A text editor for the GNOME desktop
 # depends	: glib gobject-introspection gtk3 libgedit-amtk libpeas
-# depends	: libgedit-tepl gspell python3-cairo python3-gobject3
+# depends	: libgedit-tepl gspell py3-cairo py3-gobject3
 # depends	: libgedit-gtksourceview adwaita-icon-theme gvfs itstool
 # depends	: gsettings-desktop-schemas vala
 

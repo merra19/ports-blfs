@@ -1,6 +1,6 @@
 # description	: GTK+ Documentation Generator
-# depends	: docbook-xml docbook-xsl-nons python3-lxml libxslt 
-# depends	: itstool python3-pygments glib which
+# depends	: docbook-xml docbook-xsl-nons py3-lxml libxslt itstool
+# depends	: py3-pygments glib which
 
 name=gtk-doc
 version=1.34.0

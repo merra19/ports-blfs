@@ -1,16 +1,23 @@
 # description	: Hardware sensor access library for the Qt6 framework
 # depends	: qt6-base qt6-declarative cmake ffmpeg pulseaudio 
-# depends	: libxrandr qt6-shadertools qt6-quick3d qt6-full
+# depends	: libxrandr qt6-shadertools qt6-quick3d 
 
 name=qt6-multimedia
 version=6.8.2
 release=1
-source=""
+source="https://download.qt.io/official_releases/qt/${version%.*}/$version/submodules/qtmultimedia-everywhere-src-$version.tar.xz"
 
 build() {
-    :
+    cd qtmultimedia-everywhere-src-$version
+
+    cmake -B build -G Ninja \
+        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS \
+        -D CMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects"
+    cmake --build build
 }
 
 package() {
-    mkdir -p "$PKG"/usr
+    cd qtmultimedia-everywhere-src-$version
+
+    DESTDIR="$PKG" cmake --install build
 }

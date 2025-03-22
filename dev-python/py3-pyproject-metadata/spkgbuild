@@ -1,0 +1,20 @@
+# description	: PEP 621 metadata parsing
+# depends	: python3 py3-packaging py3-wheel py3-gpep517
+# depends	: py3-setuptools
+
+name=py3-pyproject-metadata
+version=0.9.0
+release=1
+source="https://files.pythonhosted.org/packages/source/p/pyproject-metadata/pyproject_metadata-$version.tar.gz"
+
+build() {
+	cd pyproject_metadata-$version
+    
+	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd pyproject_metadata-$version
+
+	python3 -m installer -d "$PKG" .dist/*.whl
+}

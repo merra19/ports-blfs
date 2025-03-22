@@ -1,0 +1,28 @@
+# description	: A full-featured template engine for Python
+# depends	: python3 py3-markupsafe py3-gpep517 py3-wheel
+# depends	: py3-setuptools
+
+name=py3-jinja
+version=3.1.5
+release=1
+options="!lto"
+source="https://pypi.org/packages/source/J/Jinja2/jinja2-$version.tar.gz"
+
+build() {
+    cd jinja2-$version
+    
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd jinja2-$version
+
+    python3 -m installer -d "$PKG" .dist/*.whl
+    
+	local docdir="$PKG/usr/share/doc/$name-$version"
+	# Note: The documentation in the docs directory needs to be generated
+	# by py-sphinx, however, this package (py-jinja2) is a dependency of
+	# Sphinx itself!
+	mkdir -p "$docdir"
+	cp -R docs "$docdir"/whl 
+}

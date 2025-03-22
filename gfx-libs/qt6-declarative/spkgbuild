@@ -1,16 +1,31 @@
 # description	: Qt Declarative (Quick 2)
 # depends	: qt6-base python3 vulkan-headers qt6-languageserver 
-# depends	: qt6-shadertools qt6-full
+# depends	: qt6-shadertools qt6-svg
 
 name=qt6-declarative
 version=6.8.2
 release=1
-source=""
+source="https://download.qt.io/official_releases/qt/${version%.*}/$version/submodules/qtdeclarative-everywhere-src-$version.tar.xz"
 
 build() {
-    :
+    cd qtdeclarative-everywhere-src-$version
+
+    cmake -B build -G Ninja \
+        -D INSTALL_PUBLICBINDIR=usr/bin \
+        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS \
+        -D CMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects"
+    cmake --build build
 }
 
 package() {
-    mkdir -p "$PKG"/usr
+    cd qtdeclarative-everywhere-src-$version
+
+    DESTDIR="$PKG" cmake --install build
+
+    # Install symlinks for user-facing tools
+    cd "$PKG"
+    mkdir usr/bin
+    while read _line; do
+        ln -s $_line
+    done < "$SRC"/qtdeclarative-everywhere-src-$version/build/user_facing_tool_links.txt
 }

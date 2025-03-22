@@ -1,0 +1,20 @@
+# description	: Fast array and numerical python library
+# depends	: py3-flit-core py3-gpep517 py3-cython py3-meson
+# depends	: py3-pyproject-metadata py3-packaging
+
+name=py3-numpy
+version=2.2.3
+release=1
+source="https://files.pythonhosted.org/packages/source/n/numpy/numpy-$version.tar.gz"
+
+build() {
+	cd numpy-$version
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd numpy-$version
+
+	python3 -m installer -d "$PKG" .dist/*.whl
+}

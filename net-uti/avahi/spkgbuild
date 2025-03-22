@@ -1,6 +1,6 @@
 # description	: System which facilitates service discovery on a local network
-# depends	: libdaemon libevent expat glib dbus libcap python3-dbus
-# depends	: gobject-introspection python3-gobject3
+# depends	: libdaemon libevent expat glib dbus libcap py3-dbus
+# depends	: gobject-introspection py3-gobject3
 # optional	: gdbm 
 
 name=avahi

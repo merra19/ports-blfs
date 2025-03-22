@@ -1,8 +1,7 @@
 # description	: Panel for the Xfce desktop environment
-# depends	: glib cairo python3-cairo gobject-introspection gtk3 
-# depends	: libx11 libwnck3 exo garcon libxfce4ui libxfce4util 
-# depends	: xfconf libdbusmenu  perl gettext intltool pkgconf 
-# depends	: libxfce4windowing
+# depends	: glib cairo py3-cairo gobject-introspection gtk3 libx11
+# depends	: libwnck3 exo garcon libxfce4ui libxfce4util xfconf perl
+# depends	: libdbusmenu gettext intltool pkgconf libxfce4windowing
 
 name=xfce4-panel
 version=4.20.3

@@ -1,0 +1,20 @@
+# description	: Utility library for gitignore style pattern matching of file paths
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel 
+# depends	: py3-flit-core
+
+name=py3-pathspec
+version=0.12.1
+release=1
+source="https://files.pythonhosted.org/packages/source/p/pathspec/pathspec-$version.tar.gz"
+
+build() {
+    cd ${name#*-}-$version
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${name#*-}-$version
+
+	python3 -m installer -d "$PKG" .dist/pathspec-$version-py3-none-any.whl 
+}

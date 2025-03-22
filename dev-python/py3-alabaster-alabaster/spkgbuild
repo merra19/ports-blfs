@@ -1,0 +1,19 @@
+# description	: A configurable sidebar-enabled Sphinx theme
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
+
+name=py3-alabaster
+version=1.0.0 
+release=0
+source="https://pypi.org/packages/source/a/alabaster/alabaster-$version.tar.gz"
+
+build() {
+	cd ${name#*-}-$version
+    
+	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${name#*-}-$version
+
+	python3 -m installer -d "$PKG" .dist/*.whl
+}

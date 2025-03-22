@@ -1,15 +1,21 @@
 # description	: Qt module for keyframe-based timeline construction
-# depends	: qt6-base qt6-declarative cmake qt6-full
+# depends	: qt6-base qt6-declarative cmake
 
 name=qt6-quicktimeline
 version=6.8.2
 release=1
-source=""
+source="https://download.qt.io/official_releases/qt/${version%.*}/$version/submodules/qtquicktimeline-everywhere-src-$version.tar.xz"
 
 build() {
-    :
+    cd qtquicktimeline-everywhere-src-$version
+
+    cmake -B build -G Ninja \
+        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS
+    cmake --build build
 }
 
 package() {
-    mkdir -p "$PKG"/usr
+    cd qtquicktimeline-everywhere-src-$version
+
+    DESTDIR="$PKG" cmake --install build
 }

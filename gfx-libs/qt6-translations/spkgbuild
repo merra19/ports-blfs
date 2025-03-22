@@ -1,15 +1,21 @@
 # description	: Translation files for the Qt6 framework
-# depends	: qt6-base qt6-tools qt6-full
+# depends	: qt6-base qt6-tools 
 
 name=qt6-translations
 version=6.8.2
 release=1
-source=""
+source="https://download.qt.io/official_releases/qt/${version%.*}/$version/submodules/qttranslations-everywhere-src-$version.tar.xz"
 
 build() {
-    :
+    cd qttranslations-everywhere-src-$version
+
+    cmake -B build -G Ninja \
+        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS
+    cmake --build build -j1
 }
 
 package() {
-    mkdir -p "$PKG"/usr
+    cd qttranslations-everywhere-src-$version
+
+    DESTDIR="$PKG" cmake --install build
 }

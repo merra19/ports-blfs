@@ -1,11 +1,11 @@
 # description	: OpenGL-like graphic library for Linux
-# depends	: python3-mako elfutils-32 bison flex libdrm-32 llvm32 
+# depends	: py3-mako elfutils-32 bison flex libdrm-32 llvm32 
 # depends	: libglvnd-32 vulkan-loader wayland-protocols expat-32
 # depends	: lm-sensors-32 wayland-32 glslang zlib-32 zstd-32 libclc
 # depends	: xorg-proto libxrandr-32 libx11-32 libxshmfence-32 
 # depends	: libxxf86vm-32 libxfixes-32 libxext-32 libxcb-32 
-# depends	: spirv-tools-32 python3-ply rust-bindgen cbindgen 
-# depends	: spirv-llvm-translator-32 python3-yaml mesa
+# depends	: spirv-tools-32 py3-ply rust-bindgen cbindgen 
+# depends	: spirv-llvm-translator-32 py3-yaml mesa
 
 name=mesa-32
 _name=mesa

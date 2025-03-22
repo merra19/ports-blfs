@@ -1,6 +1,6 @@
 # description	: Location and timezone database and weather-lookup library
 # depends	: glib gobject-introspection json-glib libxml2 libsoup2 
-# depends	: meson vala geocode-glib python3-gobject3
+# depends	: meson vala geocode-glib py3-gobject3
 
 name=libgweather
 version=4.4.4

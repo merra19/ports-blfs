@@ -1,6 +1,6 @@
 # description	: The GLib library of C routines
-# depends	: docbook-xml meson libxslt pcre2 python3-packaging 
-# depends	: libffi zlib util-linux attr elfutils
+# depends	: docbook-xml meson libxslt pcre2 py3-packaging libffi
+# depends	: zlib util-linux attr elfutils
 
 name=glib
 version=2.82.5

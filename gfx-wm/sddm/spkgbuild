@@ -1,7 +1,7 @@
 # description	: Simple Desktop Display Manager
 # depends	: libxau libxcb xorg-server noto-fonts ttf-dejavu 
-# depends	: extra-cmake-modules python3-docutils qt6-base 
-# depends	: qt6-declarative qt6-tools
+# depends	: extra-cmake-modules py3-docutils qt6-base qt6-tools
+# depends	: qt6-declarative
 
 name=sddm
 version=0.21.0

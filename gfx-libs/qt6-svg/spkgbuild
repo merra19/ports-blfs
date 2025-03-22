@@ -1,15 +1,22 @@
 # description	: SVG rendering library for the Qt6 framework
-# depends	: qt6-base python3 vulkan-headers qt6-full
+# depends	: qt6-base python3 vulkan-headers
 
 name=qt6-svg
 version=6.8.2
 release=1
-source=""
+source="https://download.qt.io/official_releases/qt/${version%.*}/$version/submodules/qtsvg-everywhere-src-$version.tar.xz"
 
 build() {
-    :
+    cd qtsvg-everywhere-src-$version
+
+    cmake -B build -G Ninja \
+        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS \
+        -D CMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects"
+    cmake --build build
 }
 
 package() {
-    mkdir -p "$PKG"/usr
+    cd qtsvg-everywhere-src-$version
+
+    DESTDIR="$PKG" cmake --install build
 }

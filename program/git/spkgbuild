@@ -1,6 +1,6 @@
 # description	: Stupid content tracker: distributed VCS designed for speed and efficiency
 # depends	: curl gnupg pcre2 openssl zlib libsecret glib tk fcron
-# depends	: python3-asciidoc openssh pam udev xmlto
+# depends	: py3-asciidoc openssh pam udev xmlto
 
 name=git
 version=2.48.1

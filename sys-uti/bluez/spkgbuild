@@ -1,5 +1,5 @@
 # description	: Bluetooth Tools and System Daemons for Linux
-# depends	: dbus glib libical python3-docutils cups alsa-lib 
+# depends	: dbus glib libical py3-docutils cups alsa-lib 
 # depends	: readline
 
 name=bluez

@@ -2,9 +2,8 @@
 # depends	: kconfig kcoreaddons kcrash ki18n kidletime kio 
 # depends	: kjobwidgets knotifications kstatusnotifieritem 
 # depends	: kwallet kwidgetsaddons kwindowsystem kirigami
-# depends	: syntax-highlighting kitemmodels qt6-base 
-# depends	: qt6-declarative python3-pygdbmi python3-gpep517 
-# depends	: python3-setuptools python3-wheel
+# depends	: syntax-highlighting kitemmodels qt6-base qt6-declarative
+# depends	: py3-pygdbmi py3-gpep517 py3-setuptools py3-wheel
 
 name=drkonqi
 version=6.3.2

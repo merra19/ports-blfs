@@ -6,11 +6,11 @@
 # depends	: bash-completion shadow libtool gdbm gperf expat less 
 # depends	: perl perl-xml-parser inetutils intltool autoconf 
 # depends	: automake openssl kmod elfutils libffi python3 
-# depends	: python3-wheel ninja meson coreutils diffutils gawk 
+# depends	: py3-wheel ninja meson coreutils diffutils gawk 
 # depends	: findutils groff gzip iproute2 kbd libpipeline make patch 
 # depends	: tar texinfo make-ca curl grub udev man-db procps-ng 
 # depends	: util-linux e2fsprogs sysvinit sysklogd freetype libtasn1
-# depends	: nano  linux-firmware dosfstools mdadm python3-flit-core
+# depends	: nano  linux-firmware dosfstools mdadm py3-flit-core
 # depends	: fcron dbus cracklib sudo logrotate libpwquality b3sum
 
 name=base

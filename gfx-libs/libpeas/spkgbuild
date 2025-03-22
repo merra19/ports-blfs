@@ -1,5 +1,5 @@
 # description	: A GObject plugins library
-# depends	: glib gobject-introspection lua python3-gobject3
+# depends	: glib gobject-introspection lua py3-gobject3
 
 name=libpeas
 version=1.36.0

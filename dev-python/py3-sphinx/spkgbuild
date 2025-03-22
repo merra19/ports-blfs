@@ -1,0 +1,29 @@
+# description	: Python documentation generator
+# depends	: py3-babel py3-docutils py3-imagesize py3-jinja
+# depends	: py3-packaging py3-pygments py3-requests py3-alabaster
+# depends	: py3-snowballstemmer py3-sphinxcontrib-applehelp
+# depends	: py3-sphinxcontrib-devhelp py3-sphinxcontrib-htmlhelp 
+# depends	: py3-sphinxcontrib-jsmath py3-sphinxcontrib-qthelp
+# depends	: py3-sphinxcontrib-serializinghtml 
+# depends	: py3-roman-numerals-py
+
+name=py3-sphinx
+version=8.2.1
+release=0
+source="https://files.pythonhosted.org/packages/source/s/sphinx/${name#*-}-$version.tar.gz"
+
+bsdtar() {
+tar $@;
+}
+
+build() {
+	cd ${name#*-}-$version
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${name#*-}-$version
+
+    python3 -m installer -d "$PKG" .dist/sphinx-*.whl
+}
