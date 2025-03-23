@@ -1,0 +1,16 @@
+# description	: Wayfire compositor Meta
+# depends	: wayfire kitty waybar wlogout pavucontrol wofi thunar
+# depends	: xdg-desktop-portal wireplumber ttf-font-awesome
+
+name=wayfire-meta
+version=0.9.0
+release=3
+source="wayfire.ini"
+
+build() {
+    :
+}
+
+package() {
+    install -Dm 0644 wayfire.ini "$PKG"/usr/local/wayfire/wayfire.ini
+}

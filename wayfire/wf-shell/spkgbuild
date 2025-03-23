@@ -1,0 +1,29 @@
+# description	: "Compiz like 3D wayland compositor
+# depends	: glibmm gtkmm glib gobject-introspection libsigc++ gtk3
+# depends	: libdbusmenu gtk-layer-shell wayland wf-config wayfire
+# depends	: cairo alsa-lib pulseaudio  wayland wayland-protocols
+
+name=wf-shell
+version=0.9.0
+release=3
+source="https://github.com/WayfireWM/$name/releases/download/v$version/$name-$version.tar.xz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D pulse=enabled \
+        -D wayland-logout=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+
+    install -Dm644 wf-shell.ini.example "$PKG"/usr/share/doc/wf-shell/wf-shell.ini.example
+}

@@ -1,0 +1,26 @@
+# description	: general logout scripts for wayland compositors
+# depends	: meson
+
+name=wayland-logout
+version=1.4
+release=1
+source="https://github.com/soreau/wayland-logout/archive/v$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+
+    install -Dm755 build/wayland-logout "$PKG"/usr/bin/wayland-logout
+    install -Dm644 wayland-logout.1 "$PKG"/usr/share/man/man1/wayland-logout.1
+}

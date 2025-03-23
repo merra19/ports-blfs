@@ -1,0 +1,76 @@
+# description	: compiz like 3D wayland compositor
+# depends	: nlohmann_json glib libevdev libinput wayland wf-config
+# depends	: wayland-protocols wlroots glm libglvnd libjpeg-turbo
+# depends	: libpng cairo libxkbcommon pango pixman dbus libxcb
+# depends	: xkeyboard-config cmake vulkan-headers libxml2 libdrm
+# depends	: polkit seatd xwayland glslang libdisplay-info mesa
+# depends	: xcb-util-errors xcb-util-renderutil xcb-util-wm
+
+name=wayfire
+version=0.9.0
+release=3
+source="https://github.com/WayfireWM/$name/releases/download/v$version/$name-$version.tar.xz
+        decor_title_font_scale.patch
+        add-session-lock-config.patch
+        wayfire-session.desktop wayfire-session wayfire.env"
+
+build() {
+	cd $name-$version
+
+    #patch -Np1 -i ../decor_title_font_scale.patch
+    #patch -Np1 -i ../add-session-lock-config.patch
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D xwayland=auto \
+        -D use_system_wlroots=enabled \
+        -D use_system_wfconfig=enabled \
+        -D b_lto=true \
+        -D b_pie=true \
+        build
+    sed "/WF_SRC_DIR/d" -i build/config.h
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+
+    install -Dm 0755 "$SRC"/wayfire-session "$PKG"/usr/share/wayland-sessions/wayfire-session
+    install -Dm 0644 "$SRC"/wayfire-session.desktop "$PKG"/usr/share/wayland-sessions/wayfire.desktop
+    install -Dm 0644 "$SRC"/wayfire.env "$PKG"/etc/wayfire.env
+
+
+    #install -Dm644 wayfire.desktop "$PKG"/usr/share/wayland-sessions/wayfire.desktop
+    install -Dm 0644 wayfire.ini "$PKG"/usr/share/wayfire/wayfire.ini
+}
+
+build2() {
+	cd $name-$version
+
+    patch -Np1 -i ../decor_title_font_scale.patch
+    patch -Np1 -i ../add-session-lock-config.patch
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D xwayland=auto \
+        -D use_system_wlroots=disabled \
+        -D use_system_wfconfig=enabled \
+        -D b_lto=true \
+        -D b_pie=true \
+        build
+    sed "/WF_SRC_DIR/d" -i build/config.h
+	ninja -C build
+}
+
+package2() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+
+    install -Dm644 wayfire.desktop "$PKG"/usr/share/wayland-sessions/wayfire.desktop
+    cp wayfire.ini "$PKG"/usr/share
+}
