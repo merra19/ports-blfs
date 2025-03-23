@@ -1,0 +1,31 @@
+# description	: Web browser that blocks ads and trackers by default (binary release)
+# depends	: alsa-lib gtk3 nss liberation-fonts libnotify libxscrnsaver
+
+name=brave-bin
+version=1.76.81
+release=1
+options="!strip"
+source="$name-$version.zip::https://github.com/brave/brave-browser/releases/download/v$version/brave-browser-$version-linux-amd64.zip"
+noextract="$name-$version.zip"
+
+build() {
+	mkdir -p brave
+	bsdtar -xf "$name-$version.zip" -C brave
+	chmod +x brave/brave
+}
+
+package() {
+	install -dm0755 "$PKG"/opt
+	cp -a brave "$PKG"/opt/$name
+
+	# allow firejail users to get the suid sandbox working
+	chmod 4755 "$PKG"opt/brave-bin/chrome-sandbox
+
+	install -Dm0755 "$name.sh" "$PKG"usr/bin/brave
+	install -Dm0644 -t "$PKG"/usr/share/applications/ "brave-browser.desktop"
+	pushd "$PKG"/usr/
+	for size in 16x16 24x24 32x32 48x48 64x64 128x128 256x256; do
+		install -Dm0644 "$PKG/opt/$name/product_logo_${size/x*/}.png" \
+			"share/icons/hicolor/$size/apps/brave-desktop.png"
+	done
+}
