@@ -4,6 +4,7 @@
 name=nerd-fonts
 version=3.3.0
 release=1
+options="!strip"
 source="0xproto-$version.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$version/0xProto.tar.xz
         3270-$version.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$version/3270.tar.xz
         agave-$version.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$version/Agave.tar.xz

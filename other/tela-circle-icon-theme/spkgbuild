@@ -5,6 +5,7 @@ name=tela-circle-icon-theme
 version=2025_02_10
 _pkgver="${version//_/-}"
 release=1
+options="!strip"
 source="$name-$version.tar.gz::https://github.com/vinceliuice/Tela-circle-icon-theme/archive/$_pkgver.tar.gz
         do_not_generate_cache_files.patch"
 

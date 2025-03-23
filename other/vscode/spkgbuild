@@ -8,6 +8,7 @@
 name=vscode
 version=1.97.2
 release=1
+options="!strip"
 source="$name-$version-amd64.tar.gz::https://update.code.visualstudio.com/$version/linux-x64/stable
 	$name.desktop $name-url-handler.desktop"
 IGNORE_MDSUM="yes"
