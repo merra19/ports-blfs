@@ -14,5 +14,5 @@ build() {
 package() {
     install -Dm 0644 wayfire.ini "$PKG"/usr/local/wayfire/wayfire.ini
     install -Dm 0644 config.jsonc  "$PKG"/usr/local/wayfire/config.jsonc 
-    install -Dm 0755 xdgportal.sh"$PKG"/usr/local/wayfire/xdgportal.sh
+    install -Dm 0755 xdgportal.sh "$PKG"/usr/local/wayfire/xdgportal.sh
 }
