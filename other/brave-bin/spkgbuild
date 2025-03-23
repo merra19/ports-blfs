@@ -20,7 +20,7 @@ package() {
 	cp -a brave "$PKG"/opt/$name
 
 	# allow firejail users to get the suid sandbox working
-	chmod 4755 "$PKG"opt/brave-bin/chrome-sandbox
+	chmod 4755 "$PKG"/opt/brave-bin/chrome-sandbox
 
 	install -Dm0755 "$name.sh" "$PKG"usr/bin/brave
 	install -Dm0644 -t "$PKG"/usr/share/applications/ "brave-browser.desktop"
