@@ -2,7 +2,7 @@
 # depends	: hyprland wofi polkit-gnome thunar ttf-font-awesome 
 # depends	: playerctl xdg-desktop-portal-hyprland waybar dex
 # depends	: ttf-nerd-fonts-symbols hyprpaper xfce4-notifyd
-# depends	: xdg-desktop-portal-gtk
+# depends	: xdg-desktop-portal-gtk kitty catppuccin-cursors-mocha
 
 name=hypr
 version=0.47.2
