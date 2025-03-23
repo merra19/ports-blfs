@@ -5,7 +5,8 @@ name=brave-bin
 version=1.76.81
 release=1
 options="!strip"
-source="$name-$version.zip::https://github.com/brave/brave-browser/releases/download/v$version/brave-browser-$version-linux-amd64.zip"
+source="$name-$version.zip::https://github.com/brave/brave-browser/releases/download/v$version/brave-browser-$version-linux-amd64.zip
+        brave-browser.desktop brave-bin.sh"
 noextract="$name-$version.zip"
 
 build() {
