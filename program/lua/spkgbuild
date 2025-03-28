@@ -28,7 +28,7 @@ build() {
 package() {
     cd $name-$version
 
-    make CC=clan INSTALL_TOP="$PKG"/usr \
+    make CC=cc INSTALL_TOP="$PKG"/usr \
         INSTALL_DATA="cp -d" \
         INSTALL_MAN="$PKG"/usr/share/man/man1 \
         TO_LIB="liblua.so liblua.so.${version%.*} liblua.so.$version" \
