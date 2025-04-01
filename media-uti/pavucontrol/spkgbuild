@@ -1,5 +1,5 @@
 # description	: Pulseaudio Volume Control, GTK based mixer for Pulseaudio
-# depends	: gtkmm4 json-glib libcanberra libsigc++ pulseaudio
+# depends	: gtkmm4 json-glib libcanberra libsigc++3 pulseaudio
 
 name=pavucontrol
 version=6.1
