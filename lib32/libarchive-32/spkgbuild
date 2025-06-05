@@ -3,7 +3,7 @@
 # depends	: openssl-32 
 
 name=libarchive-32
-version=3.7.7
+version=3.8.1
 release=1
 options="!lto"
 source="https://github.com/libarchive/libarchive/releases/download/v$version/libarchive-$version.tar.xz"

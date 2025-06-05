@@ -2,14 +2,17 @@
 # depends	: glibc acl attr xz perl openssl
 
 name=coreutils
-version=9.6
+version=9.7
 release=2
 source="https://ftp.gnu.org/gnu/coreutils/$name-$version.tar.xz
-        https://www.linuxfromscratch.org/patches/lfs/development/$name-$version-i18n-1.patch"
+        https://www.linuxfromscratch.org/patches/lfs/development/$name-$version-i18n-1.patch
+        https://www.linuxfromscratch.org/patches/lfs/development/coreutils-9.7-upstream_fix-1.patch"
 
 build() {
     cd $name-$version
 
+    # apply a patch for a security problem identified upstream
+    patch -Np1 -i ../coreutils-9.7-upstream_fix-1.patch
     # POSIX requires that programs from Coreutils recognize character boundaries correctly
     # even in multibyte locales. The following patch fixes this non-compliance and other
     # internationalization-related bugs. 

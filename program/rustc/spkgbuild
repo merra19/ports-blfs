@@ -20,6 +20,10 @@ build() {
     CFLAGS=${CFLAGS/-m64/}
     CXXFLAGS=${CXXFLAGS/-m64/}
 
+    export AR=gcc-ar
+    export RANLIB=gcc-ranlib
+    export NM=gcc-nm
+
 	mkdir -p build/cache/${daterust}
 	mv ../rust-std-${version2}-x86_64-unknown-linux-gnu.tar.xz build/cache/${daterust}
 	mv ../rustc-${version2}-x86_64-unknown-linux-gnu.tar.xz build/cache/${daterust}

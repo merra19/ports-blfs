@@ -2,7 +2,7 @@
 # depends	: tzdata linux-api-headers
 
 name=glibc
-version=2.40
+version=2.41
 release=2
 source="https://ftp.gnu.org/gnu/glibc/$name-$version.tar.xz
         https://www.linuxfromscratch.org/patches/lfs/12.2/glibc-$version-fhs-1.patch

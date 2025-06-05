@@ -6,7 +6,7 @@
 ### poppler 
 
 name=ghostscript
-version=10.04.0
+version=10.05.1
 release=2
 options="!lto"
 source="https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10040/$name-$version.tar.xz
@@ -18,6 +18,9 @@ build() {
     cd $name-$version
 
     rm -rf cups/libs freetype jpeg lcms2mt libpng tiff openjpeg zlib
+
+    # Apply a patch to prevent a problem when building with gcc-15
+    patch -Np1 -i ../ghostscript-10.05.1-gcc15_fixes-1.patch
 
     ./configure \
         --prefix=/usr \

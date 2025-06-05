@@ -1,5 +1,5 @@
 # description	: compiz like 3D wayland compositor
-# depends	: nlohmann_json glib libevdev libinput wayland wf-config
+# depends	: nlohmann-json glib libevdev libinput wayland wf-config
 # depends	: wayland-protocols wlroots glm libglvnd libjpeg-turbo
 # depends	: libpng cairo libxkbcommon pango pixman dbus libxcb
 # depends	: xkeyboard-config cmake vulkan-headers libxml2 libdrm

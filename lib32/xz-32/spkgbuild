@@ -3,7 +3,7 @@
 
 name=xz-32
 _name=xz
-version=5.6.4
+version=5.8.1
 release=1
 source="https://github.com/tukaani-project/xz/releases/download/v$version/${_name}-$version.tar.xz"
 

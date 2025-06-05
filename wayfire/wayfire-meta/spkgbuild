@@ -1,18 +1,31 @@
 # description	: Wayfire compositor Meta
-# depends	: wayfire kitty waybar wlogout pavucontrol wofi thunar
+# depends	: wayfire waybar pavucontrol wofi thunar
 # depends	: xdg-desktop-portal wireplumber ttf-font-awesome
+# depends	: xfce4-terminal wf-shell polkit-gnome mako
+# depends	: xdg-desktop-portal-wlr wayfire-plugins-extra-git
 
 name=wayfire-meta
 version=0.9.0
 release=3
-source="wayfire.ini config.jsonc xdgportal.sh"
+source="setupwayfire wayfire.ini White-Haired_Anime_Girl_in_Garden.png
+        eteindre config.jsonc mediaplayer.py power_menu.xml style.css
+        wf-shell.ini xdgportal.sh wf-shell.ini"
 
 build() {
     :
 }
 
 package() {
-    install -Dm 0644 wayfire.ini "$PKG"/usr/local/wayfire/wayfire.ini
-    install -Dm 0644 config.jsonc  "$PKG"/usr/local/wayfire/config.jsonc 
-    install -Dm 0755 xdgportal.sh "$PKG"/usr/local/wayfire/xdgportal.sh
+    mkdir -p "$PKG"/usr
+    install -Dm 0755 setupwayfire "$PKG"/usr/local/bin/setupwayfire
+
+    install -Dm 0644 White-Haired_Anime_Girl_in_Garden.png "$PKG"/usr/local/share/wayfire/backgrounds/White-Haired_Anime_Girl_in_Garden.png
+    install -Dm 0644 wayfire.ini "$PKG"/usr/local/share/wayfire/wayfire.ini
+    install -Dm 0644 wf-shell.ini "$PKG"/usr/local/share/wayfire/wf-shell.ini
+    install -Dm 0755 eteindre "$PKG"/usr/local/share/wayfire/scripts/eteindre
+    install -Dm 0644 config.jsonc "$PKG"/usr/local/share/wayfire/waybar/config.jsonc
+    install -Dm 0644 mediaplayer.py "$PKG"/usr/local/share/wayfire/waybar/mediaplayer.py
+    install -Dm 0644 power_menu.xml "$PKG"/usr/local/share/wayfire/waybar/power_menu.xml
+    install -Dm 0644 style.css "$PKG"/usr/local/share/wayfire/waybar/style.css
+    install -Dm 0755 xdgportal.sh "$PKG"/usr/local/share/wayfire/xdgportal.sh
 }

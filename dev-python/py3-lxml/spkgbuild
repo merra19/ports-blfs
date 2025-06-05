@@ -3,7 +3,7 @@
 # depends	: py3-cython
 
 name=py3-lxml
-version=5.3.0
+version=5.4.0
 release=1
 options="!lto"
 source="https://files.pythonhosted.org/packages/source/l/lxml/lxml-$version.tar.gz"

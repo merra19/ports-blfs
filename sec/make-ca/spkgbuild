@@ -2,8 +2,7 @@
 # depends	: p11-kit nss
 
 name=make-ca
-version=1.15
-verscert=20241108
+version=1.16.1
 release=1
 source="https://github.com/lfs-book/make-ca/archive/v$version/$name-$version.tar.gz
         update-pki.sh pythoncerts.sh"

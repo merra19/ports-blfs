@@ -21,7 +21,7 @@
 # optional	: evolution-data-server openldap sane mariadb
 
 name=libreoffice
-version=25.2.1.2
+version=25.2.3
 _version=${version:0:6}
 release=1
 options="!lto"
@@ -30,6 +30,7 @@ source="https://download.documentfoundation.org/libreoffice/src/${_version}/$nam
         https://download.documentfoundation.org/libreoffice/src/${_version}/libreoffice-help-$version.tar.xz
         https://download.documentfoundation.org/libreoffice/src/${_version}/libreoffice-translations-$version.tar.xz
         https://www.linuxfromscratch.org/patches/blfs/svn/libreoffice-$version-icu76_fixes-1.patch
+        https://www.linuxfromscratch.org/patches/blfs/svn/libreoffice-$version-poppler_fixes-1.patch
         "
 noextract="libreoffice-dictionaries-$version.tar.xz libreoffice-help-$version.tar.xz libreoffice-translations-$version.tar.xz
 "
@@ -44,7 +45,13 @@ build() {
     # Fix build failures introduced by the latest icu
     patch -Np1 -i ../libreoffice-$version-icu76_fixes-1.patch
 
-    # Fix a bug with linking to zlib, fix a bug that prevents the install from failing, and prevent compression of man pages
+    # Fix build failures introduced by the latest version of popple
+    patch -Np1 -i ../libreoffice-25.2.3.2-poppler_fixes-1.patch
+
+    # Fix a problem with OpenJDK-24 and later that occurs due to the removal of deprecated API in Java:
+    sed -i 's/-Djava.security.manager=allow//' external/hsqldb/ExternalProject_hsqldb.mk
+
+    # Fix a bug with linking to zlib, fix a bug which would cause an install failure, and prevent compression of man pages
     sed -i '/icuuc \\/a zlib\\'           writerperfect/Library_wpftdraw.mk &&
     sed -i "/distro-install-file-lists/d" Makefile.in                       &&
     sed -e "/gzip -f/d"   \

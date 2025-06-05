@@ -1,0 +1,36 @@
+# description	: 3D wayland compositor extra plugins
+# depends	: glibmm glm wayfire wayland-protocols
+# depends	: boost libdisplay-info meson ninja nlohmann-json wcm
+
+name=wayfire-plugins-extra-git
+# commit e8b974f
+version=1.0
+release=1
+commit=e8b974ff2e96130febfb45729156faeb217122a5
+source="$pkgname-$version.zip::https://github.com/WayfireWM/wayfire-plugins-extra/archive/$commit.zip
+            filters-$version.zip::https://github.com/soreau/filters/archive/cf99c3a4376c8878c9cebd163ac39776091ced58.zip
+            focus-request-$version.zip::https://gitlab.com/wayfireplugins/focus-request/-/archive/main/focus-request-main.zip
+            pixdecor-$version.zip::https://github.com/soreau/pixdecor/archive/49a863be39c7a8cdcf24d336aed04766eb0a540f.zip
+           wayfire-shadows-$version.zip::https://github.com/timgott/wayfire-shadows/archive/8257a4f04670d8baf29e2d9cee0d78f978f0233f.zip "
+
+prepare() {
+	cd wayfire-plugins-extra-$commit
+
+    cp -r "$SRC/"filters-*/* subprojects/filters/
+    cp -r "$SRC/"focus-request-*/* subprojects/focus-request/
+    cp -r "$SRC/"pixdecor-*/* subprojects/pixdecor/
+    cp -r "$SRC/"wayfire-shadows-*/* subprojects/wayfire-shadows/
+}
+
+build() {
+    arch-meson wayfire-plugins-extra-$commit build \
+        -Denable_wayfire_shadows=true \
+        -Denable_focus_request=true \
+        -Denable_pixdecor=true \
+        -Denable_filters=true
+    ninja -C build
+}
+
+package() {
+    DESTDIR="$PKG/" ninja -C build install
+}

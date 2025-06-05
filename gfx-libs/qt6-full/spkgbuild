@@ -8,7 +8,7 @@
 # depends	: vulkan-headers
 
 name=qt6-full
-version=6.8.2
+version=6.9.1
 release=1
 source="https://download.qt.io/archive/qt/${version:0:3}/$version/single/qt-everywhere-src-$version.tar.xz
 		qt6.sh qt6 qt6-base-cflags.patch qt6-base-nostrip.patch 

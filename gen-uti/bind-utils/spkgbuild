@@ -2,7 +2,7 @@
 # depends	: liburcu libuv json-c nghttp2 pam libcap libxml2
 
 name=bind-utils
-version=9.20.6
+version=9.20.9
 release=1
 options="!lto"
 source="https://ftp.isc.org/isc/bind9/$version/bind-$version.tar.xz"

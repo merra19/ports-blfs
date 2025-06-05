@@ -1,9 +1,9 @@
 # description	: XML C parser and toolkit
-# depends	: icu-32 zlib-32 python3 pkgconf libxml2
+# depends	: icu-32 zlib-32 python3 pkgconf libxml2 readline-32
 
 name=libxml2-32
 _name=libxml2
-version=2.13.6
+version=2.14.3
 release=1
 source="https://download.gnome.org/sources/libxml2/${version%.*}/${_name}-$version.tar.xz"
 

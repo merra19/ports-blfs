@@ -1,0 +1,51 @@
+# description	: compiz like 3D wayland compositor
+# depends	: nlohmann-json glib libevdev libinput wayland 
+# depends	: wayland-protocols wlroots glm libglvnd libjpeg-turbo
+# depends	: libpng cairo libxkbcommon pango pixman dbus libxcb
+# depends	: xkeyboard-config cmake vulkan-headers libxml2 libdrm
+# depends	: polkit seatd xwayland glslang libdisplay-info mesa
+# depends	: xcb-util-errors xcb-util-renderutil xcb-util-wm yyjson
+# depends	: xdg-desktop-portal-gtk xdg-desktop-portal-wlr
+
+name=wayfire-git
+# commit 32c4ada
+version=0.9.0
+release=1
+_commit=32c4ada786926140d41bf3c9e3823f4bb00cebff
+wfconfig_commit=ee64fbd2f6a4bce8362da862535cdcaee6b8f13b
+wftouch_commit=093d8943df03cc8a2667990a065513c1bf2b57e0
+wfutils_commit=08553c418f164bf5e84613d27447a32e380b75f0
+source="$name-$_commit.zip::https://github.com/WayfireWM/wayfire/archive/$_commit.zip
+        wf-config-$wfconfig_commit.zip::https://github.com/WayfireWM/wf-config/archive/$wfconfig_commit.zip
+        wf-touch-$wftouch_commit.zip::https://github.com/WayfireWM/wf-touch/archive/$wftouch_commit.zip
+        wf-utils-$wfutils_commit.zip::https://github.com/WayfireWM/wf-utils/archive/$wfutils_commit.zip
+        add-session-lock-config.patch
+        wayfire-session.desktop wayfire-session wayfire.env"
+
+prepare() {
+    mv wf-config-$wfconfig_commit wf-config
+    mv wf-touch-$wftouch_commit wf-touch
+    mv wf-utils-$wfutils_commit wf-utils
+
+    mv wf-config wf-touch wf-utils wayfire-$_commit/subprojects/
+}
+
+build() {
+	arch-meson "wayfire-$_commit" build \
+		--auto-features=disabled \
+		-D use_system_wlroots=enabled \
+		-D xwayland=enabled \
+		-D tests=disabled
+    sed "/WF_SRC_DIR/d" -i build/config.h
+	ninja -C build
+}
+
+package() {
+    DESTDIR="$PKG/" ninja -C build install
+
+    cd "$srcdir"
+
+    install -Dm 0755 wayfire-session "$PKG"/usr/share/wayland-sessions/wayfire-session
+    install -Dm 0644 wayfire-session.desktop "$PKG"/usr/share/wayland-sessions/wayfire.desktop
+    install -Dm 0644 wayfire.env "$PKG"/etc/wayfire.env
+}

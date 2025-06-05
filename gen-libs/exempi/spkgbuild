@@ -2,7 +2,7 @@
 # depends	: expat zlib boost
 
 name=exempi
-version=2.6.5
+version=2.6.6
 release=1
 source="https://libopenraw.freedesktop.org/download/$name-$version.tar.xz"
 

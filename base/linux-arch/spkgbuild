@@ -3,10 +3,13 @@
 # depends	: noto-fonts ttf-linux-libertine elfutils
 
 name=linux-arch
-version=6.12.8
+version=6.14.10
 release=1
+pkgver=6.14.10.arch1
+_srctag=v${pkgver%.*}-${pkgver##*.}
 options="!strip"
 source="https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${version%.0}.tar.xz
+        https://github.com/archlinux/linux/releases/download/$_srctag/linux-$_srctag.patch.zst
         configarch"
 
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
@@ -14,12 +17,18 @@ export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EP
 build() {
     cd ${name%-*}-${version%.0}
 
+    zstd -d linux-$_srctag.patch.zst | patch -Np1 
+
     cp ../configarch .config
 
 	sed '/^CONFIG_LOCALVERSION=/d' -i .config
 	echo 'CONFIG_LOCALVERSION="-LFS"' >> .config
 
-    sed "s/-march=westmere/-march=$MMARCH/g" -i arch/x86/Makefile
+    #sed "s/-mtune=generic/-mtune=generic -march=$MMARCH/g" -i arch/x86/Makefile
+
+    export KCFLAGS=" -march=$MMARCH"
+    export KCPPFLAGS=" -march=$MMARCH"
+    export KRUSTFLAGS=" -C target-cpu=$MMARCH"
 
     yes "" | make oldconfig
     make all

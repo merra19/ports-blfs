@@ -1,0 +1,25 @@
+# description	xdg-desktop-portal backend for wlroots
+# depends	: glibc libdrm  inih mesa pipewire meson wofi elogind
+# depends	: wayland-protocols wayland xdg-desktop-portal 
+
+name=xdg-desktop-portal-wlr
+version=0.7.1
+release=1
+source="$name-$version.tar.gz::https://github.com/emersion/xdg-desktop-portal-wl/archive/v${version}.tar.gz
+        wlr-portals.conf"
+
+build() {
+	cd $name-$version
+
+    arch-meson -Dsd-bus-provider=libelogind build
+    ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+
+    # fix detection with x-d-p 1.18
+    install -vDm644 -t "$PKG"/usr/share/xdg-desktop-portal "$SRC"/wlr-portals.conf
+}

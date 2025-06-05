@@ -3,7 +3,7 @@
 # depends	: curl
 
 name=cmake
-version=3.31.5
+version=4.0.2
 release=1
 source="https://cmake.org/files/v${version%.*}/$name-$version.tar.gz"
 

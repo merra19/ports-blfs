@@ -2,12 +2,15 @@
 # depends	: gdbm bzip2 zlib libxcrypt
 
 name=perl
-version=5.40.1
+version=5.40.2
 release=1
-source="https://www.cpan.org/src/5.0/$name-$version.tar.xz"
+source="https://www.cpan.org/src/5.0/$name-$version.tar.xz
+        https://www.linuxfromscratch.org/patches/lfs/development/perl-5.40.2-upstream_fix-1.patch"
 
 build() {
     cd $name-$version
+
+    patch -Np1 -i ../perl-5.40.2-upstream_fix-1.patch
 
     export BUILD_ZLIB=False
     export PERL5LIB=$(find . -type f -name strict.pm -execdir pwd \; | head -1)

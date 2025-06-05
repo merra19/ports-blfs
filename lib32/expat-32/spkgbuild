@@ -3,7 +3,7 @@
 
 name=expat-32
 _name=expat
-version=2.6.4
+version=2.7.1
 release=1
 source="https://prdownloads.sourceforge.net/expat/${_name}-$version.tar.xz"
 

@@ -4,7 +4,7 @@
 # optional	: krb5!!openldap
 
 name=curl
-version=8.12.1
+version=8.14.1
 release=1
 options="!lto"
 source="https://curl.se/download/$name-$version.tar.xz"
@@ -14,10 +14,6 @@ build() {
 
     scratch isinstalled openldap && OPT_LDAP='--with-gssapi' ||  OPT_LDAP='--disable-ldap'
 
-    # Fix a regression that causes crashes in some applications due to issues with eventfd
-    sed -i '198,200d' lib/asyn-thread.c
-
-    autoreconf -fiv
     ./configure \
         --prefix=/usr \
         --disable-static \
@@ -29,7 +25,6 @@ build() {
 		--with-zsh-functions-dir \
 		--with-fish-functions-dir \
 		--with-pic \
-        --enable-threaded-resolver \
         --with-ca-path=/etc/ssl/certs \
         $OPT_LDAP
     make

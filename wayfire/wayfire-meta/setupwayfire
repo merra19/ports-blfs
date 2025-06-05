@@ -1,0 +1,24 @@
+#!/bin/sh
+
+if [[ $EUID -eq 0 ]]; then
+    echo "This script must be NOT run as root" 1>&2
+    exit 1
+fi
+
+getent group seat || {
+    echo "missing group seat"
+    exit 1
+}
+
+if ! groups | grep -q seat;then
+    echo "add group seat to $(whoami)"
+    sudo gpasswd -a $(whoami) seat
+fi
+
+cd $HOME
+
+mkdir -pv $HOME/.config
+
+cp -r /usr/local/share/wayfire/* $HOME/.config/
+
+

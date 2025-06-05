@@ -5,7 +5,7 @@
 # optional	: cracklib odbc!!unixodbc krb5!!openldap
 
 name=mariadb
-version=11.4.5
+version=11.4.7
 release=1
 options="!lto"
 source="https://downloads.mariadb.org/interstitial/mariadb-$version/source/$name-$version.tar.gz

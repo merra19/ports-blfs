@@ -7,46 +7,42 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-    	"wlr/workspaces",
+	//"custom/icon1",
+	"custom/icon2",
+	"custom/icon3",
+	"custom/icon4",
+	"wlr/taskbar"
     ],
-    // "modules-center": [
-    //    "wlr/window"
-    // ],
     "modules-right": [
-        "idle_inhibitor",
         "pulseaudio",
         "network",
-        "power-profiles-daemon",
         "cpu",
         "memory",
+        "disk",
+        "power-profiles-daemon",
         "temperature",
-        "backlight",
         "keyboard-state",
-        // "sway/language",
-        "battery",
-        // "battery#bat2",
         "clock",
         "tray",
         "custom/power"
     ],
-     // Modules configuration
-     "wlr/workspaces": {
-         "disable-scroll": true,
-         "all-outputs": true,
-         "warp-on-scroll": false,
-         "format": "{name}: {icon}",
-         "format-icons": {
-             "1": "",
-             "2": "",
-             "3": "",
-             "4": "",
-             "5": "",
-             "urgent": "",
-             "focused": "",
-             "default": ""
-         }
-     },
-     
+    // Modules configuration
+    // "sway/workspaces": {
+    //     "disable-scroll": true,
+    //     "all-outputs": true,
+    //     "warp-on-scroll": false,
+    //     "format": "{name}: {icon}",
+    //     "format-icons": {
+    //         "1": "",
+    //         "2": "",
+    //         "3": "",
+    //         "4": "",
+    //         "5": "",
+    //         "urgent": "",
+    //         "focused": "",
+    //         "default": ""
+    //     }
+    // },
     "keyboard-state": {
         "numlock": true,
         "capslock": true,
@@ -56,15 +52,41 @@
             "unlocked": ""
         }
     },
-    "wlr/mode": {
+    "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
-    "wlr/scratchpad": {
+    "sway/scratchpad": {
         "format": "{icon} {count}",
         "show-empty": false,
         "format-icons": ["", ""],
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
+    },
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+        "format-disconnected": "Disconnected ",
+        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+        "unknown-tag": "N/A",
+        "interval": 5,
+        "consume-icons": {
+            "on": " "
+        },
+        "random-icons": {
+            "off": "<span color=\"#f53c3c\"></span> ",
+            "on": " "
+        },
+        "repeat-icons": {
+            "on": " "
+        },
+        "single-icons": {
+            "on": "1 "
+        },
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
     },
     "idle_inhibitor": {
         "format": "{icon}",
@@ -74,13 +96,36 @@
         }
     },
     "tray": {
-        // "icon-size": 21,
-        "spacing": 10
+        "icon-size": 16,
+        "spacing": 8,
     },
     "clock": {
-        // "timezone": "America/New_York",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+         "timezone": "Europe/Paris",
+        //"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        //"format-alt": "{:%Y-%m-%d}",
+	"format": "{:%H:%M}   ",
+	"format-alt": "{:L%A, %B %d, %Y (%R)}  ",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small><span font='DejaVuSansMono'>{calendar}</span></small></tt>",
+        "calendar": {
+                    "mode"          : "month",
+                    "mode-mon-col"  : 3,
+                    "weeks-pos"     : "right",
+                    "on-scroll"     : 1,
+                    "format": {
+                              "months":     "<span color='#ffead3'><b>{}</b></span>",
+                              "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                              "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                              "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                              "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+                              }
+                    },
+        "actions":  {
+                    "on-click-right": "mode",
+                    "on-click-forward": "tz_up",
+                    "on-click-backward": "tz_down",
+                    "on-scroll-up": "shift_up",
+                    "on-scroll-down": "shift_down"
+                    }
     },
     "cpu": {
         "format": "{usage}% ",
@@ -89,9 +134,18 @@
     "memory": {
         "format": "{}% "
     },
+    "wlr/taskbar": {
+        "format": "{icon} {title:.17}",
+        "icon-size": 32,
+        "spacing": 3,
+        "on-click-middle": "close",
+        "tooltip-format": "{title}",
+        "ignore-list": [],
+        "on-click": "activate"
+    },
     "temperature": {
         // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "hwmon-path": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input",
         "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
@@ -140,6 +194,12 @@
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
+    "disk": {
+		"format": "󰋊 {}%",
+		"format-alt": "󰋊 {used}/{total} GiB",
+		"interval": 20,
+		"path": "/"
+    },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon} {format_source}",
@@ -159,16 +219,50 @@
         },
         "on-click": "pavucontrol"
     },
+    "custom/media": {
+        "format": "{icon} {text}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+    "custom/icon1": {
+        "format" : "     " ,
+        "tooltip": false,
+        "on-click": "/opt/brave-bin/brave",
+        "on-click-right": false
+    },
+    "custom/icon2": {
+        "format" : "     " ,
+        "tooltip": false,
+        "on-click": "/opt/microsoft/msedge/microsoft-edge",
+        "on-click-right": false
+    },
+    "custom/icon3": {
+        "format" : "     " ,
+        "tooltip": false,
+        "on-click": "/usr/bin/firefox",
+        "on-click-right": false
+    },
+    "custom/icon4": {
+        "format" : "     " ,
+        "tooltip": false,
+        "on-click": "/usr/bin/vscodium",
+        "on-click-right": false
+    },
     "custom/power": {
-        "format" : "⏻ ",
-		"tooltip": false,
-		"menu": "on-click",
-		"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
-		"menu-actions": {
-			"shutdown": "shutdown",
-			"reboot": "reboot",
-			"suspend": "systemctl suspend",
-			"hibernate": "systemctl hibernate"
+        "format": "⏻",
+	"tooltip": false,
+	"menu": "on-click",
+	"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+	"menu-actions": {
+			"shutdown": "exec $HOME/.config/waybar/scripts/eteindre shutdown",
+			"reboot": "exec $HOME/.config/waybar/scripts/eteindre reboot",
 		}
     }
 }
