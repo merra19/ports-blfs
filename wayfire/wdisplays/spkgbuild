@@ -7,7 +7,10 @@ release=1
 source="$name-$version.tar.gz::https://github.com/artizirk/wdisplays/archive/$version.tar.gz"
 
 build() {
-	arch-meson build $name-$version
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
+	    $name-$version build
 	ninja -C build
 }
 

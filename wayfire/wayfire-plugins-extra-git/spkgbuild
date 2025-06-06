@@ -1,5 +1,5 @@
 # description	: 3D wayland compositor extra plugins
-# depends	: glibmm glm wayfire wayland-protocols
+# depends	: glibmm glm wayfire-git wayland-protocols
 # depends	: boost libdisplay-info meson ninja nlohmann-json wcm
 
 name=wayfire-plugins-extra-git
@@ -23,11 +23,14 @@ prepare() {
 }
 
 build() {
-    arch-meson wayfire-plugins-extra-$commit build \
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
         -Denable_wayfire_shadows=true \
         -Denable_focus_request=true \
         -Denable_pixdecor=true \
-        -Denable_filters=true
+        -Denable_filters=true \
+        wayfire-plugins-extra-$commit build
     ninja -C build
 }
 

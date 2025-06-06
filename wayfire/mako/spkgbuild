@@ -7,7 +7,9 @@ release=1
 source="$name-$version.tar.gz::https://github.com/emersion/mako/releases/download/v$version/mako-$version.tar.gz"
 
 build() {
-	arch-meson \
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
 		-D bash-completions=true \
 		-D fish-completions=true \
 		-D zsh-completions=true \

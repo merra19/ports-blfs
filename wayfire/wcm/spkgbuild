@@ -7,9 +7,12 @@ release=1
 source="https://github.com/WayfireWM/$name/releases/download/v${version}/$name-$version.tar.xz"
 
 build() {
-	arch-meson build $name-$version \
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
 		-Dwf_shell=enabled \
-		-Denable_wdisplays=false
+		-Denable_wdisplays=false \
+        $name-$version build
 	ninja -C build
 }
 
