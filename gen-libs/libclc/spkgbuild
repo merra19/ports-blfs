@@ -2,7 +2,7 @@
 # depends	: spirv-llvm-translator llvm
 
 name=libclc
-version=19.1.7
+version=20.1.1
 release=1
 options="!lto"
 source="https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/$name-$version.src.tar.xz"

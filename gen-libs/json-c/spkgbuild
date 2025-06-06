@@ -9,6 +9,10 @@ source="https://s3.amazonaws.com/json-c_releases/releases/$name-$version.tar.gz"
 build() {
 	cd $name-$version
 
+    #  Fix building this package with CMake-4.0
+    sed -i 's/VERSION 2.8/VERSION 4.0/' apps/CMakeLists.txt  &&
+    sed -i 's/VERSION 3.9/VERSION 4.0/' tests/CMakeLists.txt
+
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_BUILD_TYPE=Release \

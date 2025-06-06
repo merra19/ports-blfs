@@ -2,7 +2,7 @@
 # depends	: cmake ninja
 
 name=spirv-headers
-version=1.4.304.1
+version=1.4.313.0
 release=1
 options="!lto"
 source="https://github.com/KhronosGroup/SPIRV-Headers/archive/refs/tags/vulkan-sdk-$version/SPIRV-Headers-$version.tar.gz"

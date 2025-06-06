@@ -2,25 +2,22 @@
 # depends	: spirv-headers spirv-tools glslang
 
 name=shaderc
-version=2024.4
+version=2025.2
 release=1
 source="https://github.com/google/shaderc/archive/v$version/$name-$version.tar.gz"
+
+getversionpkg() {
+    awk 'NR==1 {print $1}' /var/lib/scratchpkg/db/$1 2>/dev/null
+}
 
 build() {
 	cd $name-$version
 
-        # de-vendor libs and disable git versioning
-        sed '/examples/d;/third_party/d' -i CMakeLists.txt
-        sed '/build-version/d' -i glslc/CMakeLists.txt
+    sed '/build-version/d'   -i glslc/CMakeLists.txt            &&
+    sed '/third_party/d'     -i CMakeLists.txt                  &&
+    sed 's|SPIRV|glslang/&|' -i libshaderc_util/src/compiler.cc &&
 
-cat <<- EOF > glslc/src/build-version.inc
-"$version\\n"
-"$(prt-get printf '%v\n' --filter=spirv-tools)"
-"$(prt-get printf '%v\n' --filter=glslang)"
-EOF
-
-	sed -i -e "s|\$<TARGET_FILE:spirv-dis>|spirv-dis|" \
-            glslc/test/CMakeLists.txt
+    echo "\"$version\"" > glslc/src/build-version.inc
 
 	cmake -B build -G Ninja \
 		-D CMAKE_INSTALL_PREFIX=/usr \

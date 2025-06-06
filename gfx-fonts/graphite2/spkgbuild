@@ -10,7 +10,12 @@ source="https://github.com/silnrsi/graphite/releases/download/$version/$name-$ve
 build() {
 	cd $name-$version
 
+    # Some tests fail if FontTools (Python 3 module) is not installed
     sed -i '/cmptest/d' tests/CMakeLists.txt
+    # Fix building this package with CMake 4.0 by updating it's syntax to conform to newer versions of CMake
+    sed -i '/cmake_policy(SET CMP0012 NEW)/d' CMakeLists.txt &&
+    sed -i 's/PythonInterp/Python3/' CMakeLists.txt          &&
+    find . -name CMakeLists.txt | xargs sed -i 's/VERSION 2.8.0 FATAL_ERROR/VERSION 4.0.0/'
 
 	cmake -B build \
          -D CMAKE_INSTALL_PREFIX=/usr

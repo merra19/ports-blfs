@@ -14,7 +14,8 @@ build() {
 		-D CMAKE_BUILD_TYPE=RELEASE \
 		-D ENABLE_STATIC=FALSE \
 		-D CMAKE_INSTALL_DOCDIR=/usr/share/doc/$name-$version \
-		-D CMAKE_INSTALL_DEFAULT_LIBDIR=lib
+		-D CMAKE_INSTALL_DEFAULT_LIBDIR=lib \
+        -D CMAKE_POLICY_VERSION_MINIMUM=3.5
 	make -C build
 }
 

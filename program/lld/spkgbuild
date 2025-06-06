@@ -2,7 +2,7 @@
 # depends	: llvm
 
 name=lld
-version=19.1.7
+version=20.1.1
 release=1
 source="https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/lld-$version.src.tar.xz
         https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/cmake-$version.src.tar.xz

@@ -2,7 +2,7 @@
 # depends	: cmake ninja spirv-tools
 
 name=glslang
-version=15.1.0
+version=15.3.0
 release=1
 options="!lto !asneeded"
 source="https://github.com/KhronosGroup/glslang/archive/$version/$name-$version.tar.gz"

@@ -2,13 +2,18 @@
 # depends	: rustc
 
 name=cbindgen
-version=0.28.0
+version=0.29.0
 release=1
 source="https://github.com/mozilla/cbindgen/archive/v$version/$name-$version.tar.gz
-        local://cbindgen-0.28.0-cargo.tar.xz"
+        local://$name-$version-cargo.tar.xz"
 
 build() {
 	cd $name-$version
+
+    #mkdir -p vendor
+    #cargo vendor vendor
+    #tar -cJpf $name-$version-cargo.tar.xz vendor/
+    #cp $name-$version-cargo.tar.xz /sources/src/
 
     mv "$SRC"/vendor .
     

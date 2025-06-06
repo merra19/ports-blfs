@@ -1,7 +1,7 @@
 # description	: "Compiz like 3D wayland compositor
 # depends	: glibmm gtkmm glib gobject-introspection libsigc++ gtk3
-# depends	: libdbusmenu gtk-layer-shell wayland wf-config wayfire
-# depends	: cairo alsa-lib pulseaudio  wayland wayland-protocols
+# depends	: libdbusmenu gtk-layer-shell wayland wayfire-git
+# depends	: cairo alsa-lib pulseaudio  wayland-protocols
 
 name=wf-shell
 version=0.9.0

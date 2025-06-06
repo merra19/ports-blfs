@@ -10,6 +10,10 @@ source="https://s3.amazonaws.com/json-c_releases/releases/${_name}-$version.tar.
 build() {
 	cd ${_name}-$version
 
+    #  Fix building this package with CMake-4.0
+    sed -i 's/VERSION 2.8/VERSION 4.0/' apps/CMakeLists.txt  &&
+    sed -i 's/VERSION 3.9/VERSION 4.0/' tests/CMakeLists.txt
+    
 	export CC="gcc -m32 -mstackrealign"
 	export CXX="g++ -m32 -mstackrealign"
 	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"

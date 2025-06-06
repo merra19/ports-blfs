@@ -16,6 +16,7 @@ build() {
 	meson setup \
         --prefix=/usr \
         --buildtype=plain \
+        --auto-features=enabled \
         build
 	ninja -C build
 }

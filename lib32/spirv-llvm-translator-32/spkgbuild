@@ -3,7 +3,7 @@
 # depends	: spirv-llvm-translator
 
 name=spirv-llvm-translator-32
-version=19.1.4
+version=20.1.3
 release=1
 source="https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v$version/SPIRV-LLVM-Translator-$version.tar.gz"
 

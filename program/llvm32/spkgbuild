@@ -4,16 +4,15 @@
 
 name=llvm32
 _name=llvm
-version=19.1.7
-_version=19.1.7
+version=20.1.1
+_version=20.1.1
 release=1
 options="!lto !asneeded"
 source="https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/llvm-$version.src.tar.xz
         https://anduin.linuxfromscratch.org/BLFS/llvm/llvm-cmake-${_version}.src.tar.xz
         https://anduin.linuxfromscratch.org/BLFS/llvm/llvm-third-party-${_version}.src.tar.xz
         https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/clang-$version.src.tar.xz
-        https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/compiler-rt-$version.src.tar.xz
-        prefix.patch"
+        https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/compiler-rt-$version.src.tar.xz"
 noextract="llvm-cmake-${_version}.src.tar.xz llvm-third-party-${_version}.src.tar.xz clang-$version.src.tar.xz compiler-rt-$version.src.tar.xz"
 
 build() {
@@ -43,8 +42,6 @@ build() {
     grep -rl '#!.*python' | xargs sed -i '1s/python$/python3/'
 
     sed 's/utility/tool/' -i utils/FileCheck/CMakeLists.txt
-
-    patch -Np1 -i ../prefix.patch
 
     CC=gcc CXX=g++ \
     cmake -B build \

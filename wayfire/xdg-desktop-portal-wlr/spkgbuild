@@ -11,7 +11,11 @@ source="$name-$version.tar.gz::https://github.com/emersion/xdg-desktop-portal-wl
 build() {
 	cd $name-$version
 
-    arch-meson -Dsd-bus-provider=libelogind build
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
+        -Dsd-bus-provider=libelogind \
+        build
     ninja -C build
 }
 

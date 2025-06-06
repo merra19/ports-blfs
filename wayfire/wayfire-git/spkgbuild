@@ -31,11 +31,14 @@ prepare() {
 }
 
 build() {
-	arch-meson "wayfire-$_commit" build \
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
 		--auto-features=disabled \
 		-D use_system_wlroots=enabled \
 		-D xwayland=enabled \
-		-D tests=disabled
+		-D tests=disabled \
+        "wayfire-$_commit" build
     sed "/WF_SRC_DIR/d" -i build/config.h
 	ninja -C build
 }
