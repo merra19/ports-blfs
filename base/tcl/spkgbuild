@@ -19,6 +19,7 @@ build() {
         --enable-symbols \
         --enable-threads \
         --mandir=/usr/share/man \
+        --disable-rpath \
         --enable-64bit
     make
 

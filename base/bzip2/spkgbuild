@@ -92,4 +92,5 @@ package() {
     for i in "$PKG"/usr/bin/{bzcat,bunzip2}; do
         ln -sfv bzip2 $i
     done
+    rm -fv "$PKG"/usr/lib/libbz2.a
 }

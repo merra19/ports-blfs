@@ -38,7 +38,8 @@ build() {
         --with-lto \
         --with-computed-gotos \
         --enable-optimizations \
-        --enable-shared
+        --enable-shared \
+        --without-static-libpython
     if [ $BUILD_PGO = "yes" ];then
         PROFILE_TASK="-m test --pgo-extended" make profile-opt
     else

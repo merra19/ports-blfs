@@ -14,6 +14,7 @@ build() {
         --prefix=/usr \
         --disable-static \
 		--disable-kill \
+        --enable-watch8bit \
         --docdir=/usr/share/doc/$name-$version
     make
 }

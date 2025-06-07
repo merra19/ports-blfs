@@ -16,4 +16,5 @@ package() {
     cd $name-$version
 
     make DESTDIR="$PKG" prefix=/usr install
+    rm -v "$PKG"/usr/lib/libzstd.a
 }

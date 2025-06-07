@@ -15,6 +15,7 @@ build() {
         --sysconfdir=/etc \
         --runstatedir=/run \
         --without-logger \
+        --disable-static \
         --docdir=/usr/share/doc/$name-$version
     make
 }
