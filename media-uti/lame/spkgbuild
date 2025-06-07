@@ -16,6 +16,7 @@ build() {
 	./configure \
 		--prefix=/usr \
 		--libdir=/usr/lib \
+        --disable-static \
 		--enable-mp3rtp
 	make
 }
