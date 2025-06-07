@@ -9,6 +9,9 @@ source="https://ftp.gnu.org/gnu/gmp/gmp-$version.tar.xz"
 build() {
     cd ${name#lib}-$version
 
+    # Make an adjustment for compatibility with gcc-15 and later
+    sed -i '/long long t1;/,+1s/()/(...)/' configure
+
     LDFLAGS+=' -Wl,-z,shstk' \
     ./configure \
         --prefix=/usr \

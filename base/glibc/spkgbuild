@@ -50,7 +50,7 @@ build() {
         --enable-bind-now \
 		--enable-fortify-source \
         --enable-cet \
-        --enable-kernel=4.19 \
+        --enable-kernel=5.4 \
         --enable-stack-protector=strong \
         --disable-nscd \
         libc_cv_slibdir=/usr/lib \
@@ -74,7 +74,7 @@ build() {
         --disable-werror \
         --enable-bind-now \
 		--enable-fortify-source \
-        --enable-kernel=4.19 \
+        --enable-kernel=5.4 \
         --enable-stack-protector=strong \
         --disable-nscd \
         libc_cv_slibdir=/usr/lib32 \

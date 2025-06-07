@@ -2,7 +2,7 @@
 # depends	: glibc ncurses acl libxml2 expat
 
 name=gettext
-version=0.24
+version=0.25
 release=1
 source="https://ftp.gnu.org/gnu/gettext/$name-$version.tar.xz"
 

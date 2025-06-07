@@ -2,7 +2,7 @@
 # depends	: glibc xz
 
 name=m4
-version=1.4.19
+version=1.4.20
 release=1
 options="!lto"
 source="https://ftp.gnu.org/gnu/m4/$name-$version.tar.xz"

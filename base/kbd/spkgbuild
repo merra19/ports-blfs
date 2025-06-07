@@ -2,7 +2,7 @@
 # depends	: pam gzip
 
 name=kbd
-version=2.7.1
+version=2.8.0
 release=1
 source="https://www.kernel.org/pub/linux/utils/kbd/$name-$version.tar.xz
         https://www.linuxfromscratch.org/patches/lfs/development/kbd-$version-backspace-1.patch"

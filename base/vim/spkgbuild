@@ -2,7 +2,7 @@
 # depends	: acl gettext ncurses gpm lua perl xorg-proto libxt tcl
 
 name=vim
-version=9.1.1166
+version=9.1.1418
 release=1
 options="!lto"
 source="https://github.com/vim/vim/archive/v$version/$name-$version.tar.gz

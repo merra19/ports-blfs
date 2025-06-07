@@ -8,7 +8,7 @@ release=1
 options="!lto"
 source="https://www.python.org/ftp/python/$version/Python-$version.tar.xz
         https://www.python.org/ftp/python/doc/$version/python-$version-docs-html.tar.bz2
-        pyconfig.h pip.conf"
+        pip.conf"
 noextract="python-$version-docs-html.tar.bz2"
 
 build() {   
@@ -63,11 +63,6 @@ package() {
     ln -s python${version%.*}.1 "$PKG"/usr/share/man/man1/python.1
 
     install -Dm 644 ../pip.conf "$PKG"/etc/pip.conf
-
-    mv "$PKG"/usr/include/python${version%.*}/pyconfig.h \
-        "$PKG"/usr/include/python${version%.*}/pyconfig-64.h
-
-	install -Dm 644 ../pyconfig.h "$PKG"/usr/include/python${version%.*}/pyconfig.h
 
     mkdir -p "$PKG"/usr/share/doc/python-$version/html
     tar --no-same-owner -xvf "$SRC"/python-$version-docs-html.tar.bz2

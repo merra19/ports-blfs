@@ -2,7 +2,7 @@
 # depends	: glibc
 
 name=libffi
-version=3.4.7
+version=3.4.8
 release=1
 options="!lto"
 source="https://github.com/libffi/libffi/releases/download/v$version/$name-$version.tar.gz"

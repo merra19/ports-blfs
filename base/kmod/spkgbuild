@@ -2,7 +2,7 @@
 # depends	: xz zlib zstd openssl
 
 name=kmod
-version=34
+version=34.2
 release=1
 options="strip !lto !asneeded"
 source="https://www.kernel.org/pub/linux/utils/kernel/kmod/$name-$version.tar.xz"
@@ -13,7 +13,6 @@ build() {
     meson setup \
         --prefix=/usr \
         --buildtype=release \
-        --sbindir=/usr/sbin \
         -D manpages=false \
         build
     ninja -C build

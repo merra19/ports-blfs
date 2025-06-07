@@ -2,7 +2,7 @@
 # depends	: zlib xz bzip2 zstd flex m4
 
 name=elfutils
-version=0.192
+version=0.193
 release=1
 options="!lto"
 source="https://sourceware.org/ftp/elfutils/$version/$name-$version.tar.bz2"

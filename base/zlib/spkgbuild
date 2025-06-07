@@ -31,7 +31,6 @@ build_pgo() {
     FCFLAGS="${FCFLAGS_USE}" LDFLAGS="${LDFLAGS_USE}" \
     ./configure \
         --prefix=/usr 
-
     make
 }
 

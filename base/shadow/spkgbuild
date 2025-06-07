@@ -2,7 +2,7 @@
 # depends	: acl attr xz linux-api-headers pam libxcrypt
 
 name=shadow
-version=4.17.3
+version=4.17.4
 release=2
 source="https://github.com/shadow-maint/shadow/releases/download/$version/$name-$version.tar.xz
         login passwd su chpasswd newusers chage"

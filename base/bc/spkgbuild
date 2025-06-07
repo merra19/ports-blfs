@@ -9,7 +9,7 @@ source="https://github.com/gavinhoward/bc/releases/download/$version/$name-$vers
 build() {
     cd $name-$version
 
-    ./configure --prefix=/usr -pGNU -l -G -O3 -r
+    CC='gcc -std=c99' ./configure --prefix=/usr -pGNU -l -G -O3 -r
     make
 }
 

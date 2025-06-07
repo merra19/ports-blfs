@@ -2,7 +2,7 @@
 # depends	: linux-api-headers libmnl bison flex iptables
 
 name=iproute2
-version=6.13.0
+version=6.14.0
 release=1
 source="https://www.kernel.org/pub/linux/utils/net/iproute2/$name-$version.tar.xz"
 

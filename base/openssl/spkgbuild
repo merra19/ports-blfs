@@ -2,7 +2,7 @@
 # depends	: zlib perl
 
 name=openssl
-version=3.4.0
+version=3.5.0
 release=1
 options="!lto"
 source="https://www.openssl.org/source/$name-$version.tar.gz"

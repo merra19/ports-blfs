@@ -2,7 +2,7 @@
 # depends	: python3 py3-setuptools py3-packaging py3-flit-core
 
 name=py3-wheel
-version=0.45.1
+version=0.46.1
 release=1
 source="https://pypi.org/packages/source/w/wheel/wheel-$version.tar.gz"
 

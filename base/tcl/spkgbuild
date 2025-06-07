@@ -16,6 +16,7 @@ build() {
     cd unix
     ./configure \
         --prefix=/usr \
+        --disable-rpath \
         --enable-symbols \
         --enable-threads \
         --mandir=/usr/share/man \

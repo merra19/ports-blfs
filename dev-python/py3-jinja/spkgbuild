@@ -3,7 +3,7 @@
 # depends	: py3-setuptools
 
 name=py3-jinja
-version=3.1.5
+version=3.1.6
 release=1
 options="!lto"
 source="https://pypi.org/packages/source/J/Jinja2/jinja2-$version.tar.gz"

@@ -2,7 +2,7 @@
 # depends	: glibc
 
 name=gzip
-version=1.13
+version=1.14
 release=1
 source="https://ftp.gnu.org/gnu/gzip/$name-$version.tar.xz"
 

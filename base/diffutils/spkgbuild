@@ -2,7 +2,7 @@
 # depends	: glibc
 
 name=diffutils
-version=3.11
+version=3.12
 release=1
 options="!lto"
 source="https://ftp.gnu.org/gnu/diffutils/$name-$version.tar.xz"

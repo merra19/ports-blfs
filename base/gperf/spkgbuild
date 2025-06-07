@@ -2,7 +2,7 @@
 # depends	: glibc
 
 name=gperf
-version=3.1
+version=3.3
 release=1
 options="!makeflags"
 source="https://ftp.gnu.org/gnu/gperf/$name-$version.tar.gz"

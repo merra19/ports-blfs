@@ -3,7 +3,7 @@
 
 name=udev
 _name=systemd
-version=257.3
+version=257.6
 release=1
 options="!lto"
 source="https://github.com/systemd/systemd/archive/v$version/systemd-$version.tar.gz

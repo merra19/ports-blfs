@@ -2,7 +2,7 @@
 # depends	: gdbm libpipeline zlib xz groff libseccomp
 
 name=man-db
-version=2.13.0
+version=2.13.1
 release=1
 source="https://download.savannah.gnu.org/releases/man-db/$name-$version.tar.xz"
 backup="etc/man_db.conf"
