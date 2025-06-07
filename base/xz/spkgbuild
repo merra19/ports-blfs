@@ -13,6 +13,7 @@ build_pgo() {
     FCFLAGS="${FCFLAGS_GENERATE}" LDFLAGS="${LDFLAGS_GENERATE}" \
     ./configure \
         --prefix=/usr \
+        --disable-static \
         --enable-assume-ram=1024
     make 
     make check 
@@ -24,6 +25,7 @@ build_pgo() {
     FCFLAGS="${FCFLAGS_USE}" LDFLAGS="${LDFLAGS_USE}" \
     ./configure \
         --prefix=/usr \
+        --disable-static \
         --enable-assume-ram=1024 \
         --docdir=/usr/share/doc/$name-$version
     make 
@@ -32,6 +34,7 @@ build_pgo() {
 build_nopgo() {
     ./configure \
         --prefix=/usr \
+        --disable-static \
         --enable-assume-ram=1024 \
         --docdir=/usr/share/doc/$name-$version
     make 
