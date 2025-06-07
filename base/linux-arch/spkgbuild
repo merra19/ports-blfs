@@ -26,8 +26,8 @@ build() {
 
     #sed "s/-mtune=generic/-mtune=generic -march=$MMARCH/g" -i arch/x86/Makefile
 
-    export KCFLAGS=" -march=$MMARCH"
-    export KCPPFLAGS=" -march=$MMARCH"
+    export KCFLAGS=" -march=$MMARCH -O3"
+    export KCPPFLAGS=" -march=$MMARCH -O3"
     export KRUSTFLAGS=" -C target-cpu=$MMARCH"
 
     yes "" | make oldconfig
