@@ -2,7 +2,7 @@
 # depends	: libcap gnupg curl lynx
 
 name=smartmontools
-version=7.4
+version=7.5
 release=1
 source="https://downloads.sourceforge.net/smartmontools/$name-$version.tar.gz"
 backup="etc/smartd.conf"

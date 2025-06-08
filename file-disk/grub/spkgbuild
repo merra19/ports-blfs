@@ -6,7 +6,6 @@ name=grub
 version=2.12
 release=1
 fontvers=16.0.01
-gccversion=13.2.0
 options="!makeflags !lto"
 source="https://ftp.gnu.org/gnu/grub/$name-$version.tar.xz
         https://unifoundry.com/pub/unifont/unifont-${fontvers}/font-builds/unifont-${fontvers}.pcf.gz
@@ -54,4 +53,6 @@ package() {
 
     install -Dm0755 ../update-grub "$PKG"/usr/bin/update-grub
     install -Dm0755 ../update-efi "$PKG"/usr/bin/update-efi
+
+    install -vm755 grub-mount "$PKG"/usr/bin/
 }

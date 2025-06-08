@@ -2,7 +2,7 @@
 # depends	: python3 py3-wheel py3-gpep517 py3-setuptools
 
 name=py3-markdown
-version=3.6
+version=3.8
 release=1
 options="!lto"
 source="https://files.pythonhosted.org/packages/source/M/Markdown/Markdown-$version.tar.gz"

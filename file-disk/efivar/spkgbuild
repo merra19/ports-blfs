@@ -1,5 +1,5 @@
 # description	: Tools and library to manipulate EFI variables
-# depends	: mandoc linux-api-headers
+# depends	: linux-api-headers
 
 name=efivar
 version=39
@@ -10,11 +10,15 @@ source="https://github.com/rhboot/efivar/archive/$version/$name-$version.tar.gz"
 build() {
     cd $name-$version
 
-    make 
+    make  ENABLE_DOCS=0
 }
 
 package() {
     cd $name-$version
 
-    make DESTDIR="$PKG" install LIBDIR=/usr/lib
+    make DESTDIR="$PKG" install  ENABLE_DOCS=0 LIBDIR=/usr/lib
+
+    install -d "$PKG"/usr/share/man/man{1,3}
+    install -vm644 docs/efivar.1 "$PKG"/usr/share/man/man1
+    install -vm644 docs/*.3      "$PKG"/usr/share/man/man3 
 }

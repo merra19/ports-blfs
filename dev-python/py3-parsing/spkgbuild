@@ -2,7 +2,7 @@
 # depends	: py3-flit-core py3-gpep517
 
 name=py3-parsing
-version=3.2.1
+version=3.2.3
 release=1
 source="https://files.pythonhosted.org/packages/source/p/pyparsing/pyparsing-$version.tar.gz"
 

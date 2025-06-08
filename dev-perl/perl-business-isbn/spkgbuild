@@ -2,7 +2,7 @@
 # depends	: perl perl-business-isbn-data
 
 name=perl-business-isbn
-version=3.011
+version=3.012
 release=1
 source="https://www.cpan.org/authors/id/B/BR/BRIANDFOY/Business-ISBN-$version.tar.gz"
 

@@ -4,7 +4,7 @@
 
 name=py3-trove-classifiers
 _name=trove_classifiers
-version=2025.1.15.22
+version=2025.4.11.15
 release=1
 source="https://files.pythonhosted.org/packages/source/t/trove_classifiers/trove_classifiers-$version.tar.gz"
 

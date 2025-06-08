@@ -8,7 +8,7 @@
 # depends	: py3-roman-numerals-py
 
 name=py3-sphinx
-version=8.2.1
+version=8.2.3
 release=0
 source="https://files.pythonhosted.org/packages/source/s/sphinx/${name#*-}-$version.tar.gz"
 

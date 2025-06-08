@@ -3,7 +3,7 @@
 # depends	: py3-packaging py3-typing_extensions
 
 name=py3-setuptools-scm
-version=8.1.0
+version=8.3.0
 release=1
 source="https://files.pythonhosted.org/packages/source/s/setuptools_scm/setuptools_scm-$version.tar.gz"
 
