@@ -9,7 +9,7 @@
 # optional	: dvd!!libdvdnav dvd!!libdvdcss dvd!!libdvdread
 
 name=mpv
-version=0.39.0
+version=0.40.0
 release=1
 options="!lto"
 source="https://github.com/mpv-player/mpv/archive/refs/tags/v$version/$name-$version.tar.gz"

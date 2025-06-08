@@ -3,20 +3,22 @@
 # depends	: libxfce4util xfconf
 
 name=ristretto
-version=0.13.3
+version=0.13.4
 release=1
 source="https://archive.xfce.org/src/apps/ristretto/${version%.*}/$name-$version.tar.bz2"
 
 build() {
 	cd $name-$version
 
-    ./configure \
-        --prefix=/usr
-    make
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+    ninja -C build
 }
 
 package() {
     cd $name-$version
 
-    make DESTDIR="$PKG" install
+    DESTDIR="$PKG" ninja -C build install
 }

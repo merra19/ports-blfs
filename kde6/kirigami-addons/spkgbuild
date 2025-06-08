@@ -3,7 +3,7 @@
 # depends	: qt6-declarative sound-theme-freedesktop
 
 name=kirigami-addons
-version=1.4.0
+version=1.7.0
 release=1
 source="https://download.kde.org/stable/kirigami-addons/$name-$version.tar.xz"
 

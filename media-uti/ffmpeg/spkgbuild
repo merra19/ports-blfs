@@ -3,29 +3,15 @@
 # depends	: x264 x265 alsa-lib yasm dav1d libaom fdk-aac libva
 
 name=ffmpeg
-version=7.1
+version=7.1.1
 release=1
 source="https://ffmpeg.org/releases/$name-$version.tar.xz
-        https://www.linuxfromscratch.org/patches/blfs/svn/ffmpeg-7.1-chromium_method-1.patch
-        https://www.linuxfromscratch.org/patches/blfs/svn/ffmpeg-7.1-texinfo_fix-1.patch"
+        https://www.linuxfromscratch.org/patches/blfs/svn/ffmpeg-7.1.1-chromium_method-1.patch"
 
 build() {
 	cd $name-$version
 
-    patch -Np1 -i ../ffmpeg-7.1-chromium_method-1.patch
-
-    # Fix an issue with the latest version of x265-4.1
-    sed -e 's/X265_BUILD >= 210/(&) \&\& (X265_BUILD < 213)/' \
-        -i libavcodec/libx265.c
-
-    #  Fix an issue caused by Texinfo 7.2
-    patch -Np1 -i ../ffmpeg-7.1-texinfo_fix-1.patch
-
-	sed -i 's/-lflite"/-lflite -lasound"/' configure
-
-    # -fdiagnostics-color=auto gets appended after user flags which 
-	# will ignore user's preference.
-	sed -i -e '/check_cflags -fdiagnostics-color=auto/d' configure
+    patch -Np1 -i ../ffmpeg-7.1.1-chromium_method-1.patch
 
 	./configure \
         --prefix=/usr \

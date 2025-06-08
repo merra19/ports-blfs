@@ -10,7 +10,7 @@
 # optional	: samba!!kdsoap-ws-discovery-client
 
 name=kio-extras
-version=24.12.2
+version=25.04.0
 release=1
 source="https://download.kde.org/stable/release-service/$version/src/$name-$version.tar.xz"
 
@@ -21,7 +21,6 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
-        -D BUILD_ACTIVITIES="OFF" \
         -Wno-dev
     make -C build
 }

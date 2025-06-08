@@ -3,7 +3,7 @@
 # depends	: ki18n kwindowsystem ktexteditor
 
 name=kate
-version=24.12.2
+version=25.04.0
 release=1
 source="https://download.kde.org/stable/release-service/$version/src/$name-$version.tar.xz"
 

@@ -4,7 +4,7 @@
 # depends	: libgudev libgtop perl gettext pkgconf xorg-proto
 
 name=libxfce4ui
-version=4.20.0
+version=4.20.1
 release=1
 source="https://archive.xfce.org/src/xfce/libxfce4ui/${version%.*}/$name-$version.tar.bz2"
 

@@ -4,7 +4,7 @@
 # depends	: libdbusmenu gettext intltool pkgconf libxfce4windowing
 
 name=xfce4-panel
-version=4.20.3
+version=4.20.4
 release=1
 source="https://archive.xfce.org/src/xfce/xfce4-panel/${version%.*}/$name-$version.tar.bz2"
 
