@@ -3,7 +3,7 @@
 
 name=xarchiver
 version=0.5.4.23
-release=1
+release=2
 source="https://github.com/ib/xarchiver/archive/$version/$name-$version.tar.gz"
 
 build() {
@@ -12,7 +12,7 @@ build() {
 	./configure \
         --prefix=/usr \
         --libexecdir=/usr/lib/xfce4 \
-        --docdir=/usr/share/doc/$name-$versio
+        --docdir=/usr/share/doc/$name-$version
 	make
 }
 
