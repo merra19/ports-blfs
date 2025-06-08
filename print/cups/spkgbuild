@@ -3,7 +3,7 @@
 # depends	: openssl libusb avahi
 
 name=cups
-version=2.4.11
+version=2.4.12
 release=1
 options="!lto"
 source="https://github.com/OpenPrinting/cups/releases/download/v$version/$name-$version-source.tar.gz

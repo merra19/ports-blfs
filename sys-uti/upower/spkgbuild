@@ -3,7 +3,7 @@
 # depends	: py3-gobject3 docbook-xsl-nons
 
 name=upower
-version=1.90.7
+version=1.90.9
 release=1
 source="https://gitlab.freedesktop.org/$name/$name/-/archive/v$version/$name-v$version.tar.bz2
         rules"

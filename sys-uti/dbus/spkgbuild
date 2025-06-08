@@ -2,7 +2,7 @@
 # depends	: expat xorg-proto libx11 libxt elogind
 
 name=dbus
-version=1.16.0
+version=1.16.2
 release=1
 options="!lto"
 source="https://dbus.freedesktop.org/releases/dbus/$name-$version.tar.xz

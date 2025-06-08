@@ -22,8 +22,6 @@ build() {
         --srcdir=../ \
         --prefix=/usr \
         --docdir=/usr/share/doc/$name-$version \
-        --with-threads=POSIX_THREADS \
-        --with-readline \
         --with-libsigsegv-prefix=/usr
 
     ulimit -S -s 16384 &&

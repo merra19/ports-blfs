@@ -4,7 +4,7 @@
 
 name=java
 _name=OpenJDK
-version=23.0.2
+version=24.0.1
 release=1
 options="!strip"
 source="https://anduin.linuxfromscratch.org/BLFS/OpenJDK/OpenJDK-$version/OpenJDK-$version+7-x86_64-bin.tar.xz

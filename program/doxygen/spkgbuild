@@ -3,7 +3,7 @@
 # depends	: ghostscript
 
 name=doxygen
-version=1.13.2
+version=1.14.0
 release=1
 source="https://doxygen.nl/files/$name-$version.src.tar.gz"
 

@@ -4,7 +4,7 @@
 # depends	: pam libpng libxft libxinerama libgcrypt
 
 name=xscreensaver
-version=6.09
+version=6.10.1
 release=1
 source="https://www.jwz.org/xscreensaver/$name-$version.tar.gz
         xscreensaver"
@@ -12,12 +12,9 @@ source="https://www.jwz.org/xscreensaver/$name-$version.tar.gz
 build() {
     cd $name-$version
 
-    # Change a hardcoded library name, which prevents 
-    # using the settings found by configure
-    sed -i 's/-lsystemd/-lelogind/' driver/Makefile.in
-
     ./configure \
-        --prefix=/usr
+        --prefix=/usr \
+        --with-elogind
     make
 }
 

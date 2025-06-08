@@ -29,8 +29,8 @@ package() {
 
     (for i in 7z 7za 7zr; do
         cat > "$PKG"/usr/bin/$i << EOF || exit
-    #!/bin/sh
-    exec /usr/lib/7zip/$i "\$@"
+#!/bin/sh
+exec /usr/lib/7zip/$i "\$@"
 EOF
         chmod 755 "$PKG"/usr/bin/$i || exit
     done) &&

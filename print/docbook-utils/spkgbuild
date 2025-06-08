@@ -17,7 +17,7 @@ build() {
     ./configure \
         --prefix=/usr \
         --mandir=/usr/share/man
-    make 2>&1 | tee make.log
+    make
 }
 
 package() {

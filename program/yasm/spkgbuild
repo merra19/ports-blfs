@@ -10,6 +10,10 @@ source="https://www.tortall.net/projects/$name/releases/$name-$version.tar.gz"
 build() {
 	cd $name-$version
 
+    # Fix a problem when building with gcc-15
+    sed -e 's/def __cplusplus/ defined(__cplusplus) || __STDC_VERSION__ >= 202311L/' \
+        -i libyasm/bitvect.h
+
 	sed -i 's#) ytasm.*#)#' Makefile.in
     
 	./configure \

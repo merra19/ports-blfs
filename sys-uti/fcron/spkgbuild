@@ -2,7 +2,7 @@
 # depends	: pam libxcrypt readline nano vim
 
 name=fcron
-version=3.2.1
+version=3.4.0
 release=1
 options="!makeflags"
 source="http://fcron.free.fr/archives/$name-$version.src.tar.gz

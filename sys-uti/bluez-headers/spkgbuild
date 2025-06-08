@@ -2,7 +2,7 @@
 # depends	: glibc
 
 name=bluez-headers
-version=5.79
+version=5.83
 release=0
 source="https://www.kernel.org/pub/linux/bluetooth/${name%-*}-$version.tar.xz"
 
