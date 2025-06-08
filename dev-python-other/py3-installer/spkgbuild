@@ -1,5 +1,5 @@
 # description	: A library for installing Python wheels"
-# depends	: python3 unzip
+# depends	: python3 7zip
 
 name=py3-installer
 version=0.7.0
@@ -11,7 +11,7 @@ build() {
      
  	# we have to use the wheel because py3-installer is the base to be able to
 	# install generated wheels, so we don't have it when building it itself
-	unzip -d "$SRC" "$SRC"/installer-$version-py3-none-any.whl   
+	7z x "$SRC"/installer-$version-py3-none-any.whl   
 
     patch -Np1 -i ./default-bytecode-levels.patch
 }

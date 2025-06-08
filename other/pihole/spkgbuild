@@ -1,7 +1,7 @@
 # description	: Pihole script
 # depends	: grep bind-utils git dialog iproute2 newt procps-ng 
-# depends	: make-ca fcron curl findutils sudo unzip libidn2 psmisc 
-# depends	: libcap nmap jq netcat lighttpd
+# depends	: make-ca fcron curl findutils sudo libarchive libidn2
+# depends	: libcap nmap jq netcat lighttpd psmisc
 
 name=pihole
 version=1.1.1

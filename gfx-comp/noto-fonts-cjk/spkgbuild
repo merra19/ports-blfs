@@ -1,5 +1,5 @@
 # description	: Google's CJK font family
-# depends	: fontconfig
+# depends	: fontconfig libarchive
 
 name=noto-fonts-cjk
 version=2.003

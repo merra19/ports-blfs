@@ -1,5 +1,5 @@
 # description	: Soothing pastel mouse cursors - Mocha
-# depends	: glibc unzip
+# depends	: glibc libarchive
 
 name=catppuccin-cursors-mocha
 version=2.0.0

@@ -1,5 +1,5 @@
 # description	: A full office productivity suite
-# depends	: unzip zip gpgme clucene unixodbc perl boost expat hyphen 
+# depends	: zip gpgme clucene unixodbc perl boost expat hyphen 
 # depends	: libassuan libxml2 libgpg-error libxslt nspr nss redland 
 # depends	: fontforge graphite2 fontconfig freetype harfbuzz lcms2 
 # depends	: libepoxy libjpeg-turbo libpng libwebp openjpeg2 libtiff 
@@ -9,7 +9,7 @@
 # depends	: qt6-base libatomic_ops gperf xorg-proto libxt libxtst
 # depends	: liberation-fonts java xdg-utils glm nasm abseil-cpp 
 # depends	: breeze-icons avahi wget llvm icu glu libpaper argon2
-# depends	: desktop-file-utils librsvg perl-archive-zip
+# depends	: desktop-file-utils librsvg perl-archive-zip libarchive
 # optional	: hunspell libabw libebook libepubgen libetonyek libodfgen
 # optional	: libexttextcat liblangtag libmspub libmwaw libnumbertext 
 # optional	: libqxp libnumbertext libodfgen libstaroffice libwpd
