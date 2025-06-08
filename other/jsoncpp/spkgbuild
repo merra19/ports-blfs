@@ -15,18 +15,10 @@ build() {
         --default-library shared \
         build
     ninja -C build
-
-    meson setup \
-        --prefix=/usr \
-        --buildtype=release \
-        --default-library static \
-        build-static
-    ninja -C build-static
 }
 
 package() {
     cd $name-$version
 
     DESTDIR="$PKG" ninja -C build install
-    DESTDIR="$PKG" ninja -C build-static install
 }
