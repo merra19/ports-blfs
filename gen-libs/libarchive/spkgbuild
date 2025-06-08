@@ -22,4 +22,7 @@ package() {
     cd $name-$version
 
     make DESTDIR="$PKG" install
+
+    # Create a symlink so we can use bsdunzip as unzip
+    ln -sfv bsdunzip "$PKG"/usr/bin/unzip
 }

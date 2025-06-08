@@ -3,7 +3,7 @@
 
 name=glibmm28
 _name=glibmm
-version=2.82.0
+version=2.84.0
 release=1
 source="https://download.gnome.org/sources/glibmm/${version%.*}/${_name}-$version.tar.xz"
 

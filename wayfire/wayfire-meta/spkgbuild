@@ -11,10 +11,6 @@ source="setupwayfire wayfire.ini White-Haired_Anime_Girl_in_Garden.png
         eteindre config.jsonc mediaplayer.py power_menu.xml style.css
         wf-shell.ini xdgportal.sh wf-shell.ini"
 
-build() {
-    :
-}
-
 package() {
     mkdir -p "$PKG"/usr
     install -Dm 0755 setupwayfire "$PKG"/usr/local/bin/setupwayfire

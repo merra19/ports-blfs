@@ -7,10 +7,6 @@ release=1
 source="https://sourceforge.net/projects/linuxlibertine/files/linuxlibertine/$version/LinLibertineTTF_5.3.0_2012_07_02.tgz
 		https://sourceforge.net/projects/linuxlibertine/files/linuxlibertine/$version/LinLibertineOTF_5.3.0_2012_07_02.tgz"
 
-build() {
-    :
-}
-
 package() {
 	mkdir -p "$PKG"/usr/share/fonts/TTF "$PKG"/usr/share/fonts/OTF
     

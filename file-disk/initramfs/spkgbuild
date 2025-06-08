@@ -6,10 +6,6 @@ version=2.5
 release=1
 source="mkinitramfs init.in drak"
 
-build() {
-    :
-}
-
 package() {
     mkdir -p "$PKG"/usr/sbin/ "$PKG"/usr/share/mkinitramfs 
     install -Dm 755 mkinitramfs "$PKG"/usr/sbin/mkinitramfs

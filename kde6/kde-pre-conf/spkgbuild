@@ -8,10 +8,6 @@ version=6.0.0
 release=1
 source="kf6.sh kde6"
 
-build() {
-    :
-}
-
 package() {
     install -v -dm755 "$PKG"/etc/profile.d "$PKG"/etc/sudoers.d/ 
 

@@ -5,7 +5,7 @@
 
 name=appstream
 _name=AppStream
-version=1.0.4
+version=1.0.5
 release=1
 options="!lto"
 source="https://www.freedesktop.org/software/appstream/releases/AppStream-$version.tar.xz

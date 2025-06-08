@@ -6,10 +6,6 @@ version=5.8.2
 release=1
 source="https://github.com/microsoft/TypeScript/releases/download/v$version/typescript-$version.tgz"
 
-build() {
-    :
-}
-
 package() {
     cd package
 

@@ -3,7 +3,7 @@
 
 name=qcoro6
 _name=qcoro
-version=0.11.0
+version=0.12.0
 release=1
 source="https://github.com/danvratil/qcoro/archive/v$version/${_name}-$version.tar.gz"
 

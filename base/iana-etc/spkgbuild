@@ -6,10 +6,6 @@ release=1
 source="https://github.com/Mic92/iana-etc/releases/download/$version/$name-$version.tar.gz"
 backup="etc/protocols etc/services"
 
-build() {
-    :
-}
-
 package() {
     cd $name-$version
     

@@ -11,10 +11,6 @@ source="hosts os-release lsb-release inputrc shells clock console
 backup="etc/shells etc/inputrc etc/resolv.conf etc/locale.conf etc/hosts 
         etc/bashrc etc/sysctl.conf"
 
-build() {
-    :
-}
-
 package() {
     install --directory --mode=0755 --owner=root --group=root "$PKG"/etc/profile.d
     install --directory --mode=0755 --owner=root --group=root "$PKG"/etc/bash_completion.d

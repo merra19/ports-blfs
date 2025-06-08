@@ -2,7 +2,7 @@
 # depends	: cmake python3
 
 name=abseil-cpp
-version=20250127.0
+version=20250512.0
 release=1
 source="https://github.com/abseil/abseil-cpp/releases/download/$version/$name-$version.tar.gz"
 

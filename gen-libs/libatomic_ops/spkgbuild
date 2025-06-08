@@ -10,10 +10,11 @@ source="https://github.com/ivmai/libatomic_ops/releases/download/v$version/$name
 build() {
 	cd $name-$version
 
-    ./configure --prefix=/usr    \
-                --enable-shared  \
-                --disable-static \
-                --docdir=/usr/share/doc/$name-$version
+    ./configure \
+        --prefix=/usr \
+        --enable-shared \
+        --disable-static \
+        --docdir=/usr/share/doc/$name-$version
 }
 
 package() {

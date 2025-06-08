@@ -9,10 +9,6 @@ source="https://github.com/docbook/xslt10-stylesheets/releases/download/release/
         https://github.com/docbook/xslt10-stylesheets/releases/download/release/$version/docbook-xsl-doc-$version.tar.bz2"
 noextract="docbook-xsl-doc-$version.tar.bz2"
 
-build() {
-    :
-}
-
 package() {
 	cd $name-$version
 

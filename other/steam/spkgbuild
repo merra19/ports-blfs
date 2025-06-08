@@ -10,10 +10,6 @@ version=1.0.0.82
 release=1
 source="http://repo.steampowered.com/$name/pool/$name/s/$name/${name}_$version.tar.gz"
 
-build() {
-    :
-}
-
 package() {
 	cd $name-launcher
 

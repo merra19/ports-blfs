@@ -9,10 +9,6 @@ source="https://downloads.sourceforge.net/project/dejavu/dejavu/$version/dejavu-
         45-dejavu.conf
         90-tt-dejavu.conf"
 
-build() {
-    :
-}
-
 package() {
 	mkdir -p "$PKG"/etc/fonts/conf.d
 

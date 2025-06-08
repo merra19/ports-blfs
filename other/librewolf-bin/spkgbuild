@@ -13,10 +13,6 @@ source="https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/$
         default192x192.png librewolf.desktop"
 backup="usr/lib/librewolf/librewolf.cfg usr/lib/librewolf/distribution/policies.json"
 
-build() {
-    :
-}
-
 package() {
 
   # Yep, that's somewhat redundant. But it works.

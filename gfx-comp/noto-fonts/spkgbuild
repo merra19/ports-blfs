@@ -2,16 +2,12 @@
 # depends	: fontconfig noto-fonts-cjk
 
 name=noto-fonts
-version=2024.11.01
+version=2025.05.01
 release=1
 options="!lto"
 source="https://github.com/notofonts/notofonts.github.io/archive/refs/tags/noto-monthly-release-$version.tar.gz
         66-noto-sans.conf 66-noto-serif.conf 66-noto-mono.conf
         46-noto-sans.conf 46-noto-serif.conf 46-noto-mono.conf"
-
-build() {
-    :
-}
 
 package() {
     cd notofonts.github.io-noto-monthly-release-$version

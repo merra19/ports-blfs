@@ -6,10 +6,6 @@ version=6.7.2
 release=1
 source="$name-$version.tar.gz::https://github.com/FortAwesome/Font-Awesome/archive/$version.tar.gz"
 
- build() {
-    :
-}
-
 package() {
     cd Font-Awesome-$version
 

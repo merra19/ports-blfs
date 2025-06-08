@@ -8,10 +8,6 @@ options="!strip"
 source="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-$version.tar.gz"
 NO_STRIP="yes"
 
-build() {
-    :
-}
-
 package() {
     cd $name-$version
 

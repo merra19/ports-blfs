@@ -2,22 +2,23 @@
 # depends	: gobject-introspection glib libgudev libmbim help2man
 
 name=libqmi
-version=1.30.8
+version=1.36.0
 release=1
 source="https://www.freedesktop.org/software/libqmi/$name-$version.tar.xz"
 
 build() {
 	cd $name-$version
 
-    PYTHON=python3 \
-    ./configure \
+	meson setup \
         --prefix=/usr \
-        --disable-static
-    make
+        --buildtype=plain \
+        -D qrtr=false \
+        build
+	ninja -C build
 }
 
 package() {
     cd $name-$version
 
-    make DESTDIR="$PKG" install
+    DESTDIR="$PKG" ninja -C build install
 }

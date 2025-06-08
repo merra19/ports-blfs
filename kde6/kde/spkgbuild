@@ -22,10 +22,6 @@ version=6.0.0
 release=1
 source="kde kde-np kscreensaver"
 
-build() {
-    :
-}
-
 package() {
     install -Dm 644 kde "$PKG"/etc/pam.d/kde
     install -Dm 644 kde-np "$PKG"/etc/pam.d/kde-np

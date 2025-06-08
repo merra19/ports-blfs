@@ -7,10 +7,6 @@ release=1
 options="!strip"
 source="$name-$version.tar.gz::http://download.documentfoundation.org/libreoffice/stable/$version/rpm/x86_64/LibreOffice_${version}_Linux_x86-64_rpm.tar.gz"
 
-build() {
-    :
-}
-
 package() {
 	for rpm in "$SRC"/LibreOffice_$version*/RPMS/*; do
 		bsdtar -xf $rpm -p -o -C "$PKG"

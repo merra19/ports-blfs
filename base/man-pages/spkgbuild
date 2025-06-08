@@ -6,10 +6,6 @@ version=6.14
 release=1
 source="https://www.kernel.org/pub/linux/docs/man-pages/$name-$version.tar.xz"
 
-build() {
-    :
-}
-
 package() {
     cd "$SRC"/$name-$version
 

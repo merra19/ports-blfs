@@ -2,12 +2,15 @@
 # depends	: zlib xz
 
 name=libunwind
-version=1.8.1
+version=1.8.2
 release=1
 source="https://github.com/libunwind/libunwind/releases/download/v$version//$name-$version.tar.gz"
 
 build() {
     cd $name-$version
+
+    # Fix a problem when building with gcc-15
+    sed -i '/func.s/s/s//' tests/Gtest-nomalloc.c
 
     ./configure \
         --prefix=/usr \

@@ -13,7 +13,6 @@ build() {
         --prefix=/usr  \
 		--sysconfdir=/etc \
 		--disable-static \
-		--enable-relocatable \
 		--docdir=/usr/share/doc/$name-$version
 	make
 }

@@ -9,10 +9,6 @@ version=0.47.2
 release=1
 source=""
 
-build() {
-    :
-}
-
 package() {
     mkdir -p "$PKG"/usr
 }

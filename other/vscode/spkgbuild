@@ -13,10 +13,6 @@ source="$name-$version-amd64.tar.gz::https://update.code.visualstudio.com/$versi
 	$name.desktop $name-url-handler.desktop"
 IGNORE_MDSUM="yes"
 
-build() {
-    :
-}
-
 package() {
 	cd VSCode-linux-x64
 

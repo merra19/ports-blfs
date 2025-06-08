@@ -7,10 +7,6 @@ release=1
 source="https://github.com/docbook/xslt10-stylesheets/releases/download/release/$version/docbook-xsl-$version.tar.bz2
         https://www.linuxfromscratch.org/patches/blfs/svn/docbook-xsl-$version-stack_fix-1.patch"
 
-build() {
-    :
-}
-
 package() {
 	cd docbook-xsl-$version
 

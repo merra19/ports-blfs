@@ -2,7 +2,7 @@
 # depends	: python3 py3-setuptools py3-yaml
 
 name=py3-pip
-version=24.2
+version=25.1.1
 release=1
 source="https://pypi.io/packages/source/p/pip/pip-$version.tar.gz"
 

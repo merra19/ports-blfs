@@ -2,7 +2,7 @@
 # depends	: libx11 xauth xrdb
 
 name=xinit
-version=1.4.3
+version=1.4.4
 release=1
 source="https://www.x.org/pub/individual/app/xinit-$version.tar.xz"
 

@@ -3,7 +3,7 @@
 # depends	: libxcb
 
 name=libxkbcommon
-version=1.8.0
+version=1.10.0
 release=1
 source="https://anduin.linuxfromscratch.org/BLFS/libxkbcommon/$name-$version.tar.xz"
 

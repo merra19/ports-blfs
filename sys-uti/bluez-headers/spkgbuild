@@ -6,10 +6,6 @@ version=5.79
 release=0
 source="https://www.kernel.org/pub/linux/bluetooth/${name%-*}-$version.tar.xz"
 
-build() {
-    :
-}
-
 package() {
     cd ${name%-*}-$version
 

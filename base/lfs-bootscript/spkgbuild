@@ -8,10 +8,6 @@ source="https://anduin.linuxfromscratch.org/BLFS/blfs-bootscripts/blfs-bootscrip
         https://www.linuxfromscratch.org/lfs/downloads/development/lfs-bootscripts-$versionlfs.tar.xz
         c89 c99"
         
-build() {
-    :
-}
-
 package() {
     cd blfs-bootscripts-$version
             

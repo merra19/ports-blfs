@@ -2,7 +2,7 @@
 # depends	: glibc
 
 name=libsigsegv
-version=2.14
+version=2.15
 release=1
 options="!lto"
 source="https://ftp.gnu.org/gnu/libsigsegv/$name-$version.tar.gz"

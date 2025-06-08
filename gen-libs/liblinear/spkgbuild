@@ -2,7 +2,7 @@
 # depends	: glibc
 
 name=liblinear
-version=248
+version=249
 release=1
 source="https://github.com/cjlin1/liblinear/archive/v$version/$name-$version.tar.gz"
 

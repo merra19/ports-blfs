@@ -8,10 +8,6 @@ source="SymbolsNerdFont-Regular-$version.ttf::https://raw.githubusercontent.com/
         SymbolsNerdFontMono-Regular-$version.ttf::https://raw.githubusercontent.com/ryanoasis/nerd-fonts/v$version/patched-fonts/NerdFontsSymbolsOnly/SymbolsNerdFontMono-Regular.ttf
         10-nerd-font-symbols-$version.conf::https://raw.githubusercontent.com/ryanoasis/nerd-fonts/v$version/10-nerd-font-symbols.conf"
 
-build() {
-    :
-}
-
 package() {
     install -Dm644 SymbolsNerdFont-Regular-$version.ttf \
         "$PKG"/usr/share/fonts/TTF/SymbolsNerdFont-Regular.ttf

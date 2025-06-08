@@ -6,10 +6,6 @@ version=1.0.1
 release=1
 source="https://github.com/g-truc/glm/archive/$version/$name-$version.tar.gz"
 
-build() {
-    :
-}
-
 package() {
     cd $name-$version
 
