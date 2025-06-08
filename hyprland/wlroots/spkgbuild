@@ -3,7 +3,7 @@
 # depends	: libdisplay-info hwdata libliftoff libinput glslang 
 # depends	: vulkan-headers vulkan-loader libxcb xcb-util-renderutil 
 # depends	: xcb-util-wm xwayland udev wayland-protocols
-# optional	: seatd xcb-util-errors 
+# depends	: seatd xcb-util-errors 
 
 name=wlroots
 version=0.18.2
