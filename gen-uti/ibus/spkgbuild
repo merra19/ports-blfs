@@ -5,7 +5,7 @@
 # optional	: appindicator!!libdbusmenu
 
 name=ibus
-version=1.5.31
+version=1.5.32
 ucdver=16.0.0
 release=1
 options="!asneeded"

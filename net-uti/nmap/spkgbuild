@@ -3,12 +3,17 @@
 # depends	: openssl py3-build py3-pyproject_hooks
 
 name=nmap
-version=7.95
+version=7.97
 release=1
 source="https://nmap.org/dist/$name-$version.tar.bz2"
 
 build() {
     cd $name-$version
+
+    # Make the build system use the Setuptools Python module from LFS 
+    sed -ri Makefile.in \
+        -e 's#-m build#& --no-isolation#'  \
+        -e '/pip install/s#(ZENMAP|NDIFF)DIR\)/#&dist/*.whl#'
 
     ./configure \
         --prefix=/usr 

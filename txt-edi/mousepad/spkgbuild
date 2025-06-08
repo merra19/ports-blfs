@@ -2,22 +2,22 @@
 # depends	: glib gtk3 gtksourceview4 polkit gspell libxfce4ui
 
 name=mousepad
-version=0.6.3
+version=0.6.5
 release=1
-source="https://archive.xfce.org/src/apps/mousepad/${version%.*}/$name-$version.tar.bz2"
+source="https://archive.xfce.org/src/apps/mousepad/${version%.*}/$name-$version.tar.xz"
 
 build() {
 	cd $name-v$version
 
-    ./configure \
+	meson setup \
         --prefix=/usr \
-        --enable-gtksourceview4 \
-        --enable-keyfile-settings
-    make
+        --buildtype=plain \
+        build
+	ninja -C build
 }
 
 package() {
     cd $name-v$version
 
-    make DESTDIR="$PKG" install
+    DESTDIR="$PKG" ninja -C build install
 }

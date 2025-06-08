@@ -3,7 +3,7 @@
 # depends	: gnutls curl zlib bzip2 sqlite readline libusb
 
 name=gnupg
-version=2.4.7
+version=2.4.8
 release=1
 source="https://gnupg.org/ftp/gcrypt/$name/$name-$version.tar.bz2"
 

@@ -18,5 +18,7 @@ build() {
 package() {
     cd $name-$version
 
-     make CC="gcc" DESTDIR="$PKG" prefix=/usr lib=lib install
+    make CC="gcc" DESTDIR="$PKG" prefix=/usr lib=lib install
+
+    install -v -Dm644 pam_cap/capability.conf "$PKG"/etc/security/capability.conf
 }

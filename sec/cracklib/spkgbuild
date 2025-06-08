@@ -14,7 +14,7 @@ build() {
 
     autoreconf -fiv
 
-    PYTHON=python3 \
+    CPPFLAGS+=' -I /usr/include/python3.13' \
     ./configure \
         --prefix=/usr \
         --disable-static \

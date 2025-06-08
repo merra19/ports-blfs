@@ -14,8 +14,7 @@ build() {
 	./configure \
         --prefix=/usr \
 		--docdir=/usr/share/doc/$name-$version \
-		--with-default-trust-store-pkcs11="pkcs11:" \
-        --with-seccomp-tests 
+		--with-default-trust-store-pkcs11="pkcs11:" 
 	make
 }
 

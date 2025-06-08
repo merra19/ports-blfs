@@ -2,7 +2,7 @@
 # depends	: python3 gettext
 
 name=iso-codes
-version=4.17.0
+version=4.18.0
 release=1
 source="https://salsa.debian.org/iso-codes-team/iso-codes/-/archive/v$version/iso-codes-v$version.tar.gz"
 

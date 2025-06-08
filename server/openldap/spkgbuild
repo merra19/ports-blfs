@@ -3,7 +3,7 @@
 # depends	: groff krb5
 
 name=openldap
-version=2.6.9
+version=2.6.10
 release=1
 options="!makeflags !lto"
 source="https://www.openldap.org/software/download/OpenLDAP/openldap-release/$name-$version.tgz

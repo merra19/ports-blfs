@@ -7,10 +7,6 @@ release=1
 source="https://github.com/asciidoctor/asciidoctor/archive/v$version/$name-$version.tar.gz"
 KEEP_DOC="yes"
 
-build() {
-    :
-}
-
 package() {
     cd $name-$version
 

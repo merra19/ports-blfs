@@ -2,7 +2,7 @@
 # depends	: nspr sqlite zlib perl p11-kit
 
 name=nss
-version=3.108
+version=3.112
 vrsn=$(echo $version | sed 's/\./_/g')
 release=1
 options="!lto"
