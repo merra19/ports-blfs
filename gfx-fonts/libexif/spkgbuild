@@ -2,7 +2,7 @@
 # depends	: glibc
 
 name=libexif
-version=0.6.24
+version=0.6.25
 release=1
 options="!lto"
 source="https://github.com/libexif/libexif/releases/download/v$version/$name-$version.tar.bz2"

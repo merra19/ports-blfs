@@ -9,9 +9,14 @@ source="https://downloads.sourceforge.net/freeglut/$name-$version.tar.gz"
 build() {
 	cd $name-$version
 
+    #  Fix a problem when building with gcc-15
+    sed -e '/Context/s/()/(SFG_PlatformDisplay, SFG_WindowContextType)/' \
+        -i src/egl/fg_init_egl.h
+
 	cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \
 		-D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
 		-D FREEGLUT_BUILD_DEMOS=OFF \
 		-D FREEGLUT_BUILD_STATIC_LIBS=OFF \
 		-Wno-dev

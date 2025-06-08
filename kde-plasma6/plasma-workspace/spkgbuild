@@ -25,7 +25,7 @@
 # optional	: telemetry!!kuserfeedback wallpaper-metadata!!libkexiv2
 
 name=plasma-workspace
-version=6.3.2
+version=6.13.0
 release=1
 source="https://download.kde.org/stable/plasma/${version:0:5}/$name-$version.tar.xz
         plasma-workspace-5.22.5-krunner-cwd-at-home.patch"

@@ -3,7 +3,7 @@
 # depends	: qt6-shadertools extra-cmake-modules
 
 name=kirigami
-version=6.11.0
+version=6.13.0
 release=1
 source="https://download.kde.org/stable/frameworks/${version%.*}/kirigami-$version.tar.xz"
 

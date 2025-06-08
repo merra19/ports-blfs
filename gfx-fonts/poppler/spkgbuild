@@ -4,7 +4,7 @@
 # depends	: gobject-introspection cairo boost gpgme
 
 name=poppler
-version=25.02.0
+version=25.06.0
 release=1
 version_data=0.4.12
 source="https://poppler.freedesktop.org/$name-$version.tar.xz

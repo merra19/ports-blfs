@@ -9,7 +9,7 @@
 # optional	: kwallet!!kwallet
 
 name=kio
-version=6.11.0
+version=6.13.0
 release=2
 source="https://download.kde.org/stable/frameworks/${version%.*}/$name-$version.tar.xz"
 

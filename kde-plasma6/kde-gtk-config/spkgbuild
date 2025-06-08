@@ -4,7 +4,7 @@
 # depends	: gtk3 sassc qt6-base qt6-svg xsettingsd
 
 name=kde-gtk-config
-version=6.3.2
+version=6.13.0
 release=1
 source="https://download.kde.org/stable/plasma/$version/$name-$version.tar.xz"
 

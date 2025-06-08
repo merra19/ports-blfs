@@ -11,13 +11,18 @@
 
 name=gtk4
 _name=gtk
-version=4.16.12
+version=4.18.5
 release=1
 source="https://download.gnome.org/sources/gtk/${version%.*}/gtk-$version.tar.xz
         settings.ini"
 
 build() {
 	cd ${_name}-$version
+
+    # Fix a problem when building with gcc-15
+    sed -e '939 s/= { 0, }//' \
+        -e '940 a memset (&transform, 0, sizeof(GtkCssTransform));' \
+        -i gtk/gtkcsstransformvalue.c
 
 	meson setup \
         --prefix=/usr \

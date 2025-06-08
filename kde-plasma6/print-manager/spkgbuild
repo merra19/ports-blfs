@@ -5,7 +5,7 @@
 # optional	: gtk!!system-config-printer
 
 name=print-manager
-version=6.3.2
+version=6.13.0
 release=1
 source="https://download.kde.org/stable/plasma/$version/$name-$version.tar.xz"
 

@@ -3,7 +3,7 @@
 # depends	: libxcursor libxcursor libxt mesa glu libxft cairo
 
 name=fltk
-version=1.4.2
+version=1.4.3
 release=1
 source="https://github.com/fltk/fltk/releases/download/release-$version/$name-$version-source.tar.gz"
 

@@ -6,7 +6,7 @@
 # depends	: py3-pygdbmi py3-gpep517 py3-setuptools py3-wheel
 
 name=drkonqi
-version=6.3.2
+version=6.13.0
 release=1
 source="https://download.kde.org/stable/plasma/$version/$name-$version.tar.xz"
 

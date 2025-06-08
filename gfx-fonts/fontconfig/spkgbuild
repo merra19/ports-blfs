@@ -2,7 +2,7 @@
 # depends	: freetype expat gperf
 
 name=fontconfig
-version=2.16.0
+version=2.16.2
 release=1
 source="https://www.freedesktop.org/software/fontconfig/release/$name-$version.tar.xz"
 backup="etc/fonts/fonts.conf"

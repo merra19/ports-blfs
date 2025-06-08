@@ -8,13 +8,18 @@
 # optional	: cloudproviders!!libcloudproviders colord
 
 name=gtk3
-version=3.24.48
+version=3.24.49
 release=1
 source="https://download.gnome.org/sources/gtk/${version%.*}/gtk-$version.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/svn/gtk-3.24.49-upstream_fix-1.patch
         settings.ini"
 
 build() {
 	cd gtk-$version
+
+    # Fix an issue causing the GObject introspection data to be incorrect with 
+    # gobject-introspection-1.84 or newer
+    patch -Np1 -i ../gtk-3.24.49-upstream_fix-1.patch
 
 	meson setup \
         --prefix=/usr \
