@@ -13,6 +13,7 @@ build() {
         --prefix=/usr \
         --buildtype=plain \
         --wrap-mode=nofallback \
+        -D python3=false \
         build
 	ninja -C build
 }

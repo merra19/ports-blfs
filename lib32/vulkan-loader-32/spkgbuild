@@ -3,7 +3,7 @@
 # depends	: libxcb-32 vulkan-loader
 
 name=vulkan-loader-32
-version=1.4.304
+version=1.4.313
 release=1
 source="$name-$version.tar.gz::https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/v$version.tar.gz"
 

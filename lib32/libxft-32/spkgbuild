@@ -4,7 +4,7 @@
 
 name=libxft-32
 _name=libXft
-version=2.3.8
+version=2.3.9
 release=1
 source="https://www.x.org/pub/individual/lib/libXft-$version.tar.xz"
 

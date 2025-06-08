@@ -3,7 +3,7 @@
 
 name=libpng-32
 _name=libpng
-version=1.6.46
+version=1.6.48
 release=1
 source="https://downloads.sourceforge.net/libpng/${_name}-$version.tar.xz
         https://downloads.sourceforge.net/sourceforge/libpng-apng/libpng-$version-apng.patch.gz"
@@ -34,7 +34,4 @@ package() {
     make DESTDIR=$PWD/DESTDIR install
     mkdir -p "$PKG"/usr/lib32
     cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
-
-    ## Remove excluded files
-    rm -f "$PKG"/usr/lib32/libpng.la
 }

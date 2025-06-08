@@ -4,7 +4,7 @@
 
 name=elfutils-32
 _name=elfutils
-version=0.192
+version=0.193
 release=1
 options="!lto"
 source="https://sourceware.org/ftp/elfutils/$version/${_name}-$version.tar.bz2"
@@ -31,4 +31,6 @@ package() {
     make DESTDIR=$PWD/DESTDIR install
     mkdir -p "$PKG"/usr/lib32
     cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
+
+    rm "$PKG"/usr/lib32/{libasm,libdw,libelf}.a
 }

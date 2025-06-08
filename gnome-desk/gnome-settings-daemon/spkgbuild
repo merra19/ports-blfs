@@ -8,7 +8,7 @@
 # optional  : modemmanager modemmanager!!gcr3
 
 name=gnome-settings-daemon
-version=47.2
+version=48.1
 release=1
 source="https://download.gnome.org/sources/$name/${version%.*}/$name-$version.tar.xz"
 

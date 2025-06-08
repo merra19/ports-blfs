@@ -3,7 +3,7 @@
 
 name=libcap-32
 _name=libcap
-version=2.73
+version=2.76
 release=1
 source="https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/${_name}-$version.tar.xz"
 

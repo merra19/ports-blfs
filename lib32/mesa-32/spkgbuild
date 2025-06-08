@@ -9,7 +9,7 @@
 
 name=mesa-32
 _name=mesa
-version=24.3.4
+version=25.0.5
 release=1
 options="!lto !asneeded"
 source="https://mesa.freedesktop.org/archive/${_name}-$version.tar.xz

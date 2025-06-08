@@ -3,7 +3,7 @@
 
 name=util-linux-32
 _name=util-linux
-version=2.40.4
+version=2.41
 release=1
 options="strip"
 source="https://www.kernel.org/pub/linux/utils/util-linux/v${version:0:4}/${_name}-$version.tar.xz"
