@@ -3,7 +3,7 @@
 
 name=hyprland-qt-support
 version=0.1.0
-release=4
+release=1
 source="$name-$version.tar.gz::https://github.com/hyprwm/$name/archive/refs/tags/v$version.tar.gz"
 
 build() {

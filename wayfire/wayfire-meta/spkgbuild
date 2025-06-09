@@ -6,7 +6,7 @@
 
 name=wayfire-meta
 version=0.9.0
-release=3
+release=1
 source="setupwayfire wayfire.ini White-Haired_Anime_Girl_in_Garden.png
         eteindre config.jsonc mediaplayer.py power_menu.xml style.css
         wf-shell.ini xdgportal.sh wf-shell.ini"

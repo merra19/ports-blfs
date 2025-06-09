@@ -3,7 +3,7 @@
 
 name=hyprcursor
 version=0.1.11
-release=3
+release=1
 source="$name-$version.tar.gz::https://github.com/hyprwm/$name/archive/refs/tags/v$version.tar.gz"
 
 build() {

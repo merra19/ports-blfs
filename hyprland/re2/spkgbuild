@@ -4,7 +4,7 @@
 name=re2
 version=20240702
 _re2ver=2024-07-02
-release=3
+release=1
 source="$name-$version.tar.gz::https://github.com/google/re2/archive/$_re2ver.tar.gz"
 
 build() {

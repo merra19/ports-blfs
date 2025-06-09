@@ -3,7 +3,7 @@
 
 name=py3-snowballstemmer 
 version=2.2.0
-release=5
+release=1
 source="https://files.pythonhosted.org/packages/source/s/snowballstemmer/${name#*-}-$version.tar.gz"
 
 build() {

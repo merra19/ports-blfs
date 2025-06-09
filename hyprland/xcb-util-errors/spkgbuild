@@ -3,7 +3,7 @@
 
 name=xcb-util-errors
 version=1.0.1
-release=2
+release=1
 source="https://xorg.freedesktop.org/archive/individual/lib/$name-$version.tar.xz"
 
 build() {

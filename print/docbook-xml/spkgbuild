@@ -3,7 +3,7 @@
 
 name=docbook-xml
 version=4.5
-release=2
+release=1
 source="https://www.docbook.org/xml/$version/$name-$version.zip"
 
 build() {

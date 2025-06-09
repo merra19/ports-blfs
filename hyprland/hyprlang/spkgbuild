@@ -3,7 +3,7 @@
 
 name=hyprlang
 version=0.6.0
-release=5
+release=1
 source="$name-$version.tar.gz::https://github.com/hyprwm/$name/archive/refs/tags/v$version.tar.gz"
 
 build() {

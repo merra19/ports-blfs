@@ -3,7 +3,7 @@
 
 name=xarchiver
 version=0.5.4.23
-release=2
+release=1
 source="https://github.com/ib/xarchiver/archive/$version/$name-$version.tar.gz"
 
 build() {

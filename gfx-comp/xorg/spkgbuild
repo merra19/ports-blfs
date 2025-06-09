@@ -4,7 +4,7 @@
 
 name=xorg
 version=1.0
-release=2
+release=1
 source="setup hyprland.conf waybar xdg-portal-hyprland kitty.conf"
 
 build() {

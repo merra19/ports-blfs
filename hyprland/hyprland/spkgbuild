@@ -12,7 +12,7 @@
 
 name=hyprland
 version=0.47.2
-release=2
+release=1
 source="$name-$version.tar.gz::https://github.com/hyprwm/Hyprland/releases/download/v$version/source-v$version.tar.gz"
 
 build() {

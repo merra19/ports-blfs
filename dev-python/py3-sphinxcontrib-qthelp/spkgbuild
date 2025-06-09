@@ -3,7 +3,7 @@
 
 name=py3-sphinxcontrib-qthelp
 version=2.0.0
-release=2
+release=1
 source="https://files.pythonhosted.org/packages/source/s/sphinxcontrib-qthelp/sphinxcontrib_qthelp-$version.tar.gz"
 
 build() {

@@ -3,7 +3,7 @@
 
 name=py3-sphinxcontrib-htmlhelp
 version=2.1.0
-release=3
+release=1
 source="$name-$version.tar.gz::https://files.pythonhosted.org/packages/source/s/sphinxcontrib-htmlhelp/sphinxcontrib_htmlhelp-$version.tar.gz"
 
 build() {

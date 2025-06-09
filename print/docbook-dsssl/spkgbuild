@@ -3,7 +3,7 @@
 
 name=docbook-dsssl
 version=1.79
-release=2
+release=1
 source="https://downloads.sourceforge.net/docbook/$name-$version.tar.bz2
         https://downloads.sourceforge.net/docbook/$name-doc-$version.tar.bz2"
 noextract="$name-doc-$version.tar.bz2"

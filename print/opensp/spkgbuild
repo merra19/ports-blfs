@@ -4,7 +4,7 @@
 name=opensp
 _name=OpenSP
 version=1.5.2
-release=2
+release=1
 options="!lto"
 source="https://downloads.sourceforge.net/openjade/OpenSP-$version.tar.gz
         https://www.linuxfromscratch.org/patches/blfs/svn/OpenSP-1.5.2-gcc14-1.patch"
