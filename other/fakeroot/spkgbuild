@@ -2,7 +2,7 @@
 # depends	: glibc libcap acl sed bash util-linux
 
 name=fakeroot
-version=1.37
+version=1.33
 release=1
 options="!lto"
 source="https://ftp.debian.org/debian/pool/main/f/$name/${name}_$version.orig.tar.gz"

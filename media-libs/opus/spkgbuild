@@ -12,17 +12,21 @@ build() {
 
     if echo "$CFLAGS" | grep -q "\-Ofast"; then
 
-        ./configure \
+        meson setup \
             --prefix=/usr \
-            --disable-static \
-            --enable-intrinsics \
-            --enable-float-approx \
-            --docdir=/usr/share/doc/$name-$version
+            --buildtype=plain \
+            -D float-approx=true \
+            -D intrinsics=enabled \
+            -D docdir=/usr/share/doc/$name-$version \
+            build
+        ninja -C build
     else
-        ./configure \
+        meson setup \
             --prefix=/usr \
-            --disable-static \
-            --docdir=/usr/share/doc/$name-$version
+            --buildtype=plain \
+            -D docdir=/usr/share/doc/$name-$version \
+            build
+        ninja -C build
     fi
 
 	make
@@ -31,5 +35,5 @@ build() {
 package() {
     cd $name-$version
 
-    make DESTDIR="$PKG" install
+    DESTDIR="$PKG" ninja -C build install
 }

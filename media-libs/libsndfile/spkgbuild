@@ -9,6 +9,10 @@ source="https://github.com/libsndfile/libsndfile/releases/download/$version/$nam
 build() {
 	cd $name-$version
 
+    # Fix building with GCC-15
+    sed '/typedef enum/,/bool ;/d' -i \
+        src/ALAC/alac_{en,de}coder.c
+
 	./configure \
         --prefix=/usr \
 		--docdir=/usr/share/doc/$name-$version

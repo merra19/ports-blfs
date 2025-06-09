@@ -3,7 +3,7 @@
 # depends	: libunwind sqlite attr zlib zstd libxcrypt mariadb 
  
 name=lighttpd
-version=1.4.77
+version=1.4.78
 release=1
 options="!lto"
 source="https://download.lighttpd.net/lighttpd/releases-${version%.*}.x/$name-$version.tar.xz

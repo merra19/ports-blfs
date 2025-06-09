@@ -34,9 +34,9 @@ package() {
     rm -fv "$PKG"/usr/share/dbus-1/system.d/pulseaudio-system.conf
     mkdir -p "$PKG"/etc/pulse/default.pa.d
 
-    sed '2i exit # nouse' -i "$PKG"/etc/xdg/Xwayland-session.d/00-pulseaudio-x11
-    sed '$a Hidden=true'  -i "$PKG"/etc/xdg/autostart/pulseaudio.desktop
+    rm -f "$PKG"/etc/xdg/autostart/pulseaudio.desktop
+    rm -vf "$PKG"/etc/xdg/Xwayland-session.d/00-pulseaudio-x11 
 
     #rm -fv "$PKG"/etc/xdg/autostart/pulseaudio.desktop
-    sed  's/; autospawn = yes/ autospawn = no/g' -i "$PKG"/etc/pulse/client.conf
+    sed -e '$a autospawn = no' -i "$PKG"/etc/pulse/client.conf
 }

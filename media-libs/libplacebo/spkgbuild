@@ -3,17 +3,12 @@
 # depends	: libunwind
 
 name=libplacebo
-version=7.349.0
+version=7.351.0
 release=1
 source="https://github.com/haasn/libplacebo/archive/refs/tags/v$version/$name-$version.tar.gz"
 
 build() {
 	cd $name-$version
-
-    # Fix a build failure that occurs with glslang-15.0.0
-    sed -e "20s/$/,/"                                         \
-        -e "21i cxx.find_library('glslang', required: false)" \
-        -i src/glsl/meson.build
 
 	meson setup \
         --prefix=/usr \

@@ -2,7 +2,7 @@
 # depends	: cmake ninja utfcpp
 
 name=taglib
-version=2.0.2
+version=2.1
 release=1
 source="https://taglib.github.io/releases/$name-$version.tar.gz"
 

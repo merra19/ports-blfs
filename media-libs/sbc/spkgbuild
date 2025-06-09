@@ -2,7 +2,7 @@
 # depends	: glibc
 
 name=sbc
-version=2.0
+version=2.1
 release=1
 source="https://www.kernel.org/pub/linux/bluetooth/sbc-2.0.tar.xz"
 

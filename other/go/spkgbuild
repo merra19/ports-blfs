@@ -2,7 +2,7 @@
 # depends	: sqlite xz python3 zlib bzip2 ninja boost
 
 name=go
-version=1.24.1
+version=1.24.3
 release=1
 noextract="$name-$version.linux-amd64.tar.gz"
 source="$name-$version.src.tar.gz::https://golang.org/dl/go$version.src.tar.gz 
