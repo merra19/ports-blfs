@@ -18,8 +18,10 @@ build() {
     # Remove one udev rule requiring a full Systemd installation:
     sed '/systemd-sysctl/s/^/#/' -i rules.d/99-systemd.rules.in
 
-    # Adjust the hardcoded paths to network configuration files for the standalone udev installation
-    sed '/NETWORK_DIRS/s/systemd/udev/' -i src/basic/path-lookup.h
+    # Adjust the hardcoded paths to network configuration files for the 
+    # standalone udev installation
+    sed -e '/NETWORK_DIRS/s/systemd/udev/' \
+        -i src/libsystemd/sd-network/network-util.h
 
     mkdir build32
     cd build32
@@ -50,7 +52,7 @@ build() {
 }
 
 package() {
-    cd ${_name}-$version
+    cd ${_name}-$version/build32
 
     mkdir -pv "$PKG"/usr/lib32/pkgconfig &&
     cp -av libudev.so{,*[0-9]} "$PKG"/usr/lib32/ &&

@@ -2,7 +2,6 @@
 # depends	: flex bison libxcrypt-32 autoconf automake pam
 
 name=pam-32
-_name=pam
 version=1.7.0
 release=1
 source="https://github.com/linux-pam/linux-pam/releases/download/v$version/Linux-PAM-$version.tar.xz"
@@ -12,23 +11,25 @@ build() {
 
 	export CC="gcc -m32 -mstackrealign"
 	export CXX="g++ -m32 -mstackrealign"
-	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+	#export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+    export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
 
-    autoreconf
-    ./configure \
+    meson setup \
         --prefix=/usr \
-        --libdir=/usr/lib32 \
-        --sbindir=/usr/sbin \
-        --sysconfdir=/etc \
-        --enable-securedir=/usr/lib/security \
-        --host=i686-pc-linux-gnu
-    make
+        --buildtype=plain \
+        --libdir=lib32 \
+        --cross-file lib32 \
+        -D logind=disabled \
+        -D nis=disabled \
+		-D docdir=/usr/share/doc/Linux-PAM-$version \
+        build
+    ninja -C build
 }
 
 package() {
-    cd ${_name}-$version
+    cd Linux-PAM-$version
 
-    make DESTDIR="$PWD"/DESTDIR install
+    DESTDIR="$PWD"/DESTDIR ninja -C build install
     mkdir -p "$PKG"/usr/lib32
     cp -Rv DESTDIR/usr/lib32/* "$PKG"/usr/lib32
 }
