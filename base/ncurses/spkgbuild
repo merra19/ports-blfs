@@ -4,7 +4,7 @@
 name=ncurses
 version=6.5
 version_pkg="6.5-20250531"
-release=2
+release=1
 source="https://invisible-mirror.net/archives/ncurses/$name-${version_pkg}.tar.gz"
 
 build() {

@@ -3,7 +3,7 @@
 
 name=py3-sphinxcontrib-devhelp
 version=2.0.0
-release=2
+release=1
 source="https://files.pythonhosted.org/packages/source/s/sphinxcontrib-devhelp/sphinxcontrib_devhelp-$version.tar.gz"
 
 build() {

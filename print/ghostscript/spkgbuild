@@ -7,7 +7,7 @@
 
 name=ghostscript
 version=10.05.1
-release=2
+release=1
 options="!lto"
 source="https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10040/$name-$version.tar.xz
         https://downloads.sourceforge.net/gs-fonts/ghostscript-fonts-std-8.11.tar.gz

@@ -8,7 +8,7 @@
 
 name=wayfire
 version=0.9.0
-release=3
+release=1
 source="https://github.com/WayfireWM/$name/releases/download/v$version/$name-$version.tar.xz
         wayfire-session.desktop wayfire-session wayfire.env"
 

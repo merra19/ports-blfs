@@ -4,7 +4,7 @@
 
 name=grim
 version=1.4.1
-release=3
+release=1
 source="https://gitlab.freedesktop.org/emersion/grim/-/archive/v$version/$name-v$version.tar.gz"
 
 build() {

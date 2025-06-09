@@ -3,7 +3,7 @@
 
 name=sgml-common
 version=0.6.3
-release=3
+release=1
 source="https://sourceware.org/ftp/docbook-tools/new-trials/SOURCES/$name-$version.tgz
         sgml-common-0.6.3-manpage-1.patch"
 

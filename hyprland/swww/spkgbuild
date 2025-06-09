@@ -3,7 +3,7 @@
 
 name=swww
 version=0.9.5
-release=2
+release=1
 source="$name-$version.tar.gz::https://github.com/LGFae/swww/archive/v$version.tar.gz"
 
 build() {
