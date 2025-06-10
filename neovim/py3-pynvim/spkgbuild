@@ -1,0 +1,19 @@
+# description	: Python client for Neovim
+# depends	: python3 py3-wheel py3-greenlet py3-msgpack
+
+name=py3-pynvim
+release=0.5.2
+pkgrel=1
+source="https://pypi.io/packages/source/p/pynvim/pynvim-$version.tar.gz"
+
+build() {
+	cd pynvim-$version
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd pynvim-$version
+
+	python3 -m installer -d "$PKG" .dist/*.whl
+}
