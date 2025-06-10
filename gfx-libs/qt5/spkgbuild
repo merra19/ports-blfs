@@ -10,7 +10,7 @@
 # optional	: accessibility!!at-spi2-core ibus
 
 name=qt5
-version=5.15.16
+version=5.15.17
 release=1
 #options="!lto"
 source="https://download.qt.io/archive/qt/${version%.*}/$version/single/qt-everywhere-opensource-src-$version.tar.xz
@@ -28,6 +28,7 @@ source="https://download.qt.io/archive/qt/${version%.*}/$version/single/qt-every
         qtbase-use-wayland-on-gnome.patch
 		qt5.sh assistant-qt5.desktop designer-qt5.desktop
         linguist-qt5.desktop qdbusviewer-qt5.desktop qt"
+
 
 build() {
 	cd qt-everywhere-src-$version

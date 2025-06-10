@@ -1,0 +1,20 @@
+# description	: Vim-fork focused on extensibility and agility
+# depends	: glibc libuv ninja luajit cmake python3-pynvim
+
+name=neovim
+version=0.11.2
+release=1
+options="!lto"
+source="$name-$version.tar.gz::https://github.com/neovim/neovim/archive/refs/tags/v$version.tar.gz"
+optsflags=" -fno-lto "
+
+build() {
+    cd $name-$version
+    make CMAKE_INSTALL_PREFIX=/usr USE_BUNDLED=1 CMAKE_BUILD_TYPE=Release
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}
