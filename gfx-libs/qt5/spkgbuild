@@ -104,6 +104,8 @@ build() {
         QMAKE_CXXFLAGS_RELEASE="$CXXFLAGS" \
         QMAKE_LFLAGS_RELEASE="${LDFLAGS}" \
         $(cat qtconf)
+
+    qtbase/bin/qmake CONFIG+=fat-static-lto -- -redo
 	make
 }
 

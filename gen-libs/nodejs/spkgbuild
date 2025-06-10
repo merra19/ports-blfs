@@ -31,5 +31,5 @@ package() {
 
     make DESTDIR="$PKG" install
 
-    ln -sf node /usr/share/doc/node-$version
+    ln -sf node "$PKG"/usr/share/doc/node-$version
 }
