@@ -3,7 +3,7 @@
 
 name=efivar
 version=39
-release=1
+release=2
 options="!lto"
 source="https://github.com/rhboot/efivar/archive/$version/$name-$version.tar.gz"
 
