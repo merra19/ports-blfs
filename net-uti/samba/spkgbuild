@@ -2,9 +2,8 @@
 # depends	: glibc libarchive perl icu libtasn1 perl-parse-yapp popt 
 # depends	: gnutls e2fsprogs libcap ncurses readline zlib libxcrypt 
 # depends	: acl cups jansson pam libtirpc glib dbus rpcsvc-proto 
-# depends	: gpgme liburing lmdb libaio libnsl py3-markdown talloc
-# depends	: avahi
-# optional	: openldap krb5 
+# depends	: gpgme lmdb libaio libnsl py3-markdown avahi openldap
+# depends	: krb5 
 
 name=samba
 version=4.22.1

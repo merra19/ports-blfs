@@ -6,7 +6,6 @@ version=0.11.2
 release=1
 options="!lto"
 source="$name-$version.tar.gz::https://github.com/neovim/neovim/archive/refs/tags/v$version.tar.gz"
-optsflags=" -fno-lto "
 
 build() {
     cd $name-$version
