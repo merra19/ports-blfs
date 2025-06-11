@@ -1,0 +1,34 @@
+# description	: NFS client and server daemons
+# depends	: libevent libnl libtirpc libxml2 rpcsvc-proto sqlite
+# depends	: libnsl lvm2 krb5 openldap libcap rpcbind
+
+name=nfs-utils
+version=2.8.2
+release=1
+source="https://www.kernel.org/pub/linux/utils/nfs-utils/$version/$name-$version.tar.xz
+        nfs-server"
+backup="etc/sysconfig/nfs-server"
+
+build() {
+    cd $name-$version
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --sbindir=/usr/sbin \
+        --disable-nfsv4 \
+        --disable-gss \
+        LIBS="-lsqlite3 -levent_core"
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+
+    chmod u+w,go+r "$PKG"/usr/sbin/mount.nfs
+    chown nobody:nogroup "$PKG"/var/lib/nfs
+
+    install -Dm 0644 ../nfs-server "$PKG"/etc/sysconfig/nfs-server
+}
