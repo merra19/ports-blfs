@@ -27,6 +27,9 @@ package() {
 
     make DESTDIR="$PKG" install
 
+    mv "$PKG"/sbin/* "$PKG"/usr/sbin/
+    rm -rf "$PKG"/sbin
+
     chmod u+w,go+r "$PKG"/usr/sbin/mount.nfs
     chown nobody:nogroup "$PKG"/var/lib/nfs
 
