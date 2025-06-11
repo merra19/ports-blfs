@@ -3,7 +3,7 @@
 # depends	: libnsl lvm2 krb5 openldap libcap rpcbind
 
 name=nfs-utils
-version=2.8.2
+version=2.8.3
 release=1
 source="https://www.kernel.org/pub/linux/utils/nfs-utils/$version/$name-$version.tar.xz
         nfs-server"
