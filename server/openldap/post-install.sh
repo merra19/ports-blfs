@@ -8,7 +8,7 @@ pkg_preinst() {
 
 pkg_postinst() {
     cd /usr/share/blfs-bootscripts
-    make install-slapd
+    #make install-slapd
 
     if [ ! -f /usr/lib/krb5/plugins/kdb/kldap.so ];then
         scratch install -y -f -r krb5
