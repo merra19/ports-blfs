@@ -7,7 +7,7 @@
 # depends	: qt6-base qt6-multimedia
 
 name=konsole
-version=25.04.0
+version=25.04.2
 release=1
 source="https://download.kde.org/stable/release-service/$version/src/$name-$version.tar.xz
         https://www.linuxfromscratch.org/patches/blfs/svn/konsole-$version-scrollbar-1.patch"

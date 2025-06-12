@@ -2,7 +2,7 @@
 # depends	: perl libxslt gettext xorg-proto
 
 name=xkeyboard-config
-version=2.44
+version=2.45
 release=1
 source="https://www.x.org/pub/individual/data/xkeyboard-config/$name-$version.tar.xz"
 

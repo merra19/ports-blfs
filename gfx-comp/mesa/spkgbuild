@@ -6,7 +6,7 @@
 # depends	: py3-ply rust-bindgen cbindgen libva libvdpau py3-yaml
 
 name=mesa
-version=25.0.5
+version=25.1.3
 release=1
 options="!lto !asneeded"
 source="https://mesa.freedesktop.org/archive/$name-$version.tar.xz"

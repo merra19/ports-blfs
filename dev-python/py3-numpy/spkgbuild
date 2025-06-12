@@ -3,7 +3,7 @@
 # depends	: py3-pyproject-metadata py3-packaging
 
 name=py3-numpy
-version=2.2.6
+version=2.3.0
 release=1
 source="https://files.pythonhosted.org/packages/source/n/numpy/numpy-$version.tar.gz"
 

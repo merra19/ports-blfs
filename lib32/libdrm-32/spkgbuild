@@ -3,7 +3,7 @@
 
 name=libdrm-32
 _name=libdrm
-version=2.4.124
+version=2.4.125
 release=1
 source="https://dri.freedesktop.org/libdrm/${_name}-$version.tar.xz"
 
