@@ -261,8 +261,8 @@
 	"menu": "on-click",
 	"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
 	"menu-actions": {
-			"shutdown": "exec $HOME/.config/waybar/scripts/eteindre shutdown",
-			"reboot": "exec $HOME/.config/waybar/scripts/eteindre reboot",
+			"shutdown": "exec $HOME/.config/scripts/eteindre shutdown",
+			"reboot": "exec $HOME/.config/scripts/eteindre reboot",
 		}
     }
 }

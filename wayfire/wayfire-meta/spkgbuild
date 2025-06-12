@@ -1,5 +1,5 @@
 # description	: Wayfire compositor Meta
-# depends	: wayfire-git waybar pavucontrol wofi thunar
+# depends	: wayfire-git waybar pavucontrol wofi thunar nerd-fonts
 # depends	: xdg-desktop-portal wireplumber ttf-font-awesome
 # depends	: xfce4-terminal polkit-gnome mako wf-shell
 # depends	: xdg-desktop-portal-wlr wayfire-plugins-extra-git
