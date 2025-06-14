@@ -6,7 +6,9 @@ version=1.8.11
 release=1
 options="!lto"
 source="https://www.netfilter.org/projects/iptables/files/$name-$version.tar.xz
-        rc.iptables"
+        iptables-service.initd
+        rc.iptables iptables.initd iptables.confd ip6tables.confd"
+backup="etc/systemd/scripts/iptables"
 
 build() {
 	cd $name-$version
@@ -24,4 +26,12 @@ package() {
     make DESTDIR="$PKG" install
 
     install -Dm 700 ../rc.iptables "$PKG"/etc/rc.d/rc.iptables
+
+	install -D -m755 "$SRC"/iptables.initd "$PKG"/etc/init.d/iptables
+	install -D -m644 "$SRC"/iptables.confd "$PKG"/etc/conf.d/iptables
+	install -D -m755 "$SRC"/iptables.initd "$PKG"/etc/init.d/ip6tables
+	install -D -m644 "$SRC"/ip6tables.confd "$PKG"/etc/conf.d/ip6tables
+
+    
+    install -D -m755 "$SRC"/iptables-service.initd "$PKG"/etc/systemd/scripts/iptables
 }

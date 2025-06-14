@@ -1,11 +1,14 @@
 #!/bin/sh
 
+name="linux-arch"
+export name
+
 pkg_postinst() {
-    kernver=$(find /lib/modules -maxdepth 1 -type d -iname '*-LFS' -printf "%f\n")
+    version="$(awk 'NR==1 {print $1}' /var/lib/scratchpkg/db/$name)"
     
     cd /boot
-    mkinitramfs $kernver
-    depmod $kernver
+    mkinitramfs $version-LFS
+    depmod $version-LFS
 
     # run all dkms scripts
     if [ $(command -v dkms) ]; then
@@ -20,17 +23,19 @@ pkg_postupgrade() {
 }
 
 pkg_preremove() {
-    version="$(grep "linux-arch" .pkgfiles | awk -F- '{print $3}')"
+    version="$(awk 'NR==1 {print $1}' /var/lib/scratchpkg/db/$name)"
     (
         cd /usr/lib/modules/$version-LFS/
-        for i in /usr/lib/modules/$version-LFS/* ;do
+        for i in * ;do
             case $i in
-                modules.order | modules.buildtin*) ;;
+                modules.order | modules.builtin | modules.builtin.modinfo) ;;
                 modules.*) rm -f $i ;;
                 *) ;;
             esac
         done
     )
+    echo "cleaning initramfs"
+    rm -fv /boot/initrd.img-$version-LFS
 }
 
 

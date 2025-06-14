@@ -9,6 +9,7 @@ name=networkmanager
 version=1.50.0
 release=1
 source="$name-$version.tar.xz::https://download.gnome.org/sources/NetworkManager/${version%.*}/NetworkManager-$version.tar.xz
+         networkmanager.initd networkmanager-dispatcher.initd
         NetworkManager.conf polkit.conf no-dns-update.conf rules"
 backup="etc/NetworkManager/NetworkManager.conf"
 
@@ -54,4 +55,7 @@ package() {
     install -Dm 644 "$SRC"/polkit.conf "$PKG"/etc/NetworkManager/conf.d/polkit.conf
     install -Dm 644 "$SRC"/no-dns-update.conf "$PKG"/etc/NetworkManager/conf.d/no-dns-update.conf
     install -Dm 644 "$SRC"/rules "$PKG"/usr/share/polkit-1/rules.d/org.freedesktop.NetworkManager.rules
+
+	install -m755 -D "$SRC"/networkmanager.initd "$PKG"/etc/init.d/networkmanager
+	install -m755 -D "$SRC"/networkmanager-dispatcher.initd "$PKG"/etc/init.d/networkmanager-dispatcher
 }

@@ -5,7 +5,7 @@ name=ntp
 version=4.2.8p18
 release=1
 source="https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-${version%.*}/$name-$version.tar.gz
-        ntp.conf"
+        ntp.conf ntp-client.confd ntp-client.rc ntpd.confd ntpd.rc-r2 sntp.confd sntp.rc"
 backup="etc/ntp.conf"
 
 build() {
@@ -33,4 +33,11 @@ package() {
 
     install -v -o ntp -g ntp -d "$PKG"/var/lib/ntp
     install -Dm 644 "$SRC"/ntp.conf "$PKG"/etc/ntp.conf
+
+    install -Dm755 "$SRC"/ntpd.rc-r2 "$PKG"/etc/init.d/ntpd
+	install -Dm644 "$SRC"/ntpd.confd "$PKG"/etc/conf.d/ntpd
+	install -Dm755 "$SRC"/ntpd-client.rc "$PKG"/etc/init.d/ntp-client
+	install -Dm644 "$SRC"/ntpd-client.confd "$PKG"/etc/conf.d/ntp-client
+    install -Dm755 "$SRC"/sntp.rc "$PKG"/etc/init.d/sntp
+	install -Dm644 "$SRC"/sntp.confd "$PKG"/etc/conf.d/sntp
 }

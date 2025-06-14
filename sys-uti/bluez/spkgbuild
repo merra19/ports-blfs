@@ -7,7 +7,7 @@ version=5.79
 release=1
 options="!lto"
 source="https://www.kernel.org/pub/linux/bluetooth/$name-$version.tar.xz
-        rfcomm.conf uart.conf"
+        rfcomm.conf uart.conf bluetooth.initd rfcomm.initd rfcomm.confd"
 backup="etc/bluetooth/main.conf"
 
 build() {
@@ -36,6 +36,10 @@ package() {
 
 	install  -Dm644 ../rfcomm.conf "$PKG"/etc/bluetooth/rfcomm.conf
 	install  -Dm644 ../uart.conf "$PKG"/etc/bluetooth/uart.conf
+
+	install -Dm755 "$SRC"/bluetooth.initd "$PKG"/etc/init.d/bluetooth
+	install -Dm755 "$SRC"/rfcomm.initd "$PKG"/etc/init.d/rfcomm
+	install -Dm644 "$SRC"/rfcomm.confd "$PKG"/etc/conf.d/rfcomm
 
     install -v -dm755 "$PKG"/usr/share/doc/$name-$version
     install -v -m644 doc/*.txt "$PKG"/usr/share/doc/$name-$version

@@ -1,0 +1,15 @@
+#!/sbin/openrc-run
+
+name="iptables-service"
+description="Set iptables rules at boot"
+
+depend() {
+    need localmount
+    before networking
+}
+
+start() {
+    ebegin "Setting iptables rules"
+    "/etc/systemd/scripts/iptables
+    eend $?
+}

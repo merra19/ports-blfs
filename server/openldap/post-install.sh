@@ -7,17 +7,13 @@ pkg_preinst() {
 
 
 pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    #make install-slapd
-
     if [ ! -f /usr/lib/krb5/plugins/kdb/kldap.so ];then
         scratch install -y -f -r krb5
     fi
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-slapd
+    rc-update del slapd 
 }
 
 case $1 in

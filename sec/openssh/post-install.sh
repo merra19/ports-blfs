@@ -5,18 +5,11 @@ pkg_preinst() {
     getent passwd sshd || useradd -c 'sshd PrivSep' -d /var/lib/sshd -g sshd -s /bin/false -u 50 sshd
 }
 
-pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    make install-sshd
-}
-
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-sshd
+    rc-update del sshd
 }
 
 case $1 in
     preinst) pkg_preinst ;;
-    #postinst) pkg_postinst ;;
     preremove) pkg_preremove ;;
 esac

@@ -8,13 +8,11 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    make install-dhcpcd
+    rc-update add dhcpcd default 
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-dhcpcd
+    rc-update del dhcpcd
 }
 
 case $1 in

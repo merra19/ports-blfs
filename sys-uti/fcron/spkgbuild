@@ -1,12 +1,12 @@
 # description	: A command scheduler with extended capabilities over cron and anacron
-# depends	: pam libxcrypt readline nano vim
+# depends	: pam libxcrypt readline nano vim openrc
 
 name=fcron
 version=3.2.1
 release=1
 options="!makeflags"
 source="http://fcron.free.fr/archives/$name-$version.src.tar.gz
-        run-parts systab.orig"
+        run-parts systab.orig fcron.initd fcron.confd"
 backup="var/spool/fcron/systab.orig"
 
 build() {
@@ -37,4 +37,7 @@ package() {
     install -Dm755 ../run-parts "$PKG"/usr/bin/run-parts
     install -vdm754 "$PKG"/etc/cron.{hourly,daily,weekly,monthly}
     install -Dm644  ../systab.orig "$PKG"/var/spool/fcron/systab.orig
+
+	install -Dm755 "$SRC"/fcron.initd "$PKG"/etc/init.d/fcron
+	install -Dm644 "$SRC"/fcron.confd "$PKG"/etc/conf.d/fcron
 }

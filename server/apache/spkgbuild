@@ -7,7 +7,8 @@ _name=httpd
 version=2.4.63
 release=1
 source="https://archive.apache.org/dist/httpd/httpd-$version.tar.bz2
-        https://www.linuxfromscratch.org/patches/blfs/svn/httpd-$version-blfs_layout-1.patch"
+        https://www.linuxfromscratch.org/patches/blfs/svn/httpd-$version-blfs_layout-1.patch
+        apache2.initd apache2.confd"
 backup="
     etc/httpd/httpd.conf
     etc/httpd/extra/httpd-autoindex.conf etc/httpd/extra/httpd-dav.conf etc/httpd/extra/httpd-default.conf
@@ -63,4 +64,7 @@ package() {
     chmod 4754             "$PKG"/usr/lib/httpd/suexec &&
 
     chown -v -R apache:apache "$PKG"/srv/www
+
+	install -D -m755 "$SRC"/apache2.initd "$PKG"/etc/init.d/apache2
+	install -D -m644 "$SRC"/apache2.confd "$PKG"/etc/conf.d/apache2
 }

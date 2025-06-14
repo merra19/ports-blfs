@@ -7,7 +7,8 @@ version=2.6.9
 release=1
 options="!makeflags !lto"
 source="https://www.openldap.org/software/download/OpenLDAP/openldap-release/$name-$version.tgz
-        https://www.linuxfromscratch.org/patches/blfs/svn/openldap-$version-consolidated-1.patch"
+        https://www.linuxfromscratch.org/patches/blfs/svn/openldap-$version-consolidated-1.patch
+        lloadd.conf slapd.initd slapd.confd lloadd.initd lloadd.confd"
 backup="etc/openldap/ldap.conf etc/openldap/slapd.conf etc/openldap/slapd.ldif"
 
  build() {
@@ -56,4 +57,10 @@ package() {
     install -v -dm755 "$PKG"/usr/share/doc/$name-$version &&
     cp      -vfr      doc/{drafts,rfc,guide} \
                     "$PKG"/usr/share/doc/$name-$version
+
+	install -D -m 755 "$srcdir"/slapd.initd etc/init.d/slapd
+	install -D -m 644 "$srcdir"/slapd.confd etc/conf.d/slapd
+
+	install -D -m 755 "$srcdir"/lloadd.initd etc/init.d/lloadd
+	install -D -m 644 "$srcdir"/lloadd.confd etc/conf.d/lloadd
 }

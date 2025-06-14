@@ -10,7 +10,7 @@ version=8.4.7
 release=1
 options="!lto"
 source="https://www.php.net/distributions/$name-$version.tar.xz
-        https://pear.php.net/go-pear.phar"
+        https://pear.php.net/go-pear.phar php-fpm.initd"
 backup="etc/php-fpm.conf.default etc/php-fpm.d/www.conf.default etc/php.ini"
 
 build() {
@@ -60,5 +60,7 @@ package() {
 
     sed -i 's@php/includes"@&\ninclude_path = ".:/usr/lib/php"@' \
         "$PKG"/etc/php.ini
+
+    install -D -m 755 "$SRC"/php-fpm.initd "$PKG"/etc/init.d/php-fpmphp
 }
 

@@ -1,13 +1,11 @@
 #!/bin/sh
 
 pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    make install-iptables
+    rc-update add iptables-service default
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-iptables
+    rc-update del iptables-service 
 }
 
 case $1 in

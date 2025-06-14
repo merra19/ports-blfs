@@ -4,7 +4,8 @@
 name=smartmontools
 version=7.4
 release=1
-source="https://downloads.sourceforge.net/smartmontools/$name-$version.tar.gz"
+source="https://downloads.sourceforge.net/smartmontools/$name-$version.tar.gz
+        smartd.initd smartd.confd"
 backup="etc/smartd.conf"
 
 build() {
@@ -23,4 +24,7 @@ package() {
     cd $name-$version
 
     make DESTDIR="$PKG" install
+
+	install -Dm755 "$SRC"/smartd.initd "$PKG"/etc/init.d/smartd
+	install -Dm644 "$SRC"/smartd.confd "$PKG"/etc/conf.d/smartd
 }

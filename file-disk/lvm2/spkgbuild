@@ -4,7 +4,8 @@
 name=lvm2
 version=2.03.30
 release=1
-source="$name-$version.tgz::https://sourceware.org/pub/lvm2/LVM2.$version.tgz"
+source="$name-$version.tgz::https://sourceware.org/pub/lvm2/LVM2.$version.tgz
+        lvm.initd lvm.confd dmeventd.initd lvmlockd.initd"
 backup="etc/lvm/lvm.conf etc/lvm/lvmlocal.conf"
 
 build() {
@@ -25,4 +26,9 @@ package() {
 	make DESTDIR="$PKG" install
 
     rm -fv "$PKG"/usr/lib/udev/rules.d/69-dm-lvm.rules
+
+	install -Dm755 "$SRC"/lvm.initd "$PKG"/etc/init.d/lvm
+	install -Dm644 "$SRC"/lvm.confd "$PKG"/etc/conf.d/lvm
+    install -Dm755 "$SRC"/dmeventd.initd "$PKG"/etc/init.d/dmeventd
+    install -Dm755 "$SRC"/lvmlockd.initd "$PKG"/etc/init.d/lvmlockd
 }

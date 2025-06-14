@@ -1,12 +1,12 @@
 # description	: The systemd project's logind, extracted to a standalone package
 # depends	: pam docbook-xml libxslt py3-lxml py3-jinja gperf acl
-# depends	: util-linux libcap udev
+# depends	: util-linux libcap udev openrc
 
 name=elogind
 version=255.17
 release=1
 source="https://github.com/elogind/elogind/archive/v$version/$name-$version.tar.gz
-        elogind-user"
+        elogind-user elogind.initd"
 
 build() {
     cd $name-$version
@@ -35,4 +35,6 @@ package() {
 
     # conflict udev
     #rm -rf "$PKG"/usr/lib/udev/rules.d
+
+    install -Dm 755 "$SRC"/elogind.initd "$PKG"/etc/init.d/elogind
 }

@@ -6,15 +6,12 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    make install-fcron
-    
     fcrontab -z -u systab
+    rc-update add fcron default
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-fcron
+    rc-update del fcron
 }
 
 case $1 in

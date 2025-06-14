@@ -1,0 +1,32 @@
+# description	: OpenRC manages the services, startup and shutdown of a host
+# depends	: glibc pam psmisc bash
+
+name=openrc
+version=0.56
+release=1
+source="$name-$version.tar.gz::https://github.com/OpenRC/openrc/archive/refs/tags/$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+		--libdir=/usr/lib \
+		--libexecdir=/usr/lib \
+		--bindir=/usr/bin \
+		--sbindir=/usr/sbin \
+        --default-library=both \
+		-D os=Linux \
+        -D pam=false \
+        -D shell="/bin/bash" \
+        -D sysvinit=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

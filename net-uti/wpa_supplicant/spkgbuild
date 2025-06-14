@@ -6,6 +6,7 @@ version=2.11
 release=1
 options="!lto"
 source="https://w1.fi/releases/$name-$version.tar.gz
+        wpa_supplicant.initd wpa_supplicant.confd wpa_cli.initd wpa_cli.confd
         config"
 
 build() {
@@ -31,4 +32,9 @@ package() {
     install -v -d -m755 "$PKG"/etc/dbus-1/system.d 
     install -v -m644 dbus/dbus-wpa_supplicant.conf \
                     "$PKG"/etc/dbus-1/system.d/wpa_supplicant.conf
+
+	install -Dm755 "$SRC"/wpa_supplicant.initd "$PKG"/etc/init.d/wpa_supplicant
+	install -Dm644 "$SRC"/wpa_supplicant.confd "$PKG"/etc/conf.d/wpa_supplicant
+	install -Dm755 "$SRC"/wpa_cli.initd "$PKG"/etc/init.d/wpa_cli
+	install -Dm644 "$SRC"/wpa_cli.confd "$PKG"/etc/conf.d/wpa_cli 
 }

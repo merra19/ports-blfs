@@ -1,13 +1,11 @@
 #!/bin/sh
 
 pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    make install-smartd
+    rc-update add smartd default
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-smartd
+    rc-update del smartd
 }
 
 case $1 in

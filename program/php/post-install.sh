@@ -2,13 +2,11 @@
 
 
 pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    make install-php-fpm
+    rc-update add php-fpmphp default
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-php-fpm
+    rc-update del php-fpmphp
 }
 
 case $1 in

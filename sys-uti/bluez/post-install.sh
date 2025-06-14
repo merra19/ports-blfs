@@ -1,13 +1,11 @@
 #!/bin/sh
 
 pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    make install-bluetooth
+    rc-update add bluetooth default
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-bluetooth
+    rc-update del bluetooth
 }
 
 case $1 in

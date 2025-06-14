@@ -4,7 +4,8 @@
 name=rpcbind
 version=1.2.7
 release=1
-source="https://downloads.sourceforge.net/rpcbind/$name-$version.tar.bz2"
+source="https://downloads.sourceforge.net/rpcbind/$name-$version.tar.bz2
+        rpcbind.initd rpcbind.confd"
 
 build() {
     cd $name-$version
@@ -25,4 +26,7 @@ package() {
     cd $name-$version
 
     make DESTDIR="$PKG" install
+
+	install -Dm755 "$SRC"/rpcbind.initd "$PKG"/etc/init.d/rpcbind
+	install -Dm644 "$SRC"/rpcbind.confd "$PKG"/etc/conf.d/rpcbind
 }

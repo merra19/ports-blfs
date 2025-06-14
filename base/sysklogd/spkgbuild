@@ -1,11 +1,11 @@
 # description	: Standard log daemons
-# depends	: acl
+# depends	: acl openrc
 
 name=sysklogd
 version=2.7.0
 release=1
 source="https://github.com/troglobit/sysklogd/releases/download/v$version/$name-$version.tar.gz
-        syslog.conf"
+        syslog.conf sysklogd.initd sysklogd.confd"
 
 build() {
     cd $name-$version
@@ -25,4 +25,7 @@ package() {
 
     make  DESTDIR="$PKG" install
     install -Dm 644 ../syslog.conf  "$PKG"/etc/syslog.conf
+
+	install -D -m755 "$SRC"/sysklogd.initd "$PKG"/etc/init.d/sysklogd
+	install -D -m644 "$SRC"/sysklogd.confd "$PKG"/etc/conf.d/sysklogd
 }

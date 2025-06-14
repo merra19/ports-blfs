@@ -6,13 +6,11 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    make install-ntpd
+    rc-update add ntp-client default
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-ntpd
+    rc-update del ntp-client
 }
 
 case $1 in

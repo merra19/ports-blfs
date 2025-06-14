@@ -5,7 +5,7 @@ name=seatd
 version=0.9.1
 release=1
 source="$name-$version.tar.gz::https://git.sr.ht/~kennylevinsen/seatd/archive/$version.tar.gz
-        seatd.init"
+        seatd.initd-r1"
 
 build() {
 	cd $name-$version
@@ -26,14 +26,5 @@ package() {
 
     DESTDIR="$PKG" ninja -C build install
 
-    install -Dm 0755 "$SRC"/seatd.init "$PKG"/etc/rc.d/init.d/seatd
-
-    for i in 0 1 2 3 4 5 6; do
-        install -d "$PKG"/etc/rc.d/rc$i.d/$i
-        case $i in
-            0|1|6) ln -sf ../init.d/seatd "$PKG"/etc/rc.d/rc$i.d/K30seatd ;;
-            *) ln -sf ../init.d/seatd "$PKG"/etc/rc.d/rc$i.d/S70seatd ;;
-            *) ;;
-        esac
-    done
+    install -Dm755 "$SRC"/seatd.initd-r1 "$PKG"/etc/init.d/seatd
 }

@@ -1,15 +1,12 @@
 #!/bin/sh
 
 pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    make install-dbus
-
     dbus-uuidgen --ensure
+    rc-update add dbus default
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-dbus
+    rc-update del dbus
 }
 
 case $1 in

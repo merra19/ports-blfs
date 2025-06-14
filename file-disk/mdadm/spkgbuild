@@ -5,7 +5,7 @@ name=mdadm
 version=4.3
 release=1
 source="https://www.kernel.org/pub/linux/utils/raid/mdadm/$name-$version.tar.xz
-        mdadm.conf"
+        mdadm.conf mdadm.confd mdadm.initd mdadm-raid.initd"
 backup="etc/mdadm.conf"
 
 build() {
@@ -20,4 +20,8 @@ package() {
     make DESTDIR="$PKG" CWFLAGS="-Wall" CXFLAGS="${CFLAGS}" BINDIR=/usr/sbin install
     
     install -Dm 644 ../mdadm.conf "$PKG"/etc/mdadm.conf
+
+	install -Dm644 "$SRC"/mdadm.confd "$PKG"/etc/conf.d/mdadm
+	install -Dm755 "$SRC"/mdadm.initd "$PKG"/etc/init.d/mdadm
+	install -Dm755 "$SRC"/mdadm-raid.initd "$PKG"/etc/init.d/mdadm-raid
 }

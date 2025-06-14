@@ -1,0 +1,52 @@
+#!/sbin/openrc-run
+
+depend() {
+    need localmount
+}
+
+config_dir="/etc/sysconfig"
+
+start() {
+    ebegin "Starting network interfaces"
+
+    # Loop through all configuration files
+    for config_file in "$config_dir"/ifconfig.*; do
+        [ -f "$config_file" ] || continue  # Skip if no matching files
+
+        . "$config_file"
+
+        # Ensure IFACE is set
+        if [ -z "$IFACE" ]; then
+            eerror "IFACE not defined in $config_file"
+            continue
+        fi
+
+        einfo "Configuring $IFACE"
+
+        # Set up the interface
+        ifconfig "$IFACE" "$IP" netmask "$PREFIX" broadcast "$BROADCAST"
+
+        # Set gateway if provided
+        [ -n "$GATEWAY" ] && route add default gw "$GATEWAY"
+    done
+
+    eend $?
+}
+
+stop() {
+    ebegin "Stopping network interfaces"
+
+    # Loop through all configuration files
+    for config_file in "$config_dir"/ifconfig.*; do
+        [ -f "$config_file" ] || continue
+
+        . "$config_file"
+
+        [ -n "$IFACE" ] || continue
+
+        einfo "Bringing down $IFACE"
+        ifconfig "$IFACE" down
+    done
+
+    eend $?
+}

@@ -1,13 +1,11 @@
 #!/bin/sh
 
 pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    make install-nfs-client
+    rc-update add nfsclient default
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-nfs-client
+    rc-update del nfsclient
 }
 
 case $1 in

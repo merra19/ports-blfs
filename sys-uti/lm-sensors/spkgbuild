@@ -5,7 +5,8 @@ name=lm-sensors
 version=3.6.0
 vrsn=$(echo $version | sed 's/\./-/g')
 release=1
-source="https://github.com/lm-sensors/lm-sensors/archive/V${vrsn}/$name-${vrsn}.tar.gz"
+source="https://github.com/lm-sensors/lm-sensors/archive/V${vrsn}/$name-${vrsn}.tar.gz
+        sensord.initd sensord.confd fancontrol.initd"
 backup="etc/sensors3.conf"
 
 build() {
@@ -27,4 +28,8 @@ package() {
 
     install -v -m755 -d "$PKG"/usr/share/doc/lm_sensors-$version
     cp -rv  README INSTALL doc/* "$PKG"/usr/share/doc/lm_sensors-$version
+
+	install -Dm755 "$SRC"/sensord.initd "$PKG"/etc/init.d/sensord
+	install -Dm644 "$SRC"/sensord.confd "$PKG"/etc/conf.d/sensord
+    install -Dm755 "$SRC"/fancontrol.initd "$PKG"/etc/init.d/fancontrol
 }

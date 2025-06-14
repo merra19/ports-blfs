@@ -1,13 +1,11 @@
 #!/bin/sh
 
 pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    make install-networkmanager
+    rc-update add networkmanager default
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-networkmanager
+    rc-update del networkmanager
 }
 
 case $1 in

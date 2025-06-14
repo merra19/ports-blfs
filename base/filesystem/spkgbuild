@@ -7,7 +7,7 @@ source="hosts os-release lsb-release inputrc shells clock console
         profile dircolors.sh extrapaths.sh readline.sh umask.sh i18n.sh
         bashrc dot_bash_profile dot_profile dot_bashrc dot_bash_logout 
         resolv.conf sysctl.conf nsswitch.conf locale.conf
-        bash_completion.sh inittab rc.site"
+        bash_completion.sh inittab rc.site c89 c99"
 backup="etc/shells etc/inputrc etc/resolv.conf etc/locale.conf etc/hosts 
         etc/bashrc etc/sysctl.conf"
 
@@ -62,4 +62,7 @@ package() {
     echo r12.3 > "$PKG"/etc/lfs-release
 
     mkdir -p "$PKG"/boot/efi 
+
+    install -Dm755 "$SRC"/c89 "$PKG"/usr/bin/c89
+	install -Dm755 "$SRC"/c99 "$PKG"/usr/bin/c99
 }

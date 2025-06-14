@@ -8,8 +8,7 @@ pkg_preinst() {
 pkg_postinst() {
     gtk-update-icon-cache -qtf /usr/share/icons/hicolor
 
-    cd /usr/share/blfs-bootscripts
-    make install-cups
+    rc-update add cupsd default 
 }
 
 pkg_postupgrade() {
@@ -18,8 +17,7 @@ pkg_postupgrade() {
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-cups
+    rc-update del cupsd
 }
 
 case $1 in

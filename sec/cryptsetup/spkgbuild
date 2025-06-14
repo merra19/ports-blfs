@@ -6,7 +6,8 @@ name=cryptsetup
 version=2.7.5
 release=1
 options="!lto"
-source="https://www.kernel.org/pub/linux/utils/cryptsetup/v${version%.*}/$name-$version.tar.xz"
+source="https://www.kernel.org/pub/linux/utils/cryptsetup/v${version%.*}/$name-$version.tar.xz
+        dmcrypt.confd dmcrypt.initd"
 
 build() {
 	cd $name-$version
@@ -22,4 +23,7 @@ package() {
     cd $name-$version
 
     make DESTDIR="$PKG" install
+
+	install -Dm644 "$SRC"/dmcrypt.confd "$PKG"/etc/conf.d/dmcrypt
+	install -Dm755 "$SRC"/dmcrypt.initd "$PKG"/etc/init.d/dmcrypt
 }

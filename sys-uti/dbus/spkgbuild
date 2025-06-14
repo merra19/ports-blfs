@@ -1,12 +1,12 @@
 # description	: A message bus system, a simple way for applications to talk to each other
-# depends	: expat xorg-proto libx11 libxt elogind
+# depends	: expat xorg-proto libx11 libxt elogind openrc
 
 name=dbus
 version=1.16.0
 release=1
 options="!lto"
 source="https://dbus.freedesktop.org/releases/dbus/$name-$version.tar.xz
-        malloc_trim.patch memory.patch"
+        malloc_trim.patch memory.patch dbus.initd dbus.confd"
 
 build() {
     cd $name-$version
@@ -30,4 +30,7 @@ package() {
    
     chown -v root:messagebus "$PKG"/usr/libexec/dbus-daemon-launch-helper &&
     chmod -v      4750       "$PKG"/usr/libexec/dbus-daemon-launch-helper
+
+	install -Dm755 "$SRC"/dbus.initd "$PKG"/etc/init.d/dbus
+	install -Dm644 "$SRC"/dbus.confd "$PKG"/etc/conf.d/dbus
 }

@@ -1,13 +1,11 @@
 #!/bin/sh
 
 pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    make install-power-profiles-daemon
+    rc-update add power-profiles-daemon default
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-power-profiles-daemon
+    rc-update del power-profiles-daemon
 }
 
 case $1 in

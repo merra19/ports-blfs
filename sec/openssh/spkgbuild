@@ -5,7 +5,8 @@ name=openssh
 version=9.9p2
 release=1
 options="!lto"
-source="https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$name-$version.tar.gz"
+source="https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$name-$version.tar.gz
+        sshd.initd sshd.confd"
 backup="etc/ssh/ssh_config etc/ssh/sshd_config"
 
 build() {
@@ -35,4 +36,7 @@ package() {
 	install -v -m644    INSTALL LICENCE OVERVIEW README* "$PKG"/usr/share/doc/$name-$version
 
 	echo "PermitRootLogin no" >> "$PKG"/etc/ssh/sshd_config
+
+	install -D -m755 "$SRC"/sshd.initd "$PKG"/etc/init.d/sshd
+	install -D -m644 "$SRC"/sshd.confd "$PKG"/etc/conf.d/sshd
 }

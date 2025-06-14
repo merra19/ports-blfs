@@ -1,0 +1,19 @@
+# description	: udev startup scripts for openrc
+# depends	: openrc
+
+name=udev-init-scripts
+version=35
+release=1
+source="https://gitweb.gentoo.org/proj/udev-gentoo-scripts.git/snapshot/udev-gentoo-scripts-$version.tar.gz"
+
+build() {
+	cd udev-gentoo-scripts-$version
+
+	make
+}
+
+package() {
+    cd udev-gentoo-scripts-$version
+
+    make DESTDIR="$PKG" install
+}

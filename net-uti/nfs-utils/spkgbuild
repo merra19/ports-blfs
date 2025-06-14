@@ -6,7 +6,7 @@ name=nfs-utils
 version=2.8.2
 release=1
 source="https://www.kernel.org/pub/linux/utils/nfs-utils/$version/$name-$version.tar.xz
-        nfs-server"
+        nfs-server.initd nfs nfsclient.initd rpc.statd.initd"
 backup="etc/sysconfig/nfs-server"
 
 build() {
@@ -34,4 +34,10 @@ package() {
     chown nobody:nogroup "$PKG"/var/lib/nfs
 
     install -Dm 0644 ../nfs-server "$PKG"/etc/sysconfig/nfs-server
+
+    nfs nfsclient rpc.statd
+
+	install -Dm755 "$SRC"/nfs.initd "$PKG"/etc/init.d/nfs
+	install -Dm755 "$SRC"/nfsclient.initd "$PKG"/etc/init.d/nfsclient
+	install -Dm755 "$SRC"/rpc.statd.initd "$PKG"/etc/init.d/rpc.statd
 }

@@ -1,13 +1,11 @@
 #!/bin/sh
 
 pkg_postinst() {
-    cd /usr/share/blfs-bootscripts
-    make install-rpcbind
+    rc-update add rpcbind default
 }
 
 pkg_preremove() {
-    cd /usr/share/blfs-bootscripts
-    make uninstall-rpcbind
+    rc-update del rpcbind
 }
 
 case $1 in

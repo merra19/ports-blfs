@@ -7,7 +7,7 @@ version=2.4.11
 release=1
 options="!lto"
 source="https://github.com/OpenPrinting/cups/releases/download/v$version/$name-$version-source.tar.gz
-        cups"
+        cups cupsd.initd"
 backup="etc/cups/cupsd.conf etc/cups/snmp.conf etc/cups/cups-files.conf"
 
 build() {
@@ -41,4 +41,6 @@ package() {
 	echo "ServerName /run/cups/cups.sock" > "$PKG"/etc/cups/client.conf
 
 	install -Dm 0644 "$SRC"/cups "$PKG"/etc/pam.d/cups 
+
+    install -D -m 755 "$SRC"/cupsd.initd etc/init.d/cupsd
 }

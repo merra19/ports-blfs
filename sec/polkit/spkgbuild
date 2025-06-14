@@ -5,7 +5,7 @@ name=polkit
 version=126
 release=1
 source="https://github.com/polkit-org/polkit/archive/$version/$name-$version.tar.gz
-        10-admin.rules"
+        10-admin.rules polkit.initd"
 
 build() {
     cd $name-$version
@@ -30,4 +30,6 @@ package() {
     rm -rf "$PKG"/tmp rm -rf "$PKG"/usr/lib/{sysusers,tmpfiles}.d 
 
     install -Dm 0644 "$SRC"/10-admin.rules "$PKG"/etc/polkit-1/rules.d/10-admin.rules
+
+    install -Dm755 "$SRC"/polkit.initd "$PKG"/etc/init.d/polkit
 }
