@@ -1,0 +1,48 @@
+# description	: Visual Studio Code (vscode) editor without MS branding/telemetry/licensing
+# depends	: at-spi2-core libsecret expat glib nspr nss alsa-lib 
+# depends	: libglvnd mesa curl dbus zlib lsof cairo gtk3 libdrm 
+# depends	: libx11 libxcb libxcomposite libxdamage libxext libxfixes 
+# depends	: libxkbcommon libxkbfile libxrandr libxscrnsaver pango 
+# depends	: xdg-utils p11-kit
+
+name=vscodium-bin
+version=1.101.03933
+release=1
+options="!strip"
+source="https://github.com/VSCodium/vscodium/releases/download/$version/VSCodium-linux-x64-$version.tar.gz
+	$name.desktop $name-url-handler.desktop vscodium-bin.sh vscodium-bin-wayland.desktop"
+IGNORE_MDSUM="yes"
+noextract="VSCodium-linux-x64-$version.tar.gz"
+
+package() {
+	install -d -m755 "$PKG"/opt/"$name"
+	install -d -m755 "$PKG"/usr/bin
+	install -d -m755 "$PKG"/usr/share/{applications,pixmaps}
+
+    tar -xf "$SRC"/VSCodium-linux-x64-$version.tar.gz -C  "$PKG"/opt/"$name"
+
+	ln -s "/opt/$pkgname/bin/codium" "$PKG"/usr/bin/codium
+	ln -s "/opt/$pkgname/bin/codium" "$PKG"/usr/bin/vscodium
+	install -D -m644 "$SRC"/vscodium-bin.desktop "$PKG"/usr/share/applications/codium.desktop
+	install -D -m644 "$SRC"/vscodium-bin-wayland.desktop "$PKG"/usr/share/applications/codium-wayland.desktop
+	install -D -m644 "$SRC"/vscodium-bin-url-handler.desktop "$PKG"/usr/share/applications/codium-url-handler.desktop
+
+    find "$PKG" -name code.png
+
+    install -D -m644 "$PKG"/opt/"$name"/resources/app/resources/linux/code.png \
+                "$PKG"/usr/share/pixmaps/vscodium.png
+    install -D -m644 "$PKG"/opt/"$name"/resources/app/resources/linux/code.png \
+                "$PKG"/usr/share/icons/hicolor/1024x1024/apps/vscodium.png
+    install -m755 "$SRC/$name.sh" "$PKG"/usr/bin/codium
+
+
+	# Fix chrome-sandbox permissions
+	chown root "$PKG"/opt/"$name"/chrome-sandbox
+	chmod 4755 "$PKG"/opt/"$name"/chrome-sandbox
+
+	# Symlink shell completions
+	install -d -m755 "$PKG"/usr/share/zsh/site-functions
+	install -d -m755 "$PKG"/usr/share/bash-completion/completions
+	ln -s "/opt/$name/resources/completions/zsh/_codium" "$PKG"/usr/share/zsh/site-functions
+	ln -s "/opt/$name/resources/completions/bash/codium" "$PKG"/usr/share/bash-completion/completions
+}
