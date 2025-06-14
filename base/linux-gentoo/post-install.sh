@@ -1,14 +1,15 @@
 #!/bin/sh
 
-name="linux-arch"
-export name
+name="linux-gentoo"
+kname="${name#*-}-LFS"
+export name kname
 
 pkg_postinst() {
     version="$(awk 'NR==1 {print $1}' /var/lib/scratchpkg/db/$name)"
     
     cd /boot
-    mkinitramfs $version-LFS
-    depmod $version-LFS
+    mkinitramfs $version-$kname
+    depmod $version-$kname
 
     # run all dkms scripts
     if [ $(command -v dkms) ]; then
@@ -25,7 +26,7 @@ pkg_postupgrade() {
 pkg_preremove() {
     version="$(awk 'NR==1 {print $1}' /var/lib/scratchpkg/db/$name)"
     (
-        cd /usr/lib/modules/$version-LFS/
+        cd /usr/lib/modules/$version-$kname/
         for i in * ;do
             case $i in
                 modules.order | modules.builtin | modules.builtin.modinfo) ;;
@@ -35,7 +36,7 @@ pkg_preremove() {
         done
     )
     echo "cleaning initramfs"
-    rm -fv /boot/initrd.img-$version-LFS
+    rm -fv /boot/initrd.img-$version-$kname
 }
 
 
