@@ -1,0 +1,41 @@
+# description	: Lists open files for running Unix processes
+# depends	: libtool bzip2 fftw fontconfig libjpeg-turbo openjpeg2
+# depends	: lcms2 pango perl libpng ghostscript librsvg libtiff
+# depends	: freetype libwebp xorg-proto  libice libsm libxext libxt
+# depends	: libxml2 xz zlib ttf-dejavu 7zip cups curl wget xdg-utils
+# depends	: xterm jasper libgxps libjxl libraw
+
+# Clang from LLVM-20.1.1, FFmpeg-7.1.1, 
+# SANE-1.4.0, 
+
+#GnuPG-2.4.8
+
+# Gimp-3.0.4, Graphviz-12.2.1, Inkscape-1.4.2,
+
+# Enscript-1.6.6, Potrace-1.16, texlive-20250308 (or install-tl-unx)
+
+
+name=imagemagick
+version=7.1.1.43
+_version="$(echo $version  | sed 's/\(.*\)\./\1-/')"
+release=43
+source="https://www.imagemagick.org/archive/releases/ImageMagick-$_version.tar.xz"
+
+build() {
+	cd ImageMagick-$_version
+
+	./configure \
+        --prefix=/usr  \
+        --sysconfdir=/etc \
+        --enable-hdri \
+        --with-modules \
+        --with-perl \
+        --disable-static
+	make
+}
+
+package() {
+    cd ImageMagick-$_version
+
+    make DESTDIR="$PKG" DOCUMENTATION_PATH=/usr/share/doc/$name-$version install
+}
