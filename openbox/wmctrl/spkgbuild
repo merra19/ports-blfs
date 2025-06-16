@@ -1,4 +1,4 @@
-# description	: X C-language Bindings sample implementations
+# description	: Command line tool to interact with an EWMH/NetWM compatible X Window
 # depends	: glib xorg-proto libx11 libxmu
 
 name=wmctrl
