@@ -1,0 +1,31 @@
+# description	: Application that queries the user for a selection for printing
+# depends	: xorg-proto libx11 libxext icu glm
+
+name=slop
+version=7.6
+release=1
+source="$name-$version.tar.gz::https://github.com/naelstrof/slop/archive/v$version.tar.gz
+        slop-7.5-missing-header.patch slop-7.6-cmake4.patch
+        icu-75.1-cxx17.patch"
+
+build() { 
+    cd $name-$version
+
+    patch -Np1 -i ../slop-7.5-missing-header.patch
+    patch -Np1 -i ../slop-7.6-cmake4.patch
+    patch -Np1 -i ../icu-75.1-cxx17.patch
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D SLOP_OPENGL=OFF \
+        -D SLOP_UNICODE=ON \
+        -D CMAKE_POLICY_VERSION_MINIMUM=3.5
+    make -C build
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" -C build install
+}

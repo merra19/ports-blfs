@@ -2,7 +2,7 @@
 # depends	: gettext pkgconf glib libxml2 fontconfig cairo libxau
 # depends	: libxcursor libxext libxft libxinerama libxrandr libxt
 # depends	: pango imlib2 startup-notification librsvg py3-xdg
-# depends	: openbox wmctrl
+# depends	: openbox wmctrl slop
 
 name=openbox-meta
 version=3.6.1
