@@ -8,7 +8,7 @@ name=openbox-meta
 version=3.6.1
 release=1
 source="autostart environment menu.xml rc.xml setupopenbox config.ini launch.sh
-        polywins.awk polywins.sh"
+        polywins.sh"
 
 package() {
     install -Dm 755  "$SRC"/autostart "$PKG"/usr/local/share/openbox/autostart
@@ -20,6 +20,5 @@ package() {
     install -Dm 644  "$SRC"/config.ini "$PKG"/usr/local/share/polybar/rc.xml
     install -Dm 755  "$SRC"/launch.sh "$PKG"//usr/local/share/polybar/launch.sh
 
-    install -Dm 644  "$SRC"/polywins.awk "$PKG"/usr/local/share/polybar/polywins.awk
-    install -Dm 755  "$SRC"/polywins.sh "$PKG"//usr/local/share/polybar/polywins.sh
+    install -Dm 755  "$SRC"/polywins.sh "$PKG"//usr/local/share/polybar/scripts/polywins.sh
 }
