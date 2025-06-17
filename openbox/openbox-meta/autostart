@@ -26,6 +26,7 @@ gentoo-pipewire-launcher restart &
 feh --bg-scale ~/Images/thumb-1920-1147144.png &
 
 setxkbmap fr
+numlockx &
 
 #polybar &
 $HOME/.config/polybar/launch.sh
