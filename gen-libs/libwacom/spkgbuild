@@ -2,7 +2,7 @@
 # depends	: glibc glib libevdev libgudev meson
 
 name=libwacom
-version=2.15.0
+version=2.16.1
 release=1
 source="https://github.com/linuxwacom/libwacom/releases/download/$name-$version/$name-$version.tar.xz"
 
