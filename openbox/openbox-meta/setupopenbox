@@ -10,10 +10,12 @@ fi
 
 cd $HOME
 
-mkdir -pv $HOME/.config/openbox $HOME/.config/polybar $HOME/Documents
+mkdir -pv $HOME/.config/openbox $HOME/.config/polybar 
+mkdir -pv $HOME/.config/rofi $HOME/Documents
 
 cp -r /usr/local/share/openbox/* $HOME/.config/openbox/
 cp -r /usr/local/share/polybar/* $HOME/.config/polybar/
+cp -r /usr/local/share/rofi/* $HOME/.config/rofi/
 
 if ! grep openbox $HOME/.bashrc ;then
     echo "export XSESSION=openbox" >>  $HOME/.bashrc 
