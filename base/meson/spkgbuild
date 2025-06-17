@@ -2,7 +2,7 @@
 # depends	: ninja python3 py3-setuptools py3-wheel
 
 name=meson
-version=1.8.1
+version=1.8.2
 release=1
 source="https://github.com/mesonbuild/meson/releases/download/$version/$name-$version.tar.gz
         cross-lib32 native-clang"

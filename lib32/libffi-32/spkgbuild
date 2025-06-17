@@ -3,7 +3,7 @@
 
 name=libffi-32
 _name=libffi
-version=3.4.8
+version=3.5.1
 release=1
 source="https://github.com/libffi/libffi/releases/download/v$version/${_name}-$version.tar.gz"
 
