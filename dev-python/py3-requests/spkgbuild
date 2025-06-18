@@ -3,7 +3,7 @@
 # depends	: py3-urllib3 py3-charset-normalizer py3-certifi
 
 name=py3-requests
-version=2.32.3
+version=2.32.4
 release=1
 options="!lto"
 source="https://pypi.org/packages/source/r/requests/requests-$version.tar.gz
