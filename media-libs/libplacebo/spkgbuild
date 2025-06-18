@@ -1,5 +1,5 @@
 # description	: Reusable library for GPU-accelerated image processing primitives
-# depends	: vulkan-loader lcms2 libglvnd glad shaderc ffmpeg glslang
+# depends	: vulkan-loader lcms2 libglvnd glad shaderc glslang
 # depends	: libunwind
 
 name=libplacebo

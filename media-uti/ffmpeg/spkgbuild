@@ -1,6 +1,7 @@
 # description	: Complete solution to record/convert/stream audio and video. Includes libavcodec
 # depends	: bzip2 libass freetype lame gnutls libvorbis libvpx opus 
 # depends	: x264 x265 alsa-lib yasm dav1d libaom fdk-aac libva
+# depends	: libplacebo pulseaudio
 
 name=ffmpeg
 version=7.1.1
@@ -37,6 +38,8 @@ build() {
         --enable-libaom \
         --enable-libfdk-aac \
         --enable-vaapi \
+        --enable-libpulse \
+        --enable-libplacebo \
 		--docdir=/usr/share/doc/$name-$version
 
 	make &&      

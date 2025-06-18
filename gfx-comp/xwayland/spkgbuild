@@ -6,7 +6,7 @@
 # optional	: libei 
 
 name=xwayland
-version=24.1.6
+version=24.1.7
 release=1
 source="https://www.x.org/pub/individual/xserver/$name-$version.tar.xz"
 

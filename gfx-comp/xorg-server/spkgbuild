@@ -6,7 +6,7 @@
 # depends	: libx11 xorg-legacy elogind
 
 name=xorg-server
-version=21.1.16
+version=21.1.17
 release=1
 options="!lto !asneeded"
 source="https://www.x.org/pub/individual/xserver/$name-$version.tar.xz
