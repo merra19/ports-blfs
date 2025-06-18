@@ -1,7 +1,9 @@
 #!/bin/sh
 
 pkg_postinst() {
-    scratch install -f -r udev
+    if [ "$NO_REBUILD" = 0 ] || [ "$NO_REBUILD" = "no" ]; then
+        scratch install -f -r udev
+    fi
 }
 
 case $1 in

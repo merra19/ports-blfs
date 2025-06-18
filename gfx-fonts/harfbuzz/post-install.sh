@@ -1,7 +1,9 @@
 #!/bin/sh
 
 pkg_postinst() {
-    scratch -I -y -f -r freetype cairo graphite2
+    if [ "$NO_REBUILD" = 0 ] || [ "$NO_REBUILD" = "no" ]; then
+        scratch -I -y -f -r freetype cairo graphite2 harfbuzz
+    fi
 }
 
 pkg_postupgrade() {
