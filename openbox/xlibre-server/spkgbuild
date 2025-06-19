@@ -1,0 +1,40 @@
+# description	: X C-language Bindings sample implementations
+# depends	: libglvnd openssl iceauth xauth xkbcomp libdrm libxdmcp
+# depends	: libpciaccess libxau libxfont2 libxkbfile libxshmfence 
+# depends	: pixman xbitmaps xkeyboard-config libxcvt mesa libepoxy 
+# depends	: udev dbus pam xorg-proto xtrans xorg-fonts libxext
+# depends	: libx11 xorg-legacy elogind
+
+name=xlibre-server
+version=21.1.13
+release=1
+commit=ca5fb14
+source="$name-$commit.zip::https://github.com/X11Libre/xserver/archive/refs/heads/master.zip"
+
+build() { 
+    cd xserver-master
+  
+    export CFLAGS=${CFLAGS/-fno-plt}
+    export CXXFLAGS=${CXXFLAGS/-fno-plt}
+    export LDFLAGS=${LDFLAGS/-Wl,-z,now}
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --localstatedir=/var \
+        -D glamor=true \
+        -D systemd_logind=true \
+        -D xkb_output_dir=/var/lib/xkb \
+        build
+	ninja -C build
+}
+
+package() {
+    cd xserver-master
+
+	DESTDIR="$PKG" ninja -C build install
+
+    chmod u+s /"$PKG"/usr/bin/Xorg   
+
+    mkdir -pv "$PKG"/etc/X11/xorg.conf.d 
+}
