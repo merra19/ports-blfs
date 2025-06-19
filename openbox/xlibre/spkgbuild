@@ -1,0 +1,17 @@
+# description	: Meta port for Xorg
+# depends	: xlibre-server xinit pulseaudio pipewire wireplumber 
+# depends	: ttf-dejavu xlibre-xf86-input-evdev
+# depends	: xlibre-xf86-input-libinput
+
+name=xlibre
+version=1.0
+release=1
+source="setup"
+
+package() {
+    install -Dm 755 setup "$PKG"/usr/local/bin/setup
+
+    for i in hyprland.conf kitty.conf waybar xdg-portal-hyprland;do
+        install -Dm 644 $i "$PKG"/usr/local/share/hyprland/$i
+    done
+}
