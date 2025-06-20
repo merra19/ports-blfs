@@ -5,16 +5,16 @@ name=ntfs-3g
 version=2022.10.3
 release=1
 options="!lto"
-source="https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2022.10.3.tgz"
+source="https://github.com/tuxera/ntfs-3g/archive/$version/$name-$version.tar.gz"
 
 build() {
-	cd $name_ntfsprogs-$version
+	cd $name-$version
 
     ./configure \
         --prefix=/usr \
         --disable-static \
         --with-fuse=internal \
-        --docdir=/usr/share/doc/ntfs-3g-$version
+        --docdir=/usr/share/doc/$name-$version
     make
 }
 

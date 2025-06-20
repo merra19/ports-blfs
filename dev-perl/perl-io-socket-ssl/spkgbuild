@@ -2,7 +2,7 @@
 # depends	: perl make-ca perl-net-ssleay perl-uri
 
 name=perl-io-socket-ssl
-version=2.091
+version=2.094
 release=1
 source="https://www.cpan.org/authors/id/S/SU/SULLR/IO-Socket-SSL-$version.tar.gz"
 
