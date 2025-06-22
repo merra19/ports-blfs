@@ -3,12 +3,13 @@
 # depends	: libxcursor libxext libxft libxinerama libxrandr libxt
 # depends	: pango imlib2 startup-notification librsvg py3-xdg
 # depends	: openbox wmctrl slop xprop numlockx setxkbmap feh
+# depends	: xfce4-notifyd
 
 name=openbox-meta
 version=3.6.1
 release=1
 source="autostart environment menu.xml rc.xml setupopenbox config.ini launch.sh
-        polywins.sh
+        polywins.sh thumb-1920-1147144.png eteindre
         https://github.com/owl4ce/dotfiles/archive/refs/heads/ng.zip"
 
 package() {
@@ -16,12 +17,15 @@ package() {
     install -Dm 755  "$SRC"/environment "$PKG"/usr/local/share/openbox/environment
     install -Dm 644  "$SRC"/menu.xml "$PKG"/usr/local/share/openbox/menu.xml
     install -Dm 644  "$SRC"/rc.xml "$PKG"/usr/local/share/openbox/rc.xml
+    install -Dm 644  "$SRC"/thumb-1920-1147144.png "$PKG"/usr/local/share/openbox/thumb-1920-1147144.png
     install -Dm 755  "$SRC"/setupopenbox "$PKG"/usr/local/bin/setupopenbox
+    
 
-    install -Dm 644  "$SRC"/config.ini "$PKG"/usr/local/share/polybar/rc.xml
+    install -Dm 644  "$SRC"/config.ini "$PKG"/usr/local/share/polybar/config.ini
     install -Dm 755  "$SRC"/launch.sh "$PKG"/usr/local/share/polybar/launch.sh
 
     install -Dm 755  "$SRC"/polywins.sh "$PKG"/usr/local/share/polybar/scripts/polywins.sh
+    install -Dm 755  "$SRC"/eteindre "$PKG"/usr/local/share/polybar/scripts/eteindre
     
     install -d "$PKG"/usr/local/share/rofi
     cp -r dotfiles-ng/.config/rofi/* "$PKG"/usr/local/share/rofi/

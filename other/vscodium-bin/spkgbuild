@@ -6,7 +6,7 @@
 # depends	: xdg-utils p11-kit
 
 name=vscodium-bin
-version=1.101.03933
+version=1.101.14098
 release=1
 options="!strip"
 source="https://github.com/VSCodium/vscodium/releases/download/$version/VSCodium-linux-x64-$version.tar.gz
@@ -21,8 +21,8 @@ package() {
 
     tar -xf "$SRC"/VSCodium-linux-x64-$version.tar.gz -C  "$PKG"/opt/"$name"
 
-	ln -s "/opt/$pkgname/bin/codium" "$PKG"/usr/bin/codium
-	ln -s "/opt/$pkgname/bin/codium" "$PKG"/usr/bin/vscodium
+	ln -s "/opt/$name/bin/codium" "$PKG"/usr/bin/codium
+	ln -s "/opt/$name/bin/codium" "$PKG"/usr/bin/vscodium
 	install -D -m644 "$SRC"/vscodium-bin.desktop "$PKG"/usr/share/applications/codium.desktop
 	install -D -m644 "$SRC"/vscodium-bin-wayland.desktop "$PKG"/usr/share/applications/codium-wayland.desktop
 	install -D -m644 "$SRC"/vscodium-bin-url-handler.desktop "$PKG"/usr/share/applications/codium-url-handler.desktop

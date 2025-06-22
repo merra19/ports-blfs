@@ -4,9 +4,9 @@
 # depends	: libglvnd mesa libdrm mtdev libjpeg-turbo libinput 
 # depends	: libxkbcommon libpng udev vulkan-headers xorg-proto
 # depends	: linux-api-headers libice libsm libxcb xcb-util-wm
-# depends	: libxkbcommon xcb-util-image xcb-util-keysyms
+# depends	: libxkbcommon xcb-util-image xcb-util-keysyms krb5
 # depends	: xcb-util-renderutil
-# optional	: krb5 krb5!!openldap libproxy unixodbc postgresql 
+# optional	: krb5!!openldap libproxy unixodbc postgresql 
 # optional	: accessibility!!at-spi2-core ibus
 
 name=qt5

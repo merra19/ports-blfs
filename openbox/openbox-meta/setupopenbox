@@ -11,12 +11,14 @@ fi
 cd $HOME
 
 mkdir -pv $HOME/.config/openbox $HOME/.config/polybar 
-mkdir -pv $HOME/.config/rofi $HOME/Documents
+mkdir -pv $HOME/.config/rofi $HOME/Documents $HOME/Images
+mkdir -p $HOME/.config/polybar/scripts
 
-cp -r /usr/local/share/openbox/* $HOME/.config/openbox/
+cp -r /usr/local/share/openbox/{autostart,environment,menu.xml,rc.xml} $HOME/.config/openbox/
 cp -r /usr/local/share/polybar/* $HOME/.config/polybar/
 cp -r /usr/local/share/rofi/* $HOME/.config/rofi/
 
-if ! grep openbox $HOME/.bashrc ;then
-    echo "export XSESSION=openbox" >>  $HOME/.bashrc 
-fi
+cp /usr/local/share/openbox/thumb-1920-1147144.png $HOME/Images/thumb-1920-1147144.png
+
+echo "openbox-session" > $HOME/.xinitrc
+

@@ -16,11 +16,11 @@
 #
 #xfce-mcs-manager &
 
-/usr/lib64/xfce4/notifyd/xfce4-notifyd &
+/usr/lib/xfce4/notifyd/xfce4-notifyd &
 sleep 1
 /usr/libexec/polkit-gnome-authentication-agent-1 &
 sleep 1
-gentoo-pipewire-launcher restart &
+/usr/bin/pipewire-launcher.sh &
 
 # Starts a lightweight image viewer to display the wallpaper.
 feh --bg-scale ~/Images/thumb-1920-1147144.png &

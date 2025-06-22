@@ -1,0 +1,6 @@
+#!/bin/sh
+
+case $1 in
+	reboot) sudo reboot ;;
+	shutdown)  sudo shutdown -h now ;;
+esac
