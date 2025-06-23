@@ -20,5 +20,5 @@ cp -r /usr/local/share/rofi/* $HOME/.config/rofi/
 
 cp /usr/local/share/openbox/thumb-1920-1147144.png $HOME/Images/thumb-1920-1147144.png
 
-echo "openbox-session" > $HOME/.xinitrc
+echo "dbus-launch --exit-with-session openbox-session" > $HOME/.xinitrc
 

@@ -1,7 +1,10 @@
 # description	: The web browser from Microsoft
-# depends	: at-spi2-core expat glib nspr nss liberation-fonts alsa-lib mesa curl cups dbus util-linux
-# depends	: glibc cairo gdk-pixbuf gtk3 libdrm libx11 libxcomposite libxdamage libxext libxfixes libxrandr
-# depends	: libxcb libxkbcommon libxshmfence pango xdg-utils qt6-base libsecret p11-kit
+# depends	: at-spi2-core expat glib nspr nss liberation-fonts gtk3
+# depends	: alsa-lib mesa curl cups dbus util-linux glibc cairo
+# depends	: gdk-pixbuf libdrm libx11 libxcomposite libxdamage
+# depends	: libxext libxfixes libxrandr libxcb libxkbcommon pango
+# depends	: libxshmfence xdg-utils qt6-base libsecret p11-kit
+# depends	: gnome-keyring
 
 name=microsoft-edge
 version=137.0.3296.93
