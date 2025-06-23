@@ -6,13 +6,12 @@
 # depends	: libx11 xorg-legacy elogind
 
 name=xlibre-server
-version=21.1.13
+version=25.0.0.0
 release=1
-commit=ca5fb14
-source="$name-$commit.zip::https://github.com/X11Libre/xserver/archive/refs/heads/master.zip"
+source="https://github.com/X11Libre/xserver/archive/refs/tags/$name-$version.tar.gz"
 
 build() { 
-    cd xserver-master
+    cd $name-$version
   
     export CFLAGS=${CFLAGS/-fno-plt}
     export CXXFLAGS=${CXXFLAGS/-fno-plt}
@@ -30,7 +29,7 @@ build() {
 }
 
 package() {
-    cd xserver-master
+    cd $name-$version
 
 	DESTDIR="$PKG" ninja -C build install
 
