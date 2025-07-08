@@ -1,19 +1,26 @@
 # description	: Firmware files for Linux
-# depends	: xz zstd
+# depends	: xz zstd rdfind
 
 name=linux-firmware
-version=20250211
+version=20250627
 release=1
 options="!strip"
-source="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-$version.tar.gz"
+source="https://gitlab.com/kernel-firmware/linux-firmware/-/archive/$version/$name-$version.tar.gz"
 NO_STRIP="yes"
-
-build() {
-    :
-}
 
 package() {
     cd $name-$version
 
-    make -j1 DESTDIR="$PKG" FIRMWAREDIR=/usr/lib/firmware install
+	## install upstream linux-firmare files
+	export ZSTD_NBTHREADS=4 ZSTD_CLEVEL=19
+	make -j1 FIRMWAREDIR="$PKG/usr/lib/firmware" install-zst
+    # De-duplicate needs to be explicit since 20241017
+    make -j1 FIRMWAREDIR="$PKG/usr/lib/firmware" dedup
+
+	dangling=$(cd "$PKG" && find . -type l ! -exec test -e {} \; -print)
+	if [ -n "$dangling" ]; then
+		error "dangling symlinks:"
+		echo "$dangling" >&2
+		return 1
+	fi
 }

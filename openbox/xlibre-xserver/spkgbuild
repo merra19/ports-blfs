@@ -5,7 +5,7 @@
 # depends	: udev dbus pam xorg-proto xtrans xorg-fonts libxext
 # depends	: libx11 xorg-legacy elogind
 
-name=xlibre-server
+name=xlibre-xserver
 version=25.0.0.4
 release=1
 source="https://github.com/X11Libre/xserver/archive/refs/tags/$pkgname-$pkgver.tar.gz
