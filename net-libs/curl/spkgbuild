@@ -7,12 +7,16 @@ name=curl
 version=8.14.1
 release=1
 options="!lto"
-source="https://curl.se/download/$name-$version.tar.xz"
+source="https://curl.se/download/$name-$version.tar.xz
+        ftp-passv.patch"
 
 build() {
     cd $name-$version
 
     scratch isinstalled openldap && OPT_LDAP='--with-gssapi' ||  OPT_LDAP='--disable-ldap'
+
+    # Fix missing option --ftp-pasv
+    patch -Np1 -i ../ftp-passv.patch
 
     ./configure \
         --prefix=/usr \

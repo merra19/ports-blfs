@@ -6,7 +6,7 @@ version=5.4.8
 release=1
 options="!lto !asneeded"
 source="https://www.lua.org/ftp/$name-$version.tar.gz
-        https://www.linuxfromscratch.org/patches/blfs/svn/$name-$version-shared_library-1.patch
+        https://www.linuxfromscratch.org/patches/blfs/12.3/$name-$version-shared_library-1.patch
         lua.pc LICENSE"
 
 build() {
