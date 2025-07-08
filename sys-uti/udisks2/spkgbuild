@@ -16,6 +16,9 @@ backup="etc/udisks2/udisks2.conf"
 build() {
 	cd ${_name}-$version
 
+    # Fix a security vulnerability that can allow for privilege escalation, by forcing filesystems to be mounted with nosuid
+    sed -i 's/fstype, NULL/fstype, "nodev,nosuid"/' src/udiskslinuxfilesystemhelpers.c
+
 	./configure \
         --prefix=/usr \
 		--sysconfdir=/etc \

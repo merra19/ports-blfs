@@ -3,7 +3,7 @@
 # optional	: gcrypt!!libgcrypt openldap
 
 name=sudo
-version=1.9.16p2
+version=1.9.17p1
 release=1
 source="https://www.sudo.ws/dist/sudo-$version.tar.gz
         00-sudo sudo"
