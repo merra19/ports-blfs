@@ -2,7 +2,7 @@
 # depends	: python3 xcb-proto libuv fontconfig freetype xorg-proto
 # depends	: cairo libxcb xcb-util xcb-util-cursor xcb-util-image
 # depends	: xcb-util-wm xcb-util-xrm alsa-lib curl libnl pulseaudio
-# depends	: wireplumber
+# depends	: wireplumber ttf-font-awesome ttf-nerd-fonts-symbols
 
 name=polybar
 version=3.7.2

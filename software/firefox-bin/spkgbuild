@@ -3,13 +3,13 @@
 # depends	: networkmanager pulseaudio speech-dispatcher hunspell
 # depends	: hunspell-en_us liberation-fonts ttf-dejavu noto-fonts
 
-pkgname=firefox-bin
-_pkgname=firefox
-pkgver=140.0.2
-pkgrel=1
+name=firefox-bin
+_name=firefox
+version=140.0.2
+release=1
 options="!strip"
-source="firefox-$pkgver-x86_64.tar.xz::https://archive.mozilla.org/pub/firefox/releases/$pkgver/linux-x86_64/en-US/firefox-$pkgver.tar.xz
-        $_pkgname.sh $_pkgname.desktop policies.json"
+source="firefox-$version-x86_64.tar.xz::https://archive.mozilla.org/pub/firefox/releases/$version/linux-x86_64/en-US/firefox-$version.tar.xz
+        $_name.sh $_name.desktop policies.json"
 
 package() {
     # Create directories
@@ -18,10 +18,10 @@ package() {
     mkdir -p "$pkgdir"/opt
 
     # Install
-    cp -r firefox/ "$pkgdir"/opt/$pkgname
+    cp -r firefox/ "$pkgdir"/opt/$name
 
     # Launchers
-    install -m755 $_pkgname.sh "$pkgdir"/usr/bin/$_pkgname
+    install -m755 $_name.sh "$pkgdir"/usr/bin/$_name
 
     # Desktops
     install -m644 *.desktop "$pkgdir"/usr/share/applications/
@@ -29,19 +29,19 @@ package() {
     # Icons
     for i in 16x16 32x32 48x48 64x64 128x128; do
         install -d "$pkgdir"/usr/share/icons/hicolor/$i/apps/
-        ln -s /opt/$pkgname/browser/chrome/icons/default/default${i/x*}.png \
-            "$pkgdir"/usr/share/icons/hicolor/$i/apps/$_pkgname.png
+        ln -s /opt/$name/browser/chrome/icons/default/default${i/x*}.png \
+            "$pkgdir"/usr/share/icons/hicolor/$i/apps/$_name.png
     done
 
     # Use system-provided dictionaries
-    #rm -r "$pkgdir"/opt/$_pkgname/dictionaries
-    ln -Ts /usr/share/hunspell "$pkgdir"/opt/$pkgname/dictionaries
-    ln -Ts /usr/share/hyphen "$pkgdir"/opt/$pkgname/hyphenation
+    #rm -r "$pkgdir"/opt/$_name/dictionaries
+    ln -Ts /usr/share/hunspell "$pkgdir"/opt/$name/dictionaries
+    ln -Ts /usr/share/hyphen "$pkgdir"/opt/$name/hyphenation
 
     # Use system certificates
-    ln -sf /usr/lib/libnssckbi.so "$pkgdir"/opt/$pkgname/libnssckbi.so
+    ln -sf /usr/lib/libnssckbi.so "$pkgdir"/opt/$name/libnssckbi.so
 
     # Disable update checks (managed by pacman)
-    mkdir "$pkgdir"/opt/$pkgname/distribution
-    install -m644 "$srcdir"/policies.json "$pkgdir"/opt/$pkgname/distribution/
+    mkdir "$pkgdir"/opt/$name/distribution
+    install -m644 "$srcdir"/policies.json "$pkgdir"/opt/$name/distribution/
 }

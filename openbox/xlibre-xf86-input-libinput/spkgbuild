@@ -1,13 +1,13 @@
 # description	: X.org input driver based on libinput
-# depends	: libinput xorg-proto xlibre-server
+# depends	: libinput xorg-proto xlibre-xserver
 
 name=xlibre-xf86-input-libinput
-version=1.5.0
+version=1.5.0.1
 release=1
-source="$name-$version.tar.gz::https://github.com/X11Libre/xf86-input-libinput/archive/refs/tags/xf86-input-libinput-$version.tar.gz"
+source="https://github.com/X11Libre/xf86-input-libinput/archive/refs/tags/$name-$version.tar.gz"
 
 build() {
-    cd xf86-input-libinput-xf86-input-libinput-$version
+    cd xf86-input-libinput-xlibre-xf86-input-libinput-$version
 
     autoreconf -fiv
 
@@ -20,7 +20,7 @@ build() {
 }
 
 package() {
-    cd xf86-input-libinput-xf86-input-libinput-$version
+    cd xf86-input-libinput-xlibre-xf86-input-libinput-$version
 
     make DESTDIR="$PKG" install
 }

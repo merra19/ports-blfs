@@ -2,238 +2,24 @@
 # depends	: initramfs linux-firmware openssl cpio bc terminus-font 
 # depends	: noto-fonts ttf-linux-libertine elfutils
 
-pkgname=linux-lfs
-pkgver=6.15.4
-pkgrel=1
+name=linux-lfs
+version=6.15.4
+release=1
 options="!strip"
-source="https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${pkgver%.0}.tar.xz
+source="https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${version%.0}.tar.xz
         modprobelist
         configarch"
 
 
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
-build2() {
-    cd ${pkgname%-*}-${pkgver%.0}
-
-    #    cp ../configarch .config
-
-    make mrproper
-    make defconfig
-
-    ./scripts/config --disable WERROR
-    ./scripts/config --enable PSI
-    ./scripts/config --disable PSI_DEFAULT_DISABLED
-    ./scripts/config --disable IKHEADERS
-    ./scripts/config --enable CGROUPS
-    ./scripts/config --enable MEMCG
-    #./scripts/config --disable EXPERT
-    ./scripts/config --enable RELOCATABLE
-    ./scripts/config --enable RANDOMIZE_BASE
-    ./scripts/config --enable STACKPROTECTOR
-    ./scripts/config --enable STACKPROTECTOR_STRONG
-
-    ./scripts/config --disable UEVENT_HELPER
-    ./scripts/config --enable DEVTMPFS
-    ./scripts/config --enable DEVTMPFS_MOUNT
-    ./scripts/config --enable SYSFB_SIMPLEFB
-    ./scripts/config --enable DRM
-    ./scripts/config --enable DRM_PANIC
-    ./scripts/config --set-str DRM_PANIC_SCREEN "kmsg"
-
-    ./scripts/config --enable DRM_FBDEV_EMULATION
-    ./scripts/config --enable DRM_SIMPLEDRM
-    ./scripts/config --enable FRAMEBUFFER_CONSOLE
-    ./scripts/config --enable X86_X2APIC
-    ./scripts/config --enable PCI
-    ./scripts/config --enable PCI_MSI
-    ./scripts/config --enable IOMMU_SUPPORT
-    ./scripts/config --enable IRQ_REMAP
-    ./scripts/config --enable BLK_DEV_NVME
-
-    # btrfs
-    ./scripts/config --enable BTRFS_FS
-    # dosfstools
-    ./scripts/config --enable MSDOS_FS
-    ./scripts/config --enable VFAT_FS
-    # fuse
-    ./scripts/config --enable FUSE_FS
-    ./scripts/config --enable CUSE
-    # lvm
-    ./scripts/config --enable BLK_DEV
-    ./scripts/config --enable BLK_DEV_RAM
-    ./scripts/config --enable MD
-    ./scripts/config --enable BLK_DEV_DM
-    ./scripts/config --enable DM_CRYPT
-    ./scripts/config --enable DM_SNAPSHOT
-    ./scripts/config --enable DM_THIN_PROVISIONING
-    ./scripts/config --enable DM_CACHE
-    ./scripts/config --enable DM_MIRROR
-    ./scripts/config --enable DM_ZERO
-    ./scripts/config --enable DM_DELAY
-    ./scripts/config --enable MAGIC_SYSRQ
-    # Mdadm
-    ./scripts/config --enable BLK_DEV_MD
-    ./scripts/config --enable MD_AUTODETECT
-    ./scripts/config --enable MD_RAID0
-    ./scripts/config --module MD_RAID1
-    ./scripts/config --module MD_RAID10
-    ./scripts/config --module MD_RAID456
-    # ntfs-3g
-    ./scripts/config --module NTFS3_FS
-    # parted
-    ./scripts/config --enable SCSI_LOWLEVEL
-    ./scripts/config --module SCSI_DEBUG
-    # grub
-    ./scripts/config --enable EFI
-    ./scripts/config --enable EFI_STUB
-    ./scripts/config --enable BLOCK
-    ./scripts/config --enable PARTITION_ADVANCED
-    ./scripts/config --enable EFI_PARTITION
-    ./scripts/config --enable VFAT_FS
-    ./scripts/config --enable EFIVAR_FS
-    ./scripts/config --enable NLS
-    ./scripts/config --enable NLS_CODEPAGE_437
-    ./scripts/config --enable NLS_ISO8859_1
-    # Mesa
-    ./scripts/config --enable DRM_AMDGPU
-    ./scripts/config --enable DRM_AMDGPU_SI
-    ./scripts/config --enable DRM_AMDGPU_CIK
-    ./scripts/config --enable DRM_AMD_DC
-    ./scripts/config --disable DRM_I915
-    # Xorg input
-    ./scripts/config --enable INPUT
-    ./scripts/config --enable INPUT_EVDEV
-    ./scripts/config --enable INPUT_MISC
-    ./scripts/config --enable INPUT_UINPUT
-    ./scripts/config --enable HID_SUPPORT
-    ./scripts/config --enable HID
-    ./scripts/config --enable USB_HID
-    ./scripts/config --enable USB_SUPPORT
-    ./scripts/config --enable USB
-    # Libusb
-    ./scripts/config --enable USB_PCI
-    ./scripts/config --enable USB_XHCI_HCD
-    ./scripts/config --enable USB_EHCI_HCD
-    ./scripts/config --enable USB_OHCI_HCD
- 
-    # Autofs
-    # AUTOFS_FS NETWORK_FILESYSTEMS NFS_FS CIFS
-    # Bluez
-    ./scripts/config --enable EXPERT
-    ./scripts/config --enable TIMERFD
-    ./scripts/config --enable EVENTFD
-    ./scripts/config --enable NET
-    ./scripts/config --enable BT
-    ./scripts/config --enable BT_BREDR
-    ./scripts/config --enable BT_RFCOMM
-    ./scripts/config --enable BT_RFCOMM_TTY
-    ./scripts/config --enable BT_BNEP
-    ./scripts/config --enable BT_BNEP_MC_FILTER
-    ./scripts/config --enable BT_BNEP_PROTO_FILTER
-    ./scripts/config --enable BT_HIDP
-    ./scripts/config --enable BT_HCIBTUSB
-    ./scripts/config --enable BT_HCIBTSDIO
-    ./scripts/config --enable BT_HCIUART
-    ./scripts/config --enable RFKILL
-    ./scripts/config --enable CRYPTO
-    ./scripts/config --enable CRYPTO_USER
-    ./scripts/config --enable CRYPTO_AES
-    ./scripts/config --enable CRYPTO_CCM
-    ./scripts/config --enable CRYPTO_CMAC
-    ./scripts/config --enable CRYPTO_USER_API_HASH
-    ./scripts/config --enable CRYPTO_USER_API_SKCIPHER
-    ./scripts/config --enable CRYPTO_USER_API_AEAD
-    # Bubblewrap
-    ./scripts/config --enable NAMESPACES
-    ./scripts/config --enable USER_NS
-    # Elogind
-    ./scripts/config --enable INOTIFY_USER
-    ./scripts/config --enable TMPFS
-    ./scripts/config --enable TMPFS_POSIX_ACL
-    # GPM
-    ./scripts/config --enable INPUT_MOUSEDEV
-    # pm-utils
-    ./scripts/config --enable SUSPEND
-    ./scripts/config --enable HIBERNATION
-    # Power-profiles-daemon
-    ./scripts/config --enable CPU_FREQ
-    ./scripts/config --enable CPU_FREQ_GOV_PERFORMANCE
-    ./scripts/config --enable CPU_FREQ_GOV_POWERSAVE
-    #./scripts/config --enable X86_INTEL_PSTATE
-    ./scripts/config --enable X86_AMD_PSTATE
-    ./scripts/config --enable X86_PLATFORM_DEVICES
-    # lm-sensors
-    ./scripts/config --enable ACPI
-    ./scripts/config --enable ACPI_BATTERY
-    ./scripts/config --enable ACPI_THERMAL
-    ./scripts/config --enable NVME_HWMON
-    ./scripts/config --enable HWMON
-    #./scripts/config --enable SENSORS_K8TEMP #  AMD Athlon64/FX or Opteron temperature sensor
-    ./scripts/config --enable SENSORS_K10TEMP # AMD Family 10h+ temperature sensor
-    #./scripts/config --module SENSORS_FAM15H_POWER # AMD Family 15h processor power  
-    #./scripts/config --module SENSORS_CORETEMP #  Intel Core/Core2/Atom temperature sensor 
-    # sysmond
-    ./scripts/config --enable CONFIG_HWMON
-
-    # alsa-lib
-    ./scripts/config --enable SOUND
-    ./scripts/config --enable SND
-    # intel-media-driver intel-vaapi-driver
-    #DRM_I915 DRM_XE DRM_XE_FORCE_PROBE
-
-    ./scripts/config --module SND_HDA_CODEC_HDMI
-    ./scripts/config --module SND_HDA_CODEC_REALTEK
-    ./scripts/config --module SND_HDA_CODEC_GENERIC
-
-    ./scripts/config --enable MTRR
-    ./scripts/config --enable MEMORY_HOTPLUG
-    ./scripts/config --enable MEMORY_HOTREMOVE
-    ./scripts/config --enable ZONE_DEVICE
-    ./scripts/config --enable DEVICE_PRIVATE
-
-    ./scripts/config --enable I2C_PIIX4
-    ./scripts/config --enable GPIOLIB
-    ./scripts/config --enable GPIO_AMDPT
-    ./scripts/config --enable IGC
-    ./scripts/config --enable DRM_AMD_ACP
-    ./scripts/config --enable DRM_AMD_SECURE_DISPLAY
-    ./scripts/config --enable HSA_AMD
-    ./scripts/config --enable FB
-    ./scripts/config --enable FB_EFI
-    ./scripts/config --enable PSTORE
-    ./scripts/config --enable EFI_VARS_PSTORE
-    ./scripts/config --enable BRIDGE
-    ./scripts/config --enable ASUS_WMI
-    ./scripts/config --enable SENSORS_ASUS_WMI
-    ./scripts/config --enable EEEPC_WMI
-    ./scripts/config --enable LEDS_CLASS_MULTICOLOR
-    ./scripts/config --enable HID_PLAYSTATION
-
-    #make menuconfig
-
-    #xxxxxxxxxxx
-
-	sed '/^CONFIG_LOCALVERSION=/d' -i .config
-    echo "CONFIG_LOCALVERSION=\"-${pkgname#*-}-LFS\""  >> .config
-
-    sed "s/-mtune=generic/-mtune=generic -march=$MMARCH/g" -i arch/x86/Makefile
-
-    export KCFLAGS=" -march=$MMARCH -O3"
-    export KCPPFLAGS=" -march=$MMARCH -O3"
-    export KRUSTFLAGS=" -C target-cpu=$MMARCH"
-
-    yes "" | make oldconfig
-    make all
-}
-
 build() {
-    cd ${pkgname%-*}-${pkgver%.0}
+    cd ${name%-*}-${version%.0}
 
     cp ../configarch .config
 
 	sed '/^CONFIG_LOCALVERSION=/d' -i .config
-    echo "CONFIG_LOCALVERSION=\"-${pkgname#*-}-LFS\""  >> .config
+    echo "CONFIG_LOCALVERSION=\"-${name#*-}-LFS\""  >> .config
 
     sed "s/-mtune=generic/-mtune=generic -march=$MMARCH/g" -i arch/x86/Makefile
 
@@ -247,9 +33,9 @@ build() {
 
 
 package() {
-    cd ${pkgname%-*}-${pkgver%.0}
+    cd ${name%-*}-${version%.0}
 
-    kernver=${pkgver}$(grep CONFIG_LOCALVERSION= .config | cut -d '"' -f2)
+    kernver=${version}$(grep CONFIG_LOCALVERSION= .config | cut -d '"' -f2)
     local modulesdir="$pkgdir/usr/lib/modules/$kernver"
 
     echo "Installing boot image..."
@@ -258,7 +44,7 @@ package() {
     install -Dm644 "$(make -s image_name)" "$modulesdir/vmlinuz"
 
     # Used by mkinitcpio to name the kernel
-    echo "$pkgname" | install -Dm644 /dev/stdin "$modulesdir/name"
+    echo "$name" | install -Dm644 /dev/stdin "$modulesdir/name"
 
     echo "Installing modules..."
     ZSTD_CLEVEL=19 make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
@@ -352,7 +138,7 @@ package() {
 
     echo "Adding symlink..."
     mkdir -p "$pkgdir/usr/src"
-    ln -sr "$builddir" "$pkgdir/usr/src/$pkgname"
+    ln -sr "$builddir" "$pkgdir/usr/src/$name"
 
     echo $kernver > "$pkgdir"/usr/lib/modules/KERNELVERSION
 }

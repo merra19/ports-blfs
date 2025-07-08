@@ -1,14 +1,14 @@
 # description	: X.org input driver based on libinput
 # depends	: libinput xorg-proto xlibre-xserver
 
-name=xlibre-xf86-video-amdgpu
-version=23.0.0.1
+name=xlibre-xf86-video-ati
+version=22.0.0.1
 release=1
 options="!lto"
-source="$name-$version.tar.gz::https://github.com/X11Libre/xf86-video-amdgpu/archive/refs/tags/$name-$version.tar.gz"
+source="$name-$version.tar.gz::https://github.com/X11Libre/xf86-video-ati/archive/refs/tags/xfree-xf86-video-ati-$version.tar.gz"
 
 build() {
-    cd xf86-video-amdgpu-xlibre-xf86-video-amdgpu-$version
+    cd xf86-video-ati-xfree-xf86-video-ati-$version
 
     autoreconf -fiv
 
@@ -21,7 +21,7 @@ build() {
 }
 
 package() {
-    cd xf86-video-amdgpu-xlibre-xf86-video-amdgpu-$version
+    cd xf86-video-ati-xfree-xf86-video-ati-$version
 
     make DESTDIR="$PKG" install
 }

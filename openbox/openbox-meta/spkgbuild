@@ -3,7 +3,7 @@
 # depends	: libxcursor libxext libxft libxinerama libxrandr libxt
 # depends	: pango imlib2 startup-notification librsvg py3-xdg
 # depends	: openbox wmctrl slop xprop numlockx setxkbmap feh
-# depends	: xfce4-notifyd
+# depends	: xfce4-notifyd thunar-volman
 
 name=openbox-meta
 version=3.6.1
