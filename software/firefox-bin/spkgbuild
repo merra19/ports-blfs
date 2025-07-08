@@ -43,5 +43,5 @@ package() {
 
     # Disable update checks (managed by pacman)
     mkdir "$PKG"/opt/$name/distribution
-    install -m644 "$"/policies.json "$PKG"/opt/$name/distribution/
+    install -m644 "$SRC"/policies.json "$PKG"/opt/$name/distribution/
 }

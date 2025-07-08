@@ -6,7 +6,7 @@
 # depends	: icu-32 fontconfig-32 mesa-32 libglvnd-32 zenity
 
 name=steam
-version=1.0.0.82
+version=1.0.0.83
 release=1
 source="http://repo.steampowered.com/$name/pool/$name/s/$name/${name}_$version.tar.gz"
 

@@ -4,7 +4,7 @@
 # depends	: libxcb libxkbcommon libxshmfence pango xdg-utils qt6-base libsecret p11-kit
 
 name=microsoft-edge
-version=137.0.3296.68
+version=138.0.3351.55
 release=1
 options="!strip"
 source="$name-$version.deb::https://packages.microsoft.com/repos/edge/pool/main/m/$name-stable/$name-stable_$version-1_amd64.deb"

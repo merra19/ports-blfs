@@ -2,7 +2,7 @@
 # depends	: glibc python3
 
 name=re2c
-version=4.1
+version=4.3
 release=1
 source="$name-$version.tar.gz::https://github.com/skvadrik/re2c/archive/$version.tar.gz"
 

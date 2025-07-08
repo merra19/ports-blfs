@@ -2,7 +2,7 @@
 # depends	: wayland-protocols wayland gtk3 pkgconf xorg-proto vala
 
 name=gtk-layer-shell
-version=0.9.1
+version=0.9.2
 release=1
 source="$name-$version.tar.gz::https://github.com/wmww/$name/archive/refs/tags/v$version.tar.gz"
 

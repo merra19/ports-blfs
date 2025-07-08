@@ -36,7 +36,7 @@ package() {
     cd ${name%-*}-${version%.0}
 
     kernver=${version}$(grep CONFIG_LOCALVERSION= .config | cut -d '"' -f2)
-    local modulesdir="$pkgdir/usr/lib/modules/$kernver"
+    local modulesdir="$PKG/usr/lib/modules/$kernver"
 
     echo "Installing boot image..."
     # systemd expects to find the kernel here to allow hibernation
@@ -47,19 +47,19 @@ package() {
     echo "$name" | install -Dm644 /dev/stdin "$modulesdir/name"
 
     echo "Installing modules..."
-    ZSTD_CLEVEL=19 make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
+    ZSTD_CLEVEL=19 make INSTALL_MOD_PATH="$PKG/usr" INSTALL_MOD_STRIP=1 \
         DEPMOD=/doesnt/exist modules_install  # Suppress depmod
 
-    mkdir -p "$pkgdir"/boot
-    cp  arch/x86/boot/bzImage "$pkgdir"/boot/vmlinuz-$kernver
-    cp .config "$pkgdir"/boot/config-$kernver
+    mkdir -p "$PKG"/boot
+    cp  arch/x86/boot/bzImage "$PKG"/boot/vmlinuz-$kernver
+    cp .config "$PKG"/boot/config-$kernver
 
     rm -f "$modulesdir"/vmlinuz
 
     # remove build link
     rm "$modulesdir"/build
 
-    local builddir="$pkgdir/usr/lib/modules/$kernver/build"
+    local builddir="$PKG/usr/lib/modules/$kernver/build"
 
     echo "Installing build files..."
     install -Dt "$builddir" -m644 .config Makefile Module.symvers System.map \
@@ -137,8 +137,8 @@ package() {
     strip -v $STRIP_STATIC "$builddir/vmlinux"
 
     echo "Adding symlink..."
-    mkdir -p "$pkgdir/usr/src"
-    ln -sr "$builddir" "$pkgdir/usr/src/$name"
+    mkdir -p "$PKG/usr/src"
+    ln -sr "$builddir" "$PKG/usr/src/$name"
 
-    echo $kernver > "$pkgdir"/usr/lib/modules/KERNELVERSION
+    echo $kernver > "$PKG"/usr/lib/modules/KERNELVERSION
 }

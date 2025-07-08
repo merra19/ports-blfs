@@ -15,7 +15,17 @@ source="https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/
         https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/compiler-rt-$version.src.tar.xz"
 noextract="llvm-cmake-${_version}.src.tar.xz llvm-third-party-${_version}.src.tar.xz clang-$version.src.tar.xz compiler-rt-$version.src.tar.xz"
 
+getversionpkg() {
+    awk 'NR==1 {print $1}' /var/lib/scratchpkg/db/$1 2>/dev/null
+}
+
 build() {
+    vers="$(getversionpkg llvm)"
+    if [ ! "$vers" == "$version" ]; then
+        echo "$name version is $vers // $version"
+        exit 1
+    fi
+
 	cd ${_name}-$version.src
 
     export CFLAGS="-O2 -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x4000 -march=$MMARCH -fno-lto"

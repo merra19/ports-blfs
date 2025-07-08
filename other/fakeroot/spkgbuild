@@ -2,7 +2,7 @@
 # depends	: glibc libcap acl sed bash util-linux
 
 name=fakeroot
-version=1.33
+version=1.37.1.2
 release=1
 options="!lto"
 source="https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/fakeroot/$version-1/fakeroot_$version.orig.tar.gz"
