@@ -22,6 +22,7 @@ package() {
     make DESTDIR="$PKG" install
 
     rm -rf "$PKG"/etc/sysconfig/rc.site
+    rm -f "$PKG"/etc/sysconfig/createfiles
 
     install -Dm755 "$SRC"/c89 "$PKG"/usr/bin/c89
 	install -Dm755 "$SRC"/c99 "$PKG"/usr/bin/c99
