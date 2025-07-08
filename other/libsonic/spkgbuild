@@ -1,0 +1,23 @@
+# description	: Simple library to speed up or slow down speech
+# depends	: glibc
+
+name=libsonic
+version=0.2.0
+release=2
+source="$name-$version.tar.gz::https://github.com/waywardgeek/sonic/archive/refs/tags/release-$version.tar.gz
+        ldflags.patch"
+
+build() {
+  cd sonic-release-$version
+
+  patch -N -i ../ldflags.patch
+
+  make
+}
+package() {
+    cd sonic-release-$version
+
+    make DESTDIR="$PKG" install
+    rm -v "$PKG/usr/lib/libsonic.a"
+    install -vDm644 sonic.1 -t "$PKG/usr/share/man/man1/"
+}

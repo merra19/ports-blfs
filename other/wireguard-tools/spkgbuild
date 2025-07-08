@@ -24,7 +24,7 @@ package() {
                 WITH_SYSTEMDUNITS=no \
                 install
 
-	cp -r contrib/ "$PKG"/usr/share/${pkgname}/examples/
+	cp -r contrib/ "$PKG"/usr/share/$name/examples/
 
     install -Dm 0744 "$SRC"/wireguard.conf "$PKG"/etc/wireguard.conf
     install -Dm 0755 "$SRC"/wireguard.init "$PKG"/etc/rc.d/init.d/wireguard

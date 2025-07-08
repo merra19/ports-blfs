@@ -1,0 +1,47 @@
+# description	: US English hunspell dictionaries
+# depends	: glibc hunspell 
+
+name=hunspell-en_us
+version=2020.12.07
+release=5
+source="https://downloads.sourceforge.net/project/wordlist/speller/$version/hunspell-en_US-large-$version.zip
+        hunspell-en-allow-non-typographical.marks.patch"
+
+build() {
+    sed -i "s:SET UTF8:SET UTF-8:g" *.aff
+
+    # recognize apostrophes - FS#70425
+    # https://sourceforge.net/p/hunspell/patches/35/
+    patch -Np1 -i ./hunspell-en-allow-non-typographical.marks.patch
+}
+
+package() {
+    cd "$SRC"
+    install -vDm 644 en_US*.dic en_US*.aff -t "$PKG/usr/share/hunspell"
+
+    pushd "$PKG/usr/share/hunspell/"
+        en_US_aliases="en_US"
+        for lang in $en_US_aliases; do
+        ln -s en_US-large.aff $lang.aff
+        ln -s en_US-large.dic $lang.dic
+        done
+    popd
+
+    if ( scratch isinstalled qt6-webengine ); then 
+    # Install webengine dictionaries   
+    install -d "$PKG"/usr/share/qt{,6}/qtwebengine_dictionaries/
+    for _file in "$PKG"/usr/share/hunspell/*.dic; do
+    _filename=$(basename $_file)
+        /usr/lib/qt6/qwebengine_convert_dict $_file "$PKG"/usr/share/qt6/qtwebengine_dictionaries/${_filename/\.dic/\.bdic}
+    ln -rs "$PKG"/usr/share/qt6/qtwebengine_dictionaries/${_filename/\.dic/\.bdic} "$PKG"/usr/share/qt/qtwebengine_dictionaries/
+    done
+    fi
+
+    # myspell symlinks
+    install -dm755 "$PKG"/usr/share/myspell/dicts
+    pushd "$PKG"/usr/share/myspell/dicts
+        for file in "$PKG"/usr/share/hunspell/*; do
+            ln -sv /usr/share/hunspell/$(basename $file) .
+        done
+    popd
+}

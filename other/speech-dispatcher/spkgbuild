@@ -1,0 +1,42 @@
+# description	: Speech synthesis interface
+# depends	: glib intltool espeak-ng libtool py3-xdg dotconf
+# depends	: pulseaudio pipewire libao
+
+name=speech-dispatcher
+version=0.12.1
+release=1
+source="https://github.com/brailcom/speechd/releases/download/$version/$name-$version.tar.gz"
+backup="etc/speech-dispatcher/clients/emacs.conf etc/speech-dispatcher/modules/dtk-generic.conf
+        etc/speech-dispatcher/modules/epos-generic.conf
+        etc/speech-dispatcher/modules/espeak-ng.conf
+        etc/speech-dispatcher/modules/espeak-ng-mbrola.conf
+        etc/speech-dispatcher/modules/espeak-ng-mbrola-generic.conf
+        etc/speech-dispatcher/modules/festival.conf
+        etc/speech-dispatcher/modules/llia_phon-generic.conf
+        etc/speech-dispatcher/modules/mary-generic.conf
+        etc/speech-dispatcher/modules/swift-generic.conf
+        etc/speech-dispatcher/speechd.conf"
+
+build() {
+  cd $name-$version
+
+  ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --disable-static \
+        --libexecdir=/usr/lib/speech-dispatcher/ \
+        --with-ibmtts=no \
+        --with-kali=no \
+        --with-baratinoo=no \
+        --with-voxin=no \
+        --without-flite
+    make
+}
+
+package() {
+  cd $name-$version
+
+  make DESTDIR="$PKG" install
+
+  sed -i 's|includedir=.*|includedir=${prefix}/include/speech-dispatcher|g' "$PKG"/usr/lib/pkgconfig/speech-dispatcher.pc
+}
