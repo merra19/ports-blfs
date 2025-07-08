@@ -2,7 +2,7 @@
 # depends	: ncurses
 
 name=dialog
-version=1.3_202506116
+version=1.3_20250116
 vrsn=$(echo $version | sed 's/_/-/')
 release=1
 options="!lto"
