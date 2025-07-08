@@ -7,11 +7,11 @@ name=wayfire-plugins-extra-git
 version=1.0
 release=1
 commit=e8b974ff2e96130febfb45729156faeb217122a5
-source="$pkgname-$version.zip::https://github.com/WayfireWM/wayfire-plugins-extra/archive/$commit.zip
-            filters-$version.zip::https://github.com/soreau/filters/archive/cf99c3a4376c8878c9cebd163ac39776091ced58.zip
-            focus-request-$version.zip::https://gitlab.com/wayfireplugins/focus-request/-/archive/main/focus-request-main.zip
-            pixdecor-$version.zip::https://github.com/soreau/pixdecor/archive/49a863be39c7a8cdcf24d336aed04766eb0a540f.zip
-           wayfire-shadows-$version.zip::https://github.com/timgott/wayfire-shadows/archive/8257a4f04670d8baf29e2d9cee0d78f978f0233f.zip "
+source="$name-$version.zip::https://github.com/WayfireWM/wayfire-plugins-extra/archive/$commit.zip
+        filters-$version.zip::https://github.com/soreau/filters/archive/cf99c3a4376c8878c9cebd163ac39776091ced58.zip
+        focus-request-$version.zip::https://gitlab.com/wayfireplugins/focus-request/-/archive/main/focus-request-main.zip
+        pixdecor-$version.zip::https://github.com/soreau/pixdecor/archive/49a863be39c7a8cdcf24d336aed04766eb0a540f.zip
+        wayfire-shadows-$version.zip::https://github.com/timgott/wayfire-shadows/archive/8257a4f04670d8baf29e2d9cee0d78f978f0233f.zip "
 
 prepare() {
 	cd wayfire-plugins-extra-$commit

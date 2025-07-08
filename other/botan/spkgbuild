@@ -5,13 +5,10 @@ name=botan
 _name=Botan
 version=3.7.1
 release=1
-source="https://botan.randombit.net/releases/Botan-$version.tar.xz
-        boost-fix.patch"
+source="https://botan.randombit.net/releases/Botan-$version.tar.xz"
 
 build() {
     cd ${_name}-$version
-
-    patch -Np1 -i ../boost-fix.patch
 
     ./configure.py \
         --prefix=/usr \

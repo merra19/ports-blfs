@@ -7,12 +7,12 @@ version=2.32.4
 release=1
 options="!lto"
 source="https://pypi.org/packages/source/r/requests/requests-$version.tar.gz
-        https://www.linuxfromscratch.org/patches/blfs/svn/requests-2.32.3-use_system_certs-1.patch"
+        https://www.linuxfromscratch.org/patches/blfs/svn/requests-use_system_certs-1.patch"
 
 build() {
 	cd ${name#*-}-$version
 
-	patch -p1 -i ../requests-2.32.3-use_system_certs-1.patch
+	patch -p1 -i ../requests-use_system_certs-1.patch
 
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
 }

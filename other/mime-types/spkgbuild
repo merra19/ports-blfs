@@ -1,0 +1,18 @@
+# description	: Helper application and MIME type associations for file types
+# depends	: glibc
+
+name=mime-types
+version=2.1.54
+release=2
+source="mailcap mailcap.5 test.py typediff.py Makefile mime.types
+        generate-nginx-mimetypes.sh COPYING NEWS"
+backup="etc/mailcap etc/mime.types etc/nginx/mime.types"
+
+build() {
+    make
+}
+
+package() {
+    make DESTDIR="$PKG" install
+}
+

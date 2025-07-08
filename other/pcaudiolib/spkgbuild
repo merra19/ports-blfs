@@ -1,0 +1,23 @@
+# description	: Portable C Audio Library
+# depends	: alsa-lib pulseaudio
+
+name=pcaudiolib
+version=1.3
+release=1
+source="https://github.com/espeak-ng/pcaudiolib/archive/$version/$name-$version.tar.gz"
+
+build() {
+    cd $name-$version
+
+    ./autogen.sh
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $name-$version
+
+    make DESTDIR="$PKG" install
+}
