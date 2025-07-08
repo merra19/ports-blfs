@@ -2,7 +2,7 @@
 
 name=linux-api-headers
 _name=linux
-version=6.6.62
+version=6.15.4
 release=1
 source="https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${version%.0}.tar.xz"
 

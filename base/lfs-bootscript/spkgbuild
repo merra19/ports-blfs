@@ -1,7 +1,7 @@
 # description	: LFS bootscript
 
 name=lfs-bootscript
-version=20241209
+version=20250225
 versionlfs=20240825
 release=1
 source="https://anduin.linuxfromscratch.org/BLFS/blfs-bootscripts/blfs-bootscripts-$version.tar.xz

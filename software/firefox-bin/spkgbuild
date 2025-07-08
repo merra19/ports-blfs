@@ -1,0 +1,47 @@
+# description	: Firefox Web Browser
+# depends	: dbus-glib gtk3 libxt mime-types nss ffmpeg libnotify
+# depends	: networkmanager pulseaudio speech-dispatcher hunspell
+# depends	: hunspell-en_us liberation-fonts ttf-dejavu noto-fonts
+
+pkgname=firefox-bin
+_pkgname=firefox
+pkgver=140.0.2
+pkgrel=1
+options="!strip"
+source="firefox-$pkgver-x86_64.tar.xz::https://archive.mozilla.org/pub/firefox/releases/$pkgver/linux-x86_64/en-US/firefox-$pkgver.tar.xz
+        $_pkgname.sh $_pkgname.desktop policies.json"
+
+package() {
+    # Create directories
+    mkdir -p "$pkgdir"/usr/bin
+    mkdir -p "$pkgdir"/usr/share/applications
+    mkdir -p "$pkgdir"/opt
+
+    # Install
+    cp -r firefox/ "$pkgdir"/opt/$pkgname
+
+    # Launchers
+    install -m755 $_pkgname.sh "$pkgdir"/usr/bin/$_pkgname
+
+    # Desktops
+    install -m644 *.desktop "$pkgdir"/usr/share/applications/
+
+    # Icons
+    for i in 16x16 32x32 48x48 64x64 128x128; do
+        install -d "$pkgdir"/usr/share/icons/hicolor/$i/apps/
+        ln -s /opt/$pkgname/browser/chrome/icons/default/default${i/x*}.png \
+            "$pkgdir"/usr/share/icons/hicolor/$i/apps/$_pkgname.png
+    done
+
+    # Use system-provided dictionaries
+    #rm -r "$pkgdir"/opt/$_pkgname/dictionaries
+    ln -Ts /usr/share/hunspell "$pkgdir"/opt/$pkgname/dictionaries
+    ln -Ts /usr/share/hyphen "$pkgdir"/opt/$pkgname/hyphenation
+
+    # Use system certificates
+    ln -sf /usr/lib/libnssckbi.so "$pkgdir"/opt/$pkgname/libnssckbi.so
+
+    # Disable update checks (managed by pacman)
+    mkdir "$pkgdir"/opt/$pkgname/distribution
+    install -m644 "$srcdir"/policies.json "$pkgdir"/opt/$pkgname/distribution/
+}
