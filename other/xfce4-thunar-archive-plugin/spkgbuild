@@ -3,7 +3,7 @@
 # depends	: xarchiver
 
 name=xfce4-thunar-archive-plugin
-version=0.5.3
+version=0.6.0
 release=1
 source="https://archive.xfce.org/src/thunar-plugins/thunar-archive-plugin/${version%.*}/thunar-archive-plugin-$version.tar.bz2"
 

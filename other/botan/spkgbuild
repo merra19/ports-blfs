@@ -3,7 +3,7 @@
 
 name=botan
 _name=Botan
-version=3.6.1
+version=3.7.1
 release=1
 source="https://botan.randombit.net/releases/Botan-$version.tar.xz
         boost-fix.patch"

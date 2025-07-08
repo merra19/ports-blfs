@@ -35,7 +35,8 @@ package() {
     install -m 644 os-release "$PKG"/etc/os-release
     install -m 644 lsb-release "$PKG"/etc/lsb-release
 
-    install -m 755 dircolors.sh extrapaths.sh readline.sh umask.sh i18n.sh bash_completion.sh "$PKG"/etc/profile.d/
+    install -m 755 dircolors.sh extrapaths.sh readline.sh umask.sh i18n.sh "$PKG"/etc/profile.d/
+    # install -m 755 bash_completion.sh "$PKG"/etc/profile.d/
 
     install -Dm 644 sysctl.conf "$PKG"/etc/sysctl.conf
 

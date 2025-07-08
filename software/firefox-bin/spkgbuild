@@ -13,35 +13,35 @@ source="firefox-$version-x86_64.tar.xz::https://archive.mozilla.org/pub/firefox/
 
 package() {
     # Create directories
-    mkdir -p "$pkgdir"/usr/bin
-    mkdir -p "$pkgdir"/usr/share/applications
-    mkdir -p "$pkgdir"/opt
+    mkdir -p "$PKG"/usr/bin
+    mkdir -p "$PKG"/usr/share/applications
+    mkdir -p "$PKG"/opt
 
     # Install
-    cp -r firefox/ "$pkgdir"/opt/$name
+    cp -r firefox/ "$PKG"/opt/$name
 
     # Launchers
-    install -m755 $_name.sh "$pkgdir"/usr/bin/$_name
+    install -m755 $_name.sh "$PKG"/usr/bin/$_name
 
     # Desktops
-    install -m644 *.desktop "$pkgdir"/usr/share/applications/
+    install -m644 *.desktop "$PKG"/usr/share/applications/
 
     # Icons
     for i in 16x16 32x32 48x48 64x64 128x128; do
-        install -d "$pkgdir"/usr/share/icons/hicolor/$i/apps/
+        install -d "$PKG"/usr/share/icons/hicolor/$i/apps/
         ln -s /opt/$name/browser/chrome/icons/default/default${i/x*}.png \
-            "$pkgdir"/usr/share/icons/hicolor/$i/apps/$_name.png
+            "$PKG"/usr/share/icons/hicolor/$i/apps/$_name.png
     done
 
     # Use system-provided dictionaries
-    #rm -r "$pkgdir"/opt/$_name/dictionaries
-    ln -Ts /usr/share/hunspell "$pkgdir"/opt/$name/dictionaries
-    ln -Ts /usr/share/hyphen "$pkgdir"/opt/$name/hyphenation
+    #rm -r "$PKG"/opt/$_name/dictionaries
+    ln -Ts /usr/share/hunspell "$PKG"/opt/$name/dictionaries
+    ln -Ts /usr/share/hyphen "$PKG"/opt/$name/hyphenation
 
     # Use system certificates
-    ln -sf /usr/lib/libnssckbi.so "$pkgdir"/opt/$name/libnssckbi.so
+    ln -sf /usr/lib/libnssckbi.so "$PKG"/opt/$name/libnssckbi.so
 
     # Disable update checks (managed by pacman)
-    mkdir "$pkgdir"/opt/$name/distribution
-    install -m644 "$srcdir"/policies.json "$pkgdir"/opt/$name/distribution/
+    mkdir "$PKG"/opt/$name/distribution
+    install -m644 "$SRC"/policies.json "$PKG"/opt/$name/distribution/
 }

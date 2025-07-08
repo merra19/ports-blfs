@@ -46,7 +46,7 @@ build() {
 package() {
     DESTDIR="$PKG/" ninja -C build install
 
-    cd "$srcdir"
+    cd "$SRC"
 
     install -Dm 0755 wayfire-session "$PKG"/usr/share/wayland-sessions/wayfire-session
     install -Dm 0644 wayfire-session.desktop "$PKG"/usr/share/wayland-sessions/wayfire.desktop

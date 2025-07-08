@@ -9,8 +9,18 @@ source="https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/
         lld-import-compact_unwind_encoding.h-from-libu.patch"
 noextract="cmake-$version.src.tar.xz"
 
+getversionpkg() {
+    awk 'NR==1 {print $1}' /var/lib/scratchpkg/db/$1 2>/dev/null
+}
+
 build() {
 	cd $name-$version.src
+
+    vers="$(getversionpkg llvm)"
+    if [ ! "$vers" == "$version" ]; then
+        echo "$name version is $vers // $version"
+        exit 1
+    fi
 
     export CFLAGS="-O2 -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x4000 -march=$MMARCH -fno-lto"
     export CXXFLAGS="$CFLAGS"
