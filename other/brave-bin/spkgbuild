@@ -2,7 +2,7 @@
 # depends	: alsa-lib gtk3 nss liberation-fonts libnotify libxscrnsaver
 
 name=brave-bin
-version=1.82.61
+version=1.80.120
 release=1
 options="!strip"
 source="$name-$version.zip::https://github.com/brave/brave-browser/releases/download/v$version/brave-browser-$version-linux-amd64.zip
