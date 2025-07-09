@@ -2,7 +2,9 @@
 # depends	: gettext pkgconf glib libxml2 fontconfig cairo libxau
 # depends	: libxcursor libxext libxft libxinerama libxrandr libxt
 # depends	: pango imlib2 startup-notification librsvg py3-xdg
-# depends	: openbox wmctrl slop xprop numlockx thunar-volman
+# depends	: openbox wmctrl slop xprop numlockx setxkbmap feh
+# depends	: xfce4-notifyd thunar-volman polkit-gnome pavucontrol
+# depends	: xfce4-terminal thunar
 
 name=openbox-meta
 version=3.6.1
