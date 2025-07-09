@@ -6,7 +6,7 @@ version=0.71.1
 release=1
 options="!lto"
 source="https://github.com/rust-lang/rust-bindgen/archive/v$version/$name-$version.tar.gz
-        local://rust-bindgen-0.71.1-cargo.tar.xz"
+        rust-bindgen-0.71.1-cargo.tar.xz"
 
 build() {
 	cd $name-$version
