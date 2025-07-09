@@ -3,9 +3,8 @@
 
 name=polkit
 version=126
-release=1
-source="https://github.com/polkit-org/polkit/archive/$version/$name-$version.tar.gz
-        10-admin.rules"
+release=2
+source="https://github.com/polkit-org/polkit/archive/$version/$name-$version.tar.gz"
 
 build() {
     cd $name-$version
@@ -28,6 +27,4 @@ package() {
 	DESTDIR="$PKG" ninja -C build install
 
     rm -rf "$PKG"/tmp rm -rf "$PKG"/usr/lib/{sysusers,tmpfiles}.d 
-
-    install -Dm 0644 "$SRC"/10-admin.rules "$PKG"/etc/polkit-1/rules.d/10-admin.rules
 }
