@@ -1,0 +1,23 @@
+# description	: Fast and exact implementation of the C++ from_chars functions for number types
+# depends	: cmake
+
+name=fast_float
+version=8.0.2
+release=1
+source="https://github.com/fastfloat/fast_float/archive/v$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release  \
+        -G Ninja
+	ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

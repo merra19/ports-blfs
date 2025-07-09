@@ -4,7 +4,7 @@
 name=py3-gobject3
 version=3.52.3
 release=1
-source="https://download.gnome.org/sources/pygobject/${version%.*}/pygobject-$version.tar.xz"
+source="https://download.gnome.org/sources/pygobject/${version%.*}/pygobject-$version.tar.gz"
 
 build() {
     cd pygobject-$version

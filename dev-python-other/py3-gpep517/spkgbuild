@@ -2,7 +2,7 @@
 # depends	: python3 py3-installer
 
 name=py3-gpep517
-version=1
+version=19
 release=1
 source="https://github.com/mgorny/gpep517/archive/v$version/gpep517-v$version.tar.gz
         gpep517 default-bytecode-levels.patch"

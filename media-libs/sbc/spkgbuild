@@ -4,7 +4,7 @@
 name=sbc
 version=2.1
 release=1
-source="https://www.kernel.org/pub/linux/bluetooth/sbc-2.0.tar.xz"
+source="https://www.kernel.org/pub/linux/bluetooth/$name-$version.tar.xz"
 
 build() {
 	cd $name-$version

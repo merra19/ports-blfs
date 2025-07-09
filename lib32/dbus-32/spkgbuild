@@ -3,7 +3,7 @@
 
 name=dbus-32
 _name=dbus
-version=1.16.0
+version=1.16.2
 release=1
 source="https://dbus.freedesktop.org/releases/dbus/${_name}-$version.tar.xz
         malloc_trim.patch memory.patch"

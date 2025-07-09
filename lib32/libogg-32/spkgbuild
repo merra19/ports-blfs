@@ -15,7 +15,7 @@ build() {
 	export CXX="g++ -m32 -mstackrealign"
 	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
 
-	../configure \
+	./configure \
         --prefix=/usr \
         --libdir=/usr/lib32 \
 		--disable-static \

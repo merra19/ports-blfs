@@ -3,10 +3,10 @@
 
 name=lm-sensors-32
 _name=lm-sensors
-version=3.6.0
+version=3.6.2
 vrsn=$(echo $version | sed 's/\./-/g')
 release=1
-source="https://github.com/lm-sensors/lm-sensors/archive/V${vrsn}/${_name}-${vrsn}.tar.gz"
+source="https://github.com/hramrach/lm-sensors/archive/V${vrsn}/${_name}-${vrsn}.tar.gz"
 
 build() {
     cd ${_name}-"${vrsn}"

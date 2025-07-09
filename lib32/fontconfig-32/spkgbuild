@@ -6,7 +6,7 @@ name=fontconfig-32
 _name=fontconfig
 version=2.17.1
 release=1
-source="https://www.freedesktop.org/software/fontconfig/release/${_name}-$version.tar.xz"
+source="https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/$version/$_name-$version.tar.xz"
 
 build() {
     cd ${_name}-$version

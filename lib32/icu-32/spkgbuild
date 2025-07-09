@@ -3,7 +3,7 @@
 
 name=icu-32
 _name=icu
-version=76.1
+version=77.1
 vrs=$(echo $version | sed 's/\./_/g')
 _version=$(echo $version | sed 's/\./-/g')
 release=1

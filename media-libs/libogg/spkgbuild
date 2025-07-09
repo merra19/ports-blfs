@@ -10,7 +10,7 @@ source="http://downloads.xiph.org/releases/ogg/$name-$version.tar.xz"
 build() {
 	cd $name-$version
 
-	../configure \
+	./configure \
         --prefix=/usr \
 		--disable-static \
 		--docdir=/usr/share/doc/$name-$version

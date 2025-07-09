@@ -5,7 +5,7 @@ name=wireless_tools
 version=29
 release=1
 source="https://hewlettpackard.github.io/wireless-tools/$name-.$version.tar.gz
-        https://www.linuxfromscratch.org/patches/blfs/12.3/$name-$version-fix_iwlist_scanning-1.patch"
+        https://www.linuxfromscratch.org/patches/blfs/svn/$name-$version-fix_iwlist_scanning-1.patch"
 backup="etc/wgetrc"
 
 build() {

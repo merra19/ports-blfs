@@ -5,10 +5,10 @@ name=ncurses
 version=6.5.rc20250531
 version_pkg=${version/.rc/-}
 release=1
-source="https://invisible-mirror.net/archives/ncurses/$name-${version_pkg}.tar.gz"
+source="https://invisible-mirror.net/archives/ncurses/current/$name-${version_pkg}.tgz"
 
 build() {
-    cd $name-${version_pkg}
+    cd $name-$version_pkg
 
     ./configure \
         --prefix=/usr \
@@ -23,7 +23,7 @@ build() {
 }
 
 package() {
-    cd $name-$version
+    cd $name-$version_pkg
 
     local vers=${version/.rc*/}
 

@@ -6,10 +6,10 @@ _name=ncurses
 version=6.5.rc20250531
 version_pkg=${version/.rc/-}
 release=1
-source="https://invisible-mirror.net/archives/ncurses/${_name}-${version_pkg}.tar.gz"
+source="https://invisible-mirror.net/archives/ncurses/current/${_name}-${version_pkg}.tgz"
 
 build() {
-    cd ${_name}-${version_pkg}
+    cd $_name-$version_pkg
 
 	export CC="gcc -m32 -mstackrealign"
 	export CXX="g++ -m32 -mstackrealign"
@@ -33,7 +33,7 @@ build() {
 }
 
 package() {
-    cd ${_name}-${version_pkg}
+    cd $_name-$version_pkg
 
     local vers=${version/.rc*/}
 

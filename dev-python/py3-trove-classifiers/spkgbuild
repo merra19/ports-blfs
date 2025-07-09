@@ -12,7 +12,7 @@ build() {
 	cd ${_name}-$version
     
     echo "Version: $version" > PKG-INFO
-   
+
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
 }
 

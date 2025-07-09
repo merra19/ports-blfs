@@ -4,7 +4,7 @@
 name=fontconfig
 version=2.17.1
 release=1
-source="https://www.freedesktop.org/software/fontconfig/release/$name-$version.tar.xz"
+source="https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/$version/$name-$version.tar.xz"
 backup="etc/fonts/fonts.conf"
 
 build() {

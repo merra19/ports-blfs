@@ -2,7 +2,7 @@
 # depends	: python3 py3-gpep517 py3-setuptools py3-wheel py3-cython
 
 name=py3-fonttools
-version=4.57.0
+version=4.58.5
 release=1
 source="$name-$version.tar.gz::https://github.com/fonttools/fonttools/archive/refs/tags/$version.tar.gz"
 

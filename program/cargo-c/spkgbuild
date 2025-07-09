@@ -6,7 +6,7 @@ version=0.10.14
 release=1
 source="https://github.com/lu-zero/cargo-c/archive/v$version/$name-$version.tar.gz
         $name-$version.lock::https://github.com/lu-zero/cargo-c/releases/download/v$version/Cargo.lock
-        local://$name-$version-cargo.tar.xz"
+        $name-$version-cargo.tar.xz"
 
 build() {
 	cd $name-$version
