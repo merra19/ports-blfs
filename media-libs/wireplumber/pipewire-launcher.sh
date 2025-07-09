@@ -27,6 +27,6 @@ sleep 1
 exec /usr/bin/wireplumber &
 
 # Start the Pulseaudio server included with Pipewire.
-exec /usr/bin/pipewire-pulse &
+#exec /usr/bin/pipewire-pulse &
 
 # End /usr/bin/pipewire-launcher.sh
