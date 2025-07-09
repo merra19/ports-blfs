@@ -3,7 +3,7 @@
 # depends	: coreutils meson
 
 name=nodejs
-version=22.16.0
+version=22.17.0
 release=1
 options="!lto"
 source="https://nodejs.org/dist/v$version/node-v$version.tar.xz"

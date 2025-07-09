@@ -3,7 +3,7 @@
 
 name=libpng-32
 _name=libpng
-version=1.6.49
+version=1.6.50
 release=1
 source="https://downloads.sourceforge.net/libpng/${_name}-$version.tar.xz
         https://downloads.sourceforge.net/sourceforge/libpng-apng/libpng-$version-apng.patch.gz"

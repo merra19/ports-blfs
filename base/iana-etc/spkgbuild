@@ -1,7 +1,7 @@
 # description	: Provides data for network services and protocol
 
 name=iana-etc
-version=20250519
+version=20250618
 release=1
 source="https://github.com/Mic92/iana-etc/releases/download/$version/$name-$version.tar.gz"
 backup="etc/protocols etc/services"

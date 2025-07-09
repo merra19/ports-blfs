@@ -6,7 +6,7 @@
 # depends	: acl aspell-fr
 
 name=php
-version=8.4.8
+version=8.4.10
 release=1
 options="!lto"
 source="https://www.php.net/distributions/$name-$version.tar.xz

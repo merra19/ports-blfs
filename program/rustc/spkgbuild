@@ -2,9 +2,9 @@
 # depends	: cmake curl llvm llvm32 xz zlib openssl lld
 
 name=rustc
-version=1.87.0
-version2=1.86.0
-daterust=2025-04-03
+version=1.88.0
+version2=1.87.0
+daterust=2025-05-15
 release=1
 options="!strip"
 source="https://static.rust-lang.org/dist/$name-$version-src.tar.xz
@@ -32,7 +32,7 @@ build() {
     cp ../config.toml ./bootstrap.toml
 
     # add change-id & version to config.toml
-    sed 's/YYYY/138986/' -i bootstrap.toml
+    sed 's/YYYY/140732/' -i bootstrap.toml
     sed "s/XXXX/$version/g" -i bootstrap.toml
 }
 

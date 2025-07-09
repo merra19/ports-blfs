@@ -16,7 +16,7 @@
 
 
 name=imagemagick
-version=7.1.1.43
+version=7.1.1.47
 _version="$(echo $version  | sed 's/\(.*\)\./\1-/')"
 release=43
 source="https://www.imagemagick.org/archive/releases/ImageMagick-$_version.tar.xz"

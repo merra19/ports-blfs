@@ -3,8 +3,8 @@
 # depends	: binutils
 
 name=llvm
-version=20.1.1
-_version=20.1.1
+version=20.1.7
+_version=20.1.7
 release=1
 options="!lto !asneeded"
 source="https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/llvm-$version.src.tar.xz

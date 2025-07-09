@@ -2,7 +2,7 @@
 # depends	: libaio udev util-linux readline
 
 name=lvm2
-version=2.03.32
+version=2.03.33
 release=1
 source="$name-$version.tgz::https://sourceware.org/pub/lvm2/LVM2.$version.tgz"
 backup="etc/lvm/lvm.conf etc/lvm/lvmlocal.conf"

@@ -4,7 +4,7 @@
 # depends	: libxrandr xorg-proto 
 
 name=mupdf
-version=1.26.2
+version=1.26.3
 release=1
 source="https://www.mupdf.com/downloads/archive/mupdf-$version-source.tar.gz
         user.make"

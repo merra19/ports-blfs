@@ -3,7 +3,7 @@
 # depends	: py3-hatchling
 
 name=py3-pygments
-version=2.19.1
+version=2.19.2
 release=1
 options="!lto"
 source="https://files.pythonhosted.org/packages/source/P/Pygments/pygments-$version.tar.gz"

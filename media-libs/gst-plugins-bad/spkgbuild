@@ -4,7 +4,7 @@
 # depends	: wayland-protocols glib
 
 name=gst-plugins-bad
-version=1.26.2
+version=1.26.3
 release=1
 source="https://gstreamer.freedesktop.org/src/gst-plugins-bad/$name-$version.tar.xz"
 

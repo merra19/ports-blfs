@@ -4,17 +4,13 @@
 # depends	: libxslt
 
 name=colord
-version=1.4.7
+version=1.4.8
 release=1
-source="https://www.freedesktop.org/software/colord/releases/$name-$version.tar.xz
-        https://www.linuxfromscratch.org/patches/blfs/svn/colord-1.4.7-upstream_fixes-1.patch"
+source="https://www.freedesktop.org/software/colord/releases/$name-$version.tar.xz"
 
 build() {
     cd $name-$version
 
-    # Fix a misuse of sqlite API causing a test failure and potential runtime crash
-    patch -Np1 -i ../colord-1.4.7-upstream_fixes-1.patch
-    
     sed -e '/class="manual"/i<refmiscinfo class="source">colord</refmiscinfo>' \
         -i man/*.xml 
 

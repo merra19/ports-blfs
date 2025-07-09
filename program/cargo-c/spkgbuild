@@ -2,7 +2,7 @@
 # depends	: rustc libssh2 sqlite curl zlib
 
 name=cargo-c
-version=0.10.13
+version=0.10.14
 release=1
 source="https://github.com/lu-zero/cargo-c/archive/v$version/$name-$version.tar.gz
         $name-$version.lock::https://github.com/lu-zero/cargo-c/releases/download/v$version/Cargo.lock

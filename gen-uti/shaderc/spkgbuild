@@ -2,7 +2,7 @@
 # depends	: spirv-headers spirv-tools glslang
 
 name=shaderc
-version=2025.2
+version=2025.3
 release=1
 source="https://github.com/google/shaderc/archive/v$version/$name-$version.tar.gz"
 

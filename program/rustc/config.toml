@@ -44,7 +44,7 @@ docdir = "share/doc/rustc-XXXX"
 
 [rust]
 channel = "stable"
-description = "for BLFS r12.2"
+description = "for BLFS r12.3"
 
 # BLFS used to not install the FileCheck executable from llvm,
 # so disabled codegen tests.  The assembly tests rely on FileCheck

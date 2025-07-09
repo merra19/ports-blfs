@@ -2,13 +2,14 @@
 # depends	: ncurses readline bison
 
 name=bash
-version=5.3
+version=5.3.rc2
+_version=${version/.rc/-rc}
 release=1
 options="!lto"
-source="https://ftp.gnu.org/gnu/bash/$name-$version-rc2.tar.gz"
+source="https://ftp.gnu.org/gnu/bash/$name-$_version.tar.gz"
 
 build() {
-    cd $name-$version-rc2
+    cd $name-$_version
 
     ./configure \
         --prefix=/usr \
@@ -19,7 +20,7 @@ build() {
 }
 
 package() {
-    cd $name-$version-rc2
+    cd $name-$_version
 
     make DESTDIR="$PKG" install
 

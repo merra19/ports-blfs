@@ -2,7 +2,7 @@
 # depends	: wget which kmod hwdata
 
 name=pciutils
-version=3.13.0
+version=3.14.0
 release=1
 source="https://mj.ucw.cz/download/linux/pci/$name-$version.tar.gz"
 

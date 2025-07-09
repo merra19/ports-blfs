@@ -2,7 +2,7 @@
 # depends	: glibc
 
 name=pkgconf
-version=2.4.3
+version=2.5.1
 release=1
 options="!lto"
 source="https://distfiles.ariadne.space/pkgconf/$name-$version.tar.xz

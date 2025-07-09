@@ -2,8 +2,8 @@
 # depends	: glibc
 
 name=ncurses
-version=6.5
-version_pkg="6.5-20250531"
+version=6.5.rc20250531
+version_pkg=${version/.rc/-}
 release=1
 source="https://invisible-mirror.net/archives/ncurses/$name-${version_pkg}.tar.gz"
 
@@ -25,10 +25,12 @@ build() {
 package() {
     cd $name-$version
 
+    local vers=${version/.rc*/}
+
     make DESTDIR=$PWD/dest install
     mkdir -p "$PKG"/usr/lib
-    install -vm755 dest/usr/lib/libncursesw.so.$version "$PKG"/usr/lib
-    rm -v  dest/usr/lib/libncursesw.so.$version
+    install -vm755 dest/usr/lib/libncursesw.so.$vers "$PKG"/usr/lib
+    rm -v  dest/usr/lib/libncursesw.so.$vers
     sed -e 's/^#if.*XOPEN.*$/#if 1/' -i dest/usr/include/curses.h
     cp -av dest/* "$PKG"/
 

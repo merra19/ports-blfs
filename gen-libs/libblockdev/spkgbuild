@@ -5,7 +5,7 @@
 # optional	: escrow!!nss escrow!!volume_key 
 
 name=libblockdev
-version=3.3.0
+version=3.3.1
 release=1
 options="!lto"
 source="https://github.com/storaged-project/libblockdev/releases/download/$version/$name-$version.tar.gz"

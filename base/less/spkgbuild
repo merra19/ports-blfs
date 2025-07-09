@@ -2,7 +2,7 @@
 # depends	: ncurses
 
 name=less
-version=678
+version=679
 release=1
 options="!lto"
 source="https://www.greenwoodsoftware.com/less/$name-$version.tar.gz"
