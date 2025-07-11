@@ -1,0 +1,33 @@
+# description	: Mesa demos
+# depends	: glibc freeglut glu libglvnd libx11 libxext glslang libdecor
+# depends	: libxkbcommon mesa meson vulkan-headers vulkan-loader 
+# depends	: wayland-protocols 
+
+name=mesa-demos
+version=9.0.0
+release=7
+options="!lto"
+source="https://mesa.freedesktop.org/archive/demos/$name-$version.tar.xz
+        mesa-demos-system-data.patch"
+
+build() {
+	cd $name-$version
+
+    patch -Np1 -i ../mesa-demos-system-data.patch
+
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gles1=disabled \
+        -D osmesa=disabled \
+        -D with-system-data-files=true \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $name-$version
+
+    DESTDIR="$PKG" ninja -C build install
+}

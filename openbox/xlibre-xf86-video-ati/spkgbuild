@@ -1,0 +1,31 @@
+# description	: X.org input driver based on libinput
+# depends	: libinput xorg-proto xlibre-xserver
+
+name=xlibre-xf86-video-ati
+version=22.0.0.1
+release=1
+options="!lto"
+source="$name-$version.tar.gz::https://github.com/X11Libre/xf86-video-ati/archive/refs/tags/xfree-xf86-video-ati-$version.tar.gz"
+
+build() {
+    cd xf86-video-ati-xfree-xf86-video-ati-$version
+
+    LDFLAGS=${LDFLAGS/-Wl,-z,now/}
+
+    autoreconf -fiv
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --enable-glamor \
+        --enable-udev
+    make
+}
+
+package() {
+    cd xf86-video-ati-xfree-xf86-video-ati-$version
+
+    make DESTDIR="$PKG" install
+}

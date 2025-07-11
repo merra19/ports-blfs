@@ -1,0 +1,54 @@
+# description	: X C-language Bindings sample implementations
+# depends	: libglvnd openssl iceauth xauth xkbcomp libdrm libxdmcp
+# depends	: libpciaccess libxau libxfont2 libxkbfile libxshmfence 
+# depends	: pixman xbitmaps xkeyboard-config libxcvt mesa libepoxy 
+# depends	: udev dbus pam xorg-proto xtrans xorg-fonts libxext
+# depends	: libx11 xorg-legacy elogind xcb-util xcb-util-wm xterm
+
+name=xlibre-xserver
+version=25.0.0.4
+release=1
+source="https://github.com/X11Libre/xserver/archive/refs/tags/$name-$version.tar.gz
+        xvfb-run xvfb-run.1
+        xlibre-server-1.12-unloadsubmodule.patch
+        xlibre-server-1.18-support-multiple-Files-sections.patch"
+
+build() { 
+    cd xserver-$name-$version
+  
+    export CFLAGS=${CFLAGS/-fno-plt}
+    export CXXFLAGS=${CXXFLAGS/-fno-plt}
+    export LDFLAGS=${LDFLAGS/-Wl,-z,now}
+
+    patch -Np1 -i ../xlibre-server-1.12-unloadsubmodule.patch
+    patch -Np1 -i ../xlibre-server-1.18-support-multiple-Files-sections.patch
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --localstatedir=/var \
+        -D glamor=true \
+        -D systemd_logind=true \
+        -D xkb_output_dir=/var/lib/xkb \
+        build
+	ninja -C build
+}
+
+package() {
+    cd xserver-$name-$version
+
+	DESTDIR="$PKG" ninja -C build install
+
+    chmod u+s "$PKG"/usr/bin/Xorg   
+
+    mkdir -pv "$PKG"/etc/X11/xorg.conf.d 
+
+    install -m755 "$SRC/xvfb-run" "$PKG/usr/bin/"
+    install -m644 "$SRC/xvfb-run.1" "$PKG/usr/share/man/man1/"
+
+    install -d "$PKG"/etc/sysconfig
+    cat >> "$PKG"/etc/sysconfig/createfiles << "EOF"
+/tmp/.ICE-unix dir 1777 root root
+/tmp/.X11-unix dir 1777 root root
+EOF
+}
