@@ -5,7 +5,8 @@ name=sane
 version=1.4.0
 release=1
 options="!lto"
-source="https://anduin.linuxfromscratch.org/BLFS/sane/sane-backends-$version.tar.gz"
+source="https://anduin.linuxfromscratch.org/BLFS/sane/sane-backends-$version.tar.gz
+        $name.hooks"
 
 build() {
     cd $name-$version
@@ -29,4 +30,6 @@ package() {
                     "$PKG"/etc/udev/rules.d/65-scanner.rules
     mkdir -p          "$PKG"/run/lock/sane &&
     chgrp -v scanner  "$PKG"/run/lock/sane
+
+    install -Dm 0755 ../$name.hooks "$PKG"/etc/blfs_hooks/$name.hooks
 }

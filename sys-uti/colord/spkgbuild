@@ -6,7 +6,8 @@
 name=colord
 version=1.4.8
 release=1
-source="https://www.freedesktop.org/software/colord/releases/$name-$version.tar.xz"
+source="https://www.freedesktop.org/software/colord/releases/$name-$version.tar.xz
+        $name.hooks"
 
 build() {
     cd $name-$version
@@ -33,4 +34,6 @@ package() {
     cd $name-$version
 
     DESTDIR="$PKG" ninja -C build install
+
+    install -Dm 0755 ../$name.hooks "$PKG"/etc/blfs_hooks/$name.hooks
 }

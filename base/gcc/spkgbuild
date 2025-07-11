@@ -16,6 +16,9 @@ build() {
     sed -i -e '/MULTILIB_OSDIRNAMES/d' gcc/config/i386/t-linux64
     echo "MULTILIB_OSDIRNAMES = m64=../lib m32=../lib32 mx32=../libx32" >> gcc/config/i386/t-linux64
 
+    sed '/STACK_REALIGN_DEFAULT/s/0/(!TARGET_64BIT \&\& TARGET_SSE)/' \
+        -i gcc/config/i386/i386.h
+
     mkdir -p gcc-build
     cd  gcc-build
 
@@ -29,9 +32,6 @@ build() {
     export CXXFLAGS_FOR_TARGET="$CXXFLAGS -march=$MMARCH -fstack-protector -fno-semantic-interposition "
     export FFLAGS_FOR_TARGET="$FFLAGS -march=$MMARCH  -fstack-protector -fno-semantic-interposition "
 
-    # System-dependent
-    MACHINE="$(gcc -dumpmachine)"
-
     ../configure \
         --prefix=/usr \
         LD=ld \
@@ -43,9 +43,9 @@ build() {
         --with-system-zlib \
         --enable-multilib \
         --with-multilib-list=m32,m64 \
-        --build=$MACHINE \
-        --host=$MACHINE \
-        --target=$MACHINE \
+        --build=x86_64-pc-linux-gnu \
+        --host=x86_64-pc-linux-gnu \
+        --target=x86_64-pc-linux-gnu \
         --with-arch=$MMARCH \
         --enable-libsanitizer \
         --enable-threads=posix \

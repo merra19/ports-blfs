@@ -22,7 +22,7 @@ build_pgo() {
     if [ -f /usr/bin/x86_64-pc-linux-gnu-gcc ] ;then
         cp /usr/bin/x86_64-pc-linux-gnu-gcc .
     else
-        cp /tools/bin/x86_64-pc-linux-gnu-gcc .
+        cp /usr/bin/x86_64-lfs-linux-gnu-gcc x86_64-pc-linux-gnu-gcc
     fi
     
     LD_LIBRARY_PATH=. ./bzip2 -9 manual.ps

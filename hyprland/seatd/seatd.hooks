@@ -1,0 +1,3 @@
+#!/bin/sh
+
+getent group seat || groupadd -fg 202 seat 

@@ -7,7 +7,8 @@ _name=httpd
 version=2.4.63
 release=1
 source="https://archive.apache.org/dist/httpd/httpd-$version.tar.bz2
-        https://www.linuxfromscratch.org/patches/blfs/svn/httpd-$version-blfs_layout-1.patch"
+        https://www.linuxfromscratch.org/patches/blfs/svn/httpd-$version-blfs_layout-1.patch
+        $name.hooks"
 backup="
     etc/httpd/httpd.conf
     etc/httpd/extra/httpd-autoindex.conf etc/httpd/extra/httpd-dav.conf etc/httpd/extra/httpd-default.conf
@@ -63,4 +64,6 @@ package() {
     chmod 4754             "$PKG"/usr/lib/httpd/suexec &&
 
     chown -v -R apache:apache "$PKG"/srv/www
+
+    install -Dm 0755 ../$name.hooks "$PKG"/etc/blfs_hooks/$name.hooks
 }

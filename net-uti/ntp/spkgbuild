@@ -5,7 +5,7 @@ name=ntp
 version=4.2.8p18
 release=1
 source="https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-${version%.*}/$name-$version.tar.gz
-        ntp.conf"
+        ntp.conf $name.hooks"
 backup="etc/ntp.conf"
 
 build() {
@@ -33,4 +33,6 @@ package() {
 
     install -v -o ntp -g ntp -d "$PKG"/var/lib/ntp
     install -Dm 644 "$SRC"/ntp.conf "$PKG"/etc/ntp.conf
+
+    install -Dm 0755 ../$name.hooks "$PKG"/etc/blfs_hooks/$name.hooks
 }

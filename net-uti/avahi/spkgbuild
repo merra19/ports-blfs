@@ -8,7 +8,8 @@ version=0.8
 release=1
 options="!makeflags"
 source="https://github.com/lathiat/avahi/releases/download/v$version/$name-$version.tar.gz
-        https://www.linuxfromscratch.org/patches/blfs/svn/avahi-0.8-ipv6_race_condition_fix-1.patch"
+        https://www.linuxfromscratch.org/patches/blfs/svn/avahi-0.8-ipv6_race_condition_fix-1.patch
+        $name.hooks"
 backup="etc/avahi/hosts etc/avahi/avahi-daemon.conf etc/avahi/avahi-autoipd.action etc/avahi/avahi-dnsconfd.action"
 
 build() {
@@ -49,4 +50,6 @@ package() {
     cd $name-$version
 
     make DESTDIR="$PKG" install
+
+    install -Dm 0755 ../$name.hooks "$PKG"/etc/blfs_hooks/$name.hooks
 }

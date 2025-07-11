@@ -5,7 +5,7 @@ name=pcsclite
 version=2.3.3
 release=1
 source="$name-$version.tar.gz::https://github.com/LudovicRousseau/PCSC/archive/refs/tags/$version.tar.gz
-        pcsclite.init"
+        pcsclite.init $name.hooks"
 
 build() {
 	cd PCSC-$version
@@ -38,4 +38,6 @@ package() {
             *) ;;
         esac
     done
+
+    install -Dm 0755 ../$name.hooks "$PKG"/etc/blfs_hooks/$name.hooks
 }

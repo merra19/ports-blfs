@@ -7,7 +7,7 @@ version=1.4.79
 release=1
 options="!lto"
 source="https://download.lighttpd.net/lighttpd/releases-${version%.*}.x/$name-$version.tar.xz
-        lighttpd.conf lighttpd.init"
+        lighttpd.conf lighttpd.init $name.hooks"
 backup="etc/lighttpd/lighttpd.conf"
 
 build() {
@@ -49,4 +49,6 @@ package() {
 	pushd doc/config >/dev/null
 	find . -type f ! -name 'Makefile*' -exec install -D -m644 {} "$PKG"/usr/share/doc/lighttpd/config/{} \;
 	popd >/dev/null
+
+    install -Dm 0755 ../$name.hooks "$PKG"/etc/blfs_hooks/$name.hooks
 }

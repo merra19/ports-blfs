@@ -6,7 +6,7 @@ version=3.4.0
 release=1
 options="!makeflags"
 source="http://fcron.free.fr/archives/$name-$version.src.tar.gz
-        run-parts systab.orig"
+        run-parts systab.orig $name.hooks"
 backup="var/spool/fcron/systab.orig"
 
 build() {
@@ -37,4 +37,6 @@ package() {
     install -Dm755 ../run-parts "$PKG"/usr/bin/run-parts
     install -vdm754 "$PKG"/etc/cron.{hourly,daily,weekly,monthly}
     install -Dm644  ../systab.orig "$PKG"/var/spool/fcron/systab.orig
+
+    install -Dm 0755 ../$name.hooks "$PKG"/etc/blfs_hooks/$name.hooks
 }

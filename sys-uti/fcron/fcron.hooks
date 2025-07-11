@@ -1,0 +1,4 @@
+#!/bin/sh
+
+getent group fcron || groupadd -g 22 fcron
+getent passwd fcron || useradd -d /dev/null -c "Fcron User" -g fcron -s /bin/false -u 22 fcron

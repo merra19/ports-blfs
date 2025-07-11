@@ -59,4 +59,6 @@ package() {
     echo r12.3 > "$PKG"/etc/lfs-release
 
     mkdir -p "$PKG"/boot/efi 
+
+    install -d "$PKG"/etc/blfs_hooks
 }

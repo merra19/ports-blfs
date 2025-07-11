@@ -42,6 +42,8 @@ build() {
     unset LDFLAGS
     export LDFLAGS="-Wl,-z,max-page-size=0x1000 "
 
+    echo "rootsbindir=/usr/sbin" > configparms
+
     CC="gcc -m64 -ffile-prefix-map=/tools=/usr" \
     "$SRC"/glibc/configure \
         --prefix=/usr \
@@ -107,9 +109,6 @@ package() {
     # Reduce footprint of localedata, since `make localedata/install-locale-files`
     # passes the `--no-hard-links` option to `localedef`.
     hardlink "$PKG"/usr/lib/locale
-
-    mv "$PKG"/sbin/* "$PKG"/usr/sbin/
-    rm -rf "$PKG"/sbin
 
     # for oracle db installer (compat link)
     ln -sf libpthread.a "$PKG"/usr/lib/libpthread_nonshared.a

@@ -8,7 +8,7 @@ version=0.21.0
 release=1
 options="!lto"
 source="https://github.com/sddm/sddm/archive/v$version/$name-$version.tar.gz
-        sddm sddm-autologin sddm-greeter"
+        sddm sddm-autologin sddm-greeter $name.hooks"
 backup="usr/share/sddm/scripts/Xsetup usr/share/sddm/scripts/Xstop"
 
 build() {
@@ -47,4 +47,6 @@ package() {
     install -Dm 0644 "$SRC"/sddm "$PKG"/etc/pam.d/sddm 
     install -Dm 0644 "$SRC"/sddm-autologin "$PKG"/etc/pam.d/sddm-autologin
     install -Dm 0644 "$SRC"/sddm-greeter "$PKG"/etc/pam.d/sddm-greeter
+
+    install -Dm 0755 ../$name.hooks "$PKG"/etc/blfs_hooks/$name.hooks
 }

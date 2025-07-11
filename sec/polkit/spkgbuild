@@ -4,7 +4,8 @@
 name=polkit
 version=126
 release=2
-source="https://github.com/polkit-org/polkit/archive/$version/$name-$version.tar.gz"
+source="https://github.com/polkit-org/polkit/archive/$version/$name-$version.tar.gz
+        $name.hooks"
 
 build() {
     cd $name-$version
@@ -26,5 +27,7 @@ package() {
 
 	DESTDIR="$PKG" ninja -C build install
 
-    rm -rf "$PKG"/tmp rm -rf "$PKG"/usr/lib/{sysusers,tmpfiles}.d 
+    rm -rf "$PKG"/tmp rm -rf "$PKG"/usr/lib/{sysusers,tmpfiles}.d
+
+    install -Dm 0755 ../$name.hooks "$PKG"/etc/blfs_hooks/$name.hooks
 }

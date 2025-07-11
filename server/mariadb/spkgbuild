@@ -9,7 +9,7 @@ version=11.4.7
 release=1
 options="!lto"
 source="https://downloads.mariadb.org/interstitial/mariadb-$version/source/$name-$version.tar.gz
-        my.cnf"
+        my.cnf $name.hooks"
 backup="etc/mariadb/my.cnf"
  
 build() {
@@ -47,4 +47,6 @@ package() {
 
     install -v -dm 755 "$PKG"/etc/mariadb
     install -Dm644 "$SRC"/my.cnf "$PKG"/etc/mariadb/my.cnf
+
+    install -Dm 0755 ../$name.hooks "$PKG"/etc/blfs_hooks/$name.hooks
 }
