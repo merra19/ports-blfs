@@ -28,8 +28,6 @@ build() {
             build
         ninja -C build
     fi
-
-	make
 }
 
 package() {
