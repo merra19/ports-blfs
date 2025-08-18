@@ -1,0 +1,30 @@
+# description	: IPC library used by GnuPG and GPGME
+# depends	: libgpg-error
+
+pkgname=libassuan
+pkgver=3.0.2
+pkgrel=1
+options=(!lto)
+source=(https://www.gnupg.org/ftp/gcrypt/libassuan/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr
+	make
+	make -C doc html
+	makeinfo --html --no-split -o doc/assuan_nochunks.html doc/assuan.texi 
+	makeinfo --plaintext       -o doc/assuan.txt           doc/assuan.texi
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	make DESTDIR="$pkgdir" install
+    
+	install -v -dm755 "$pkgdir"/usr/share/doc/$pkgname-$pkgver/html &&
+	install -v -m644 doc/assuan.html/* "$pkgdir"/usr/share/doc/$pkgname-$pkgver/html &&
+	install -v -m644 doc/assuan_nochunks.html "$pkgdir"/usr/share/doc/$pkgname-$pkgver &&
+	install -v -m644 doc/assuan.txt doc/assuan.texi "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

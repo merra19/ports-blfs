@@ -1,0 +1,26 @@
+# description	: Tools to deal with shar archives
+# depends	: xz texinfo gettext
+
+pkgname=sharutils
+pkgver=4.15.2
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/sharutils/$pkgname-$pkgver.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/svn/sharutils-4.15.2-consolidated-1.patch)
+
+build() {
+	cd $pkgname-$pkgver
+
+    # First, fix issues exposed by current GCC versions
+    patch -Np1 -i ../sharutils-4.15.2-consolidated-1.patch
+
+    autoreconf -fiv 
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

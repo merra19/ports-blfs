@@ -1,0 +1,22 @@
+# description	: Contains error handling functions used by GnuPG software
+# depends	: glibc
+
+pkgname=libgpg-error
+pkgver=1.55
+pkgrel=1
+source=(https://www.gnupg.org/ftp/gcrypt/libgpg-error/$pkgname-$pkgver.tar.bz2)
+
+build() {
+    cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+    install -v -m644 -D README "$pkgdir"/usr/share/doc/$pkgname-$pkgver/README
+}

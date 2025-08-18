@@ -1,0 +1,4 @@
+#!/bin/sh
+
+getent group ldap || groupadd -g 83 ldap
+getent passwd ldap || useradd  -c "OpenLDAP Daemon Owner" -d /var/lib/openldap -u 83 -g ldap -s /bin/false ldap

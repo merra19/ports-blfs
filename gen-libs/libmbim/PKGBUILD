@@ -1,0 +1,24 @@
+# description	: Mobile Broadband Interface Model (MBIM) modem protocol helper library
+# depends	: gobject-introspection help2man glib
+
+pkgname=libmbim
+pkgver=1.32.0
+pkgrel=1
+source=(https://www.freedesktop.org/software/libmbim/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D man=false  \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

@@ -1,0 +1,25 @@
+# description	: X.Org fontenc library
+# depends	: zlib xorg-proto
+
+pkgname=libfontenc
+pkgver=1.1.8
+pkgrel=1
+source=(https://www.x.org/pub/individual/lib/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

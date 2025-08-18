@@ -1,0 +1,29 @@
+# description	: POSIX 1003.1e capabilities
+# depends	: diffutils pam-32 libcap
+
+pkgname=libcap-32
+_pkgname=libcap
+pkgver=2.76
+pkgrel=1
+source=(https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/${_pkgname}-$pkgver.tar.xz)
+
+build() {
+    cd ${_pkgname}-$pkgver
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    make CC="gcc -m32 -mstackrealign -march=i686" lib=lib32
+}
+
+package() {
+    cd ${_pkgname}-$pkgver
+
+    make CC="gcc -m32 -mstackrealign -march=i686" lib=lib32 prefix=$PWD/DESTDIR/usr -C libcap install
+
+    mkdir -p "$pkgdir"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
+    sed -e "s|^libdir=.*|libdir=/usr/lib32|" -i "$pkgdir"/usr/lib32/pkgconfig/lib{cap,psx}.pc
+    chmod -v 755 "$pkgdir"/usr/lib32/libcap.so.$pkgver
+}

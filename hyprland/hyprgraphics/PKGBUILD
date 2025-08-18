@@ -1,0 +1,23 @@
+# description	: Hyprland graphics / resource utilities
+# depends	: cairo file hyprutils libjpeg-turbo libjxl libspng 
+# depends	: libwebp pixman cmake 
+
+pkgname=hyprgraphics
+pkgver=0.1.2
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/hyprwm/$pkgname/archive/refs/tags/v$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	cmake -B build \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=Release
+	cmake --build build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" cmake --install build
+}

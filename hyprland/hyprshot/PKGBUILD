@@ -1,0 +1,11 @@
+# description	: Hyprshot is a utility to easily take screenshot in Hyprland using your mouse
+# depends	: bash grim libnotify slurp wl-clipboard hyprpicker jq
+
+pkgname=hyprshot
+pkgver=1.3.0
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/Gustash/Hyprshot/archive/$pkgver.tar.gz)
+
+package() {
+    install -Dm755 "Hyprshot-$pkgver"/hyprshot -t "$pkgdir"/usr/bin/
+}

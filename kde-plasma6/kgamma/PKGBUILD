@@ -1,0 +1,26 @@
+# description	: Screen gamma values kcontrol module
+# depends	: kcmutils kconfig kconfigwidgets kcoreaddons ki18n 
+# depends	: qt6-base libx11 libxxf86vm xorg-proto kdoctools
+
+pkgname=kgamma
+pkgver=6.3.2
+pkgrel=1
+source=(https://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+}

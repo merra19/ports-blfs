@@ -1,0 +1,30 @@
+# description	: Hardware Monitoring user-space utilitie
+# depends	: which perl
+
+pkgname=lm-sensors
+pkgver=3.6.2
+vrsn=$(echo $pkgver | sed 's/\./-/g')
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/hramrach/lm-sensors/archive/refs/tags/V$vrsn.tar.gz)
+backup=(etc/sensors3.conf)
+
+build() {
+    cd $pkgname-"${vrsn}"
+
+    make PREFIX=/usr \
+        BUILD_STATIC_LIB=0 \
+        MANDIR=/usr/share/man \
+         EXLDFLAGS=
+}
+
+package() {
+    cd $pkgname-"${vrsn}"
+
+    make DESTDIR="$pkgdir" \
+        PREFIX=/usr \
+        BUILD_STATIC_LIB=0 \
+        MANDIR=/usr/share/man install
+
+    install -v -m755 -d "$pkgdir"/usr/share/doc/lm_sensors-$pkgver
+    cp -rv  README INSTALL doc/* "$pkgdir"/usr/share/doc/lm_sensors-$pkgver
+}

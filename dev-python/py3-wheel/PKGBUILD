@@ -1,0 +1,19 @@
+# description	: A built-package format for Python
+# depends	: python3 py3-setuptools py3-packaging py3-flit-core
+
+pkgname=py3-wheel
+pkgver=0.46.1
+pkgrel=1
+source=(https://pypi.org/packages/source/w/wheel/wheel-$pkgver.tar.gz)
+
+build() {
+    cd ${pkgname#*-}-$pkgver
+
+	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${pkgname#*-}-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}

@@ -1,0 +1,27 @@
+# description	: GObject library for accessing the freedesktop.org Secret Service API
+# depends	: glib libgcrypt gobject-introspection vala
+
+pkgname=libsecret
+pkgver=0.21.7
+pkgrel=1
+source=(https://download.gnome.org/sources/libsecret/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk_doc=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+
+    # conflict bash-completion
+    rm -rf "$pkgdir"/usr/share/bash-completion/completions/secret-tool
+}

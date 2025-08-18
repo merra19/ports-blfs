@@ -1,0 +1,23 @@
+# description	: Remote delta-compression library
+# depends	: popt cmake
+
+pkgname=librsync
+pkgver=2.3.4
+pkgrel=1
+source=(https://github.com/$pkgname/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_INSTALL_LIBDIR=lib
+	make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+}

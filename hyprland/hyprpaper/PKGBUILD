@@ -1,0 +1,27 @@
+# description	: Blazing fast wayland wallpaper utility with IPC controls.
+# depends	: cairo hyprgraphics hyprlang hyprutils libglvnd cmake
+# depends	: hyprwayland-scanner pango wayland wayland-protocols
+# depends	: xorg-proto
+
+pkgname=hyprpaper
+pkgver=0.7.4
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/hyprwm/$pkgname/archive/refs/tags/v$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	cmake \
+        -B build \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=Release
+    make protocols
+	cmake --build build
+
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" cmake --install build
+}

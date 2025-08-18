@@ -1,0 +1,19 @@
+# description	: rdoc generator html with javascript search index
+# depends	: glibc
+
+pkgname=scdoc
+pkgver=1.11.3
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://git.sr.ht/~sircmpwn/scdoc/archive/$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	make PREFIX="/usr"
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" PREFIX="/usr" install
+ }

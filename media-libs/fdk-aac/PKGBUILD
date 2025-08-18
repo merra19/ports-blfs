@@ -1,0 +1,22 @@
+# description	: Fraunhofer AAC codec library
+# depends	: glibc
+
+pkgname=fdk-aac
+pkgver=2.0.3
+pkgrel=1
+source=(https://downloads.sourceforge.net/opencore-amr/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr \
+        --disable-static
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

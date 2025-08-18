@@ -1,0 +1,23 @@
+# description	: Lightweight KMS plane library
+# depends	: libdrm meson
+
+pkgname=libliftoff
+pkgver=0.5.0
+pkgrel=1
+source=(https://gitlab.freedesktop.org/emersion/libliftoff/-/releases/v$pkgver/downloads/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

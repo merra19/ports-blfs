@@ -1,0 +1,79 @@
+# description	: Utilities to deal with user accounts
+# depends	: acl attr xz linux-api-headers pam libxcrypt
+
+pkgname=shadow
+pkgver=4.18.0
+pkgrel=1
+source=(https://github.com/shadow-maint/shadow/releases/download/$pkgver/$pkgname-$pkgver.tar.xz
+        login passwd su chpasswd newusers chage)
+
+build() {
+    cd $pkgname-$pkgver
+
+    # Disable the installation of the groups program and its man pages
+    #  as Coreutils provides a better version
+    sed -i 's/groups$(EXEEXT) //' src/Makefile.in
+    find man -name Makefile.in -exec sed -i 's/groups\.1 / /'   {} \;
+    find man -name Makefile.in -exec sed -i 's/getspnam\.3 / /' {} \;
+    find man -name Makefile.in -exec sed -i 's/passwd\.5 / /'   {} \;
+
+    # Use the more secure SHA-512 method
+    sed -e 's:#ENCRYPT_METHOD DES:ENCRYPT_METHOD YESCRYPT:' \
+        -e 's:/var/spool/mail:/var/mail:'                   \
+        -e '/PATH=/{s@/sbin:@@;s@/bin:@@}'                  \
+        -i etc/login.defs
+
+    ./configure \
+        --sysconfdir=/etc \
+        --disable-static \
+        --without-selinux \
+        --without-libbsd \
+        --with-{b,yes}crypt \
+        --with-group-name-max-length=32
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    mkdir -pv "$pkgdir"/usr/bin
+    touch "$pkgdir"/usr/bin/passwd
+
+    mkdir -p "$pkgdir"/etc/pam.d
+
+    make DESTDIR="$pkgdir" exec_prefix=/usr  install
+    make -C man DESTDIR="$pkgdir" install-man
+
+
+    install -v -m644 "$pkgdir"/etc/login.defs "$pkgdir"/etc/login.defs.orig &&
+    for FUNCTION in FAIL_DELAY               \
+                    FAILLOG_ENAB             \
+                    LASTLOG_ENAB             \
+                    MAIL_CHECK_ENAB          \
+                    OBSCURE_CHECKS_ENAB      \
+                    PORTTIME_CHECKS_ENAB     \
+                    QUOTAS_ENAB              \
+                    CONSOLE MOTD_FILE        \
+                    FTMP_FILE NOLOGINS_FILE  \
+                    ENV_HZ PASS_MIN_LEN      \
+                    SU_WHEEL_ONLY            \
+                    CRACKLIB_DICTPATH        \
+                    PASS_CHANGE_TRIES        \
+                    PASS_ALWAYS_WARN         \
+                    CHFN_AUTH ENCRYPT_METHOD \
+                    ENVIRON_FILE
+    do
+        sed -i "s/^${FUNCTION}/# &/" "$pkgdir"/etc/login.defs
+    done
+
+    cd "$srcdir"
+
+    install -m 0644 login passwd su chpasswd newusers chage "$pkgdir"/etc/pam.d/
+
+    for PROGRAM in chfn chgpasswd chsh groupadd groupdel \
+                groupmems groupmod useradd userdel usermod
+    do
+        install -v -m 0644 "$pkgdir"/etc/pam.d/chage "$pkgdir"/etc/pam.d/${PROGRAM}
+        sed -i "s/chage/$PROGRAM/" "$pkgdir"/etc/pam.d/${PROGRAM}
+    done
+}

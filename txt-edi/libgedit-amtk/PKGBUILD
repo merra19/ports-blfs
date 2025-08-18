@@ -1,0 +1,25 @@
+# description	: "Actions, Menus and Toolbars Kit for GTK applications
+# depends	: glib gobject-introspection gtk3
+# depends	: 
+
+pkgname=libgedit-amtk
+pkgver=5.9.1
+pkgrel=1
+source=(https://gitlab.gnome.org/World/gedit/libgedit-amtk/-/archive/$pkgver/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk_doc=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

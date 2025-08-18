@@ -1,0 +1,38 @@
+# description	: Automatically generates Rust FFI bindings to C and C++ libraries
+# depends	: rustc
+
+pkgname=rust-bindgen
+pkgver=0.72.0
+pkgrel=1
+options=(!lto)
+source=(https://github.com/rust-lang/rust-bindgen/archive/v$pkgver/$pkgname-$pkgver.tar.gz
+        rust-bindgen-$pkgver-cargo.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    mv "$srcdir"/vendor .
+    
+    mkdir -p .cargo
+    echo '[source.crates-io]' >> .cargo/config.toml
+    echo 'replace-with = "vendored-sources"' >> .cargo/config.toml
+    echo '[source.vendored-sources]' >> .cargo/config.toml
+    echo 'directory = "vendor"' >> .cargo/config.toml
+
+	cargo build --release
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    mkdir -p "$pkgdir"/usr/bin/
+    install -Dm755 target/release/bindgen "$pkgdir"/usr/bin/
+
+    install -dm 755 "$pkgdir"/usr/share/bash-completion/completions
+    install -dm 755 "$pkgdir"/usr/share/zsh/site-functions
+
+    "$pkgdir"/usr/bin/bindgen --generate-shell-completions bash \
+        > "$pkgdir"/usr/share/bash-completion/completions/bindgen
+    "$pkgdir"/usr/bin/bindgen --generate-shell-completions zsh  \
+        > "$pkgdir"/usr/share/zsh/site-functions/_bindgen
+}

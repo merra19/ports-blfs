@@ -1,0 +1,31 @@
+# description	: Utils for managing LZMA compressed files
+# depends	: xz
+
+pkgname=xz-32
+_pkgname=xz
+pkgver=5.8.1
+pkgrel=1
+source=(https://github.com/tukaani-project/xz/releases/download/v$pkgver/${_pkgname}-$pkgver.tar.xz)
+
+build() {
+    cd ${_pkgname}-$pkgver
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    ./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --enable-assume-ram=1024 \
+        --host=i686-pc-linux-gnu
+    make
+}
+
+package() {
+    cd ${_pkgname}-$pkgver
+
+    make DESTDIR=$PWD/DESTDIR install
+    mkdir -p "$pkgdir"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
+}

@@ -1,0 +1,25 @@
+# description	: Setuptools extension for CalVer package versions
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
+
+pkgname=py3-calver
+pkgver=2022.06.26
+pkgrel=1
+source=(https://github.com/di/calver/archive/$pkgver/py3-calver-$pkgver.tar.gz
+        version-placeholder.patch)
+
+build() {
+	cd ${pkgname#*-}-$pkgver
+
+    patch -Np1 -i ../version-placeholder.patch
+    
+    # set module version
+	sed "s/@VERSION@/$pkgver/" -i setup.py
+
+	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${pkgname#*-}-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}

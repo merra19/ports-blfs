@@ -1,0 +1,35 @@
+# description	: Legacy library for PPD files, split out of cups-filters
+# depends	: libarchive freetype harfbuzz libpng openjpeg2 libglvnd
+# depends	: libjpeg-turbo curl openssl freeglut zlib libx11 libxext 
+# depends	: libxrandr xorg-proto 
+
+pkgname=mupdf
+pkgver=1.26.4
+pkgrel=1
+source=(https://www.mupdf.com/downloads/archive/mupdf-$pkgver-source.tar.gz
+        user.make)
+
+build() {
+    cd $pkgname-$pkgver-source
+
+    cp ../user.make ./
+
+    export XCFLAGS="$CFLAGS -fPIC"
+    make -j1 build=release shared=yes
+    unset XCFLAGS
+}
+
+package() {
+    cd $pkgname-$pkgver-source
+
+    make prefix=/usr \
+        shared=yes \
+        docdir=/usr/share/doc/-$pkgver \
+        DESTDIR="$pkgdir" \
+        install                            &&
+
+    ln -sfv libmupdf.so.${pkgver#*.} "$pkgdir"/usr/lib/libmupdf.so   &&
+    ln -sfv libmupdf.so.${pkgver#*.} "$pkgdir"/usr/lib/libmupdf.so.${pkgver#*.*.} &&
+    chmod 755 "$pkgdir"/usr/lib/libmupdf.so
+    ln -sfv mupdf-x11 "$pkgdir"/usr/bin/mupdf
+}

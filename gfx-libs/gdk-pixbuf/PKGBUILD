@@ -1,0 +1,27 @@
+# description	: Image loading library for GTK+
+# depends	: glib libpng libtiff libjpeg-turbo shared-mime-info 
+# depends	: gobject-introspection
+
+pkgname=gdk-pixbuf
+pkgver=2.42.12
+pkgrel=1
+source=(https://ftp.gnome.org/pub/gnome/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+		-D man=false \
+        -D others=enabled \
+		--wrap-mode=nofallback \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

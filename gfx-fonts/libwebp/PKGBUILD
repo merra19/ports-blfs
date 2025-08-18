@@ -1,0 +1,28 @@
+# description	: A lossy image compression format
+# depends	: cmake ninja libjpeg-turbo libpng giflib 
+### freeglut mesa
+
+pkgname=libwebp
+pkgver=1.6.0
+pkgrel=1
+source=(http://downloads.webmproject.org/releases/webp/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --enable-libwebpmux \
+        --enable-libwebpdemux \
+        --enable-libwebpdecoder \
+        --enable-libwebpextras \
+        --enable-swap-16bit-csp \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

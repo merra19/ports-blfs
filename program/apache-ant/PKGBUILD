@@ -1,0 +1,31 @@
+# description	: Java-based build tool similar to 'make' that uses XML configuration files
+# depends	: java glib 
+
+pkgname=apache-ant
+pkgver=1.10.15
+pkgrel=1
+source=(https://archive.apache.org/dist/ant/source/$pkgname-$pkgver-src.tar.xz
+        ant.sh)
+
+build() {
+	cd $pkgname-$pkgver
+
+    . /etc/profile
+  
+    ./bootstrap.sh
+
+    bootstrap/bin/ant -f fetch.xml -D dest=optional
+
+    ./build.sh -D dist.dir=$PWD/ant-$pkgver dist
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    mkdir -p "$pkgdir"/opt
+    cp -rv ant-$pkgver "$pkgdir"/opt/            &&
+    chown -R root:root "$pkgdir"/opt/ant-$pkgver &&
+    ln -sfv ant-$pkgver "$pkgdir"/opt/ant
+
+    install -Dm 755 "$srcdir"/ant.sh "$pkgdir"/etc/profile.d/ant.sh
+}

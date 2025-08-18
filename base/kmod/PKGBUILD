@@ -1,0 +1,26 @@
+# description	: library and tools for managing linux kernel modules
+# depends	: xz zlib zstd openssl
+
+pkgname=kmod
+pkgver=34.2
+pkgrel=1
+options=(strip !lto)
+source=(https://www.kernel.org/pub/linux/utils/kernel/kmod/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
+        --sbindir=/usr/sbin \
+        -D manpages=false \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

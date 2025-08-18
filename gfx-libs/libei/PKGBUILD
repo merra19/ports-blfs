@@ -1,0 +1,24 @@
+# description	: Library for Emulated Input, primarily aimed at the Wayland stack
+# depends	: py3-attrs elogind libevdev libxkbcommon libxml2
+
+pkgname=libei
+pkgver=1.4.1
+pkgrel=1
+source=(https://gitlab.freedesktop.org/libinput/libei/-/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D tests=disabled \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

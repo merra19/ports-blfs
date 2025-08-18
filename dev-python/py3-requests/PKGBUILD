@@ -1,0 +1,24 @@
+# description	: HTTP library for human beings
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel py3-idna
+# depends	: py3-urllib3 py3-charset-normalizer py3-certifi
+
+pkgname=py3-requests
+pkgver=2.32.4
+pkgrel=1
+options=(!lto)
+source=(https://pypi.org/packages/source/r/requests/requests-$pkgver.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/requests-use_system_certs-1.patch)
+
+build() {
+	cd ${pkgname#*-}-$pkgver
+
+	patch -p1 -i ../requests-use_system_certs-1.patch
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${pkgname#*-}-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}

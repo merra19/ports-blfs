@@ -1,0 +1,23 @@
+# description	: create an index of scalable font files for X
+# depends	: libfontenc freetype zlib bzip2 xorg-proto
+
+pkgname=mkfontscale
+pkgver=1.2.3
+pkgrel=1
+source=(https://www.x.org/pub/individual/app/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

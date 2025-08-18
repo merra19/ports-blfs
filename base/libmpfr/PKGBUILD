@@ -1,0 +1,25 @@
+# description	: Library for multiple-precision floating-point computations with exact rounding
+# depends	: libgmp
+
+pkgname=libmpfr
+pkgver=4.2.2
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/mpfr/mpfr-$pkgver.tar.xz)
+
+build() {
+    cd ${pkgname#lib}-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --enable-thread-safe \
+        --docdir=/usr/share/doc/${pkgname#lib}-$pkgver
+    make
+    make html
+}
+
+package() {
+    cd ${pkgname#lib}-$pkgver
+
+    make DESTDIR="$pkgdir" install install-html
+}

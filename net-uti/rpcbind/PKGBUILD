@@ -1,0 +1,28 @@
+# description	: portmap replacement which supports RPC over various protocols
+# depends	: libtirpc
+
+pkgname=rpcbind
+pkgver=1.2.8
+pkgrel=1
+source=(https://downloads.sourceforge.net/rpcbind/$pkgname-$pkgver.tar.bz2)
+
+build() {
+    cd $pkgname-$pkgver
+
+    # In order to get rpcbind to work properly, first fix the package to use correct service name
+    sed -i "/servname/s:rpcbind:sunrpc:" src/rpcbind.c
+
+    ./configure \
+        --prefix=/usr \
+        --bindir=/usr/sbin \
+        --with-rpcuser=root \
+        --enable-warmstarts \
+        --without-systemdsystemunitdir  
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

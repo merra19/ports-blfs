@@ -1,0 +1,37 @@
+# description	: Scalable Vector Graphics (SVG) rendering library
+# depends	: cairo freetype glib harfbuzz gdk-pixbuf libxml2 pango 
+# depends	: gobject-introspection vala rustc cargo-c
+
+pkgname=librsvg
+pkgver=2.60.0
+pkgrel=1
+source=(https://download.gnome.org/sources/librsvg/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    mkdir -p .cargo
+
+    cat  >> .cargo/config.toml << "EOF" 
+[target.x86_64-unknown-linux-gnu]
+linker = "clang"
+EOF
+
+    # Fix the installation path of the API documentation
+    sed -e "/OUTDIR/s|,| / 'librsvg-2.60.0', '--no-namespace-dir',|" \
+        -e '/output/s|Rsvg-2.0|librsvg-2.60.0|'                      \
+        -i doc/meson.build
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D docs=disabled \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

@@ -1,0 +1,20 @@
+# description	: Work with ISBN as objects
+# depends	: perl perl-business-isbn-data
+
+pkgname=perl-business-isbn
+pkgver=3.011
+pkgrel=1
+source=(https://www.cpan.org/authors/id/B/BR/BRIANDFOY/Business-ISBN-$pkgver.tar.gz)
+
+build() {
+	cd Business-ISBN-$pkgver
+
+	PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+	make
+}
+
+package() {
+    cd Business-ISBN-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

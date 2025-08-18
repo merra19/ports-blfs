@@ -1,0 +1,24 @@
+# description	: X C-language Bindings sample implementations
+# depends	: xorg-fonts mkfontscale util-macros
+
+pkgname=encodings
+pkgver=1.1.0
+pkgrel=1
+source=(https://www.x.org/pub/individual/font/$pkgname-$pkgver.tar.xz)
+
+build() { 
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

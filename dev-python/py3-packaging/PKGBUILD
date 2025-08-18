@@ -1,0 +1,20 @@
+# description	: Core utilities for Python packages
+# depends	: py3-parsing py3-flit-core py3-gpep517
+
+pkgname=py3-packaging
+pkgver=25.0
+pkgrel=1
+options=(!lto)
+source=(https://files.pythonhosted.org/packages/source/p/packaging/packaging-$pkgver.tar.gz)
+
+build() {
+	cd ${pkgname#*-}-$pkgver
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${pkgname#*-}-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}

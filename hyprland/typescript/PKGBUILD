@@ -1,0 +1,20 @@
+# description	: Superset of JavaScript with optional static typing, classes and interfaces
+# depends	: glibc nodejs
+
+pkgname=typescript
+pkgver=5.8.2
+pkgrel=1
+source=(https://github.com/microsoft/TypeScript/releases/download/v$pkgver/typescript-$pkgver.tgz)
+
+package() {
+    cd package
+
+	local destdir="usr/share/node_modules/typescript"
+
+	mkdir -p "$pkgdir"/$destdir
+	cp -R "$srcdir"/package/* "$pkgdir"/$destdir/
+
+	mkdir -p "$pkgdir"/usr/bin
+	ln -s /$destdir/bin/tsc "$pkgdir"/usr/bin/tsc
+	ln -s /$destdir/bin/tsserver "$pkgdir"/usr/bin/tsserver
+}

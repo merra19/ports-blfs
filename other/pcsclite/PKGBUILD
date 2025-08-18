@@ -1,0 +1,43 @@
+# description	: PC/SC Architecture smartcard middleware library
+# depends	: glibc polkit udev python3 meson
+
+pkgname=pcsclite
+pkgver=2.3.3
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/LudovicRousseau/PCSC/archive/refs/tags/$pkgver.tar.gz
+        pcsclite.init $pkgname.hooks)
+
+build() {
+	cd PCSC-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D libsystemd=false \
+        -D libudev=true \
+        -D polkit=true \
+        -D serial=true \
+        build
+    ninja -C build
+}
+
+package() {
+    cd PCSC-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+
+    install -d "$pkgdir/usr/lib/pcsc/drivers"
+
+    install -Dm 0755 "$srcdir"/pcsclite.init "$pkgdir"/etc/rc.d/init.d/pcsclite
+
+    for i in 0 1 2 3 4 5 6; do
+        #install -d "$pkgdir"/etc/rc.d/rc$i.d/$i
+        case $i in
+            #0|1|6) ln -sf ../init.d/pcsclite "$pkgdir"/etc/rc.d/rc$i.d/K30pcsclite ;;
+            #*) ln -sf ../init.d/pcsclite "$pkgdir"/etc/rc.d/rc$i.d/S70pcsclite ;;
+            *) ;;
+        esac
+    done
+
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
+}

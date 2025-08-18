@@ -1,0 +1,33 @@
+# description	: Standards compliant, fast, light-weight, extensible window manager
+# depends	: gettext pkgconf glib libxml2 fontconfig cairo libxau
+# depends	: libxcursor libxext libxft libxinerama libxrandr libxt
+# depends	: pango imlib2 startup-notification librsvg py3-xdg
+# depends	: openbox wmctrl slop xprop numlockx setxkbmap feh
+# depends	: xfce4-notifyd thunar-volman polkit-gnome pavucontrol
+# depends	: xfce4-terminal thunar
+
+pkgname=openbox-meta
+pkgver=3.6.1
+pkgrel=1
+source=(autostart environment menu.xml rc.xml setupopenbox config.ini launch.sh
+        polywins.sh thumb-1920-1147144.png eteindre
+        https://github.com/owl4ce/dotfiles/archive/refs/heads/ng.zip)
+
+package() {
+    install -Dm 755  "$srcdir"/autostart "$pkgdir"/usr/local/share/openbox/autostart
+    install -Dm 755  "$srcdir"/environment "$pkgdir"/usr/local/share/openbox/environment
+    install -Dm 644  "$srcdir"/menu.xml "$pkgdir"/usr/local/share/openbox/menu.xml
+    install -Dm 644  "$srcdir"/rc.xml "$pkgdir"/usr/local/share/openbox/rc.xml
+    install -Dm 644  "$srcdir"/thumb-1920-1147144.png "$pkgdir"/usr/local/share/openbox/thumb-1920-1147144.png
+    install -Dm 755  "$srcdir"/setupopenbox "$pkgdir"/usr/local/bin/setupopenbox
+    
+
+    install -Dm 644  "$srcdir"/config.ini "$pkgdir"/usr/local/share/polybar/config.ini
+    install -Dm 755  "$srcdir"/launch.sh "$pkgdir"/usr/local/share/polybar/launch.sh
+
+    install -Dm 755  "$srcdir"/polywins.sh "$pkgdir"/usr/local/share/polybar/scripts/polywins.sh
+    install -Dm 755  "$srcdir"/eteindre "$pkgdir"/usr/local/share/polybar/scripts/eteindre
+    
+    install -d "$pkgdir"/usr/local/share/rofi
+    cp -r dotfiles-ng/.config/rofi/* "$pkgdir"/usr/local/share/rofi/
+}

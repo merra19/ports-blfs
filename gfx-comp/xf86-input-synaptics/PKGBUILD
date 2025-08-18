@@ -1,0 +1,24 @@
+# description	: Driver for Synaptics touchpads
+# depends	: libinput libevdev libx11 libxi libxtst xorg-proto
+
+pkgname=xf86-input-synaptics
+pkgver=1.10.0
+pkgrel=1
+source=(https://www.x.org/pub/individual/driver/$pkgname-$pkgver.tar.xz)
+
+ build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

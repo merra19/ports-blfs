@@ -1,0 +1,27 @@
+# description	: Internationalized Domain Names (IDN) implementation
+# depends	: glibc gettext
+
+pkgname=libidn
+pkgver=1.43
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/libidn/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr \
+        --disable-static
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+    find doc -name "Makefile*" -delete
+    rm -rf -v doc/{gdoc,idn.1,stamp-vti,man,texi}
+    mkdir -pv  "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+    cp -r -v doc/* "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

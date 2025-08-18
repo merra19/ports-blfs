@@ -1,0 +1,30 @@
+# description	: Replacement for pipewire-media-session
+# depends	: pipewire glib elogind lua
+
+pkgname=wireplumber
+pkgver=0.5.10
+pkgrel=1
+source=(https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/$pkgver/$pkgname-$pkgver.tar.bz2
+        pipewire-launcher.sh pipewire.desktop)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D system-lua=true \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	DESTDIR="$pkgdir" ninja -C build install
+
+    mv -v "$pkgdir"/usr/share/doc/wireplumber{,-$pkgver}
+
+    install -Dm755 "$srcdir"/pipewire-launcher.sh "$pkgdir"/usr/bin/pipewire-launcher.sh
+    install -Dm644 "$srcdir"/pipewire.desktop "$pkgdir"/etc/xdg/autostart/pipewire.desktop
+}

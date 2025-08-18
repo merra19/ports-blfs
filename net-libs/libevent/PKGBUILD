@@ -1,0 +1,25 @@
+# description	: Library to execute a function when a specific event occurs on a file descriptor
+# depends	: openssl
+
+pkgname=libevent
+pkgver=2.1.12
+pkgrel=1
+source=(https://github.com/libevent/libevent/releases/download/release-$pkgver-stable/$pkgname-$pkgver-stable.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver-stable
+
+	#First, fix an issue that prevents event_rpcgen.py from working:
+	sed -i 's/python/&3/' event_rpcgen.py
+
+	./configure \
+        --prefix=/usr \
+        --disable-static
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver-stable
+
+    make DESTDIR="$pkgdir" install
+}

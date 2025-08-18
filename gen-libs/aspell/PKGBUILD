@@ -1,0 +1,39 @@
+# description	: Free and Open Source spell checker designed to replace Ispell
+# depends	: which ncurses
+
+pkgname=aspell
+pkgver=0.60.8.1
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/aspell/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+	
+    # First, fix a problem when building with gcc-15
+    sed -e 's/; i.*size)/, e = end(); i != e; ++i, ++size_)/' \
+        -i modules/speller/default/vector_hash-t.hpp
+
+    ./configure \
+        --prefix=/usr \
+        --enable-curses=ncursesw
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	make DESTDIR="$pkgdir" install
+    ln -svfn aspell-0.60 "$pkgdir"/usr/lib/aspell &&
+
+    install -v -m755 -d "$pkgdir"/usr/share/doc/$pkgname-$pkgver/aspell{,-dev}.html
+
+    install -v -m644 manual/aspell.html/* \
+        "$pkgdir"/usr/share/doc/$pkgname-$pkgver/aspell.html &&
+
+    install -v -m644 manual/aspell-dev.html/* \
+        "$pkgdir"/usr/share/doc/$pkgname-$pkgver/aspell-dev.html
+
+    # copy the wrapper script ispell and spell
+    install -v -m 755 scripts/ispell "$pkgdir"/usr/bin/
+    install -v -m 755 scripts/spell "$pkgdir"/usr/bin/
+}

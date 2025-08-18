@@ -1,0 +1,24 @@
+# description	: An extremely fast compression and decompression library
+# depends	: glibc
+
+pkgname=lzo
+pkgver=2.10
+pkgrel=1
+source=(https://www.oberhumer.com/opensource/lzo/download/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --enable-shared \
+        --disable-static \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

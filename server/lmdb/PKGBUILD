@@ -1,0 +1,21 @@
+# description	: An ultra-fast, ultra-compact key-value embedded data store
+# depends	: glibc
+
+pkgname=lmdb
+pkgver=0.9.33
+pkgrel=1
+source=($pkgname-$pkgver.tar.bz2::https://git.openldap.org/openldap/openldap/-/archive/LMDB_$pkgver.tar.bz2)
+
+build() {
+	cd openldap-LMDB_0.9.33-3a29a24777c82a0165de813ae696a5068b5add30/libraries/liblmdb
+
+	make CFLAGS="$CFLAGS" CPPFLAGS="$CPPFLAGS" LDFLAGS="$LDFLAGS"
+	sed -i 's| liblmdb.a||' Makefile
+	
+}
+
+package() {
+    cd openldap-LMDB_0.9.33-3a29a24777c82a0165de813ae696a5068b5add30/libraries/liblmdb
+
+    make prefix="$pkgdir"/usr install
+}

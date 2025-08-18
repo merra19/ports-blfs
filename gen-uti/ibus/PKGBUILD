@@ -1,0 +1,50 @@
+# description	: Intelligent Input Bus for Linux / Unix OS
+# depends	: iso-codes glib dconf librsvg dbus libx11 libxfixes gtk3 
+# depends	: libxi gobject-introspection libnotify wayland vala gtk4
+# depends	: libxkbcommon xkeyboard-config py3-gobject3 
+# optional	: appindicator!!libdbusmenu
+
+pkgname=ibus
+pkgver=1.5.32
+ucdver=16.0.0
+pkgrel=1
+source=(https://github.com/ibus/ibus/archive/$pkgver/$pkgname-$pkgver.tar.gz
+        UCD-${ucdver}.zip::https://www.unicode.org/Public/zipped/${ucdver}/UCD.zip)
+noextract=(UCD-${ucdver}.zip)
+
+build() {
+	cd $pkgname-$pkgver
+
+    mkdir -p  "$pkgdir"/usr/share/unicode/ucd &&
+    unzip -uo ../UCD-${ucdver}.zip -d "$pkgdir"/usr/share/unicode/ucd
+
+    # Fix an issue with deprecated schema entries
+    sed -i 's@/desktop/ibus@/org/freedesktop/ibus@g' \
+        data/dconf/org.freedesktop.ibus.gschema.xml
+
+    # If GTK-Doc is not installed, remove the references to it
+    if ! [ -e /usr/bin/gtkdocize ]; then
+        sed '/docs/d;/GTK_DOC/d' -i Makefile.am configure.ac
+    fi
+
+    SAVE_DIST_FILES=1 NOCONFIGURE=1 ./autogen.sh
+
+    PYTHON=python3 \
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --disable-python2 \
+        --disable-emoji-dict \
+        --disable-unicode-dict \
+        --disable-gtk2 \
+        --disable-appindicator \
+        --enable-gtk4 \
+        --disable-systemd-services
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

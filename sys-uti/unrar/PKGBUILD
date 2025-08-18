@@ -1,0 +1,20 @@
+# description	: Uncompress rar files
+# depends	: glibc
+
+pkgname=unrar
+pkgver=7.1.10
+pkgrel=1
+source=(https://www.rarlab.com/rar/unrarsrc-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname
+
+    make -f makefile
+}
+
+package() {
+    cd $pkgname
+
+    install -v -Dm755 unrar "$pkgdir"/usr/bin/unrar
+    
+}

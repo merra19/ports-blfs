@@ -1,0 +1,22 @@
+# description	: Multimedia (audio, video, radio, camera) library for the Qt6 framework
+# depends	: qt6-base qt6-declarative cmake ffmpeg pulseaudio 
+# depends	: libxrandr qt6-shadertools 
+
+pkgname=qt6-sensors
+pkgver=6.9.1
+pkgrel=1
+source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$pkgver/submodules/qtsensors-everywhere-src-$pkgver.tar.xz)
+
+build() {
+    cd qtsensors-everywhere-src-$pkgver
+
+    cmake -B build -G Ninja \
+        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS \
+    cmake --build build
+}
+
+package() {
+    cd qtsensors-everywhere-src-$pkgver
+
+    DESTDIR="$pkgdir" cmake --install build
+}

@@ -1,0 +1,26 @@
+# description	: Extended attributes tools
+# depends	: glibc
+
+pkgname=attr
+pkgver=2.5.2
+pkgrel=1
+options=(!lto)
+source=(https://download.savannah.gnu.org/releases/attr/$pkgname-$pkgver.tar.gz)
+backup=(etc/xattr.conf)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --sysconfdir=/etc \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,34 @@
+# description	: Another cute console display library
+# depends	: ncurses
+
+pkgname=readline
+pkgver=8.3
+pkgrel=1
+options=(!lto)
+source=(https://ftp.gnu.org/gnu/readline/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+    
+    # Reinstalling Readline will cause the old libraries to be moved to <libraryname>.old
+    sed -i '/MV.*old/d' Makefile.in
+    sed -i '/{OLDSUFF}/c:' support/shlib-install
+
+    # Prevent hard coding library search paths (rpath) into the shared libraries
+    sed -i 's/-Wl,-rpath,[^ ]*//' support/shobj-conf
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --with-curses \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+    make SHLIB_LIBS="-lncursesw"
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" SHLIB_LIBS="-lncursesw" install
+
+    install -v -m644 doc/*.{ps,pdf,html,dvi} "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

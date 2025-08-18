@@ -1,0 +1,23 @@
+# description	: Generic-purpose lossless compression algorithm
+# depends	: python3 py3-wheel ninja
+
+pkgname=brotli
+pkgver=1.1.0
+pkgrel=1
+options=(!lto)
+source=(https://github.com/google/brotli/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	cmake -B out \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=Release
+	make -C out
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C out install
+}

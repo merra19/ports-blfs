@@ -1,0 +1,26 @@
+# description	: Low-level cryptographic library
+# depends	: libgmp m4
+
+pkgname=nettle
+pkgver=3.10.2
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/$pkgname/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr \
+		--disable-static
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	make DESTDIR="$pkgdir" install
+
+    chmod -v 755 "$pkgdir"/usr/lib/lib{hogweed,nettle}.so &&
+    install -v -m755 -d "$pkgdir"/usr/share/doc/$pkgname-$pkgver &&
+    install -v -m644 nettle.{html,pdf} "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

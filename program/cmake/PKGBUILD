@@ -1,0 +1,32 @@
+# description	: Cross platform Make
+# depends	: glibc libarchive libuv nghttp2 gcc expat zlib ncurses 
+# depends	: curl
+
+pkgname=cmake
+pkgver=4.1.0
+pkgrel=1
+source=(https://cmake.org/files/v${pkgver%.*}/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    sed -i '/"lib64"/s/64//' Modules/GNUInstallDirs.cmake
+
+    ./bootstrap \
+        --prefix=/usr \
+        --mandir=/usr/share/man \
+        --system-libs \
+        --mandir=/share/man \
+        --no-system-jsoncpp \
+        --no-system-cppdap \
+        --no-system-librhash \
+        --parallel=$jobs \
+        --docdir=/share/doc/$pkgname-$pkgver
+    make   
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

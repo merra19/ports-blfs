@@ -1,0 +1,21 @@
+# description	: Minimalistic netlink library
+# depends	: glibc
+
+pkgname=libmnl
+pkgver=1.0.5
+pkgrel=1
+source=(https://netfilter.org/projects/libmnl/files/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

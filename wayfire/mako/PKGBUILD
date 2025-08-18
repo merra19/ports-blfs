@@ -1,0 +1,23 @@
+# description	: A lightweight notification daemon for Wayland. Works on Sway
+# depends	:  meson scdoc elogind wayland-protocols jq 
+
+pkgname=mako
+pkgver=1.10.0
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/emersion/mako/releases/download/v$pkgver/mako-$pkgver.tar.gz)
+
+build() {
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
+		-D bash-completions=true \
+		-D fish-completions=true \
+		-D zsh-completions=true \
+		-D sd-bus-provider=libelogind \
+		"$pkgname-$pkgver" build
+	ninja -C build
+}
+
+package() {
+	DESTDIR="$pkgdir" ninja -C build install
+}

@@ -1,0 +1,31 @@
+# description	: Extra modules and scripts for CMake
+# depends	: bzip2 libarchive cmake ninja qt6-base qt6-tools
+
+pkgname=extra-cmake-modules
+pkgver=6.17.0
+pkgrel=1
+source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz
+		https://www.linuxfromscratch.org/patches/blfs/svn/extra-cmake-modules-6.17.0-upstream_fix-1.patch)
+
+build() {
+	cd $pkgname-$pkgver
+
+	patch -Np1 -i ../extra-cmake-modules-6.17.0-upstream_fix-1.patch
+
+	sed -i '/"lib64"/s/64//' kde-modules/KDEInstallDirsCommon.cmake &&
+
+	sed -e '/PACKAGE_INIT/i set(SAVE_PACKAGE_PREFIX_DIR "${PACKAGE_PREFIX_DIR}")' \
+		-e '/^include/a set(PACKAGE_PREFIX_DIR "${SAVE_PACKAGE_PREFIX_DIR}")' \
+		-i ECMConfig.cmake.in &&
+
+	cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D BUILD_WITH_QT6=ON
+	make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+}

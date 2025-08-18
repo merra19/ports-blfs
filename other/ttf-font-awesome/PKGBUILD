@@ -1,0 +1,16 @@
+# description	: Iconic font designed for Bootstrap
+# depends	: glibc
+
+pkgname=ttf-font-awesome 
+pkgver=6.7.2
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/FortAwesome/Font-Awesome/archive/$pkgver.tar.gz)
+
+package() {
+    cd Font-Awesome-$pkgver
+
+    install -d "$pkgdir"/usr/share/fonts/TTF
+    install -m644 ./webfonts/*.ttf "$pkgdir"/usr/share/fonts/TTF
+    #install -d "$pkgdir"/usr/share/fonts/OTF
+    #install -m644 ./otfs/*.otf "$pkgdir"/usr/share/fonts/OTF
+}

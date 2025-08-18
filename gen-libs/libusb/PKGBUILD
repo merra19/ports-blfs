@@ -1,0 +1,22 @@
+# description	: Userspace access to USB devices
+# depends	: udev
+
+pkgname=libusb
+pkgver=1.0.29
+pkgrel=1
+source=(https://github.com/libusb/libusb/releases/download/v$pkgver/libusb-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr \
+        --disable-static
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

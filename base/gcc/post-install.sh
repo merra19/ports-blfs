@@ -1,9 +1,9 @@
 #!/bin/sh
 
 pkg_postinst() {
-    if ( scratch isinstalled libtool ); then 
-        scratch -I -y -f -r libtool
-    fi
+    echo "rebuild libtool after gcc"
+    echo "scratch -I -y -f -r libtool"
+    exit 1
 }
 
 pkg_postupgrade() {

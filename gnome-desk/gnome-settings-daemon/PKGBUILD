@@ -1,0 +1,37 @@
+# description	: Gnome Settings Daemon
+# depends	: glib gobject-introspection geocode-glib gnome-desktop
+# depends	: gsettings-desktop-schemas gtk3 libgweather colord upower
+# depends	: libcanberra geoclue libnotify polkit pulseaudio libx11
+# depends	: libxfixes libgudev wayland libwacom pango gdk-pixbuf
+# depends	: gcr4 cups alsa-lib libxi libxext fontconfig elogind
+# depends	: xorg-proto dconf linux-api-headers networkmanager
+# optional  : modemmanager modemmanager!!gcr3
+
+pkgname=gnome-settings-daemon
+pkgver=48.1
+pkgrel=1
+source=(https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    # Fix libelogind detection for tests
+    sed -e 's/libsystemd/libelogind/' -i plugins/power/test.py
+
+    # Fix backlight functionality in gnome-control-center
+    sed -e 's/(backlight->logind_proxy)/(0)/' -i plugins/power/gsd-backlight.c
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D systemd=false \
+        -D wwan="$(scratch isinstalled modemmanager && echo "true" || echo "false")" \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

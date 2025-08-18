@@ -1,0 +1,25 @@
+# description	: XSL stylesheets for Docbook-xml transformations
+# depends	: libxml2 libxslt libarchive
+
+pkgname=docbook-xsl-ns
+pkgver=1.79.2
+pkgrel=1
+source=(https://github.com/docbook/xslt10-stylesheets/releases/download/release/$pkgver/docbook-xsl-$pkgver.tar.bz2
+        https://www.linuxfromscratch.org/patches/blfs/svn/docbook-xsl-$pkgver-stack_fix-1.patch)
+
+package() {
+	cd docbook-xsl-$pkgver
+
+	patch -Np1 -i ../docbook-xsl-$pkgver-stack_fix-1.patch
+
+
+    install -v -m755 -d "$pkgdir"/usr/share/xml/docbook/xsl-stylesheets-$pkgver
+
+    cp -v -R VERSION assembly common eclipse epub epub3 extensions fo        \
+            highlighting html htmlhelp images javahelp lib manpages params  \
+            profiling roundtrip slides template tests tools webhelp website \
+            xhtml xhtml-1_1 xhtml5                                          \
+        "$pkgdir"/usr/share/xml/docbook/xsl-stylesheets-$pkgver
+
+    ln -s VERSION "$pkgdir"/usr/share/xml/docbook/xsl-stylesheets-$pkgver/VERSION.xsl
+}

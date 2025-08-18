@@ -1,0 +1,22 @@
+# description	: an advanced CDDA reader with error correction
+# depends	: libcdio
+
+pkgname=libcdio-paranoia
+pkgver=10.2+2.0.2
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/libcdio/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+	
+	./configure \
+        --prefix=/usr \
+        --disable-static
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

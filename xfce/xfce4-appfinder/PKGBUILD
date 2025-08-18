@@ -1,0 +1,22 @@
+# description	: A tool to find and launch installed applications for the Xfce desktop
+# depends	: garcon libxfce4ui libxfce4util xfconf gtk3 glib gettext 
+# depends	: intltool pkgconf hicolor-icon-theme
+
+pkgname=xfce4-appfinder
+pkgver=4.20.0
+pkgrel=1
+source=(https://archive.xfce.org/src/xfce/xfce4-appfinder/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

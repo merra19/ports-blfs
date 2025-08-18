@@ -1,0 +1,26 @@
+# description	: Suspend and hibernation utilities
+# depends	: dbus util-linux alsa-utils xmlto hdparm wireless_tools
+
+pkgname=pm-utils
+pkgver=1.4.1
+pkgrel=1
+source=(https://pm-utils.freedesktop.org/releases/$pkgname-$pkgver.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/$pkgname-$pkgver-bugfixes-1.patch)
+
+build() {
+	cd $pkgname-$pkgver
+
+    patch -Np1 -i ../$pkgname-$pkgver-bugfixes-1.patch
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

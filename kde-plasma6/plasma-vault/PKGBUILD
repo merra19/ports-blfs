@@ -1,0 +1,29 @@
+# description	: Plasma applet and services for creating encrypted vaults
+# depends	: kcodecs kconfig kconfigwidgets kcoreaddons ki18n
+# depends	: kdbusaddons kio kitemmodels kservice kwidgetsaddons 
+# depends	: libksysguard libplasma plasma-activities qt6-base 
+# depends	: qt6-declarative extra-cmake-modules
+# optional	: networkmanager!!networkmanager-qt6
+
+pkgname=plasma-vault
+pkgver=6.3.2
+pkgrel=1
+source=(https://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+}

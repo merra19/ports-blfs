@@ -1,0 +1,26 @@
+# description	: Application startup notification and feedback library
+# depends	: glibc libx11 libxcb xcb-util xorg-proto
+
+pkgname=startup-notification
+pkgver=0.12
+pkgrel=1
+options=(!lto)
+source=(https://www.freedesktop.org/software/startup-notification/releases/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	make DESTDIR="$pkgdir" install
+    
+    install -v -m644 -D doc/startup-notification.txt \
+        "$pkgdir"/usr/share/doc/$pkgname-$pkgver/startup-notification.txt
+}

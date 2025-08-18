@@ -1,0 +1,25 @@
+# description	: Collection of GSettings schemas for GNOME desktop
+# depends	: glib gobject-introspection meson
+
+pkgname=gsettings-desktop-schemas
+pkgver=48.0
+pkgrel=1
+source=(https://download.gnome.org/sources/gsettings-desktop-schemas/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	sed -i -r 's:"(/system):"/org/gnome\1:g' schemas/*.in &&
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

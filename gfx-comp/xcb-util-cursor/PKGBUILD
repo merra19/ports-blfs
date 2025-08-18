@@ -1,0 +1,25 @@
+# description	: X C-language Bindings sample implementations
+# depends	: xcb-util-renderutil libxcb xcb-util-image xcb-proto 
+# depends	: xorg-proto gperf
+
+pkgname=xcb-util-cursor
+pkgver=0.1.5
+pkgrel=1
+source=(https://xorg.freedesktop.org/archive/individual/xcb/xcb-util-cursor-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

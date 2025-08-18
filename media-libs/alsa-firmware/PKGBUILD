@@ -1,0 +1,45 @@
+# description	: Advanced Linux Sound Architecture firmware
+# depends	: alsa-tools linux-firmware
+
+pkgname=alsa-firmware
+pkgver=1.2.4
+pkgrel=1
+source=(https://www.alsa-project.org/files/pub/firmware/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    mkdir -p "$pkgdir"/usr/lib
+    ln -sv usr/lib "$pkgdir"/lib
+
+	make DESTDIR="$pkgdir" install
+
+    # Conflict linux-firmware
+    rm -f "$pkgdir"/usr/lib/firmware/korg/k1212.dsp
+    rm -f "$pkgdir"/usr/lib/firmware/ess/maestro3_assp_kernel.fw
+    rm -f "$pkgdir"/usr/lib/firmware/ess/maestro3_assp_minisrc.fw
+    rm -f "$pkgdir"/usr/lib/firmware/sb16/mulaw_main.csp
+    rm -f "$pkgdir"/usr/lib/firmware/sb16/alaw_main.csp
+    rm -f "$pkgdir"/usr/lib/firmware/sb16/ima_adpcm_init.csp
+    rm -f "$pkgdir"/usr/lib/firmware/sb16/ima_adpcm_playback.csp
+    rm -f "$pkgdir"/usr/lib/firmware/sb16/ima_adpcm_capture.csp
+    rm -f "$pkgdir"/usr/lib/firmware/yamaha/yss225_registers.bin
+    rm -f "$pkgdir"/usr/lib/firmware/yamaha/ds1_dsp.fw
+    rm -f "$pkgdir"/usr/lib/firmware/yamaha/ds1_ctrl.fw
+    rm -f "$pkgdir"/usr/lib/firmware/yamaha/ds1e_ctrl.fw
+    rm -f "$pkgdir"/usr/lib/firmware/ctefx.bin
+    rm -f "$pkgdir"/usr/lib/firmware/ctspeq.bin
+
+    # remove broken symlinks (broken upstream)
+    rm -rf "$pkgdir"/usr/lib/firmware/turtlebeach
+
+    rm -f "$pkgdir"/lib
+}

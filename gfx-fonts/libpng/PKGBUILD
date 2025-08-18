@@ -1,0 +1,33 @@
+# description	: Portable Network Graphics library
+# depends	: zlib
+
+pkgname=libpng
+pkgver=1.6.50
+pkgrel=1
+source=(https://downloads.sourceforge.net/libpng/$pkgname-$pkgver.tar.xz
+        https://downloads.sourceforge.net/sourceforge/libpng-apng/libpng-$pkgver-apng.patch.gz)
+noextract=($pkgname-$pkgver-apng.patch.gz)
+
+build() {
+    cd $pkgname-$pkgver
+    
+    gzip -cd ../libpng-$pkgver-apng.patch.gz | patch -p1
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --enable-intel-sse \
+        --enable-hardware-optimizations
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+    
+    mkdir -p "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+    cp -v README libpng-manual.txt "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+
+    ## Remove excluded files
+    rm -f "$pkgdir"/usr/lib/libpng.la
+}

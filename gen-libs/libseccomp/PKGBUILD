@@ -1,0 +1,23 @@
+# description	: high level interface to Linux seccomp filter
+# depends	: which gperf py3-cython
+
+pkgname=libseccomp
+pkgver=2.6.0
+pkgrel=1
+options=(!lto)
+source=(https://github.com/seccomp/libseccomp/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr \
+		--disable-static
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

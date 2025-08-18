@@ -1,0 +1,26 @@
+# description	: Libraries/utilities to handle ELF objects (drop in replacement for libelf)
+# depends	: zlib xz bzip2 zstd flex m4
+
+pkgname=elfutils
+pkgver=0.193
+pkgrel=1
+options=(!lto)
+source=(https://sourceware.org/ftp/elfutils/$pkgver/$pkgname-$pkgver.tar.bz2)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-debuginfod \
+        --enable-libdebuginfod=dummy
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+    rm "$pkgdir"/usr/lib/{libasm,libdw,libelf}.a
+}

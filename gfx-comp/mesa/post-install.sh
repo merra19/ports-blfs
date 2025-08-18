@@ -1,9 +1,9 @@
 #!/bin/sh
 
 pkg_postinst() {
-    if [ "$NO_REBUILD" = 0 ] || [ "$NO_REBUILD" = "no" ]; then
-        scratch -I -y -f -r libva
-    fi
+    echo "rebuild libva after mesa"
+    echo "scratch -I -y -f -r libva"
+    exit 1
 }
 
 pkg_postupgrade() {

@@ -1,0 +1,29 @@
+# description	: groovy little assembler
+# depends	: perl
+
+pkgname=nasm
+pkgver=2.16.03
+pkgrel=1
+source=(https://www.nasm.us/pub/nasm/releasebuilds/$pkgver/nasm-$pkgver.tar.xz
+        https://www.nasm.us/pub/nasm/releasebuilds/$pkgver/nasm-$pkgver-xdoc.tar.xz)
+noextract=(nasm-$pkgver-xdoc.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    tar -xf ../nasm-$pkgver-xdoc.tar.xz --strip-components=1
+
+	./configure \
+        --prefix=/usr
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	make DESTDIR="$pkgdir" install
+
+    install -d "$pkgdir"/usr/share/doc/$pkgname-$pkgver/html
+    cp -v doc/html/*.html    "$pkgdir"/usr/share/doc/$pkgname-$pkgver/html  &&
+    cp -v doc/*.{txt,ps,pdf} "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

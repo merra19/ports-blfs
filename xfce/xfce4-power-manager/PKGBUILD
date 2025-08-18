@@ -1,0 +1,24 @@
+# description	: Power Manager for Xfce
+# depends	: hicolor-icon-theme libnotify libxfce4ui upower glib
+# depends	: xfce4-notifyd wayland-protocols xfce4-dev-tools
+# depends	: xfce4-panel polkit
+
+pkgname=xfce4-power-manager
+pkgver=4.20.0
+pkgrel=1
+source=(https://archive.xfce.org/src/xfce/xfce4-power-manager/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
+
+build() {
+  cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+    
+    make DESTDIR="$pkgdir" install
+}

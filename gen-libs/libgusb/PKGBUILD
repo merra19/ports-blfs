@@ -1,0 +1,24 @@
+# description	: GObject wrapper for libusb
+# depends	: glib json-glib libusb gobject-introspection hwdata
+
+pkgname=libgusb
+pkgver=0.4.9
+pkgrel=1
+source=(https://github.com/hughsie/libgusb/releases/download/$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D docs=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	DESTDIR="$pkgdir" ninja -C build install
+}

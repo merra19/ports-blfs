@@ -1,0 +1,4 @@
+#!/bin/sh
+
+getent group sshd || groupadd -g 50 sshd  
+getent passwd sshd || useradd -c 'sshd PrivSep' -d /var/lib/sshd -g sshd -s /bin/false -u 50 sshd

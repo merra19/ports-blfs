@@ -1,0 +1,33 @@
+# description	: Portable sound event library
+# depends	: libvorbis alsa-lib udev pulseaudio wireplumber 
+# depends	: sound-theme-freedesktop glib libx11 gstreamer
+# optional	: gtk3
+
+pkgname=libcanberra
+pkgver=0.30
+pkgrel=1
+options=(!lto)
+source=(https://0pointer.de/lennart/projects/libcanberra/$pkgname-$pkgver.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/svn/$pkgname-$pkgver-wayland-1.patch)
+
+build() {
+	cd $pkgname-$pkgver
+
+    scratch isinstalled gtk3 ||  OPT_GTK3='-disable-gtk3'
+
+    # Fix an issue causing some applications to crash in Wayland based desktop environment
+    patch -Np1 -i ../$pkgname-$pkgver-wayland-1.patch
+
+    ./configure \
+        --prefix=/usr \
+        --disable-oss \
+        --disable-gtk \
+        $OPT_GTK3
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" docdir=/usr/share/doc/$pkgname-$pkgver install
+}

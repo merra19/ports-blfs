@@ -1,0 +1,28 @@
+# description	: X.Org X Display Manager Control Protocol library
+# depends	: glibc xorg-proto
+
+pkgname=libxdmcp
+_pkgname=libXdmcp
+pkgver=1.1.5
+pkgrel=1
+source=(https://www.x.org/pub/individual/lib/libXdmcp-$pkgver.tar.xz)
+
+build() {
+    cd ${_pkgname}-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXdmcp-$pkgver
+    make
+}
+
+package() {
+    cd ${_pkgname}-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+    rm -f "$pkgdir"/usr/lib/*.la
+}

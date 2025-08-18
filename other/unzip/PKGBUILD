@@ -1,0 +1,32 @@
+# description	: unzipper for pkzip-compressed files
+# depends	: bzip2
+
+pkgname=unzip
+pkgver=6.0
+_version=$(echo $pkgver  | sed 's/\.//')
+pkgrel=1
+options=(!lto)
+source=(https://downloads.sourceforge.net/infozip/unzip$_version.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/unzip-$pkgver-consolidated_fixes-1.patch
+        https://www.linuxfromscratch.org/patches/blfs/svn/unzip-$pkgver-gcc14-1.patch)
+
+build() {
+    cd $pkgname$_version
+
+    patch -Np1 -i ../unzip-6.0-consolidated_fixes-1.patch
+    patch -Np1 -i ../unzip-6.0-gcc14-1.patch
+
+	DEFINES='-DACORN_FTYPE_NFS -DWILD_STOP_AT_DIR -DLARGE_FILE_SUPPORT \
+		-DUNICODE_SUPPORT -DUNICODE_WCHAR -DUTF8_MAYBE_NATIVE -DNO_LCHMOD \
+		-DDATE_FORMAT=DF_YMD -DUSE_BZIP2 -DNOMEMCPY -DNO_WORKING_ISPRINT'
+
+    make -f unix/Makefile prefix=/usr \
+        D_USE_BZ2=-DUSE_BZIP2 L_BZ2=-lbz2 \
+        LF2="$LDFLAGS" CF="$CFLAGS $CPPFLAGS -I. $DEFINES -std=gnu17" unzips
+}
+
+package() {
+    cd $pkgname$_version
+
+    make -f unix/Makefile prefix="${pkgdir}"/usr MANDIR="${pkgdir}"/usr/share/man/man1 install
+}

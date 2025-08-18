@@ -1,0 +1,34 @@
+# description	: Robust, full-featured Open Source Toolkit for the Transport Layer Security (TLS)
+# depends	: zlib perl
+
+pkgname=openssl
+pkgver=3.5.2
+pkgrel=1
+options=(!lto)
+source=(https://www.openssl.org/source/$pkgname-$pkgver.tar.gz)
+backup=(etc/ssl/openssl.cnf)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./config \
+        --prefix=/usr \
+        --openssldir=/etc/ssl \
+        --libdir=lib \
+        shared zlib-dynamic
+    make depend
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
+    make MANSUFFIX=ssl DESTDIR="$pkgdir" install
+
+    mv -v "$pkgdir"/usr/share/doc/openssl "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+
+    cp -vfr doc/* "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+
+    install -D -m0644 apps/openssl.cnf "$pkgdir"/etc/ssl/openssl.cnf
+}

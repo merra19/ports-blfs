@@ -1,0 +1,37 @@
+# description	: Library to handle, display and manipulate GIF images
+# depends	: xmlto
+
+pkgname=giflib
+pkgver=5.2.2
+pkgrel=1
+source=(https://downloads.sourceforge.net/giflib/$pkgname-$pkgver.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/giflib-5.2.2-upstream_fixes-1.patch
+        https://www.linuxfromscratch.org/patches/blfs/svn/giflib-5.2.2-security_fixes-1.patch)
+
+build() {
+	cd $pkgname-$pkgver
+
+    # Frevent the build process from installing XML files instead of man pages
+    patch -Np1 -i ../giflib-5.2.2-upstream_fixes-1.patch
+    # Fix several security vulnerabilities in the 'gif2rgb' utility
+    patch -Np1 -i ../giflib-5.2.2-security_fixes-1.patch
+
+    # Remove an unnecessary dependency on ImageMagick-7.1.1-28 by moving a file into
+    # an expected location
+    cp pic/gifgrid.gif doc/giflib-logo.gif   
+
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	make PREFIX="$pkgdir"/usr install
+	rm "$pkgdir"/usr/lib/libgif.a
+
+	find doc \( -name Makefile\* -o -name \*.1 \
+			-o -name \*.xml \) -exec rm -v {} \; &&
+
+	install -v -dm755 "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+	cp -v -R doc/* "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

@@ -1,0 +1,27 @@
+# description	: Command line tool to interact with an EWMH/NetWM compatible X Window
+# depends	: glib xorg-proto libx11 libxmu
+
+pkgname=wmctrl
+pkgver=1.07
+pkgrel=1
+source=(https://dev.gentoo.org/~ionen/distfiles/$pkgname-$pkgver.tar.gz
+        wmctrl-1.07-64bit-xlib.patch)
+
+build() { 
+    cd $pkgname-$pkgver
+
+    patch -Np1 -i ../wmctrl-1.07-64bit-xlib.patch
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

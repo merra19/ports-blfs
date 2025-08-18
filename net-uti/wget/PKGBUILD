@@ -1,0 +1,27 @@
+# description	: Network utility to retrieve files from the WWW
+# depends	: p11-kit openssl util-linux perl texinfo libpsl pcre2
+# depends	: libidn2
+
+pkgname=wget
+pkgver=1.25.0
+pkgrel=1
+options=(!lto)
+source=(https://ftp.gnu.org/gnu/wget/$pkgname-$pkgver.tar.gz)
+backup=(etc/wgetrc)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --enable-nls \
+        --with-ssl=openssl
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

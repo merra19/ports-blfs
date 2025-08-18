@@ -1,0 +1,35 @@
+# description	: SQL database engine
+# depends	: zlib readline tcl icu unzip
+
+pkgname=sqlite
+pkgver=3.50.4
+_version=$(echo $pkgver |awk -F. '{print $1  $2 "0" $3 "00"}')
+pkgrel=1
+source=(https://sqlite.org/2025/sqlite-autoconf-$_version.tar.gz
+        https://sqlite.org/2025/sqlite-doc-$_version.zip)
+noextract=(sqlite-doc-$_version.zip)
+
+build() {
+    cd $pkgname-autoconf-$_version
+
+    unzip "$srcdir"/sqlite-doc-$_version.zip
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --enable-fts{4,5} \
+        CPPFLAGS="-DSQLITE_ENABLE_COLUMN_METADATA=1 \
+                      -DSQLITE_ENABLE_UNLOCK_NOTIFY=1 \
+                      -DSQLITE_ENABLE_DBSTAT_VTAB=1 \
+                      -DSQLITE_SECURE_DELETE=1"  
+    make
+}
+
+package() {
+    cd $pkgname-autoconf-$_version
+
+    make DESTDIR="$pkgdir" install
+
+    install -v -m755 -d "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+    cp -v -R sqlite-doc-$_version/* "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

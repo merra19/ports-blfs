@@ -1,0 +1,26 @@
+# description	: JSON for Modern C++
+# depends	: cmake
+
+pkgname=nlohmann-json
+pkgver=3.11.3
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/nlohmann/json/archive/refs/tags/v$pkgver.tar.gz)
+
+build() {
+	cd json-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=None \
+        -D BUILD_TESTING=OFF \
+        -D CMAKE_INSTALL_LIBDIR=/usr/lib \
+        -D JSON_BuildTests=OFF \
+        -D JSON_MultipleHeaders=ON
+	cmake --build build
+}
+
+package() {
+    cd json-$pkgver
+
+    DESTDIR="$pkgdir" cmake --install build
+}

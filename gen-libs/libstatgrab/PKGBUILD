@@ -1,0 +1,23 @@
+# description	: A tool to provide access to statistics about the system on which it's run
+# depends	: glibc ncurses
+
+pkgname=libstatgrab
+pkgver=0.92.1
+pkgrel=1
+source=(https://www.mirrorservice.org/sites/ftp.i-scream.org/pub/i-scream/libstatgrab/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+   ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

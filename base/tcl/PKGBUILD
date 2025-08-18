@@ -1,0 +1,62 @@
+# description	: Tool Command Language
+# depends	: zlib
+
+pkgname=tcl
+pkgver=8.6.16
+pkgrel=1
+options=(!lto)
+source=(https://downloads.sourceforge.net/tcl/$pkgname$pkgver-src.tar.gz
+        https://downloads.sourceforge.net/tcl/tcl$pkgver-html.tar.gz)
+noextract=(tcl$pkgver-html.tar.gz)
+
+build() {
+    cd $pkgname$pkgver
+
+    SRDIR=$(pwd)
+    cd unix
+    ./configure \
+        --prefix=/usr \
+        --enable-symbols \
+        --enable-threads \
+        --mandir=/usr/share/man \
+        --disable-rpath \
+        --enable-64bit
+    make
+
+    tdbc=1.1.10
+    itcl=4.3.2
+
+    sed -e "s|$SRDIR/unix|/usr/lib|" \
+        -e "s|$SRDIR|/usr/include|" \
+        -i tclConfig.sh
+
+    sed -e "s|$SRDIR/unix/pkgs/tdbc$tdbc|/usr/lib/tdbc$tdbc|" \
+        -e "s|$SRDIR/pkgs/tdbc$tdbc/generic|/usr/include|" \
+        -e "s|$SRDIR/pkgs/tdbc$tdbc/library|/usr/lib/tcl8.6|" \
+        -e "s|$SRDIR/pkgs/tdbc$tdbc|/usr/include|" \
+        -i pkgs/tdbc$tdbc/tdbcConfig.sh
+
+    sed -e "s|$SRDIR/unix/pkgs/itcl$itcl|/usr/lib/itcl$itcl|" \
+        -e "s|$SRDIR/pkgs/itcl$itcl/generic|/usr/include|" \
+        -e "s|$SRDIR/pkgs/itcl$itcl|/usr/include|" \
+        -i pkgs/itcl$itcl/itclConfig.sh
+
+    unset SRDIR
+}
+
+package() {
+    cd $pkgname$pkgver/unix
+
+    make DESTDIR="$pkgdir" install install-private-headers
+
+    make DESTDIR="$pkgdir" install-binaries
+    chmod -v u+w "$pkgdir"/usr/lib/libtcl8.6.so
+    
+    ln -sfv tclsh8.6 "$pkgdir"/usr/bin/tclsh
+    mv "$pkgdir"/usr/share/man/man3/Thread.3 "$pkgdir"/usr/share/man/man3/Tcl_Thread.3
+
+    cd ..
+    tar -xf "$srcdir"/tcl$pkgver-html.tar.gz --strip-components=1
+    mkdir -v -p "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+    cp -v -r  ./html/* "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

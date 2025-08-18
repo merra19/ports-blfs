@@ -1,0 +1,21 @@
+# description	: ASCII quote-dot-dash to HTML entity converter
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel 
+# depends	: py3-calver
+
+pkgname=py3-smartypants
+_pkgname=smartypants.py
+pkgver=2.0.2
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/leohemsted/smartypants.py/archive/refs/tags/v$pkgver.tar.gz)
+
+build() {
+	cd ${_pkgname}-$pkgver
+    
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${_pkgname}-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/smartypants-$pkgver-*-none-any.whl
+}

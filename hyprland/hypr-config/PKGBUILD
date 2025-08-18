@@ -1,0 +1,23 @@
+# description	: Dotfile from typepecraft
+# url       : https://github.com/typecraft-dev/dotfiles
+
+pkgname=hypr-config
+pkgver=1
+pkgrel=1
+source=(mocha.conf hyprland.conf current-theme.conf kitty.conf
+        setup-hypr config.jsonc mocha.css style.css power_menu.xml
+        alacritty.toml catppuccin-mocha.toml hyprpaper.conf
+        White-Haired_Anime_Girl_in_Garden.png xdg-portal-hyprland)
+
+package() {
+    install -d "$pkgdir"/usr/local/share/hyprland-dots/
+    
+    install -Dm 755 setup-hypr "$pkgdir"/usr/local/bin/setup-hyprdots
+
+    for i in mocha.conf hyprland.conf hyprpaper.conf \
+        current-theme.conf kitty.conf config.jsonc mocha.css style.css \
+        power_menu.xml alacritty.toml catppuccin-mocha.toml \
+        xdg-portal-hyprland White-Haired_Anime_Girl_in_Garden.png;do
+        install -Dm 0644 $i "$pkgdir"/usr/local/share/hyprland-dots/$i
+    done
+}

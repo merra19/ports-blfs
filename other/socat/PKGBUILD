@@ -1,0 +1,22 @@
+# description	: Multipurpose relay (SOcket CAT)
+# depends	: openssl readline
+
+pkgname=socat
+pkgver=1.8.0.3
+pkgrel=1
+source=(http://www.dest-unreach.org/socat/download/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

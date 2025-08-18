@@ -1,0 +1,27 @@
+# description	: Utility providing information about the computer hardware
+# depends	: kauth kcmutils kconfig kcoreaddons ki18n kio 
+# depends	: kservice solid mesa kdoctools qt6-base kirigami
+# depends	: qt6-declarative systemsettings libusb
+
+pkgname=kinfocenter
+pkgver=6.3.2
+pkgrel=1
+source=(https://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+}

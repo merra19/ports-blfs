@@ -1,0 +1,39 @@
+# description	: Helper program to build and install c-like libraries
+# depends	: rustc libssh2 sqlite curl zlib
+
+pkgname=cargo-c
+pkgver=0.10.15
+pkgrel=1
+source=(https://github.com/lu-zero/cargo-c/archive/v$pkgver/$pkgname-$pkgver.tar.gz
+        $pkgname-$pkgver.lock::https://github.com/lu-zero/cargo-c/releases/download/v$pkgver/Cargo.lock
+        $pkgname-$pkgver-cargo.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    cp ../$pkgname-$pkgver.lock ./Cargo.lock
+
+    #mkdir -p vendor
+    #cargo vendor vendor
+    #tar -cJpf $pkgname-$pkgver-cargo.tar.xz vendor/
+    #cp $pkgname-$pkgver-cargo.tar.xz /sources/src/
+
+    mv "$srcdir"/vendor .
+    
+    mkdir -p .cargo
+    echo '[source.crates-io]' >> .cargo/config.toml
+    echo 'replace-with = "vendored-sources"' >> .cargo/config.toml
+    echo '[source.vendored-sources]' >> .cargo/config.toml
+    echo 'directory = "vendor"' >> .cargo/config.toml
+
+    [ ! -e /usr/include/libssh2.h ] || export LIBSSH2_SYS_USE_PKG_CONFIG=1    &&
+    [ ! -e /usr/include/sqlite3.h ] || export LIBSQLITE3_SYS_USE_PKG_CONFIG=1 &&
+    cargo build --release
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    mkdir -p "$pkgdir"/usr/bin/
+    install -vm755 target/release/cargo-{capi,cbuild,cinstall,ctest} "$pkgdir"/usr/bin/
+}

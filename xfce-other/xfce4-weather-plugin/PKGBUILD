@@ -1,0 +1,31 @@
+# description	: A weather plug-in for the Xfce desktop environment
+# depends	: hicolor-icon-theme libsoup3 libxml2 upower meson
+# depends	: xfce4-panel xfce4-dev-tools
+
+pkgname=xfce4-weather-plugin
+pkgver=0.12.0
+pkgrel=1
+source=(https://archive.xfce.org/src/panel-plugins/xfce4-weather-plugin/${pkgver%.*}/$pkgname-$pkgver.tar.xz
+        1d8e5e5dbbc4d53e4b810f9b01a460197cd47b64.patch)
+
+prepare() {
+    cd $pkgname-$pkgver
+
+    patch -Np1 -i ../1d8e5e5dbbc4d53e4b810f9b01a460197cd47b64.patch
+}
+
+build() {
+    cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+    
+    DESTDIR="$pkgdir" ninja -C build install
+}

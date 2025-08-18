@@ -1,0 +1,47 @@
+# description	: Console-based mouse driver
+# depends	: xz ncurses texinfo
+
+pkgname=gpm
+pkgver=1.20.7
+pkgrel=1
+options=(!lto)
+source=(https://anduin.linuxfromscratch.org/BLFS/gpm/$pkgname-$pkgver.tar.bz2
+        https://www.linuxfromscratch.org/patches/blfs/svn/gpm-1.20.7-consolidated-1.patch
+        https://www.linuxfromscratch.org/patches/blfs/svn/gpm-1.20.7-gcc15_fixes-1.patch
+        error-format.patch mouse)
+
+build() {
+    cd $pkgname-$pkgver
+    
+    patch -Np1 -i ../gpm-1.20.7-consolidated-1.patch
+    patch -Np1 -i ../gpm-1.20.7-gcc15_fixes-1.patch   
+    #  avoid -Wformat-security warnings
+    patch -Np1 -i ../error-format.patch
+    
+    ./autogen.sh
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        ac_cv_path_emacs=no
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+    install-info --dir-file="$pkgdir"/usr/share/info/dir \
+                "$pkgdir"/usr/share/info/gpm.info
+
+    rm -fv "$pkgdir"/usr/lib/libgpm.a  
+    ln -sfv libgpm.so.2.1.0 "$pkgdir"/usr/lib/libgpm.so 
+    install -v -m644 conf/gpm-root.conf "$pkgdir"/etc 
+
+    install -v -m755 -d "$pkgdir"/usr/share/doc/$pkgname-$pkgver/support
+    install -v -m644    doc/support/*  \
+                        "$pkgdir"/usr/share/doc/$pkgname-$pkgver/support
+    install -v -m644    doc/{FAQ,HACK_GPM,README*} \
+                        "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+
+    install -Dm 0644 "$srcdir"/mouse "$pkgdir"/etc/sysconfig/mouse
+}

@@ -1,0 +1,23 @@
+# description	: GObject bindings for libudev
+# depends	: glib gobject-introspection
+
+pkgname=libgudev
+pkgver=238
+pkgrel=1
+source=(https://ftp.gnome.org/pub/gnome/sources/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

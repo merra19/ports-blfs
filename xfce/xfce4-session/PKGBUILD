@@ -1,0 +1,26 @@
+# description	: A session manager for the Xfce desktop environment
+# depends	: glib gtk3 libsm libwnck3 libx11 libxfce4ui libxfce4util 
+# depends	: xfconf pkgconf intltool polkit iceauth xrdb gettext 
+# depends	: libxfce4windowing
+# optional	: xscreensaver
+
+pkgname=xfce4-session
+pkgver=4.20.2
+pkgrel=1
+source=(https://archive.xfce.org/src/xfce/xfce4-session/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --disable-legacy-sm
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,28 @@
+# description	: Python bindings for the D-Bus messagebus
+# depends	: dbus glib py3-meson
+
+pkgname=py3-dbus
+pkgver=1.4.0
+pkgrel=1
+options=(!lto)
+source=(https://dbus.freedesktop.org/releases/dbus-python/dbus-python-$pkgver.tar.xz)
+
+build() {
+	cd dbus-python-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+    ninja -C build
+}
+
+package() {
+	cd dbus-python-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+
+	local pyminor="$(python3 -c 'import sys; print("%i" % sys.version_info.minor)')"
+
+	mv dbus_python.egg-info/ "$pkgdir"/usr/lib/python3.$pyminor/site-packages/dbus_python-$pkgver-py3.$pyminor.egg-info/
+}

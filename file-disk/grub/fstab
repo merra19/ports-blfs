@@ -3,7 +3,7 @@
 # file system  mount-point  type     options                dump  fsck
 #                                                                 order
 
-LABEL=LFSRAID                                 /                         btrfs    defaults            0     1
+LABEL=LFSRAID                                 /                         ext4     defaults            0     1
 LABEL=SWAPRAID                                swap                      swap     pri=1               0     0
 proc                                          /proc                     proc     nosuid,noexec,nodev 0     0
 sysfs                                         /sys                      sysfs    nosuid,noexec,nodev 0     0

@@ -1,0 +1,57 @@
+# description	: Systems programming language from Mozilla
+# depends	: cmake curl llvm llvm32 xz zlib openssl lld
+
+pkgname=rustc
+pkgver=1.89.0
+pkgver2=1.88.0
+daterust=2025-06-26
+pkgrel=1
+options=(!strip)
+source=(https://static.rust-lang.org/dist/$pkgname-$pkgver-src.tar.xz
+        https://static.rust-lang.org/dist/${daterust}/rust-std-${pkgver2}-x86_64-unknown-linux-gnu.tar.xz
+        https://static.rust-lang.org/dist/${daterust}/rustc-${pkgver2}-x86_64-unknown-linux-gnu.tar.xz
+        https://static.rust-lang.org/dist/${daterust}/cargo-${pkgver2}-x86_64-unknown-linux-gnu.tar.xz
+        config.toml)
+noextract=(rust-std-${pkgver2}-x86_64-unknown-linux-gnu.tar.xz rustc-${pkgver2}-x86_64-unknown-linux-gnu.tar.xz cargo-${pkgver2}-x86_64-unknown-linux-gnu.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver-src
+
+    CFLAGS=${CFLAGS/-m64/}
+    CXXFLAGS=${CXXFLAGS/-m64/}
+
+    export AR=gcc-ar
+    export RANLIB=gcc-ranlib
+    export NM=gcc-nm
+
+	mkdir -p build/cache/${daterust}
+	mv ../rust-std-${pkgver2}-x86_64-unknown-linux-gnu.tar.xz build/cache/${daterust}
+	mv ../rustc-${pkgver2}-x86_64-unknown-linux-gnu.tar.xz build/cache/${daterust}
+	mv ../cargo-${pkgver2}-x86_64-unknown-linux-gnu.tar.xz build/cache/${daterust}
+
+    cp ../config.toml ./bootstrap.toml
+
+    # add change-id & version to config.toml
+    sed 's/YYYY/138986/' -i bootstrap.toml
+    sed "s/XXXX/$pkgver/g" -i bootstrap.toml
+}
+
+package() {
+    cd $pkgname-$pkgver-src
+
+	[ ! -e /usr/include/libssh2.h ] || export LIBSSH2_SYS_USE_PKG_CONFIG=1; 
+    [ ! -e /usr/include/sqlite3.h ] || export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+	./x.py build 
+
+	DESTDIR="$pkgdir" ./x.py install
+
+    mkdir -p "$pkgdir"/usr/bin "$pkgdir"/usr/share/man/man1 "$pkgdir"/usr/share/bash-completion/completions
+
+    rm -fv "$pkgdir"/usr/share/doc/rustc-$pkgver/*.old 
+
+    install -vm644 README.md  \
+               "$pkgdir"/usr/share/doc/rustc-$pkgver
+
+    mv -v "$pkgdir"/etc/bash_completion.d/cargo "$pkgdir"/usr/share/bash-completion/completions
+    unset LIB{SSH2,SQLITE3}_SYS_USE_PKG_CONFIG
+}

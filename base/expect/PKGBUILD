@@ -1,0 +1,32 @@
+# description	: tool for automating interactive applications
+# depends	: tcl
+
+pkgname=expect
+pkgver=5.45.4
+pkgrel=1
+source=(https://prdownloads.sourceforge.net/expect/$pkgname$pkgver.tar.gz
+        https://www.linuxfromscratch.org/patches/lfs/development/expect-5.45.4-gcc15-1.patch
+        expect-5.45-format-security.patch)
+
+build() {
+    cd $pkgname$pkgver
+
+    patch -Np1 -i ../expect-5.45.4-gcc15-1.patch
+    patch -Np0 -i ../expect-5.45-format-security.patch
+   
+    ./configure \
+        --prefix=/usr \
+        --with-tcl=/usr/lib \
+        --enable-shared \
+        --disable-rpath \
+        --mandir=/usr/share/man \
+        --with-tclinclude=/usr/include
+    make
+}
+
+package() {
+    cd $pkgname$pkgver
+
+    make DESTDIR="$pkgdir" install
+    ln -svf $pkgname$pkgver/lib$pkgname$pkgver.so "$pkgdir"/usr/lib
+}

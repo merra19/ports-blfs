@@ -1,0 +1,24 @@
+# description	: Fallback theme for the freedesktop icon theme specification"
+# depends	: xz
+
+pkgname=hicolor-icon-theme
+pkgver=0.18
+pkgrel=1
+options=(!lto)
+source=(http://icon-theme.freedesktop.org/releases/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

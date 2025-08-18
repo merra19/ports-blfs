@@ -1,0 +1,35 @@
+# description	: Robust, full-featured Open Source Toolkit for the Transport Layer Security (TLS)
+# depends	: perl openssl
+
+pkgname=openssl-32
+_pkgname=openssl
+pkgver=3.5.2
+pkgrel=1
+options=(!lto)
+source=(https://www.openssl.org/source/${_pkgname}-$pkgver.tar.gz)
+
+build() {
+    cd ${_pkgname}-$pkgver
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    ./config \
+        --prefix=/usr \
+        --openssldir=/etc/ssl \
+        --libdir=lib32 \
+        shared zlib-dynamic linux-x86
+    #make depend
+    make
+}
+
+package() {
+    cd ${_pkgname}-$pkgver
+
+    make DESTDIR=$PWD/DESTDIR install
+    mkdir -p "$pkgdir"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
+
+    rm -rf "$pkgdir"/usr/lib32/*.a
+}

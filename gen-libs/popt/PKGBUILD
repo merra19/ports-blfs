@@ -1,0 +1,23 @@
+# description	: Parse Options - Command line parser
+# depends	: glibc
+
+pkgname=popt
+pkgver=1.19
+pkgrel=1
+options=(!lto)
+source=(http://ftp.rpm.org/popt/releases/popt-1.x/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

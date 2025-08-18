@@ -1,0 +1,20 @@
+# description	: Data pack for Business::ISBN
+# depends	: perl
+
+pkgname=perl-business-data
+pkgver=20250205.001
+pkgrel=1
+source=(https://cpan.metacpan.org/authors/id/B/BR/BRIANDFOY/Business-ISBN-Data-$pkgver.tar.gz)
+
+build() {
+	cd Business-ISBN-Data-$pkgver
+
+	PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+	make
+}
+
+package() {
+    cd Business-ISBN-Data-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

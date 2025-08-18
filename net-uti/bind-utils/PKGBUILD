@@ -1,0 +1,40 @@
+# description	: Client side programs  of Bind DNS Server
+# depends	: liburcu libuv json-c nghttp2 pam libcap libxml2
+
+pkgname=bind-utils
+pkgver=9.20.11
+pkgrel=1
+options=(!lto)
+source=(https://ftp.isc.org/isc/bind9/$pkgver/bind-$pkgver.tar.xz)
+
+build() {
+	cd bind-$pkgver
+
+    ./configure \
+        --prefix=/usr &&
+    make -C lib/isc      &&
+    make -C lib/dns      &&
+    make -C lib/ns       &&
+    make -C lib/isccfg   &&
+    make -C lib/isccc    &&
+    make -C bin/dig      &&
+    make -C bin/nsupdate &&
+    make -C bin/rndc     &&
+    make -C doc
+}
+
+package() {
+    cd bind-$pkgver
+
+    make -C lib/isc      DESTDIR="$pkgdir" install &&
+    make -C lib/dns      DESTDIR="$pkgdir" install &&
+    make -C lib/ns       DESTDIR="$pkgdir" install &&
+    make -C lib/isccfg   DESTDIR="$pkgdir" install &&
+    make -C lib/isccc    DESTDIR="$pkgdir" install &&
+    make -C bin/dig      DESTDIR="$pkgdir" install &&
+    make -C bin/nsupdate DESTDIR="$pkgdir" install &&
+    make -C bin/rndc     DESTDIR="$pkgdir" install &&
+    mkdir -p "$pkgdir"/usr/share/man/man1 "$pkgdir"/usr/share/man/man8
+    cp -v doc/man/{dig.1,host.1,nslookup.1,nsupdate.1} "$pkgdir"/usr/share/man/man1 &&
+    cp -v doc/man/rndc.8 "$pkgdir"/usr/share/man/man8
+}

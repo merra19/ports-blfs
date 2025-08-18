@@ -1,0 +1,23 @@
+# description	: Breeze SVG icon theme
+# depends	: extra-cmake-modules qt6-base py3-lxml
+
+pkgname=breeze-icons
+pkgver=6.17.0
+pkgrel=1
+source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build 
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+}

@@ -1,0 +1,27 @@
+# description	: Multimedia processing graphs
+# depends	: meson pkgconf python3 ncurses glib dbus readline openssl 
+# depends	: fdk-aac alsa-lib opus ffmpeg pulseaudio libx11 libxfixes 
+# depends	: alsa-plugins alsa-firmware avahi
+
+pkgname=pipewire
+pkgver=1.4.7
+pkgrel=1
+options=(!lto)
+source=(https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/$pkgver/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D session-managers="[]" \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

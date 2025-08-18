@@ -1,0 +1,21 @@
+# description	: ISO language, territory, currency, script codes and their translation
+# depends	: python3 gettext
+
+pkgname=iso-codes
+pkgver=4.18.0
+pkgrel=1
+source=(https://salsa.debian.org/iso-codes-team/iso-codes/-/archive/v$pkgver/iso-codes-v$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-v$pkgver
+
+	./configure \
+        --prefix=/usr
+	make
+}
+
+package() {
+    cd $pkgname-v$pkgver
+
+    make DESTDIR="$pkgdir" LN_S='ln -sfn' install
+}

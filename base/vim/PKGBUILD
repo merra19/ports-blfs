@@ -1,0 +1,33 @@
+# description	: Vim, an improved vi-style text editor
+# depends	: acl gettext ncurses gpm lua perl xorg-proto libxt tcl
+
+pkgname=vim
+pkgver=9.1.1629
+pkgrel=1
+options=(!lto)
+source=(https://github.com/vim/vim/archive/v$pkgver/$pkgname-$pkgver.tar.gz
+        vimrc)
+backup=(etc/vimrc)
+
+build() {
+    cd $pkgname-$pkgver
+
+    # Change the default location of the vimrc configuration file to /etc
+    echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+    install -Dm 644 "$srcdir"/vimrc "$pkgdir"/etc/vimrc
+
+    _ver="$(echo $pkgver | awk -F '.' '{print $1$2}')"
+    mkdir -pv "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+    ln -sv ../../vim/vim$_ver/doc "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

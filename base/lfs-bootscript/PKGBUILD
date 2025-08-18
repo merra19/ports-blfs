@@ -1,0 +1,26 @@
+# description	: LFS bootscript
+
+pkgname=lfs-bootscript
+pkgver=20250225
+pkgverlfs=20240825
+pkgrel=1
+source=(https://anduin.linuxfromscratch.org/BLFS/blfs-bootscripts/blfs-bootscripts-$pkgver.tar.xz
+        https://www.linuxfromscratch.org/lfs/downloads/development/lfs-bootscripts-$pkgverlfs.tar.xz
+        c89 c99)
+        
+package() {
+    cd blfs-bootscripts-$pkgver
+            
+    mkdir -p "$pkgdir"/usr/share/blfs-bootscripts
+    cp -r Makefile blfs "$pkgdir"/usr/share/blfs-bootscripts
+
+    cd "$srcdir"/lfs-bootscripts-$pkgverlfs
+    make DESTDIR="$pkgdir" install
+
+    rm -rf "$pkgdir"/etc/sysconfig/rc.site
+    rm -f "$pkgdir"/etc/sysconfig/createfiles
+
+    install -Dm755 "$srcdir"/c89 "$pkgdir"/usr/bin/c89
+	install -Dm755 "$srcdir"/c99 "$pkgdir"/usr/bin/c99
+
+}

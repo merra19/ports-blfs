@@ -1,0 +1,24 @@
+# description	: An Extremely fast, In-Memory JSON and Interface Library for Modern C++
+# depends	: cmake
+
+pkgname=glaze
+pkgver=5.0.0
+pkgrel=1
+options=(!lto)
+source=(https://github.com/stephenberry/glaze//archive/v$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	cmake -B build \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF
+	cmake --build build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" cmake --install build
+}

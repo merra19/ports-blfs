@@ -1,0 +1,31 @@
+# description	: Plasma crash handler, gives the user feedback if a program crashed
+# depends	: kconfig kcoreaddons kcrash ki18n kidletime kio 
+# depends	: kjobwidgets knotifications kstatusnotifieritem 
+# depends	: kwallet kwidgetsaddons kwindowsystem kirigami
+# depends	: syntax-highlighting kitemmodels qt6-base qt6-declarative
+# depends	: py3-pygdbmi py3-gpep517 py3-setuptools py3-wheel
+
+pkgname=drkonqi
+pkgver=6.3.2
+pkgrel=1
+source=(https://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -D WITH_PYTHON_VENDORING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
+}

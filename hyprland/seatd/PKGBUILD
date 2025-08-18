@@ -1,0 +1,41 @@
+# description	: Minimal seat management daemon and universal library
+# depends	: meson ninja elogind
+
+pkgname=seatd
+pkgver=0.9.1
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://git.sr.ht/~kennylevinsen/seatd/archive/$pkgver.tar.gz
+        seatd.init $pkgname.hooks)
+
+build() {
+	cd $pkgname-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D examples=disabled \
+        -D server=enabled \
+        -D libseat-logind=elogind \
+        -D man-pages=disabled \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+
+    install -Dm 0755 "$srcdir"/seatd.init "$pkgdir"/etc/rc.d/init.d/seatd
+
+    for i in 0 1 2 3 4 5 6; do
+        install -d "$pkgdir"/etc/rc.d/rc$i.d/$i
+        case $i in
+            0|1|6) ln -sf ../init.d/seatd "$pkgdir"/etc/rc.d/rc$i.d/K30seatd ;;
+            *) ln -sf ../init.d/seatd "$pkgdir"/etc/rc.d/rc$i.d/S70seatd ;;
+            *) ;;
+        esac
+    done
+
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
+}

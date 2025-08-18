@@ -1,0 +1,26 @@
+# description	: Multi-document editor with network transparency, Plasma integration and more
+# depends	: extra-cmake-modules qt6-base kcoreaddons kdbusaddons 
+# depends	: ki18n kwindowsystem ktexteditor
+
+pkgname=kate
+pkgver=24.12.2
+pkgrel=1
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+}

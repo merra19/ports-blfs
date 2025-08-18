@@ -1,0 +1,22 @@
+# description	: Advanced Linux Sound Architecture Library
+# depends	: glibc alsa-ucm-conf alsa-topology-conf
+
+pkgname=alsa-lib
+pkgver=1.2.14
+pkgrel=1
+options=(!lto)
+source=(https://www.alsa-project.org/files/pub/lib/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

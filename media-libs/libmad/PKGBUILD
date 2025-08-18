@@ -1,0 +1,31 @@
+# description	: "M"peg "A"udio "D"ecoder library
+# depends	: glibc
+
+pkgname=libmad
+pkgver=0.15.1b
+pkgrel=1
+source=(https://downloads.sourceforge.net/mad/$pkgname-$pkgver.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/$pkgname-$pkgver-fixes-1.patch
+        mad.pc)
+
+build() {
+	cd $pkgname-$pkgver
+	
+    patch -Np1 -i ../libmad-$pkgver-fixes-1.patch
+    sed "s@AM_CONFIG_HEADER@AC_CONFIG_HEADERS@g" -i configure.ac
+    touch NEWS AUTHORS ChangeLog
+    autoreconf -fi  
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static 
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+    install -Dm 644 "$srcdir"/mad.pc "$pkgdir"/usr/lib/pkgconfig/mad.pc
+}

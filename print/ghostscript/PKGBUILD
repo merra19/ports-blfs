@@ -1,0 +1,44 @@
+# description	: Interpreter for the PostScript language and PDF
+# depends	: libpaper fontconfig freetype lcms2 libpng libjpeg-turbo 
+# depends	: openjpeg2 libtiff zlib dbus libxext  libxt 
+# depends	: libidn cups
+
+### poppler 
+
+pkgname=ghostscript
+pkgver=10.05.1
+_version="$(echo $pkgver | sed 's/\.//g')"
+pkgrel=1
+options=(!lto)
+source=(https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs$_version/$pkgname-$pkgver.tar.xz
+        https://downloads.sourceforge.net/gs-fonts/ghostscript-fonts-std-8.11.tar.gz
+        https://downloads.sourceforge.net/gs-fonts/gnu-gs-fonts-other-6.0.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/ghostscript-10.05.1-gcc15_fixes-1.patch)
+noextract=(ghostscript-fonts-std-8.11.tar.gz gnu-gs-fonts-other-6.0.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    rm -rf cups/libs freetype jpeg lcms2mt libpng tiff openjpeg zlib
+
+    # Apply a patch to prevent a problem when building with gcc-15
+    patch -Np1 -i ../ghostscript-10.05.1-gcc15_fixes-1.patch
+
+    ./configure \
+        --prefix=/usr \
+        --disable-compile-inits \
+        --with-system-libtiff 
+    make so all 
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make -j1 DESTDIR="$pkgdir" install-so install
+
+    install -v -m644 base/*.h "$pkgdir"/usr/include/ghostscript &&
+    ln -sfvn ghostscript "$pkgdir"/usr/include/ps
+
+    tar -xvf ../ghostscript-fonts-std-8.11.tar.gz -C "$pkgdir"/usr/share/ghostscript --no-same-owner &&
+    tar -xvf ../gnu-gs-fonts-other-6.0.tar.gz     -C "$pkgdir"/usr/share/ghostscript --no-same-owner
+}

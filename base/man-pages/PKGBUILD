@@ -1,0 +1,18 @@
+# description	: Linux man pages
+# depends	: bc
+
+pkgname=man-pages
+pkgver=6.15
+pkgrel=1
+source=(https://www.kernel.org/pub/linux/docs/man-pages/$pkgname-$pkgver.tar.xz)
+
+package() {
+    cd "$srcdir"/$pkgname-$pkgver
+
+    # Install man-pages
+    make DESTDIR="$pkgdir" -R GIT=false prefix=/usr install 
+
+    ## Remove excluded files
+    rm -f "$pkgdir"*/usr/share/man/man3/crypt.3
+    rm -f "$pkgdir"*/usr/share/man/man3/crypt_r.3
+}

@@ -1,0 +1,29 @@
+# description	: Public Key Infrastructure (PKI)
+# depends	: p11-kit nss
+
+pkgname=make-ca
+pkgver=1.16.1
+pkgrel=1
+source=(https://github.com/lfs-book/make-ca/archive/v$pkgver/$pkgname-$pkgver.tar.gz
+        update-pki.sh pythoncerts.sh)
+
+build() {
+    cd $pkgname-$pkgver
+
+cat >> make-ca << "EOF"
+ln -svf /etc/pki/tls/certs/ca-bundle.crt /etc/ssl/certs/ca-certificates.crt
+EOF
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+    install -vdm755 "$pkgdir"/etc/ssl/local
+
+    install -vdm754 "$pkgdir"/etc/cron.hourly "$pkgdir"/etc/cron.daily "$pkgdir"/etc/cron.weekly "$pkgdir"/etc/cron.monthly
+    install -Dm 754 ../update-pki.sh "$pkgdir"/etc/cron.weekly/update-pki.sh 
+
+    mkdir -pv "$pkgdir"/etc/profile.d
+    install -Dm 755 ../pythoncerts.sh "$pkgdir"/etc/profile.d/pythoncerts.sh
+}

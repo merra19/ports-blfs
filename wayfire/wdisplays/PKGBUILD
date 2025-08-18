@@ -1,0 +1,19 @@
+# description	: GUI display configurator for wlroots compositors
+# depends	: gtk3 libepoxy wayland wayland-protocols meson
+
+pkgname=wdisplays
+pkgver=1.1.1
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/artizirk/wdisplays/archive/$pkgver.tar.gz)
+
+build() {
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
+	    $pkgname-$pkgver build
+	ninja -C build
+}
+
+package() {
+    DESTDIR="$pkgdir" ninja -C build install
+}

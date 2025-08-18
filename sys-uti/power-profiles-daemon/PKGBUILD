@@ -1,0 +1,31 @@
+# description	: Makes power profiles handling available over D-Bus
+# depends	: glib libgudev polkit upower bash-completion meson
+# depends	: py3-shtab py3-gobject3 gtk-doc
+
+pkgname=power-profiles-daemon
+pkgver=0.30
+pkgrel=1
+source=(https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk_doc=true \
+        -D tests=false \
+        -D systemdsystemunitdir=/tmp \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	DESTDIR="$pkgdir" ninja -C build install
+
+    rm -rf "$pkgdir"/tmp
+
+	install -vdm755 "$pkgdir"/var/lib/power-profiles-daemon
+}

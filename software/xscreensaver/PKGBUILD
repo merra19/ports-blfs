@@ -1,0 +1,29 @@
+# description	: Modular screen saver and locker for the X Window System
+# depends	: libxml2 libx11 libxext libxi libxrandr libxxf86vm
+# depends	: libxt elogind gdk-pixbuf gtk3 libjpeg-turbo glu mesa
+# depends	: pam libpng libxft libxinerama libgcrypt
+
+pkgname=xscreensaver
+pkgver=6.12
+pkgrel=1
+source=(https://www.jwz.org/xscreensaver/$pkgname-$pkgver.tar.gz
+        xscreensaver)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --with-elogind 
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    mkdir -p "$pkgdir"/etc/pam.d
+
+	make install_prefix="$pkgdir" install
+
+    install -Dm 644 "$srcdir"/xscreensaver "$pkgdir"/etc/pam.d/xscreensaver
+}

@@ -1,0 +1,26 @@
+# description	: Base ISO character entities and utilities for SGML
+# depends	: glibc
+
+pkgname=sgml-common
+pkgver=0.6.3
+pkgrel=1
+source=(https://sourceware.org/ftp/docbook-tools/new-trials/SOURCES/$pkgname-$pkgver.tgz
+        sgml-common-0.6.3-manpage-1.patch)
+
+build() {
+    cd $pkgname-$pkgver
+
+    patch -Np1 -i ../$pkgname-$pkgver-manpage-1.patch
+    autoreconf -f -i
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make docdir=/usr/share/doc DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,26 @@
+# description	: A library for installing Python wheels"
+# depends	: python3 unzip
+
+pkgname=py3-installer
+pkgver=0.7.0
+pkgrel=1
+source=(https://files.pythonhosted.org/packages/py3/i/installer/installer-$pkgver-py3-none-any.whl
+	    default-bytecode-levels.patch)
+noextract=(installer-$pkgver-py3-none-any.whl)
+
+build() {
+     
+ 	# we have to use the wheel because py3-installer is the base to be able to
+	# install generated wheels, so we don't have it when building it itself
+	unzip -d "$srcdir" "$srcdir"/installer-$pkgver-py3-none-any.whl   
+
+    patch -Np1 -i ./default-bytecode-levels.patch
+}
+
+package() {
+	local sitedir="$(python3 -c 'import site;print(site.getsitepackages()[0])')"
+	mkdir -p "$pkgdir/$sitedir"
+	cp -a installer* "$pkgdir/$sitedir"
+
+	python3 -m compileall "$pkgdir/$sitedir"
+}

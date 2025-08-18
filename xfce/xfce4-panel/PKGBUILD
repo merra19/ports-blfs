@@ -1,0 +1,24 @@
+# description	: Panel for the Xfce desktop environment
+# depends	: glib cairo py3-cairo gobject-introspection gtk3 libx11
+# depends	: libwnck3 exo garcon libxfce4ui libxfce4util xfconf perl
+# depends	: libdbusmenu gettext intltool pkgconf libxfce4windowing
+
+pkgname=xfce4-panel
+pkgver=4.20.4
+pkgrel=1
+source=(https://archive.xfce.org/src/xfce/xfce4-panel/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,23 @@
+# description	: Building blocks for modern adaptive GNOME apps
+# depends	: glib gobject-introspection gtk3 libxml2 vala
+
+pkgname=libhandy
+pkgver=1.8.3
+pkgrel=1
+source=(https://download.gnome.org/sources/libhandy/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

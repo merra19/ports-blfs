@@ -1,0 +1,24 @@
+# description	: Locale and ISO 2022 support for Unicode terminals
+# depends	: libfontenc zlib groff
+
+pkgname=luit
+pkgver=20240910
+pkgrel=1
+source=(https://invisible-mirror.net/archives/luit/$pkgname-$pkgver.tgz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-static
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

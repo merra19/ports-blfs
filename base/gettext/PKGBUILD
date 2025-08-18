@@ -1,0 +1,25 @@
+# description	: GNU locale utilities
+# depends	: glibc ncurses acl libxml2 expat
+
+pkgname=gettext
+pkgver=0.26
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/gettext/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --enable-nls \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+    chmod -v 0755 "$pkgdir"/usr/lib/preloadable_libintl.so
+}

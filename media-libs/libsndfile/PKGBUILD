@@ -1,0 +1,26 @@
+# description	: C library for reading and writing files containing sampled sound
+# depends	: flac opus libvorbis alsa-lib sqlite libogg lame mpg123 
+
+pkgname=libsndfile
+pkgver=1.2.2
+pkgrel=1
+source=(https://github.com/libsndfile/libsndfile/releases/download/$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	# Fix building with GCC-15
+	sed '/typedef enum/,/bool ;/d' -i \
+	src/ALAC/alac_{en,de}coder.c
+
+	./configure \
+        --prefix=/usr \
+		--docdir=/usr/share/doc/$pkgname-$pkgver
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

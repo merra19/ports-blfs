@@ -1,0 +1,27 @@
+# description	: X.org input driver based on libinput
+# depends	: libinput xorg-proto xlibre-xserver
+
+pkgname=xlibre-xf86-video-amdgpu
+pkgver=23.0.0.4
+pkgrel=1
+options=(!lto)
+source=($pkgname-$pkgver.tar.gz::https://github.com/X11Libre/xf86-video-amdgpu/archive/refs/tags/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd xf86-video-amdgpu-xlibre-xf86-video-amdgpu-$pkgver
+
+    autoreconf -fiv
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+package() {
+    cd xf86-video-amdgpu-xlibre-xf86-video-amdgpu-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,19 @@
+# description	: User-space application to modify the EFI boot manager
+# depends	: efivar popt pciutils
+
+pkgname=efibootmgr
+pkgver=18
+pkgrel=1
+source=(https://github.com/rhboot/efibootmgr/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    make EFIDIR=LFS EFI_LOADER=grubx64.efi
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install EFIDIR=LFS
+}

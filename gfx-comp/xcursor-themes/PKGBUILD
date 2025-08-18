@@ -1,0 +1,21 @@
+# description	: X.Org cursor themes: whiteglass, redglass and handhelds
+# depends	: xcursorgen libx11 libxcursor
+
+pkgname=xcursor-themes
+pkgver=1.0.7
+pkgrel=1
+source=(https://www.x.org/pub/individual/data/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

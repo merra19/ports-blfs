@@ -1,0 +1,23 @@
+# description	: Select a region in a Wayland compositor and print it to the standard output
+# depends	: cairo libxkbcommon wayland meson wayland-protocols
+
+pkgname=slurp
+pkgver=1.5.0
+pkgrel=1
+source=(https://github.com/emersion/slurp/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

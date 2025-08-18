@@ -1,0 +1,25 @@
+# description	: The GNU info program and utilities
+# depends	: ncurses perl
+
+pkgname=texinfo
+pkgver=7.2
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/texinfo/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    # Fix a code pattern that causes Perl-5.42 or later to display a warning
+    sed 's/! $output_file eq/$output_file ne/' -i tp/Texinfo/Convert/*.pm
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+    make DESTDIR="$pkgdir" TEXMF=/usr/share/texmf install-tex
+}

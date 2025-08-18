@@ -1,0 +1,25 @@
+# description	: Library providing GLib serialization and deserialization for the JSON format
+# depends	: glib gobject-introspection
+
+pkgname=json-glib
+pkgver=1.10.6
+pkgrel=1
+options=(!lto)
+source=(https://download.gnome.org/sources/json-glib/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D nls=disabled \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

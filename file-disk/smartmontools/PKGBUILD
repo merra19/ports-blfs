@@ -1,0 +1,26 @@
+# description	: Tools to monitor storage systems to provide advanced warning of disk degradation
+# depends	: libcap gnupg curl lynx
+
+pkgname=smartmontools
+pkgver=7.5
+pkgrel=1
+source=(https://downloads.sourceforge.net/smartmontools/$pkgname-$pkgver.tar.gz)
+backup=(etc/smartd.conf)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --with-initscriptdir=no \
+         --with-libsystemd=no    \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

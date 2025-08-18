@@ -1,0 +1,26 @@
+# description	: X.Org Xft library
+# depends	: fontconfig freetype libx11 libxext libxrender xorg-proto
+
+pkgname=libxft
+_pkgname=libXft
+pkgver=2.3.9
+pkgrel=1
+source=(https://www.x.org/pub/individual/lib/libXft-$pkgver.tar.xz)
+
+build() {
+    cd ${_pkgname}-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXft-$pkgver
+    make
+}
+
+package() {
+    cd ${_pkgname}-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

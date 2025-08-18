@@ -1,0 +1,25 @@
+# description	: XKB layout switching panel plug-in for the Xfce desktop environment
+# depends	: xfce4-panel libxklavier librsvg libwnck3 libnotify meson
+# depends	: xfce4-dev-tools xfce4-notifyd
+
+pkgname=xfce4-xkb-plugin
+pkgver=0.9.0
+pkgrel=1
+source=(https://archive.xfce.org/src/panel-plugins/xfce4-xkb-plugin/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+    
+    DESTDIR="$pkgdir" ninja -C build install
+}
+

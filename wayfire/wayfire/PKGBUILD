@@ -1,0 +1,71 @@
+# description	: compiz like 3D wayland compositor
+# depends	: nlohmann-json glib libevdev libinput wayland wf-config
+# depends	: wayland-protocols wlroots glm libglvnd libjpeg-turbo
+# depends	: libpng cairo libxkbcommon pango pixman dbus libxcb
+# depends	: xkeyboard-config cmake vulkan-headers libxml2 libdrm
+# depends	: polkit seatd xwayland glslang libdisplay-info mesa
+# depends	: xcb-util-errors xcb-util-renderutil xcb-util-wm
+
+pkgname=wayfire
+pkgver=0.9.0
+pkgrel=1
+source=(https://github.com/WayfireWM/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz
+        wayfire-session.desktop wayfire-session wayfire.env)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D xwayland=auto \
+        -D use_system_wlroots=enabled \
+        -D use_system_wfconfig=enabled \
+        -D b_lto=true \
+        -D b_pie=true \
+        build
+    sed "/WF_SRC_DIR/d" -i build/config.h
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+
+    install -Dm 0755 "$srcdir"/wayfire-session "$pkgdir"/usr/share/wayland-sessions/wayfire-session
+    install -Dm 0644 "$srcdir"/wayfire-session.desktop "$pkgdir"/usr/share/wayland-sessions/wayfire.desktop
+    install -Dm 0644 "$srcdir"/wayfire.env "$pkgdir"/etc/wayfire.env
+
+
+    #install -Dm644 wayfire.desktop "$pkgdir"/usr/share/wayland-sessions/wayfire.desktop
+    install -Dm 0644 wayfire.ini "$pkgdir"/usr/share/wayfire/wayfire.ini
+}
+
+build2() {
+	cd $pkgname-$pkgver
+
+    patch -Np1 -i ../decor_title_font_scale.patch
+    patch -Np1 -i ../add-session-lock-config.patch
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D xwayland=auto \
+        -D use_system_wlroots=disabled \
+        -D use_system_wfconfig=enabled \
+        -D b_lto=true \
+        -D b_pie=true \
+        build
+    sed "/WF_SRC_DIR/d" -i build/config.h
+	ninja -C build
+}
+
+package2() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+
+    install -Dm644 wayfire.desktop "$pkgdir"/usr/share/wayland-sessions/wayfire.desktop
+    cp wayfire.ini "$pkgdir"/usr/share
+}

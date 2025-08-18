@@ -1,0 +1,24 @@
+# description	: A fast and lightweight picture viewer for Xfce
+# depends	: glib libexif file cairo gtk3 libx11 libxfce4ui
+# depends	: libxfce4util xfconf
+
+pkgname=ristretto
+pkgver=0.13.4
+pkgrel=1
+source=(https://archive.xfce.org/src/apps/ristretto/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+    
+    DESTDIR="$pkgdir" ninja -C build install
+}

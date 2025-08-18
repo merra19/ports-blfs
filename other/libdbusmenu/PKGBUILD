@@ -1,0 +1,36 @@
+# description	: Library to pass menu structure across DBus
+# depends	: vala gobject-introspection glib libxml2 dbus-glib 
+# depends	: json-glib
+# optional	: gtk3 
+
+pkgname=libdbusmenu
+pkgver=16.04.0
+pkgrel=1
+options=(!lto)
+source=(https://launchpad.net/libdbusmenu/${pkgver%.*}/$pkgver/+download/libdbusmenu-$pkgver.tar.gz
+        python3.patch libdbusmenu-16.04.0-werror.patch)
+
+build() {
+	cd $pkgname-$pkgver
+
+    #patch -Np1 -i ../python3.patch
+    patch -Np1 -i ../libdbusmenu-16.04.0-werror.patch
+
+    export CFLAGS+=" -Wno-error"
+
+	./configure \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+        --disable-dumper \
+		--disable-static \
+        --with-gtk=3 \
+        $OPT_JSONGLIB
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make -j1  DESTDIR="$pkgdir" install
+}

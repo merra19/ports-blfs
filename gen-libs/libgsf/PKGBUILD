@@ -1,0 +1,22 @@
+# description	: The GNOME Structured File Library
+# depends	: glib gobject-introspection libxml2 zlib bzip2 gdk-pixbuf
+
+pkgname=libgsf
+pkgver=1.14.53
+pkgrel=1
+source=(https://download.gnome.org/sources/libgsf/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

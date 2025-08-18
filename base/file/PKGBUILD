@@ -1,0 +1,33 @@
+# description	: Identify a file's format by scanning binary data for patterns
+# depends	: zlib xz bzip2
+
+pkgname=file
+pkgver=5.46
+pkgrel=1
+options=(!lto)
+source=(https://astron.com/pub/file/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    CFLAGS+=" -pthread"
+
+    mkdir build
+    pushd build
+    ../configure --disable-bzlib \
+                --disable-libseccomp \
+                --disable-xzlib \
+                --disable-zlib
+    make
+    popd
+
+    ./configure \
+        --prefix=/usr
+    make FILE_COMPILE=$(pwd)/build/src/file
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,21 @@
+# description	: A perl module for parsing XML documents
+# depends	: expat perl
+
+pkgname=perl-xml-parser
+_pkgname=XML-Parser
+pkgver=2.47
+pkgrel=1
+source=(http://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-$pkgver.tar.gz)
+
+build() {
+    cd ${_pkgname}-$pkgver
+
+    perl Makefile.PL INSTALLDIRS=vendor
+    make
+}
+
+package() {
+    cd ${_pkgname}-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

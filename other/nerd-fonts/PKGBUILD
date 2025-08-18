@@ -1,0 +1,116 @@
+# description	: Iconic font aggregator, collection, and patcher
+# depends	: glibc
+
+pkgname=nerd-fonts
+pkgver=3.4.0
+pkgrel=1
+options=(!strip)
+source=(0xproto-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/0xProto.tar.xz
+        3270-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/3270.tar.xz
+        agave-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Agave.tar.xz
+        anonymouspro-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/AnonymousPro.tar.xz
+        arimo-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Arimo.tar.xz
+        aurulent-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/AurulentSansMono.tar.xz
+        bigblueterminal-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/BigBlueTerminal.tar.xz
+        bitstreamveramono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/BitstreamVeraSansMono.tar.xz
+        cascadiacode-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/CascadiaCode.tar.xz
+        cascadiamono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/CascadiaMono.tar.xz
+        codenewroman-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/CodeNewRoman.tar.xz
+        comicshanns-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/ComicShannsMono.tar.xz
+        commitmono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/CommitMono.tar.xz
+        cousine-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Cousine.tar.xz
+        daddytimemono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/DaddyTimeMono.tar.xz
+        d2coding-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/D2Coding.tar.xz
+        dejavu-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/DejavuSansMono.tar.xz
+        droid-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/DroidSansMono.tar.xz
+        envycoder-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/EnvyCodeR.tar.xz
+        fantasque-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/FantasqueSansMono.tar.xz
+        fira-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/FiraCode.tar.xz
+        firamono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/FiraMono.tar.xz
+        geistmono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/GeistMono.tar.xz
+        go-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Go-Mono.tar.xz
+        gohu-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Gohu.tar.xz
+        hack-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Hack.tar.xz
+        hasklig-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Hasklig.tar.xz
+        heavydata-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/HeavyData.tar.xz
+        hermit-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Hermit.tar.xz
+        iawriter-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/iA-Writer.tar.xz
+        ibmplexmono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/IBMPlexMono.tar.xz
+        inconsolata-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Inconsolata.tar.xz
+        inconsolatago-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/InconsolataGo.tar.xz
+        inconsolatalgc-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/InconsolataLGC.tar.xz
+        intone-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/IntelOneMono.tar.xz
+        iosevka-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Iosevka.tar.xz
+        iosevkaterm-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/IosevkaTerm.tar.xz
+        iosevkatermslab-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/IosevkaTermSlab.tar.xz
+        jetbrainsmono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/JetBrainsMono.tar.xz
+        lekton-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Lekton.tar.xz
+        liberationmono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/LiberationMono.tar.xz
+        lilex-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Lilex.tar.xz
+        martianmono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/MartianMono.tar.xz
+        meslo-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Meslo.tar.xz
+        monaspace-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Monaspace.tar.xz
+        monofur-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Monofur.tar.xz
+        monoid-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Monoid.tar.xz
+        mononoki-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Mononoki.tar.xz
+        mplus-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/MPlus.tar.xz
+        noto-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Noto.tar.xz
+        opendyslexic-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/OpenDyslexic.tar.xz
+        overpass-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Overpass.tar.xz
+        profont-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/ProFont.tar.xz
+        proggyclean-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/ProggyClean.tar.xz
+        recursive-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Recursive.tar.xz
+        robotomono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/RobotoMono.tar.xz
+        sharetechmono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/ShareTechMono.tar.xz
+        sourcecodepro-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/SourceCodePro.tar.xz
+        spacemono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/SpaceMono.tar.xz
+        terminus-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Terminus.tar.xz
+        tinos-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Tinos.tar.xz
+        ubuntu-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/Ubuntu.tar.xz
+        ubuntumono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/UbuntuMono.tar.xz
+        victormono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/VictorMono.tar.xz
+        zedmono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/ZedMono.tar.xz)
+
+for isource in $source;do
+   noextract=($noextract ${isource%%::*}) 
+done
+
+build() {
+  # archives don't include a font-specific directory, so we have to make them
+  for _font in 3270 agave anonymouspro arimo aurulent bigblueterminal \
+               bitstreamveramono cascadiacode codenewroman cousine \
+               daddytimemono dejavu droid fantasque fira firamono go hack \
+               hasklig heavydata hermit iawriter ibmplexmono inconsolata \
+               inconsolatago inconsolatalgc iosevka jetbrainsmono lekton \
+               liberationmono lilex meslo monofur monoid mononoki mplus noto \
+               opendyslexic overpass profont proggyclean robotomono \
+               sharetechmono sourcecodepro spacemono terminus tinos ubuntu \
+               ubuntumono victormono iosevkaterm comicshanns intone 0xproto \
+               cascadiamono commitmono d2coding envycoder geistmono martianmono \
+               monaspace gohu iosevkatermslab recursive zedmono; do
+  mkdir $_font
+  bsdtar xf ${_font}-$pkgver.tar.xz -C $_font
+  done
+}
+
+package() {
+    for _font in 3270 agave anonymouspro arimo bigblueterminal \
+               bitstreamveramono cascadiacode cousine \
+               daddytimemono dejavu fantasque fira go hack \
+               heavydata iawriter ibmplexmono inconsolata \
+               inconsolatago inconsolatalgc iosevka jetbrainsmono lekton \
+               liberationmono lilex meslo monofur monoid mononoki mplus noto \
+               profont proggyclean robotomono \
+               sharetechmono sourcecodepro spacemono terminus tinos ubuntu \
+               ubuntumono victormono iosevkaterm intone 0xproto \
+               cascadiamono d2coding envycoder martianmono \
+               gohu iosevkatermslab recursive zedmono; do
+
+	    install -Dm644 $_font/*.ttf -t "$pkgdir"/usr/share/fonts/TTF
+    done
+
+    for _font in aurulent codenewroman droid firamono hasklig hermit opendyslexic \
+            overpass comicshanns commitmono geistmono monaspace; do
+        install -Dm644 $_font/*.otf -t "$pkgdir"/usr/share/fonts/OTF
+    done    
+}

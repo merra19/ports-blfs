@@ -1,0 +1,24 @@
+# description	: A certifi hack to use system trust store on Linux/FreeBSD
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel 
+# depends	: make-ca
+
+pkgname=py3-certifi
+pkgver=2025.8.3
+pkgrel=1
+options=(!lto)
+source=(https://files.pythonhosted.org/packages/source/c/certifi/certifi-$pkgver.tar.gz)
+
+build() {
+	cd ${pkgname#*-}-$pkgver
+    
+	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${pkgname#*-}-$pkgver
+
+    python3 -m installer -d "$pkgdir" .dist/*.whl
+
+    # Remove bundled certificates, we use system certificates
+    rm -f "$pkgdir"/usr/lib/python3*/site-packages/certifi/cacert.pem
+}

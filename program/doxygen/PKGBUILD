@@ -1,0 +1,29 @@
+# description	: Documentation system for most programming languages
+# depends	: flex bison coreutils perl python3 cmake sqlite 
+# depends	: ghostscript
+
+pkgname=doxygen
+pkgver=1.14.0
+pkgrel=1
+source=(https://doxygen.nl/files/$pkgname-$pkgver.src.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    # Fix up some python scripts:
+    grep -rl '^#!.*python$' | xargs sed -i '1s/python/&3/'
+
+    cmake -B build -G "Unix Makefiles" \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+    install -d "$pkgdir"/usr/share/man/man1
+    install -vm644 doc/*.1 "$pkgdir"/usr/share/man/man1
+}

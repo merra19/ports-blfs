@@ -1,0 +1,23 @@
+# description	: Linux system headers
+
+pkgname=linux-api-headers
+_pkgname=linux
+pkgver=6.15.4
+pkgrel=1
+source=(https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${pkgver%.0}.tar.xz)
+
+build() {
+    cd ${_pkgname}-$pkgver
+
+	make mrproper
+	make headers
+}
+
+package() {
+    cd ${_pkgname}-$pkgver
+
+	find usr/include -type f ! -name '*.h' -delete
+
+	mkdir -p "$pkgdir"/usr
+	cp -rv usr/include/ "$pkgdir"/usr
+}

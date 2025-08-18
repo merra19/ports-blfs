@@ -1,0 +1,24 @@
+# description	: X C-language Bindings sample implementations
+# depends	: libxcb xorg-proto
+
+pkgname=xcb-util-wm
+pkgver=0.4.2
+pkgrel=1
+source=(https://xcb.freedesktop.org/dist/xcb-util-wm-0.4.2.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

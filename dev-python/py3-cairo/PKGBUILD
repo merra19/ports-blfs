@@ -1,0 +1,24 @@
+# description	: Python bindings for the cairo library
+# depends	: python3 cairo
+
+pkgname=py3-cairo
+pkgver=1.28.0
+pkgrel=1
+source=(https://github.com/pygobject/pycairo/releases/download/v$pkgver/pycairo-$pkgver.tar.gz)
+
+build() {
+	cd pycairo-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+    ninja -C build
+}
+
+
+package() {
+	cd pycairo-$pkgver
+
+	DESTDIR="$pkgdir" ninja -C build install
+}

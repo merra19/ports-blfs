@@ -1,0 +1,25 @@
+# description	: Meson PEP 517 Python build backend
+# depends	: python3 py3-pyproject-metadata patchelf py3-wheel
+
+pkgname=py3-meson
+_pkgname=meson_python
+pkgver=0.18.0
+pkgrel=1
+source=(https://files.pythonhosted.org/packages/source/m/meson_python/meson_python-$pkgver.tar.gz)
+
+build() {
+	cd ${_pkgname}-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+    ninja -C build
+}
+
+package() {
+	cd ${_pkgname}-$pkgver
+
+	DESTDIR="$pkgdir" ninja -C build install
+    python3 -m compileall "$pkgdir"/usr/lib
+}

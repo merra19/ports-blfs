@@ -1,0 +1,26 @@
+# description	: Library to help create and query binary XML blobs
+# depends	: xz glib util-linux snowball-stemmer zstd 
+# depends	: gobject-introspection
+
+pkgname=libxmlb
+pkgver=0.3.23
+pkgrel=1
+options=(!lto)
+source=(https://github.com/hughsie/libxmlb/releases/download/$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtkdoc=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	DESTDIR="$pkgdir" ninja -C build install
+}

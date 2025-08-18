@@ -1,0 +1,21 @@
+# description	: Used to create autoconfiguration file
+# depends	: m4 perl
+
+pkgname=autoconf
+pkgver=2.72
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/autoconf/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

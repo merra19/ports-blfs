@@ -1,0 +1,25 @@
+# description	: GLib helper library for geocoding services
+# depends	: glib gobject-introspection json-glib libsoup3 meson 
+
+pkgname=geocode-glib
+pkgver=3.26.4
+pkgrel=1
+source=(https://download.gnome.org/sources/geocode-glib/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D enable-gtk-doc=false \
+        -D soup2=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

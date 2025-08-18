@@ -1,0 +1,29 @@
+# description	: A fully featured, yet light weight RFC2131 compliant DHCP client
+# depends	: glibc ntp
+
+pkgname=dhcpcd
+pkgver=10.2.4
+pkgrel=1
+source=(https://github.com/NetworkConfiguration/dhcpcd/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz
+		$pkgname.hooks)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr \
+		--sysconfdir=/etc \
+		--libexecdir=/usr/lib/dhcpcd \
+		--dbdir=/var/lib/dhcpcd \
+		--runstatedir=/run \
+		--disable-privsep
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+	install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
+}

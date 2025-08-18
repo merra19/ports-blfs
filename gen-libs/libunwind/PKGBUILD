@@ -1,0 +1,25 @@
+# description	: Portable and efficient API to determine the call-chain of a program
+# depends	: zlib xz
+
+pkgname=libunwind
+pkgver=1.8.2
+pkgrel=1
+source=(https://github.com/libunwind/libunwind/releases/download/v$pkgver//$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    # First, fix a problem when building with gcc-15
+    sed -i '/func.s/s/s//' tests/Gtest-nomalloc.c
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

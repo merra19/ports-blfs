@@ -1,0 +1,23 @@
+# description	: A thin layer of types for graphic libraries
+# depends	: gobject-introspection glib meson
+
+pkgname=graphene
+pkgver=1.10.8
+pkgrel=1
+source=(https://download.gnome.org/sources/graphene/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

@@ -1,0 +1,25 @@
+# description	: Tool to display dialogs from the commandline and shell scripts
+# depends	: libadwaita help2man gdk-pixbu pango hicolor-icon-theme
+# depends	: glib util-linux meson 
+
+pkgname=zenity
+pkgver=4.0.5
+pkgrel=1
+source=(https://gitlab.gnome.org/GNOME/zenity/-/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+    hardlink -c "$pkgdir/usr/share/help"
+}

@@ -1,0 +1,19 @@
+# description	: Python bindings for the CUPS API
+# depends	: py3-flit-core py3-gpep517 py3-setuptools
+
+pkgname=py3-pycups
+pkgver=2.0.4
+pkgrel=1
+source=(https://files.pythonhosted.org/packages/source/p/pycups/pycups-$pkgver.tar.gz)
+
+build() {
+	cd ${pkgname#*-}-$pkgver
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${pkgname#*-}-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}

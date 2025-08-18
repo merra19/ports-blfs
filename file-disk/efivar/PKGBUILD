@@ -1,0 +1,20 @@
+# description	: Tools and library to manipulate EFI variables
+# depends	: mandoc linux-api-headers
+
+pkgname=efivar
+pkgver=39
+pkgrel=1
+options=(!lto)
+source=(https://github.com/rhboot/efivar/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    make 
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install LIBDIR=/usr/lib
+}

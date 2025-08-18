@@ -1,0 +1,35 @@
+# description	: Scanner Access Now Easy - Backends
+# depends	: avahi cups libjpeg-turbo libtiff libusb v4l-utils
+
+pkgname=sane
+pkgver=1.4.0
+pkgrel=1
+options=(!lto)
+source=(https://anduin.linuxfromscratch.org/BLFS/sane/sane-backends-$pkgver.tar.gz
+        $pkgname.hooks)
+
+build() {
+    cd $pkgname-$pkgver
+
+    PYTHON=python3 \
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --with-lockdir=/run/lock \
+        --docdir=/usr/share/doc/sane-backends-$pkgver
+make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+    install -Dm 644 -v tools/udev/libsane.rules  \
+                    "$pkgdir"/etc/udev/rules.d/65-scanner.rules
+    mkdir -p          "$pkgdir"/run/lock/sane &&
+    chgrp -v scanner  "$pkgdir"/run/lock/sane
+
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
+}

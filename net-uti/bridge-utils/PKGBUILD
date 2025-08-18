@@ -1,0 +1,23 @@
+# description	: Tools for configuring the Linux kernel 802.1d Ethernet Bridge
+# depends	: glibc
+
+pkgname=bridge-utils
+pkgver=1.7.1
+pkgrel=1
+options=(!lto)
+source=(https://www.kernel.org/pub/linux/utils/net/bridge-utils/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    autoconf 
+	./configure \
+        --prefix=/usr
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

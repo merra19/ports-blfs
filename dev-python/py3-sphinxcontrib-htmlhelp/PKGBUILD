@@ -1,0 +1,19 @@
+# description	: Sphinx extension which outputs HTML help book
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
+
+pkgname=py3-sphinxcontrib-htmlhelp
+pkgver=2.1.0
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/s/sphinxcontrib-htmlhelp/sphinxcontrib_htmlhelp-$pkgver.tar.gz)
+
+build() {
+	cd sphinxcontrib_htmlhelp-$pkgver
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd sphinxcontrib_htmlhelp-$pkgver
+
+    python3 -m installer -d "$pkgdir" .dist/*.whl
+}

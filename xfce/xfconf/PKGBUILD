@@ -1,0 +1,24 @@
+# description	: A configuration management system for Xfce
+# depends	: glib dbus libxfce4util gobject-introspection vala 
+# depends	: intltool gettext pkgconf intltool
+
+pkgname=xfconf
+pkgver=4.20.0
+pkgrel=1
+source=(https://archive.xfce.org/src/xfce/xfconf/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
+}

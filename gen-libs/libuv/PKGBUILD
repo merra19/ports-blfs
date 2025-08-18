@@ -1,0 +1,23 @@
+# description	: Cross-platform asychronous I/O
+# depends	: glibc
+
+pkgname=libuv
+pkgver=1.51.0
+pkgrel=1
+source=(https://dist.libuv.org/dist/v$pkgver/$pkgname-v$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-v$pkgver
+
+    sh autogen.sh
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make    
+}
+
+package() {
+    cd $pkgname-v$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

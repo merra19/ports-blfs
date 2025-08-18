@@ -1,0 +1,23 @@
+# description	: Library implementing the SSH2 protocol
+# depends	: libgcrypt openssl zlib
+
+pkgname=libssh2
+pkgver=1.11.1
+pkgrel=1
+source=(https://www.libssh2.org/download/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-docker-tests \
+        --disable-static 
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

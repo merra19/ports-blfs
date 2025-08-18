@@ -1,0 +1,26 @@
+# description	: Bi-directional translator between SPIR-V and LLVM IR
+# depends	: llvm libxml2 spirv-tools spirv-headers
+
+pkgname=spirv-llvm-translator
+pkgver=20.1.5
+pkgrel=1
+source=(https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v$pkgver/SPIRV-LLVM-Translator-$pkgver.tar.gz)
+
+build() {
+    cd SPIRV-LLVM-Translator-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_SHARED_LIBS=ON \
+        -D CMAKE_SKIP_INSTALL_RPATH=ON \
+        -D CMAKE_POSITION_INDEPENDENT_CODE=ON \
+        -D LLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=/usr
+    make -C build
+}
+
+package() {
+    cd SPIRV-LLVM-Translator-$pkgver/build
+
+    make DESTDIR="$pkgdir" install
+}

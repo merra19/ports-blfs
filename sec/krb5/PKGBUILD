@@ -1,0 +1,44 @@
+# description	: MIT Kerberos V
+# depends	: e2fsprogs keyutils lmdb yasm
+
+pkgname=krb5
+pkgver=1.22
+pkgrel=1
+options=(!lto)
+source=(https://kerberos.org/dist/krb5/${pkgver}/$pkgname-$pkgver.tar.gz
+        krb5.conf)
+
+build() {
+	cd $pkgname-$pkgver
+
+    cd src &&
+
+	sed -i -e '/eq 0/{N;s/12 //}'    plugins/kdb/db2/libdb2/test/run.test &&
+
+    export CFLAGS+=" -fPIC -fno-strict-aliasing -fstack-protector-all"
+    export CPPFLAGS+=" -I/usr/include/et"
+   
+	./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var/lib \
+        --runstatedir=/run \
+        --with-system-et \
+        --with-system-ss \
+        --with-system-verto=no \
+        --enable-dns-for-realm \
+        --disable-rpath 
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver/src
+
+	make DESTDIR="$pkgdir" install
+
+    mkdir -p "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+    cp -vfr ../doc -T "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+    sed '/PROG_RPATH_FLAGS/d' -i "$pkgdir"/usr/bin/krb5-config
+
+    install -Dm 644 $srcdir/krb5.conf "$pkgdir"/etc/krb5.conf
+}

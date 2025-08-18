@@ -1,0 +1,22 @@
+# description	: A library that provides top functionality to applications
+# depends	: glib gobject-introspection
+
+pkgname=libgtop
+pkgver=2.41.3
+pkgrel=1
+source=(https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

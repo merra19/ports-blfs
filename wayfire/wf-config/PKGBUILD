@@ -1,0 +1,23 @@
+# description	: library for managing wayfire configuration files
+# depends	: libevdev libxml2 glm wayland-protocols wlroots
+
+pkgname=wf-config
+pkgver=0.9.0
+pkgrel=1
+source=(https://github.com/WayfireWM/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

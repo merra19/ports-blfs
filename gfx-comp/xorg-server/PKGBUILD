@@ -1,0 +1,45 @@
+# description	: X.Org X servers
+# depends	: libglvnd openssl iceauth xauth xkbcomp libdrm libxdmcp
+# depends	: libpciaccess libxau libxfont2 libxkbfile libxshmfence 
+# depends	: pixman xbitmaps xkeyboard-config libxcvt mesa libepoxy 
+# depends	: udev dbus pam xorg-proto xtrans xorg-fonts libxext
+# depends	: libx11 xorg-legacy elogind
+
+pkgname=xorg-server
+pkgver=21.1.18
+pkgrel=1
+options=(!lto)
+source=(https://www.x.org/pub/individual/xserver/$pkgname-$pkgver.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/svn/$pkgname-$pkgver-tearfree_backport-1.patch)
+
+build() {
+	cd $pkgname-$pkgver
+
+    patch -Np1 -i ../$pkgname-$pkgver-tearfree_backport-1.patch
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --localstatedir=/var \
+        -D glamor=true \
+        -D systemd_logind=true \
+        -D xkb_output_dir=/var/lib/xkb \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	DESTDIR="$pkgdir" ninja -C build install
+
+    chmod u+s /"$pkgdir"/usr/bin/Xorg   
+
+    mkdir -pv "$pkgdir"/etc/X11/xorg.conf.d 
+
+    install -d "$pkgdir"/etc/sysconfig
+    cat >> "$pkgdir"/etc/sysconfig/createfiles << "EOF"
+/tmp/.ICE-unix dir 1777 root root
+/tmp/.X11-unix dir 1777 root root
+EOF
+}

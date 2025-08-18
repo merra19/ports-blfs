@@ -1,0 +1,23 @@
+# description	: USB enumeration utilities
+# depends	: glibc libusb hwdata python3
+
+pkgname=usbutils
+pkgver=018
+pkgrel=1
+source=(https://kernel.org/pub/linux/utils/usb/usbutils/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

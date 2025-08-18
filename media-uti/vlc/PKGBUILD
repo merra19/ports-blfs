@@ -1,0 +1,39 @@
+# description	: Media player and framework with support for most multimedia files and streaming
+# depends	: yasm wayland libvorbis libidn zlib mesa alsa-lib libaom 
+# depends	: libarchive dav1d dbus ffmpeg flac libogg fontconfig 
+# depends	: libjpeg-turbo libsamplerate lua liba52 mpg123 qt5
+# depends	: ncurses opus libpng pulseaudio libssh2 libxext libxpm
+# depends	: libxinerama speex speexdsp gnutls freetype ttf-dejavu 
+# depends	: udev libva libvdpau libvpx wayland-protocols libx11
+# depends	: libxcb xcb-util xcb-util-keysyms x265 libmad avahi
+# depends	: libxml2 fribidi harfbuzz liberation-fonts fdk-aac cairo
+# depends	: libgcrypt libass glib gdk-pixbuf gtk3 librsvg 
+# optional	: cddb!!libcddb dvd!!libdvdnav dvd!!libdvdread faad!faad2 
+# optional	: gstreamer!!gst-plugins-base libnotify!!libnotify taglib 
+# optional	: keyring!!libsecret 
+
+pkgname=vlc
+pkgver=3.0.21
+pkgrel=1
+source=(https://download.videolan.org/vlc/$pkgver/$pkgname-$pkgver.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/svn/vlc-$pkgver-taglib-1.patch
+        https://www.linuxfromscratch.org/patches/blfs/svn/vlc-$pkgver-fedora_ffmpeg7-1.patch)
+
+build() {
+    cd $pkgname-$pkgver
+
+    patch -Np1 -i ../vlc-$pkgver-taglib-1.patch 
+    patch -Np1 -i ../vlc-$pkgver-fedora_ffmpeg7-1.patch
+
+    BUILDCC=gcc ./configure \
+        --prefix=/usr \
+        --disable-libplacebo \
+        --enable-qt
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make  docdir=/usr/share/doc/$pkgname-$pkgver DESTDIR="$pkgdir" install
+}

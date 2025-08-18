@@ -1,0 +1,29 @@
+# description	: Daemon providing a polkit authentication UI for KDE
+# depends	: kcoreaddons kcrash kdbusaddons ki18n kwindowsystem 
+# depends	: polkit-qt kirigami libplasma qt6-base qt6-declarative 
+# depends	: qt6-5compat extra-cmake-modules kdoctools
+
+pkgname=polkit-kde-agent-1
+pkgver=6.3.2
+pkgrel=1
+source=(https://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
+}

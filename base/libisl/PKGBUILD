@@ -1,0 +1,30 @@
+# description	: A library for manipulating integer points bounded by linear constraints
+# depends	: xz libgmp
+
+pkgname=libisl
+pkgver=0.27
+pkgrel=1
+options=(!lto)
+source=(https://libisl.sourceforge.io/isl-$pkgver.tar.xz)
+
+build() {
+    cd ${pkgname#lib}-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --docdir=/usr/share/doc/${pkgname#lib}-$pkgver
+    make
+}
+
+package() {
+    cd ${pkgname#lib}-$pkgver
+
+    make DESTDIR="$pkgdir" install
+    install -vd "$pkgdir"/usr/share/doc/${pkgname#lib}-$pkgver
+    install -m644 doc/{CodingStyle,manual.pdf,SubmittingPatches,user.pod} \
+            "$pkgdir"/usr/share/doc/${pkgname#lib}-$pkgver
+
+    mkdir -pv "$pkgdir"/usr/share/gdb/auto-load/usr/lib
+    mv -v "$pkgdir"/usr/lib/libisl*gdb.py "$pkgdir"/usr/share/gdb/auto-load/usr/lib
+}

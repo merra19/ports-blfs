@@ -1,0 +1,30 @@
+# description	: KDE Plasma screen management
+# depends	: kcmutils kconfig kcoreaddons kdbusaddons ksvg
+# depends	: kglobalaccel ki18n  kwindowsystem layer-shell-qt 
+# depends	: libkscreen libplasma libx11 libxcb libxi qt6-base 
+# depends	: qt6-declarative qt6-sensors
+
+pkgname=kscreen
+pkgver=6.3.2
+pkgrel=1
+source=(https://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
+}

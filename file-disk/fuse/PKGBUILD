@@ -1,0 +1,35 @@
+# description	: Interface for userspace programs to export a filesystem to the Linux kernel
+# depends	: glibc meson pkgconf udev
+
+pkgname=fuse
+pkgver=3.17.3
+pkgrel=1
+options=(!lto)
+source=(https://github.com/libfuse/libfuse/releases/download/$pkgname-$pkgver/$pkgname-$pkgver.tar.gz
+        fuse.conf)
+
+build() {
+    cd $pkgname-$pkgver
+
+    sed -i '/^udev/,$ s/^/#/' util/meson.build 
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+    chmod u+s "$pkgdir"/usr/bin/fusermount3 &&
+
+    mkdir -p "$pkgdir"/usr/share/doc/fuse-$pkgver
+    cp -Rv doc/html -T "$pkgdir"/usr/share/doc/fuse-$pkgver &&
+    install -v -m644   doc/README.NFS doc/kernel.txt \
+                    "$pkgdir"/usr/share/doc/fuse-$pkgver
+
+    install -Dm 644 ../fuse.conf "$pkgdir"/etc/fuse.conf
+}

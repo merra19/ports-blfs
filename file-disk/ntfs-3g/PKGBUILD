@@ -1,0 +1,28 @@
+# description	: Open source read-write NTFS driver that runs under FUSE
+# depends	: util-linux attr
+
+pkgname=ntfs-3g
+pkgver=2022.10.3
+pkgrel=1
+options=(!lto)
+source=(https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2022.10.3.tgz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --with-fuse=internal \
+        --docdir=/usr/share/doc/ntfs-3g-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	make DESTDIR="$pkgdir" install
+
+    ln -sv ../bin/ntfs-3g "$pkgdir"/usr/sbin/mount.ntfs
+    ln -sv ntfs-3g.8 "$pkgdir"/usr/share/man/man8/mount.ntfs.8
+}

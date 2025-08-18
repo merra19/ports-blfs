@@ -1,0 +1,28 @@
+# description	: KDE Plasma menu editor
+# depends	: hicolor-icon-theme kcompletion kconfig kconfigwidgets 
+# depends	: kcoreaddons kdbusaddons kglobalaccel ki18n kxmlgui
+# depends	: kiconthemes kitemviews kio  kservice kwidgetsaddons 
+# depends	: kwindowsystem sonnet qt6-base kdoctools
+
+pkgname=kmenuedit
+pkgver=6.3.2
+pkgrel=1
+source=(https://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+}

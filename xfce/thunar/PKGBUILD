@@ -1,0 +1,28 @@
+# description	: File manager for the Xfce desktop environment
+# depends	: glib gdk-pixbuf gtk3 exo libxfce4ui libxfce4util xfconf 
+# depends	: libexif gobject-introspection libnotify pcre2 libgudev
+# depends	: xfce4-panel udisks2 gvfs 
+
+pkgname=thunar
+pkgver=4.20.4
+pkgrel=1
+source=(https://archive.xfce.org/src/xfce/thunar/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+    # Prevent the installation of an unneeded systemd file
+    sed -i 's/\tinstall-systemd_userDATA/\t/' Makefile.in
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

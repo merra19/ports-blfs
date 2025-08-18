@@ -1,0 +1,22 @@
+# description	: Simplified packaging of Python modules (core module)
+# depends	: py3-installer
+
+pkgname=py3-flit-core
+pkgver=3.12.0
+pkgrel=1
+source=(https://files.pythonhosted.org/packages/source/f/flit_core/flit_core-$pkgver.tar.gz)
+
+build() {
+    cd flit_core-$pkgver
+
+    rm -rf flit_core/vendor/
+    sed -i -e 's:from \.vendor ::' flit_core/*.py 
+	sed -i -e '/license-files/d' pyproject.toml 
+    python3 build_dists.py
+}
+
+package() {
+	cd flit_core-$pkgver
+
+	python3 -m installer -d "$pkgdir" dist/flit_core-$pkgver-py3-none-any.whl
+}

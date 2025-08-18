@@ -1,10 +1,5 @@
 #!/bin/sh
 
-pkg_preinst() {
-    getent group lpadmin || groupadd -g 19 lpadmin
-    getent passwd lp || useradd -c "Print Service User" -d /var/spool/cups -g lp -s /bin/false -u 9 lp
-}
-
 pkg_postinst() {
     gtk-update-icon-cache -qtf /usr/share/icons/hicolor
 

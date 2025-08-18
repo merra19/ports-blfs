@@ -1,0 +1,24 @@
+# description	: A high performance JSON library written in ANSI C
+# depends	: glibc cmake
+
+pkgname=yyjson
+pkgver=0.10.0
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/ibireme/yyjson/archive/refs/tags/$pkgver.tar.gz)
+
+build() {
+	cmake -B build -S $pkgname-$pkgver \
+	  -D CMAKE_BUILD_TYPE='None' \
+	  -D CMAKE_INSTALL_PREFIX='/usr' \
+	  -D BUILD_SHARED_LIBS='ON' \
+	  -D YYJSON_BUILD_TESTS='ON' \
+	  -Wno-dev
+	cmake --build build
+}
+
+package() {
+	DESTDIR="$pkgdir" cmake --install build
+
+	cd $pkgname-$pkgver
+	install -Dm 644 doc/*.md -t "$pkgdir"/usr/share/doc/$pkgname/
+}

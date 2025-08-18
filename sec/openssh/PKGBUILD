@@ -1,0 +1,41 @@
+# description	: Port of OpenBSD's free SSH release
+# depends	: pam xauth which net-tools libxcrypt zlib shadow
+
+pkgname=openssh
+pkgver=10.0p1
+pkgrel=1
+options=(!lto)
+source=(https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$pkgname-$pkgver.tar.gz
+        $pkgname.hooks)
+backup=(etc/ssh/ssh_config etc/ssh/sshd_config)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc/ssh \
+        --with-privsep-path=/var/lib/sshd \
+        --with-default-path=/usr/bin \
+        --with-superuser-path=/usr/sbin:/usr/bin \
+        --with-pid-dir=/run \
+        "$(scratch isinstalled krb5 && echo "--with-kerberos5=/usr" || echo "--without-kerberos5")"             
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    install -v -g sys -m700 -d "$pkgdir"/var/lib/sshd
+
+	make DESTDIR="$pkgdir" install
+	install -v -m755    contrib/ssh-copy-id "$pkgdir"/usr/bin
+
+	install -v -m644    contrib/ssh-copy-id.1 "$pkgdir"/usr/share/man/man1 
+	install -v -m755 -d "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+	install -v -m644    INSTALL LICENCE OVERVIEW README* "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+
+	echo "PermitRootLogin no" >> "$pkgdir"/etc/ssh/sshd_config
+
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
+}

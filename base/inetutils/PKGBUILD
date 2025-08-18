@@ -1,0 +1,36 @@
+# description	: Collection of common network programs
+# depends	: ncurses readline
+
+pkgname=inetutils
+pkgver=2.6
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/inetutils/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    # First, make the package build with gcc-14.1 or later
+    sed -i 's/def HAVE_TERMCAP_TGETENT/ 1/' telnet/telnet.c
+
+    ./configure \
+        --prefix=/usr \
+        --bindir=/usr/bin \
+        --localstatedir=/var \
+        --disable-logger \
+        --disable-whois \
+        --disable-rcp \
+        --disable-rexec \
+        --disable-rlogin \
+        --disable-rsh \
+        --disable-servers
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+    
+    mkdir -pv "$pkgdir"/usr/sbin
+    mv -v "$pkgdir"/usr/{,s}bin/ifconfig
+}

@@ -1,0 +1,27 @@
+# description	: Soothing pastel mouse cursors - Mocha
+# depends	: glibc unzip
+
+pkgname=catppuccin-cursors-mocha
+pkgver=2.0.0
+pkgrel=1
+source=($pkgname-$pkgver-blue.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-blue-cursors.zip
+        $pkgname-$pkgver-dark.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-dark-cursors.zip
+        $pkgname-$pkgver-flamingo.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-flamingo-cursors.zip
+        $pkgname-$pkgver-green.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-green-cursors.zip
+        $pkgname-$pkgver-lavender.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-lavender-cursors.zip
+        $pkgname-$pkgver-light.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-light-cursors.zip
+        $pkgname-$pkgver-maroon.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-maroon-cursors.zip
+        $pkgname-$pkgver-mauve.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-mauve-cursors.zip
+        $pkgname-$pkgver-peach.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-peach-cursors.zip
+        $pkgname-$pkgver-pink.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-pink-cursors.zip
+        $pkgname-$pkgver-red.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-red-cursors.zip
+        $pkgname-$pkgver-rosewater.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-rosewater-cursors.zip
+        $pkgname-$pkgver-sapphire.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-sapphire-cursors.zip
+        $pkgname-$pkgver-sky.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-sky-cursors.zip
+        $pkgname-$pkgver-teal.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-teal-cursors.zip
+        $pkgname-$pkgver-yellow.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-yellow-cursors.zip)
+
+package() {
+	install -d "$pkgdir"/usr/share/icons/
+	cp -r -a --no-preserve=ownership catppuccin-mocha-* "$pkgdir"/usr/share/icons
+}

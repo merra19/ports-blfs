@@ -1,0 +1,22 @@
+# description	: Customizable input framework and virtual keyboard for Qt
+# depends	: qt6-base qt6-declarative cmake ninja qt6-multimedia
+# depends	: qt6-svg
+
+pkgname=qt6-virtualkeyboard
+pkgver=6.9.1
+pkgrel=1
+source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$pkgver/submodules/qtvirtualkeyboard-everywhere-src-$pkgver.tar.xz)
+
+build() {
+    cd qtvirtualkeyboard-everywhere-src-$pkgver
+
+    cmake -B build -G Ninja \
+        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS
+    cmake --build build
+}
+
+package() {
+    cd qtvirtualkeyboard-everywhere-src-$pkgver
+
+    DESTDIR="$pkgdir" cmake --install build
+}

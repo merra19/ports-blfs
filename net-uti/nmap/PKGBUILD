@@ -1,0 +1,32 @@
+# description	: Network exploration tool and security / port scanner
+# depends	: liblinear libpcap libssh2 lua pcre2 py3-gobject3 zlib
+# depends	: openssl py3-build py3-pyproject_hooks
+
+pkgname=nmap
+pkgver=7.97
+pkgrel=1
+source=(https://nmap.org/dist/$pkgname-$pkgver.tar.bz2)
+
+build() {
+    cd $pkgname-$pkgver
+
+    # Make the build system use the Setuptools Python module from LFS
+    # instead of downloading a copy from the Internet, and install the
+    # Python wheels already created when running the make instead of 
+    #rebuilding them again on make install
+    sed -ri Makefile.in \
+        -e 's#-m build#& --no-isolation#'  \
+        -e '/pip install/s#(ZENMAP|NDIFF)DIR\)/#&dist/*.whl#'
+
+    ./configure \
+        --prefix=/usr 
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+    pip3 install build  --root "$pkgdir"
+}

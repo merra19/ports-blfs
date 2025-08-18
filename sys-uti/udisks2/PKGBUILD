@@ -1,0 +1,37 @@
+# description	: Daemon providing interfaces to work with storage devices
+# depends	: libatasmart libblockdev libgudev glib libxslt polkit 
+# depends	: gobject-introspection udev parted lvm2 util-linux
+# depends	: linux-api-headers acl btrfs-progs dosfstools gptfdisk 
+# depends	: mdadm 
+
+pkgname=udisks2
+_pkgname=udisks
+pkgver=2.10.1
+pkgrel=1
+options=(!lto)
+source=(https://github.com/storaged-project/udisks/releases/download/udisks-$pkgver/udisks-$pkgver.tar.bz2
+        rules)
+backup=(etc/udisks2/udisks2.conf)
+
+build() {
+	cd ${_pkgname}-$pkgver
+
+    # Fix a security vulnerability that can allow for privilege escalation, by forcing filesystems to be mounted with nosuid
+    sed -i 's/fstype, NULL/fstype, "nodev,nosuid"/' src/udiskslinuxfilesystemhelpers.c
+
+	./configure \
+        --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-static \
+        --enable-available-modules 
+	make
+}
+
+package() {
+    cd ${_pkgname}-$pkgver
+
+	make DESTDIR="$pkgdir" install
+
+	install -Dm 644 "$srcdir"/rules "$pkgdir"/usr/share/polkit-1/rules.d/org.freedesktop.udisks2.rules
+}

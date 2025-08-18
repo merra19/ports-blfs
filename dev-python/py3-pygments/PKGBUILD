@@ -1,0 +1,24 @@
+# description	: Pygments is a syntax highlighting package written in Python
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
+# depends	: py3-hatchling
+
+pkgname=py3-pygments
+pkgver=2.19.2
+pkgrel=1
+options=(!lto)
+source=(https://files.pythonhosted.org/packages/source/P/Pygments/pygments-$pkgver.tar.gz)
+
+build() {
+	cd ${pkgname#*-}-$pkgver
+    
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${pkgname#*-}-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/pygments*.whl
+
+	mkdir -p "$pkgdir"/usr/bin
+	ln -s pygmentize "$pkgdir"/usr/bin/pygmentize-3   
+}

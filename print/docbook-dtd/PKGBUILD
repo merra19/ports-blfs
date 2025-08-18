@@ -1,0 +1,23 @@
+# description	: DTD Stylesheets for DocBook
+# depends	: sgml-common libarchive
+
+pkgname=docbook-dtd
+pkgver=31
+_version=3.1
+pkgrel=1
+source=(https://www.docbook.org/sgml/3.1/docbk31.zip)
+
+build() {
+
+    sed -i -e '/ISO 8879/d' \
+       -e 's|DTDDECL "-//OASIS//DTD DocBook V3.1//EN"|SGMLDECL|g' \
+       docbook.cat
+}
+
+package() {
+    install -dm 755 "$pkgdir"/etc/sgml/
+    install -v -d -m755 "$pkgdir"/usr/share/sgml/docbook/sgml-dtd-${_version} &&
+    chown -R root:root . &&
+    install -v docbook.cat "$pkgdir"/usr/share/sgml/docbook/sgml-dtd-${_version}/catalog &&
+    cp -v -af *.dtd *.mod *.dcl "$pkgdir"/usr/share/sgml/docbook/sgml-dtd-${_version}
+}

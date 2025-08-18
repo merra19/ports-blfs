@@ -1,0 +1,25 @@
+# description	: X.Org xkbfile library
+# depends	: libx11 xorg-proto
+
+pkgname=libxkbfile
+pkgver=1.1.3
+pkgrel=1
+source=(https://www.x.org/pub/individual/lib/libxkbfile-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libxkbfile-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

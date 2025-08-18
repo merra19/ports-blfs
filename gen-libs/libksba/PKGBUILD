@@ -1,0 +1,21 @@
+# description	: X.509 and CMS (PKCS#7) library
+# depends	: libgpg-error
+
+pkgname=libksba
+pkgver=1.6.7
+pkgrel=1
+source=(https://gnupg.org/ftp/gcrypt/libksba/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

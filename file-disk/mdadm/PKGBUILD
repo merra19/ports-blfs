@@ -1,0 +1,23 @@
+# description	: Tool for running RAID systems - replacement for the raidtools
+# depends	: xz udev util-linux
+
+pkgname=mdadm
+pkgver=4.3
+pkgrel=1
+source=(https://www.kernel.org/pub/linux/utils/raid/mdadm/$pkgname-$pkgver.tar.xz
+        mdadm.conf)
+backup=(etc/mdadm.conf)
+
+build() {
+    cd $pkgname-$pkgver
+   
+    make CWFLAGS="-Wall" CXFLAGS="${CFLAGS}"
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" CWFLAGS="-Wall" CXFLAGS="${CFLAGS}" BINDIR=/usr/sbin install
+    
+    install -Dm 644 ../mdadm.conf "$pkgdir"/etc/mdadm.conf
+}

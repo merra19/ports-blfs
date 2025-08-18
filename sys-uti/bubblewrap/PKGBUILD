@@ -1,0 +1,24 @@
+# description	: Unprivileged sandboxing tool, namespaces-powered chroot-like solution
+# depends	: libseccomp libcap
+
+pkgname=bubblewrap
+pkgver=0.11.0
+pkgrel=1
+options=(!lto)
+source=(https://github.com/containers/bubblewrap/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

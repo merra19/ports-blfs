@@ -1,0 +1,21 @@
+# description	:  Serial port abstraction library for the Qt6 framework
+# depends	: qt6-base udev
+
+pkgname=qt6-serialport
+pkgver=6.9.1
+pkgrel=1
+source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$pkgver/submodules/qtserialport-everywhere-src-$pkgver.tar.xz)
+
+build() {
+    cd qtserialport-everywhere-src-$pkgver
+
+    cmake -B build -G Ninja \
+        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS
+    cmake --build build
+}
+
+package() {
+    cd qtserialport-everywhere-src-$pkgver
+
+    DESTDIR="$pkgdir" cmake --install build
+}

@@ -1,0 +1,23 @@
+# description	: Vulkan Header files and API registry"
+# depends	: cmake
+
+pkgname=vulkan-headers
+pkgver=1.4.321
+pkgrel=1
+source=(https://github.com/KhronosGroup/Vulkan-Headers/archive/v$pkgver/Vulkan-Headers-$pkgver.tar.gz)
+
+build() {
+    cd Vulkan-Headers-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -G Ninja
+    ninja -C build
+}
+
+package() {
+    cd Vulkan-Headers-$pkgver
+    
+    DESTDIR="$pkgdir" ninja  -C build install
+}

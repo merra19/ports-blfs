@@ -1,0 +1,38 @@
+# description	: A fast and secure web browser
+# depends	: at-spi2-core expat glib nspr nss alsa-lib mesa curl cups
+# depends	: gsettings-desktop-schemas dbus glibc cairo gdk-pixbuf
+# depends	: gtk3 libdrm libxcb libxkbcommon libxshmfence libx11
+# depends	: libxcomposite libxdamage libxext libxfixes libxrandr
+# depends	: pango ffmpeg qt6-base
+
+pkgname=opera
+pkgver=119.0.5497.141
+pkgrel=1
+source=(https://get.geo.opera.com/ftp/pub/$pkgname/desktop/$pkgver/linux/$pkgname-stable_${pkgver}_amd64.deb
+        opera default)
+backup=(etc/$pkgname/default)
+
+build() {
+    ar x $pkgname-stable_${pkgver}_amd64.deb
+}
+
+package() {
+    tar -xf data.tar.xz --exclude=usr/share/{lintian,menu} -C "$pkgdir/"
+
+    # get rid of the extra subfolder {i386,x86_64}-linux-gnu
+    (
+        cd "$pkgdir/usr/lib/"*-linux-gnu/
+        mv "$pkgname" ../
+    )
+    rm -rf "$pkgdir/usr/lib/"*-linux-gnu
+
+    # suid opera_sandbox
+    chmod 4755 "$pkgdir/usr/lib/$pkgname/opera_sandbox"
+
+    # install default options
+    install -Dm644 "$srcdir/default" "$pkgdir/etc/$pkgname/default"
+
+    # install opera wrapper
+    rm "$pkgdir/usr/bin/$pkgname"
+    install -Dm755 "$srcdir/opera" "$pkgdir/usr/bin/$pkgname"
+}

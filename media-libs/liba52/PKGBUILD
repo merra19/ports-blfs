@@ -1,0 +1,30 @@
+# description	: Library for decoding ATSC A/52 streams used in DVD
+# depends	: glibc
+
+pkgname=liba52
+_pkgname=a52dec
+pkgver=0.8.0
+pkgrel=1
+source=(https://distfiles.adelielinux.org/source/a52dec/${_pkgname}-$pkgver.tar.gz)
+
+build() {
+	cd ${_pkgname}-$pkgver
+	
+    ./configure \
+        --prefix=/usr \
+        --mandir=/usr/share/man \
+        --enable-shared \
+        --disable-static \
+        CFLAGS="${CFLAGS:--g -O3} -fPIC"
+	make
+}
+
+package() {
+    cd ${_pkgname}-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+    cp liba52/a52_internal.h "$pkgdir"/usr/include/a52dec
+    install -v -m644 -D doc/liba52.txt \
+        "$pkgdir"/usr/share/doc/$pkgname-$pkgver/liba52.txt
+}

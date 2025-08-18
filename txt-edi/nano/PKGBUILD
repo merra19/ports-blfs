@@ -1,0 +1,30 @@
+# description	: GNU GPL'd Pico clone with more functionality
+# depends	: file ncurses
+
+pkgname=nano
+pkgver=8.5
+pkgrel=1
+source=(https://www.nano-editor.org/dist/v8/$pkgname-$pkgver.tar.xz
+        nanorc)
+backup=(etc/nanorc)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --enable-utf8 \
+        --enable-nanorc \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+    install -v -m644 doc/{nano.html,sample.nanorc} "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+    install -v -Dm644 ../nanorc "$pkgdir"/etc/nanorc
+}

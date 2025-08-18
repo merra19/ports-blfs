@@ -1,0 +1,27 @@
+# description	: A text editor for the GNOME desktop
+# depends	: glib gobject-introspection gtk3 libgedit-amtk libpeas
+# depends	: libgedit-tepl gspell py3-cairo py3-gobject3
+# depends	: libgedit-gtksourceview adwaita-icon-theme gvfs itstool
+# depends	: gsettings-desktop-schemas vala
+
+pkgname=gedit
+pkgver=48.1
+pkgrel=1
+source=(https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk_doc=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

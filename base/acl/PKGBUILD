@@ -1,0 +1,24 @@
+# description	: Access control list utilities, libraries, and headers
+# depends	: attr
+
+pkgname=acl
+pkgver=2.3.2
+pkgrel=1
+source=(https://download.savannah.gnu.org/releases/acl/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --enable-largefile \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

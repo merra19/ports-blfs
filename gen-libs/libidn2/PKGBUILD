@@ -1,0 +1,22 @@
+# description	: An implementation of the IDNA2008 specifications (RFCs 5890, 5891, 5892, 5893)
+# depends	: libunistring perl
+
+pkgname=libidn2
+pkgver=2.3.8
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/libidn/libidn2-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr \
+        --disable-static
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

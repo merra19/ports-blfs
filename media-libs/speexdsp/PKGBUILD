@@ -1,0 +1,23 @@
+# description	: Audio compression format designed for speech -- DSP
+# depends	: speex
+
+pkgname=speexdsp
+pkgver=1.2.1
+pkgrel=1
+source=(https://downloads.xiph.org/releases/speex/speexdsp-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr \
+		--disable-static \
+		--docdir=/usr/share/doc/speexdsp-$pkgver
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

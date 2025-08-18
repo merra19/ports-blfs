@@ -1,0 +1,27 @@
+# description	: C++ user interface toolkit for X and OpenGL
+# depends	: xorg-proto libjpeg-turbo libpng zlib libice libsm 
+# depends	: libxcursor libxcursor libxt mesa glu libxft cairo
+
+pkgname=fltk
+pkgver=1.4.4
+pkgrel=1
+source=(https://github.com/fltk/fltk/releases/download/release-$pkgver/$pkgname-$pkgver-source.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    sed -i -e '/cat./d' documentation/Makefile
+
+    ./configure \
+        --prefix=/usr \
+        --enable-shared 
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" docdir=/usr/share/doc/$pkgname-$pkgver install
+
+    rm -vf "$pkgdir"/usr/lib/libfltk*.a
+}

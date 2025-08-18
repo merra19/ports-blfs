@@ -1,0 +1,22 @@
+# description	: A Library for Large Linear Classification
+# depends	: glibc
+
+pkgname=liblinear
+pkgver=249
+pkgrel=1
+source=(https://github.com/cjlin1/liblinear/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	make lib
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    mkdir -p "$pkgdir"/usr/include "$pkgdir"/usr/lib
+    install -vm644 linear.h "$pkgdir"/usr/include &&
+    install -vm755 liblinear.so.6 "$pkgdir"/usr/lib &&
+    ln -sfv liblinear.so.6 "$pkgdir"/usr/lib/liblinear.so
+}

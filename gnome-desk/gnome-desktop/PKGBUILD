@@ -1,0 +1,25 @@
+# description	: Library with common API for various GNOME modules
+# depends	: glib gobject-introspection gdk-pixbuf gtk3 libxkbcommon
+# depends	: gsettings-desktop-schemas xkeyboard-config iso-codes 
+# depends	: udev libseccomp cairo fontconfig bubblewrap itstool
+
+pkgname=gnome-desktop
+pkgver=44.3
+pkgrel=1
+source=(https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

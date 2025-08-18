@@ -1,0 +1,49 @@
+# description	: A concurrent garbage collected and typesafe programming language
+# depends	: sqlite xz python3 zlib bzip2 ninja boost
+
+pkgname=go
+pkgver=1.24.4
+pkgrel=1
+noextract=($pkgname-$pkgver.linux-amd64.tar.gz)
+source=($pkgname-$pkgver.src.tar.gz::https://golang.org/dl/go$pkgver.src.tar.gz 
+	    $pkgname-$pkgver.linux-amd64.tar.gz::https://golang.org/dl/go$pkgver.linux-amd64.tar.gz)
+unset LC_ALL
+NO_STRIP=yes
+
+bsdtar() {
+	tar $@
+}
+
+build() {
+	install -d $pkgname-$pkgver
+
+	tar -xf $SOURCE_DIR/$pkgname-$pkgver.linux-amd64.tar.gz \
+	-C $srcdir/$pkgname-$pkgver --strip-components=1
+
+	tar -xf $SOURCE_DIR/$pkgname-$pkgver.src.tar.gz \
+        -C $srcdir
+
+	export GOCACHE="$srcdir"/go-build
+	export GOROOT_BOOTSTRAP="$srcdir"/$pkgname-$pkgver
+	export GOROOT_FINAL=/usr/lib/go
+	export GOARCH=amd64
+	export GOOS=linux
+	
+	cd go/src
+	./make.bash
+}
+
+package() {
+    cd go/src
+
+	install -d "$pkgdir"/usr/lib
+	mv "$srcdir"/go "$pkgdir"/usr/lib/
+
+	install -d "$pkgdir"/usr/bin
+	ln -s /usr/lib/go/bin/go "$pkgdir"/usr/bin/
+	ln -s /usr/lib/go/bin/gofmt "$pkgdir"/usr/bin/
+
+	rm -rf "$srcdir"/go/pkg/obj/go-build/*
+	find "$pkgdir" \( -name "README*" -o -name "AUTHORS" -o -name "TODO" \) -delete
+	rm "$pkgdir"/usr/lib/go/src/*.bat
+}

@@ -1,0 +1,62 @@
+# description	: LDAP suite of application and development tool
+# depends	: util-linux gnutls libgcrypt e2fsprogs lmdb perl openssl 
+# depends	: groff krb5
+
+pkgname=openldap
+pkgver=2.6.10
+pkgrel=1
+options=(!makeflags !lto)
+source=(https://www.openldap.org/software/download/OpenLDAP/openldap-release/$pkgname-$pkgver.tgz
+        https://www.linuxfromscratch.org/patches/blfs/svn/openldap-$pkgver-consolidated-1.patch
+        $pkgname.hooks)
+backup=(etc/openldap/ldap.conf etc/openldap/slapd.conf etc/openldap/slapd.ldif)
+
+ build() {
+	cd $pkgname-$pkgver
+  
+    patch -Np1 -i ../openldap-$pkgver-consolidated-1.patch &&
+    autoconf &&
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var  \
+        --libexecdir=/usr/lib \
+        --disable-static \
+        --disable-debug \
+        --with-tls=openssl \
+        --without-cyrus-sasl \
+        --without-systemd \
+        --enable-dynamic \
+        --enable-crypt \
+        --disable-spasswd \
+        --enable-slapd \
+        --enable-modules \
+        --enable-rlookups \
+        --enable-backends=mod \
+        --disable-sql \
+        --disable-wt \
+        --enable-overlays=mod &&
+    make depend &&
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+    sed -e "s/\.la/.so/" -i "$pkgdir"/etc/openldap/slapd.{conf,ldif}{,.default} &&
+
+    install -v -dm700 -o ldap -g ldap "$pkgdir"/var/lib/openldap &&
+
+    install -v -dm700 -o ldap -g ldap "$pkgdir"/etc/openldap/slapd.d &&
+    chmod   -v    640     "$pkgdir"/etc/openldap/slapd.{conf,ldif}   &&
+    chown   -v  root:ldap "$pkgdir"/etc/openldap/slapd.{conf,ldif}   &&
+
+    install -v -dm755 "$pkgdir"/usr/share/doc/$pkgname-$pkgver &&
+    cp      -vfr      doc/{drafts,rfc,guide} \
+                    "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
+}

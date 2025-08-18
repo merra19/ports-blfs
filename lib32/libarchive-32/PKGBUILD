@@ -1,0 +1,34 @@
+# description	: Multi-format archive and compression library
+# depends	: glibc acl-32  zlib-32  xz-32  bzip2-32 zstd-32 
+# depends	: openssl-32 
+
+pkgname=libarchive-32
+pkgver=3.8.1
+pkgrel=1
+options=(!lto)
+source=(https://github.com/libarchive/libarchive/releases/download/v$pkgver/libarchive-$pkgver.tar.xz)
+
+build() {
+    cd libarchive-$pkgver
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    ./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --disable-static \
+        --without-expat \
+        --without-xml2 \
+        --host=i686-pc-linux-gnu
+    make
+}
+
+package() {
+    cd libarchive-$pkgver
+
+    make DESTDIR=$PWD/DESTDIR install
+    mkdir -p "$pkgdir"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
+}

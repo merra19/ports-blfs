@@ -1,0 +1,29 @@
+# description	: X.Org Xpm library
+# depends	: libxt libxext libx11 xorg-proto gzip gettext
+
+pkgname=libxpm
+_pkgname=libXpm
+pkgver=3.5.17
+pkgrel=1
+source=( https://www.x.org/pub/individual/lib/libXpm-$pkgver.tar.xz)
+
+build() {
+    cd ${_pkgname}-$pkgver
+
+    sed -i '/TestAll.*TRUE/s|^|//|' test/TestAllFiles.h
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --disable-open-zfile \
+        --docdir=/usr/share/doc/libXpm-$pkgver
+    make
+}
+
+package() {
+    cd ${_pkgname}-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

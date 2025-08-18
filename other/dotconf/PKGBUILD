@@ -1,0 +1,23 @@
+# description	: dot.conf configuration file parser
+# depends	: glibc
+
+pkgname=dotconf
+pkgver=1.4.1
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/williamh/dotconf/archive/refs/tags/v${pkgver}.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+	
+    autoreconf -i
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	make DESTDIR="$pkgdir" install
+}

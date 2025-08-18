@@ -1,0 +1,22 @@
+# description	: A Hyprland implementation of wayland-scanner, in and for C++
+# depends	: pugixml cmake
+
+pkgname=hyprwayland-scanner
+pkgver=0.4.4
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/hyprwm/$pkgname/archive/refs/tags/v$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	cmake -B build \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE:STRING=Release
+	cmake --build build --config Release
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" cmake --install build
+}

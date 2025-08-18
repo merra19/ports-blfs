@@ -1,0 +1,74 @@
+# description	: The GLib library of C routines
+# depends	: docbook-xml meson libxslt pcre2 py3-packaging libffi
+# depends	: zlib util-linux attr elfutils
+
+pkgname=glib
+pkgver=2.84.4
+pkgrel=1
+pkgname2=gobject-introspection
+pkgver2=1.84.0
+source=(https://download.gnome.org/sources/glib/${pkgver%.*}/$pkgname-$pkgver.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/12.2/glib-skip_warnings-1.patch
+        https://download.gnome.org/sources/gobject-introspection/${pkgver2%.*}/${pkgname2}-${pkgver2}.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+	
+	patch -Np1 -i ../glib-skip_warnings-1.patch
+
+    unset PATHFAKEROOT
+	if [ -n "$FAKEROOTKEY" ]; then
+        PATHFAKEROOT=/usr/lib/libfakeroot:/usr/lib32/libfakeroot
+	fi
+
+
+    local _prefix="$PWD/boostrap-glib"
+
+    meson setup \
+        --prefix="$_prefix" \
+        --buildtype=plain \
+        -D xattr=true \
+        -D introspection=disabled \
+        -D man-pages=disabled \
+        -D tests=false \
+        -D nls=enabled \
+        build
+    ninja -C build
+    ninja -C build install
+
+    cd "$srcdir"/${pkgname2}-${pkgver2}
+
+    meson setup \
+        --prefix="$_prefix" \
+        --buildtype=plain \
+        --pkg-config-path="$_prefix"/lib/pkgconfig \
+        -D build_introspection_data=false \
+        -D doctool=disabled \
+        -D glib:nls=disabled \
+        build
+    ninja -C build
+    ninja -C build install
+
+    cd "$srcdir"/$pkgname-$pkgver/build
+
+    PATH="$_prefix/bin:$PATH" LD_LIBRARY_PATH="$_prefix/lib:$PATHFAKEROOT" \
+    meson setup .. \
+        --reconfigure \
+        --pkg-config-path="$_prefix"/lib/pkgconfig \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D xattr=true \
+        -D introspection=enabled \
+        -D man-pages=disabled \
+        -D nls=enabled
+    PATH="$_prefix/bin:$PATH" LD_LIBRARY_PATH="$_prefix/lib:$PATHFAKEROOT" ninja
+}
+
+package() {
+    cd $pkgname-$pkgver/build
+
+    DESTDIR="$pkgdir" ninja install
+
+    mkdir -p "$pkgdir"/usr/share/doc/$pkgname-$pkgver &&
+    cp -r ../docs/reference/gio ../docs/reference/glib ../docs/reference/gobject "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

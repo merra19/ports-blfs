@@ -1,0 +1,29 @@
+# description	: A dbus session bus service that is used to bring up authentication dialogs
+# depends	: glib polkit gtk3 intltool pkgconf gettext 
+# depends	: accountsservice
+
+pkgname=polkit-gnome
+pkgver=0.105
+pkgrel=1
+source=(https://download.gnome.org/sources/polkit-gnome/$pkgver/$pkgname-$pkgver.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/svn/polkit-gnome-$pkgver-consolidated_fixes-1.patch
+        polkit-gnome-authentication-agent-1.desktop)
+
+build() {
+    cd $pkgname-$pkgver
+
+    patch -Np1 -i ../polkit-gnome-$pkgver-consolidated_fixes-1.patch
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	make DESTDIR="$pkgdir" install
+
+    mkdir -p "$pkgdir"/etc/xdg/autostart 
+    install -Dm 644 "$srcdir"/polkit-gnome-authentication-agent-1.desktop "$pkgdir"/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop
+}

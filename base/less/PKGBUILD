@@ -1,0 +1,23 @@
+# description	: Excellent text file viewer
+# depends	: ncurses
+
+pkgname=less
+pkgver=679
+pkgrel=1
+options=(!lto)
+source=(https://www.greenwoodsoftware.com/less/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

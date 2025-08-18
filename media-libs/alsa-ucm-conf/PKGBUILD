@@ -1,0 +1,16 @@
+# description	: ALSA ucm configuration files
+# depends	: glibc
+
+pkgname=alsa-ucm-conf
+pkgver=1.2.14
+pkgrel=1
+source=(https://www.alsa-project.org/files/pub/lib/$pkgname-$pkgver.tar.bz2)
+
+
+package() {
+	cd $pkgname-$pkgver
+    
+	find ucm2 -type f -iname "*.conf" -exec install -vDm 644 {} "$pkgdir"/usr/share/alsa/{} \;
+	find ucm2 -type l -iname "*.conf" -exec cp -dv {} "$pkgdir"/usr/share/alsa/{} \;
+
+}

@@ -1,0 +1,23 @@
+# description	: Efficient binary serialization format
+# depends	: python3 py3-wheel py3-setuptools 
+
+pkgname=py3-msgpack
+pkgver=1.0.5
+pkgrel=1
+source=(msgpack-python-$pkgver.tar.gz::https://github.com/msgpack/msgpack-python/archive/v$pkgver.tar.gz)
+
+prepare() {
+  sed -i 's/~=/>=/' msgpack-python-$pkgver/pyproject.toml
+}
+
+build() {
+	cd msgpack-python-$pkgver
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd msgpack-python-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}

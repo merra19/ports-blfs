@@ -1,0 +1,46 @@
+# description	: Console display library
+# depends	: glibc
+
+pkgname=ncurses
+pkgver=6.5_20250531
+_pkgver=${pkgver/_/-}
+pkgrel=1
+source=(https://invisible-mirror.net/archives/ncurses/$pkgname-$_pkgver.tgz)
+
+build() {
+    cd $pkgname-$_pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --mandir=/usr/share/man \
+        --with-shared \
+        --without-debug \
+        --without-normal \
+        --with-cxx-shared \
+        --enable-pc-files \
+        --with-pkg-config-libdir=/usr/lib/pkgconfig
+    make
+}
+
+package() {
+    cd $pkgname-$_pkgver
+
+    local _pkgver=${_pkgver/-*/}
+
+    make DESTDIR=$PWD/dest install
+    mkdir -p "$pkgdir"/usr/lib
+    install -vm755 dest/usr/lib/libncursesw.so.$_pkgver "$pkgdir"/usr/lib
+    rm -v  dest/usr/lib/libncursesw.so.$_pkgver
+    sed -e 's/^#if.*XOPEN.*$/#if 1/' -i dest/usr/include/curses.h
+    cp -av dest/* "$pkgdir"/
+
+    for lib in ncurses form panel menu ; do
+        ln -sfv lib${lib}w.so "$pkgdir"/usr/lib/lib${lib}.so
+        ln -sfv ${lib}w.pc    "$pkgdir"/usr/lib/pkgconfig/${lib}.pc
+    done
+
+    ln -sfv libncursesw.so "$pkgdir"/usr/lib/libcurses.so
+
+    install -d -m755 "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+    cp -v -R doc -T "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

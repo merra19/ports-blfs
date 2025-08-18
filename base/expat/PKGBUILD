@@ -1,0 +1,25 @@
+# description	: Stream-oriented XML parser library
+# depends	: glibc
+
+pkgname=expat
+pkgver=2.7.1
+pkgrel=1
+source=(https://prdownloads.sourceforge.net/expat/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+    install -v -m644 doc/*.{html,css} "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

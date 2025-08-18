@@ -1,0 +1,22 @@
+# description	: Library for SSA/ASS subtitles rendering
+# depends	: glibc freetype fribidi fontconfig nasm harfbuzz
+
+pkgname=libass
+pkgver=0.17.4
+pkgrel=1
+source=(https://github.com/$pkgname/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr \
+        --disable-static
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,62 @@
+# description	: Complete solution to record/convert/stream audio and video. Includes libavcodec
+# depends	: bzip2 libass freetype lame gnutls libvorbis libvpx opus 
+# depends	: x264 x265 alsa-lib yasm dav1d libaom fdk-aac libva
+
+pkgname=ffmpeg
+pkgver=7.1.1
+pkgrel=1
+source=(https://ffmpeg.org/releases/$pkgname-$pkgver.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/svn/ffmpeg-$pkgver-chromium_method-1.patch)
+
+build() {
+	cd $pkgname-$pkgver
+
+    patch -Np1 -i ../ffmpeg-$pkgver-chromium_method-1.patch
+
+
+	sed -i 's/-lflite"/-lflite -lasound"/' configure
+
+    # -fdiagnostics-color=auto gets appended after user flags which 
+	# will ignore user's preference.
+	sed -i -e '/check_cflags -fdiagnostics-color=auto/d' configure
+
+	./configure \
+        --prefix=/usr \
+		--enable-gpl \
+		--enable-version3 \
+		--enable-nonfree \
+		--disable-static \
+		--enable-shared \
+		--disable-debug \
+		--enable-libass \
+		--enable-libdav1d \
+		--enable-libfreetype \
+		--enable-libmp3lame \
+		--enable-libopus \
+		--enable-libvorbis \
+		--enable-libvpx \
+		--enable-libx264 \
+		--enable-libx265 \
+		--enable-openssl \
+        --enable-vaapi \
+        --disable-doc \
+        --enable-lto \
+        --enable-libaom \
+        --enable-libfdk-aac \
+        --enable-vaapi \
+		--docdir=/usr/share/doc/$pkgname-$pkgver
+
+	make &&      
+	gcc tools/qt-faststart.c -o tools/qt-faststart
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	make DESTDIR="$pkgdir" install
+	install -m755 tools/qt-faststart "$pkgdir"/usr/bin
+
+	install -v -m755    tools/qt-faststart "$pkgdir"/usr/bin &&
+	install -v -m755 -d "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+	install -v -m644    doc/*.txt "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

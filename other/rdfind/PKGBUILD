@@ -1,0 +1,23 @@
+# description	: Redundant data find - a program that finds duplicate files
+# depends	: glibc nettle
+
+pkgname=rdfind
+pkgver=1.7.0
+pkgrel=1
+source=(https://rdfind.pauldreik.se/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./bootstrap.sh
+
+	./configure \
+        --prefix=/usr
+	make -s
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

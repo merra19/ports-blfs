@@ -1,0 +1,28 @@
+# description	: The GL Vendor-Neutral Dispatch library
+# depends	: libxext libx11 xorg-proto
+
+pkgname=libglvnd
+pkgver=1.7.0
+pkgrel=1
+source=(https://gitlab.freedesktop.org/glvnd/libglvnd/-/archive/v$pkgver/libglvnd-v$pkgver.tar.gz
+        0001-glx-Add-another-fallback-library-name.patch)
+
+build() {
+    cd libglvnd-v$pkgver
+
+    # https://src.fedoraproject.org/rpms/libglvnd
+	patch -Np1 -i ../0001-glx-Add-another-fallback-library-name.patch
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gles1=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd libglvnd-v$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

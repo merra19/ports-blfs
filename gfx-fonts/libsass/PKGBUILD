@@ -1,0 +1,23 @@
+# description	: A C/C++ implementation of a Sass CSS compiler
+# depends	: glibc
+
+pkgname=libsass
+pkgver=3.6.6
+pkgrel=1
+options=(!lto)
+source=(https://github.com/sass/libsass/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+	autoreconf -fi &&
+	./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,22 @@
+# description	: A unit test framework for C
+# depends	: glibc
+
+pkgname=check
+pkgver=0.15.2
+pkgrel=1
+source=(https://github.com/libcheck/check/releases/download/$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make docdir=/usr/share/doc/$pkgname-$pkgver DESTDIR="$pkgdir" install
+}

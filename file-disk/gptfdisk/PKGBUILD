@@ -1,0 +1,25 @@
+# description	: GPT partition table manipulator for Linux
+# depends	: popt util-linux readline ncurses icu
+
+pkgname=gptfdisk
+pkgver=1.0.10
+pkgrel=1
+options=(!lto)
+source=(https://downloads.sourceforge.net/gptfdisk/$pkgname-$pkgver.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/gptfdisk-1.0.10-convenience-1.patch)
+
+build() {
+	cd $pkgname-$pkgver
+
+    patch -Np1 -i ../gptfdisk-1.0.10-convenience-1.patch 
+
+    sed -i 's|ncursesw/||' gptcurses.cc &&
+    sed -i 's|sbin|usr/sbin|' Makefile  &&
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

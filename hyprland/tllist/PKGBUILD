@@ -1,0 +1,23 @@
+# description	: A typed linked list C header file only library
+# depends	: meson
+
+pkgname=tllist
+pkgver=1.1.0
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://codeberg.org/dnkl/tllist/archive/$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

@@ -1,0 +1,33 @@
+# description	: Xfce4 screenshooter application and panel plugin
+# depends	: xfce4-panel hicolor-icon-theme wayland-protocols glib
+# depends	: xfce4-dev-tools
+### xclip curl jq zenity
+
+pkgname=xfce4-screenshooter
+pkgver=1.11.2
+pkgrel=1
+source=(https://archive.xfce.org/src/apps/xfce4-screenshooter/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+prepare() {
+    cd $pkgname-$pkgver
+
+    NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --libexecdir=/usr/lib \
+        --localstatedir=/var \
+        --disable-debug
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

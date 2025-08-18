@@ -1,0 +1,22 @@
+# description	: Machine-readable files for the SPIR-V Registry
+# depends	: cmake ninja
+
+pkgname=spirv-headers
+pkgver=1.4.321.0
+pkgrel=1
+options=(!lto)
+source=(https://github.com/KhronosGroup/SPIRV-Headers/archive/refs/tags/vulkan-sdk-$pkgver/SPIRV-Headers-$pkgver.tar.gz)
+
+build() {
+    cd SPIRV-Headers-vulkan-sdk-$pkgver
+
+    cmake -B build -G Ninja \
+         -D CMAKE_INSTALL_PREFIX=/usr
+    ninja -C build
+}
+
+package() {
+    cd SPIRV-Headers-vulkan-sdk-$pkgver/build
+
+    DESTDIR="$pkgdir" ninja install
+}

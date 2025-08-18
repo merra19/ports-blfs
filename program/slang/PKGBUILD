@@ -1,0 +1,30 @@
+# description	: Multi-platform library designed to allow a developer to create robust software
+# depends	: libpng ncurses readline zlib
+
+pkgname=slang
+pkgver=2.3.3
+pkgrel=1
+options=(!makeflags)
+source=(https://www.jedsoft.org/releases/$pkgname/$pkgname-$pkgver.tar.bz2)
+backup=(etc/slsh.rc)
+
+build() {
+	cd $pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --with-readline=gnu
+	make RPATH=
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	make -j1 DESTDIR="$pkgdir" \
+		install_doc_dir=/usr/share/doc/$pkgname-$pkgver \
+		SLSH_DOC_DIR=/usr/share/doc/$pkgname-$pkgver/slsh \
+	    install-all
+	chmod -v 755 "$pkgdir"/usr/lib/libslang.so.$pkgver \
+            "$pkgdir"/usr/lib/slang/v2/modules/*.so
+}

@@ -1,0 +1,21 @@
+# description	: Default freedesktop.org sound theme following the XDG theming specification
+# depends	: intltool
+
+pkgname=sound-theme-freedesktop
+pkgver=0.8
+pkgrel=1
+source=(https://people.freedesktop.org/~mccann/dist/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

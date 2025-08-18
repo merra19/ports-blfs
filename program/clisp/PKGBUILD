@@ -1,0 +1,41 @@
+# description	: A portable, bytecode-compiled implementation of Common Lisp
+# depends	: glibc libxcrypt libsigsegv dbus gdbm readline zlib
+# depends	: libxpm libnsl
+
+pkgname=clisp
+pkgver=2.49
+pkgrel=1
+_git=afa64df1c2bd92175159e8065117ec7286c65522
+source=(https://gitlab.com/gnu-clisp/clisp/-/archive/$_git/clisp-$_git.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/clisp-2.49-readline7_fixes-1.patch
+        $pkgname-fix-build-with-gcc-15.1.patch)
+
+build() {
+	cd $pkgname-$_git
+
+    sed -i -e '/socket/d' -e '/"streams"/d' tests/tests.lisp
+
+    #patch -Np1 -i ../clisp-2.49-readline7_fixes-1.patch
+
+    # Fix build with GCC 15.1
+    patch -Np1 -i ../$pkgname-fix-build-with-gcc-15.1.patch
+
+    mkdir build &&
+    cd    build &&
+
+    ../configure \
+        --srcdir=../ \
+        --prefix=/usr \
+        --with-readline \
+        --docdir=/usr/share/doc/$pkgname-$pkgver \
+        --with-libsigsegv-prefix=/usr
+
+    ulimit -S -s 16384 &&
+    make -j1
+}
+
+package() {
+    cd $pkgname-$_git
+
+    make -j1 DESTDIR="$pkgdir" -C build install
+}

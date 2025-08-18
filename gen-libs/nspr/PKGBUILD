@@ -1,0 +1,31 @@
+# description	: Netscape Portable Runtime"
+# depends	: glibc
+
+pkgname=nspr
+pkgver=4.37
+pkgrel=1
+options=(!lto)
+source=(https://archive.mozilla.org/pub/$pkgname/releases/v$pkgver/src/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver/$pkgname
+
+	# disables installing two unneeded scripts
+	sed -i '/^RELEASE/s|^|#|' pr/src/misc/Makefile.in 
+
+	# disables installing the static libraries
+	sed -i 's|$(LIBRARY) ||'  config/rules.mk
+
+	./configure \
+        --prefix=/usr \
+		--with-mozilla \
+		--with-pthreads \
+		--enable-64bit
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver/$pkgname
+
+    make DESTDIR="$pkgdir" install
+}

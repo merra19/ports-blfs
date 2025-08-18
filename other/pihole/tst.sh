@@ -1034,9 +1034,9 @@ version_check_dnsmasq() {
     local dnsmasq_pihole_id_string="addn-hosts=/etc/pihole/gravity.list"
     local dnsmasq_pihole_id_string2="# Dnsmasq config for Pi-hole's FTLDNS"
     local dnsmasq_original_config="${PI_HOLE_LOCAL_REPO}/advanced/dnsmasq.conf.original"
-    local dnsmasq_pihole_01_source="${PI_HOLE_LOCAL_REPO}/advanced/01-pihole.conf"
+    local dnsmasq_pihole_01_source=(${PI_HOLE_LOCAL_REPO}/advanced/01-pihole.conf)
     local dnsmasq_pihole_01_target="/etc/dnsmasq.d/01-pihole.conf"
-    local dnsmasq_rfc6761_06_source="${PI_HOLE_LOCAL_REPO}/advanced/06-rfc6761.conf"
+    local dnsmasq_rfc6761_06_source=(${PI_HOLE_LOCAL_REPO}/advanced/06-rfc6761.conf)
     local dnsmasq_rfc6761_06_target="/etc/dnsmasq.d/06-rfc6761.conf"
 
     # If the dnsmasq config file exists
@@ -1258,7 +1258,7 @@ installConfigs() {
             # Get the version number of lighttpd
             version=$(dpkg-query -f='${Version}\n' --show lighttpd)
             # Test if that version is greater than or euqal to 1.4.56
-            if dpkg --compare-versions "$version" "ge" "1.4.56"; then
+            if dpkg --compare-versions "$pkgver" "ge" "1.4.56"; then
                 # If it is, then we don't need to disable the modules
                 # (server.modules duplication is ignored in lighttpd 1.4.56+)
                 :

@@ -1,0 +1,25 @@
+# description	: Handler library for evdev events
+# depends	: meson
+
+pkgname=libevdev
+pkgver=1.13.4
+pkgrel=1
+source=(https://www.freedesktop.org/software/libevdev/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D tests="$(scratch isinstalled check && echo "enabled" || echo "disabled")" \
+        -D documentation=disabled \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

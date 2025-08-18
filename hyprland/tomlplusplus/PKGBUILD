@@ -1,0 +1,23 @@
+# description	: TOML config file parser and serializer
+# depends	: glibc meson
+
+pkgname=tomlplusplus
+pkgver=3.4.0
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/marzer/$pkgname/archive/refs/tags/v$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

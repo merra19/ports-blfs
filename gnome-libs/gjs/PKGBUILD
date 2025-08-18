@@ -1,0 +1,29 @@
+# description	: Javascript bindings for GNOME
+# depends	: glib gobject-introspection libffi spidermonkey cairo
+# depends	: readline
+
+pkgname=gjs
+pkgver=1.84.2
+pkgrel=1
+source=(https://download.gnome.org/sources/gjs/${pkgver%.*}/$pkgname-$pkgver.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/svn/gjs-1.84.2-spidermonkey_140-1.patch)
+
+build() {
+	cd $pkgname-$pkgver
+
+    # Apply a patch to allow building this package with SpiderMonkey 140
+    patch -Np1 -i ../gjs-1.84.2-spidermonkey_140-1.patch
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --wrap-mode=nofallback \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

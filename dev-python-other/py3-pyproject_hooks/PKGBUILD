@@ -1,0 +1,19 @@
+# description	: Wrappers to build Python packages using PEP 517 hooks
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
+
+pkgname=py3-pyproject_hooks
+pkgver=1.2.0
+pkgrel=1
+source=(https://files.pythonhosted.org/packages/e7/82/28175b2414effca1cdac8dc99f76d660e7a4fb0ceefa4b4ab8f5f6742925/pyproject_hooks-$pkgver.tar.gz)
+
+build() {
+	cd ${pkgname#*-}-$pkgver
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${pkgname#*-}-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}

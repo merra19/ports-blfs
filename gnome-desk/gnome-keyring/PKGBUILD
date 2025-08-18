@@ -1,0 +1,27 @@
+# description	: Gnome Settings Daemon
+# depends	: dbus gcr pam libxslt openssh libgcrypt glib meson
+
+pkgname=gnome-keyring
+pkgver=48.0
+pkgrel=1
+source=(https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    sed -i 's:"/desktop:"/org:' schema/*.xml &&
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D systemd=disabled \
+        -D ssh-agent=true  \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

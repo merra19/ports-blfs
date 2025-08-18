@@ -1,0 +1,21 @@
+# description	: Tool for generating C-based recognizers from regular expressions
+# depends	: glibc python3
+
+pkgname=re2c
+pkgver=4.3
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/skvadrik/re2c/archive/$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    cmake -B build \
+        -DCMAKE_INSTALL_PREFIX=/usr
+    cmake --build build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" cmake --install build
+}

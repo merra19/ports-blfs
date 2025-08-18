@@ -1,0 +1,26 @@
+# description	: X.Org xset application
+# depends	: libx11 libxext libxmu xorg-proto
+
+pkgname=xset
+pkgver=1.2.5
+pkgrel=1
+source=(https://www.x.org/pub/individual/app/$pkgname-$pkgver.tar.xz)
+
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

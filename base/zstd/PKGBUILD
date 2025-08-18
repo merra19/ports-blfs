@@ -1,0 +1,20 @@
+# description	: zstd fast compression library
+# depends	: glibc zlib xz lz4
+
+pkgname=zstd
+pkgver=1.5.7
+pkgrel=1
+source=(https://github.com/facebook/zstd/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    make prefix=/usr
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" prefix=/usr install
+    rm -v "$pkgdir"/usr/lib/libzstd.a
+}

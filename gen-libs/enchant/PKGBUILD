@@ -1,0 +1,23 @@
+# description	: Spellchecker wrapping library
+# depends	: glib aspell aspell-en aspell-fr 
+
+pkgname=enchant
+pkgver=2.8.12
+pkgrel=1
+source=(https://github.com/rrthomas/enchant/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --docdir /usr/share/doc/$pkgname-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

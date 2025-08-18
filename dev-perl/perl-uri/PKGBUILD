@@ -1,0 +1,21 @@
+# description	: Uniform Resource Identifiers (absolute and relative)"
+# depends	: perl
+
+pkgname=perl-uri
+_pkgname=URI
+pkgver=5.31
+pkgrel=1
+source=(https://cpan.metacpan.org/authors/id/O/OA/OALDERS/URI-$pkgver.tar.gz)
+
+build() {
+	cd ${_pkgname}-$pkgver
+
+	perl Makefile.PL INSTALLDIRS=vendor
+	make
+}
+
+package() {
+    cd ${_pkgname}-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

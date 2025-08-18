@@ -1,0 +1,24 @@
+# description	: Archive plug-in for the Thunar filemanager
+# depends	: hicolor-icon-theme glib gtk3 libxfce4util exo thunar
+# depends	: xarchiver
+
+pkgname=xfce4-thunar-archive-plugin
+pkgver=0.6.0
+pkgrel=1
+source=(https://archive.xfce.org/src/thunar-plugins/thunar-archive-plugin/${pkgver%.*}/thunar-archive-plugin-$pkgver.tar.xz)
+
+build() {
+    cd ${pkgname#*-}-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd ${pkgname#*-}-$pkgver
+    
+    DESTDIR="$pkgdir" ninja -C build install
+}

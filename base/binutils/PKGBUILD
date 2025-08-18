@@ -1,0 +1,45 @@
+# description	: Tools necessary to build programs
+# depends	: flex zlib bison zstd bc dejagnu
+
+pkgname=binutils
+pkgver=2.45
+pkgrel=1
+options=(!lto)
+source=(https://ftp.gnu.org/gnu/binutils/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    # System-dependent
+    MACHINE="$(gcc -dumpmachine)"
+
+    ./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib \
+        --includedir=/usr/include \
+        --with-lib-path=/usr/lib:/usr/lib32 \
+        --enable-shared \
+        --disable-static \
+        --target=$MACHINE \
+        --build=$MACHINE \
+        --enable-targets=all \
+        --enable-deterministic-archives \
+        --enable-lto \
+        --enable-plugins \
+        --enable-gold \
+        --enable-secureplt \
+        --disable-werror \
+        --enable-64-bit-bfd \
+        --with-system-zlib \
+        --without-debuginfod \
+        --enable-new-dtags  \
+        --enable-default-hash-style=gnu
+
+    make -O tooldir=/usr
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" tooldir=/usr install
+}

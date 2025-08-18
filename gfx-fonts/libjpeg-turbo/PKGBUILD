@@ -1,0 +1,26 @@
+# description	: MMX, SSE, and SSE2 SIMD accelerated JPEG library
+# depends	: cmake ninja yasm
+
+pkgname=libjpeg-turbo
+pkgver=3.0.1
+pkgrel=1
+source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=RELEASE \
+		-D ENABLE_STATIC=FALSE \
+		-D CMAKE_INSTALL_DOCDIR=/usr/share/doc/$pkgname-$pkgver \
+		-D CMAKE_INSTALL_DEFAULT_LIBDIR=lib \
+        -D CMAKE_POLICY_VERSION_MINIMUM=3.5
+	make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+}

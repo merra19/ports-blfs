@@ -1,0 +1,25 @@
+# description	: A simple Xfce4 media player using GStreamer
+# depends	: dbus-glib gst-plugins-base gst-plugins-good libnotify
+# depends	: libxfce4ui meson glib python3 xfce4-dev-tools taglib
+# depends	: gst-libav gst-plugins-bad gst-plugins-ugly
+
+pkgname=parole
+pkgver=4.20.0
+pkgrel=1
+source=(https://archive.xfce.org/src/apps/parole/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+    
+    DESTDIR="$pkgdir" ninja -C build install
+}

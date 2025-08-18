@@ -1,0 +1,21 @@
+# description	: A set of scripts and m4/autoconf macros that ease build system maintenance
+# depends	: glib intltool libxslt
+
+pkgname=xfce4-dev-tools
+pkgver=4.20.0
+pkgrel=1
+source=(http://archive.xfce.org/src/xfce/xfce4-dev-tools/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

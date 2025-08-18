@@ -1,0 +1,22 @@
+# description	: Debian Almquist Shell
+# depends	: glibc
+
+pkgname=dash
+pkgver=0.5.12
+pkgrel=1
+source=(http://gondor.apana.org.au/~herbert/dash/files/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --bindir=/bin \
+        --mandir=/usr/share/man
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

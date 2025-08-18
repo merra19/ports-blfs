@@ -1,0 +1,22 @@
+# description	: Multitouch Protocol Translation Library
+# depends	: linux-api-headers glibc
+
+pkgname=mtdev
+pkgver=1.1.7
+pkgrel=1
+source=(https://bitmath.org/code/mtdev/$pkgname-$pkgver.tar.bz2)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

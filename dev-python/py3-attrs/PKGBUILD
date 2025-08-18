@@ -1,0 +1,22 @@
+# description	: Attributes without boilerplate
+# depends	: python3 py3-wheel py3-hatch-vcs 
+# depends	: py3-hatch_fancy_pypi_readme
+
+pkgname=py3-attrs
+pkgver=25.3.0
+pkgrel=1
+options=(!lto)
+source=(https://files.pythonhosted.org/packages/source/a/attrs/attrs-$pkgver.tar.gz)
+
+build() {
+	cd ${pkgname#*-}-$pkgver
+
+    SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver \
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${pkgname#*-}-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}

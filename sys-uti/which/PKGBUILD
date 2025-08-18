@@ -1,0 +1,21 @@
+# description	: Prints out location of specified executables that are in your path
+# depends	: glibc
+
+pkgname=which
+pkgver=2.23
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/which/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr
+    make    
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

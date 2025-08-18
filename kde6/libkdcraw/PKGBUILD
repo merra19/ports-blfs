@@ -1,0 +1,25 @@
+# description	: Digital camera raw image library wrapper
+# depends	: libraw extra-cmake-modules qt6-base
+
+pkgname=libkdcraw
+pkgver=24.12.2
+pkgrel=1
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TESTING=OFF \
+        -D QT_MAJOR_VERSION=6 \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+}

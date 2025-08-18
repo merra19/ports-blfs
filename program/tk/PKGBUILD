@@ -1,0 +1,35 @@
+# description	: Tk Widget Set
+# depends	: fontconfig
+
+pkgname=tk
+pkgver=8.6.16
+pkgrel=1
+source=(https://downloads.sourceforge.net/tcl/tk${pkgver}-src.tar.gz)
+
+build() {
+	cd $pkgname$pkgver
+    
+    cd unix
+
+    ./configure \
+        --prefix=/usr \
+        --mandir=/usr/share/man \
+        --enable-64bit
+
+    make &&
+
+    sed -e "s@^\(TK_SRC_DIR='\).*@\1/usr/include'@" \
+        -e "/TK_B/s@='\(-L\)\?.*unix@='\1/usr/lib@" \
+        -i tkConfig.sh
+}
+
+package() {
+	cd $pkgname$pkgver
+
+    cd unix
+
+	make DESTDIR="$pkgdir" install
+    make DESTDIR="$pkgdir" install-private-headers &&
+    ln -v -sf wish8.6 "$pkgdir"/usr/bin/wish &&
+    chmod -v 755 "$pkgdir"/usr/lib/libtk8.6.so
+}

@@ -1,0 +1,16 @@
+# description	: Meta port for Xorg
+# depends	: xorg-server xinit pulseaudio pipewire wireplumber 
+# depends	: ttf-dejavu
+
+pkgname=xorg
+pkgver=1.0
+pkgrel=1
+source=(setup hyprland.conf waybar xdg-portal-hyprland kitty.conf)
+
+package() {
+    install -Dm 755 setup "$pkgdir"/usr/local/bin/setup
+
+    for i in hyprland.conf kitty.conf waybar xdg-portal-hyprland;do
+        install -Dm 644 $i "$pkgdir"/usr/local/share/hyprland/$i
+    done
+}

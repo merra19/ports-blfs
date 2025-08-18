@@ -1,0 +1,23 @@
+# description	: Library for DVD navigation tools
+# depends	: libdvdcss
+
+pkgname=libdvdread
+pkgver=6.1.3
+pkgrel=1
+source=(https://get.videolan.org/libdvdread/$pkgver/$pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $pkgname-$pkgver
+	
+	./configure \
+        --prefix=/usr \
+		--disable-static \
+		--docdir=/usr/share/doc/$pkgname-$pkgver
+	make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,24 @@
+# description	: Easy to use task manager
+# depends	: libxfce4ui xfconf libxmu libwnck3 meson xfce4-dev-tools
+
+pkgname=xfce4-taskmanager
+pkgver=1.6.0
+pkgrel=1
+source=(https://archive.xfce.org/src/apps/xfce4-taskmanager/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+    
+    DESTDIR="$pkgdir" ninja -C build install
+}
+

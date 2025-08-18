@@ -1,0 +1,23 @@
+# description	: Standard GNU database libraries
+# depends	: readline ncurses
+
+pkgname=gdbm
+pkgver=1.26
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/gdbm/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --enable-libgdbm-compat
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

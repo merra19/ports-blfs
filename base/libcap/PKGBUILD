@@ -1,0 +1,24 @@
+# description	: POSIX 1003.1e capabilities
+# depends	: diffutils pam
+
+pkgname=libcap
+pkgver=2.76
+pkgrel=1
+source=(https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    # Prevent static libraries from being installed
+    sed -i '/install -m.*STA/d' libcap/Makefile
+
+    make CC="gcc" prefix=/usr lib=lib
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make CC="gcc" DESTDIR="$pkgdir" prefix=/usr lib=lib install
+
+    install -v -Dm644 pam_cap/capability.conf "$pkgdir"/etc/security/capability.conf
+}

@@ -1,0 +1,26 @@
+# description	: X.Org XRes library
+# depends	: libx11 libxext xorg-proto
+
+pkgname=libxres
+_pkgname=libXres
+pkgver=1.2.2
+pkgrel=1
+source=(https://www.x.org/pub/individual/lib/libXres-$pkgver.tar.xz)
+
+build() {
+    cd ${_pkgname}-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libXres-$pkgver
+    make
+}
+
+package() {
+    cd ${_pkgname}-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

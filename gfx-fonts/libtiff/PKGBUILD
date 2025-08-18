@@ -1,0 +1,25 @@
+# description	: Tag Image File Format (TIFF) library
+# depends	: cmake ninja libjpeg-turbo libwebp xz zlib zstd 
+### freeglut
+
+pkgname=libtiff
+pkgver=4.7.0
+pkgrel=1
+options=(!lto)
+source=(https://download.osgeo.org/$pkgname/tiff-$pkgver.tar.gz)
+
+build() {
+	cd ${pkgname#lib}-$pkgver
+
+	cmake -B libtiff-build -G Ninja \
+        -D CMAKE_INSTALL_DOCDIR=/usr/share/doc/$pkgname-$pkgver \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_POLICY_VERSION_MINIMUM=3.5
+	ninja -C libtiff-build
+}
+
+package() {
+    cd ${pkgname#lib}-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C libtiff-build install
+}

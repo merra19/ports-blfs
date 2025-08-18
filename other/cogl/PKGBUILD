@@ -1,0 +1,28 @@
+# description	: A library for using 3D graphics hardware to draw pretty pictures
+# depends	: gdk-pixbuf libdrm libxcomposite libxdamage libxext
+# depends	: libxrandr mesa pango gobject-introspection wayland
+
+pkgname=cogl
+pkgver=1.22.8
+pkgrel=1
+source=(https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    NOCONFIGURE=1 ./autogen.sh
+
+    ./configure \
+        --prefix=/usr \
+        --disable-gles1 \
+        --enable-gles2 \
+        --enable-{kms,wayland,xlib}-egl-platform \
+        --enable-wayland-egl-server 
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

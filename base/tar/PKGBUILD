@@ -1,0 +1,24 @@
+# description	: Use this to make tarballs :)
+# depends	: acl glibc attr
+
+pkgname=tar
+pkgver=1.35
+pkgrel=1
+options=(!lto)
+source=(https://ftp.gnu.org/gnu/tar/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    FORCE_UNSAFE_CONFIGURE=1 \
+    ./configure \
+        --prefix=/usr 
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+    make -C doc install-html docdir="$pkgdir"/usr/share/doc/$pkgname-$pkgver
+}

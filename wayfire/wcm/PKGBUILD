@@ -1,0 +1,21 @@
+# description	: Wayfire Configuration Manager
+# depends	: gtk3 libepoxy wayland wayland-protocols meson wdisplays
+
+pkgname=wcm
+pkgver=0.9.0
+pkgrel=1
+source=(https://github.com/WayfireWM/$pkgname/releases/download/v${pkgver}/$pkgname-$pkgver.tar.xz)
+
+build() {
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
+		-Dwf_shell=enabled \
+		-Denable_wdisplays=false \
+        $pkgname-$pkgver build
+	ninja -C build
+}
+
+package() {
+    DESTDIR="$pkgdir" ninja -C build install
+}

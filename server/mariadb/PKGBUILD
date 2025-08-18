@@ -1,0 +1,52 @@
+# description	: An enhanced, drop-in replacement for MySQL
+# depends	: pcre2 texinfo ncurses zlib libxcrypt binutils readline 
+# depends	: libaio procps-ng bzip2 xz libarchive boost 
+# depends	: libxml2 lz4 lzo bison cmake pam curl openssl 
+# optional	: cracklib odbc!!unixodbc krb5!!openldap
+
+pkgname=mariadb
+pkgver=11.8.3
+pkgrel=1
+options=(!lto)
+source=(https://downloads.mariadb.org/interstitial/mariadb-$pkgver/source/$pkgname-$pkgver.tar.gz
+        my.cnf $pkgname.hooks)
+backup=(etc/mariadb/my.cnf)
+ 
+build() {
+	cd $pkgname-$pkgver
+
+    cmake -B build \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D GRN_LOG_PATH=/var/log/groonga.log \
+        -D INSTALL_DOCDIR=share/doc/mariadb-11.4.4 \
+        -D INSTALL_DOCREADMEDIR=share/doc/mariadb-11.4.4 \
+        -D INSTALL_MANDIR=share/man \
+        -D INSTALL_MYSQLSHAREDIR=share/mariadb \
+        -D INSTALL_MYSQLTESTDIR=share/mariadb/test \
+        -D INSTALL_PAMDIR=lib/security \
+        -D INSTALL_PAMDATADIR=/etc/security \
+        -D INSTALL_PLUGINDIR=lib/mariadb/plugin \
+        -D INSTALL_SBINDIR=sbin \
+        -D INSTALL_SCRIPTDIR=bin \
+        -D INSTALL_SQLBENCHDIR=share/mariadb/bench \
+        -D INSTALL_SUPPORTFILESDIR=share/mariadb \
+        -D MYSQL_DATADIR=/srv/mariadb \
+        -D MYSQL_UNIX_ADDR=/run/mariadb/mariadb.sock \
+        -D WITH_EXTRA_CHARSETS=complex \
+        -D WITH_EMBEDDED_SERVER=ON \
+        -D SKIP_TESTS=ON \
+        -D TOKUDB_OK=0
+    make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make -j1 DESTDIR="$pkgdir" -C build install
+
+    install -v -dm 755 "$pkgdir"/etc/mariadb
+    install -Dm644 "$srcdir"/my.cnf "$pkgdir"/etc/mariadb/my.cnf
+
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
+}

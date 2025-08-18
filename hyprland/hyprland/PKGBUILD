@@ -1,0 +1,35 @@
+# description	: A dynamic tiling Wayland compositor that doesn't sacrifice on its looks
+# depends	: cmake hyprland-protocols meson ninja xorg-proto cairo
+# depends	: aquamarine gcc glib glslang hyprcursor hyprgraphics
+# depends	: hyprland-qtutils hyprlang hyprutils hyprwayland-scanner
+# depends	: libdisplay-info libdrm libglvnd libinput libliftoff 
+# depends	: libx11 libxcb libxcomposite libxcursor libxfixes re2 
+# depends	: libxkbcommon libxrender mesa pango pixman seatd udev
+# depends	: tomlplusplus util-linux wayland wayland-protocols 
+# depends	: xcb-proto xcb-util xcb-util-errors xcb-util-image
+# depends	: xcb-util-keysyms xcb-util-renderutil xcb-util-wm
+# depends	: xwayland glaze polkit
+
+pkgname=hyprland
+pkgver=0.47.2
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/hyprwm/Hyprland/releases/download/v$pkgver/source-v$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-source
+
+    sed -i -e '/^release:/{n;s/-D/-DCMAKE_SKIP_RPATH=ON -D/}' Makefile
+
+    rm -fv scripts/generateVersion.sh
+
+    make release PREFIX=/usr
+}
+
+package() {
+    cd $pkgname-source
+
+    make DESTDIR="$pkgdir" install
+    rm -fv "$pkgdir/usr/include/hyprland/src/version.h.in"
+    # Drop this line when hyprland-portals.conf is removed from xdg-desktop-portal-hyprland
+    rm -frv "$pkgdir/usr/share/xdg-desktop-portal"
+}

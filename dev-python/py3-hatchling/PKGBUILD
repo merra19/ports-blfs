@@ -1,0 +1,21 @@
+# description	: Modern, extensible Python build backend
+# depends	: python3 py3-wheel py3-gpep517 py3-setuptools py3-pluggy
+# depends	: py3-editables py3-packaging py3-pathspec
+# depends	: py3-trove-classifiers
+
+pkgname=py3-hatchling
+pkgver=1.27.0
+pkgrel=1
+source=(https://files.pythonhosted.org/packages/source/h/hatchling/hatchling-$pkgver.tar.gz)
+
+build() {
+    cd ${pkgname#*-}-$pkgver
+
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${pkgname#*-}-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/hatchling-$pkgver-py3-none-any.whl
+}

@@ -1,0 +1,23 @@
+# description	: EDID and DisplayID library
+# depends	: ninja python3 hwdata
+
+pkgname=libdisplay-info
+pkgver=0.2.0
+pkgrel=1
+source=(https://gitlab.freedesktop.org/emersion/$pkgname/-/releases/$pkgver/downloads/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

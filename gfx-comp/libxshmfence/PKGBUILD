@@ -1,0 +1,25 @@
+# description	: Shared memory fences using futexes
+# depends	: xorg-proto
+
+pkgname=libxshmfence
+pkgver=1.3.3
+pkgrel=1
+source=(https://www.x.org/pub/individual/lib/libxshmfence-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --docdir=/usr/share/doc/libxshmfence-$pkgver
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

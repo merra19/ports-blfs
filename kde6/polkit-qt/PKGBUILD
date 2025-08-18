@@ -1,0 +1,24 @@
+# description	: Qt wrapper around polkit-1 client libraries
+# depends	: cmake glib polkit qt6-base
+
+pkgname=polkit-qt
+pkgver=0.200.0
+pkgrel=1
+source=(https://download.kde.org/stable/polkit-qt-1/$pkgname-1-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-1-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D QT_MAJOR_VERSION=6 \
+        -Wno-dev
+    make -C build
+}
+
+package() {
+    cd $pkgname-1-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+}
