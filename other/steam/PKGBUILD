@@ -8,7 +8,7 @@
 pkgname=steam
 pkgver=1.0.0.83
 pkgrel=1
-source=(http://repo.steampowered.com/$pkgname/pool/$pkgname/s/$pkgname/${name}_$pkgver.tar.gz)
+source=(http://repo.steampowered.com/$pkgname/pool/$pkgname/s/$pkgname/${pkgname}_$pkgver.tar.gz)
 
 package() {
 	cd $pkgname-launcher
