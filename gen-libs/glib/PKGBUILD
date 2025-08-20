@@ -9,7 +9,8 @@ pkgname2=gobject-introspection
 pkgver2=1.84.0
 source=(https://download.gnome.org/sources/glib/${pkgver%.*}/$pkgname-$pkgver.tar.xz
         https://www.linuxfromscratch.org/patches/blfs/12.2/glib-skip_warnings-1.patch
-        https://download.gnome.org/sources/gobject-introspection/${pkgver2%.*}/${pkgname2}-${pkgver2}.tar.xz)
+        https://download.gnome.org/sources/gobject-introspection/${pkgver2%.*}/${pkgname2}-${pkgver2}.tar.xz
+        $pkgname.hooks)
 
 build() {
 	cd $pkgname-$pkgver
@@ -71,4 +72,6 @@ package() {
 
     mkdir -p "$pkgdir"/usr/share/doc/$pkgname-$pkgver &&
     cp -r ../docs/reference/gio ../docs/reference/glib ../docs/reference/gobject "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
 }

@@ -6,7 +6,7 @@ pkgver=0.72.0
 pkgrel=1
 options=(!lto)
 source=(https://github.com/rust-lang/rust-bindgen/archive/v$pkgver/$pkgname-$pkgver.tar.gz
-        rust-bindgen-$pkgver-cargo.tar.xz)
+        local://rust-bindgen-$pkgver-cargo.tar.xz)
 
 build() {
 	cd $pkgname-$pkgver

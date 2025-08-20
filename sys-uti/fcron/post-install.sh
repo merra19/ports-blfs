@@ -1,8 +1,8 @@
 #!/bin/sh
 
 pkg_preinst() {
-    getent group fcron || groupadd -g 22 fcron
-    getent passwd fcron || useradd -d /dev/null -c "Fcron User" -g fcron -s /bin/false -u 22 fcron
+    getent group fcron > /dev/null || groupadd -g 22 fcron
+    getent passwd fcron > /dev/null || useradd -d /dev/null -c "Fcron User" -g fcron -s /bin/false -u 22 fcron
 }
 
 pkg_postinst() {

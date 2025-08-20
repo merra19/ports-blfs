@@ -5,7 +5,7 @@ if [[ $EUID -eq 0 ]]; then
     exit 1
 fi
 
-getent group seat || {
+getent group seat >/dev/null || {
     echo "missing group seat"
     exit 1
 }

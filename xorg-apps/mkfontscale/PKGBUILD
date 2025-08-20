@@ -4,7 +4,8 @@
 pkgname=mkfontscale
 pkgver=1.2.3
 pkgrel=1
-source=(https://www.x.org/pub/individual/app/$pkgname-$pkgver.tar.xz)
+source=(https://www.x.org/pub/individual/app/$pkgname-$pkgver.tar.xz
+        $pkgname.hooks)
 
 build() {
     cd $pkgname-$pkgver
@@ -20,4 +21,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" install
+
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
 }

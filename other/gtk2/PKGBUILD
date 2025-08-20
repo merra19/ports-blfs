@@ -9,7 +9,8 @@
 pkgname=gtk2
 pkgver=2.24.33
 pkgrel=1
-source=(https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$pkgver.tar.xz)
+source=(https://download.gnome.org/sources/gtk+/${pkgver%.*}/gtk+-$pkgver.tar.xz
+        pkgname.hooks)
 
 build() {    
     cd gtk+-$pkgver
@@ -43,4 +44,5 @@ EOF
 
     rm -f $pkgdir/usr/bin/gtk-update-icon-cache
 
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
 }

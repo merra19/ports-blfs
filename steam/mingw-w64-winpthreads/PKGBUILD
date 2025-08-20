@@ -1,0 +1,48 @@
+# description	: MinGW-w64 winpthreads library
+# depends	: glibc mingw-w64-gcc mingw-w64-binutils mingw-w64-crt
+
+pkgname=mingw-w64-winpthreads
+pkgver=13.0.0
+pkgrel=1
+options=(!strip staticlibs !emptydirs)
+source=(https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/mingw-w64-v${pkgver}.tar.bz2)
+
+build() {
+    unset CFLAGS CXXFLAGS LDFLAGS
+    
+    mkdir build-x86_64 &&
+    cd    build-x86_64 &&
+
+    "$srcdir"/mingw-w64-v${pkgver}/mingw-w64-libraries/winpthreads/configure \
+        --prefix=/usr/x86_64-w64-mingw32 \
+        --host=x86_64-w64-mingw32 \
+        --enable-static --enable-shared
+    make
+    cd -
+
+    mkdir build-i686
+    cd    build-i686
+
+    "$srcdir"/mingw-w64-v${pkgver}/mingw-w64-libraries/winpthreads/configure \
+        --prefix=/usr/i686-w64-mingw32 \
+        --host=i686-w64-mingw32 \
+        --enable-static --enable-shared
+    make  
+}
+
+package() {
+    cd  "$srcdir"/build-x86_64
+
+    make DESTDIR="$pkgdir" install
+
+    cd  "$srcdir"/build-i686
+
+    make DESTDIR="$pkgdir" install
+
+    rm -f "$pkgdir"/usr/x86_64-w64-mingw32/include/pthread_signal.h
+    rm -f "$pkgdir"/usr/x86_64-w64-mingw32/include/pthread_unistd.h
+    rm -f "$pkgdir"/usr/x86_64-w64-mingw32/include/pthread_time.h
+    rm -f "$pkgdir"/usr/i686-w64-mingw32/include/pthread_signal.h
+    rm -f "$pkgdir"/usr/i686-w64-mingw32/include/pthread_unistd.h
+    rm -f "$pkgdir"/usr/i686-w64-mingw32/include/pthread_time.h
+}

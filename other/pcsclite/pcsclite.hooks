@@ -1,4 +1,4 @@
 #!/bin/sh
 
-getent group pcscd || groupadd -g 102 pcscd
-getent passwd pcscd || useradd -c "PC/SC Architecture"  -g pcscd -s /bin/false -u 102 pcscd
+getent group pcscd > /dev/null || groupadd -g 102 pcscd
+getent passwd pcscd > /dev/null || useradd -c "PC/SC Architecture"  -g pcscd -s /bin/false -u 102 pcscd

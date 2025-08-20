@@ -4,7 +4,8 @@
 pkgname=desktop-file-utils
 pkgver=0.28
 pkgrel=1
-source=(https://www.freedesktop.org/software/desktop-file-utils/releases/$pkgname-$pkgver.tar.xz)
+source=(https://www.freedesktop.org/software/desktop-file-utils/releases/$pkgname-$pkgver.tar.xz
+		$pkgname.hooks)
 
 build() {
 	cd $pkgname-$pkgver
@@ -21,4 +22,6 @@ package() {
 
 	DESTDIR="$pkgdir" ninja -C build install
 	install -vdm755 "$pkgdir"/usr/share/applications
+
+	install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
 }

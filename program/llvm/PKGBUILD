@@ -43,6 +43,10 @@ build() {
 
     sed 's/utility/tool/' -i utils/FileCheck/CMakeLists.txt
 
+    sed '/CLANG_CMAKE_DIR/a set(CLANG_INSTALL_PREFIX "@CMAKE_INSTALL_PREFIX@")' -i tools/clang/cmake/modules/ClangConfig.cmake.in
+
+    sed '/LLVM_LIBDIR_SUFFIX/a set(LLVM_INSTALL_PREFIX "@CMAKE_INSTALL_PREFIX@")' -i cmake/modules/LLVMConfig.cmake.in
+
     CC="gcc" CXX="g++" \
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \

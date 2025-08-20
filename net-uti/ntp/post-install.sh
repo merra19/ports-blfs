@@ -1,8 +1,8 @@
 #!/bin/sh
 
 pkg_preinst() {
-    getent group ntp || groupadd -g 87 ntp 
-    getent passwd ntp || useradd -c "Network Time Protocol" -d /var/lib/ntp -u 87 -g ntp -s /bin/false ntp
+    getent group ntp > /dev/null || groupadd -g 87 ntp 
+    getent passwd ntp > /dev/null || useradd -c "Network Time Protocol" -d /var/lib/ntp -u 87 -g ntp -s /bin/false ntp
 }
 
 pkg_postinst() {

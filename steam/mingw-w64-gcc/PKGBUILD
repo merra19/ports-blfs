@@ -1,0 +1,136 @@
+# description	: Cross GCC for the MinGW-w64 cross-compiler
+# depends	: bash gcc glibc libgmp libisl libmpc libmpfr
+# depends	: mingw-w64-binutils python3 zlib zstd
+# depends	: mingw-w64-headers
+  
+pkgname=mingw-w64-gcc
+pkgver=15.2.0
+pkgrel=2
+options=(staticlibs !emptydirs !strip !lto)
+source=(https://ftp.gnu.org/gnu/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz)
+
+prepare() {
+    ln -sf gcc-${pkgver/+/-} gcc
+    cd gcc
+
+    # mmapio.c:69:14: error: implicit declaration of function ‘getpagesize’
+    sed -i 's|\-Werror||g' libbacktrace/configure
+    # Ada fails to compile, fix it with including the correct headers
+    sed -i '/#include "mingw32.h"/a #include <stdlib.h>' gcc/ada/rtinit.c
+}
+
+build() {
+    unset CFLAGS CXXFLAGS LDFLAGS
+
+    if ( scratch isinstalled mingw-w64-winpthreads ); then 
+        mkdir -p "$srcdir"/build-i686-w64-mingw32 "$srcdir"/build-x86_64-w64-mingw32
+
+        cd "$srcdir"/build-x86_64-w64-mingw32
+
+        "$srcdir"/gcc/configure \
+            --prefix=/usr \
+            --libexecdir=/usr/lib \
+            --target=x86_64-w64-mingw32 \
+            --enable-threads=posix \
+            --enable-languages=c,c++,lto \
+            --enable-shared --enable-static \
+            --enable-fully-dynamic-string \
+            --enable-libstdcxx-time=yes --enable-libstdcxx-filesystem-ts=yes \
+	        --with-system-zlib --enable-cloog-backend=isl \
+	        --enable-lto --enable-libgomp \
+            --enable-checking=release \
+            --disable-multilib \
+            --disable-sjlj-exceptions --with-dwarf2
+        make 
+        
+        cd "$srcdir"/build-i686-w64-mingw32
+
+        "$srcdir"/gcc/configure \
+            --prefix=/usr \
+            --libexecdir=/usr/lib \
+            --target=i686-w64-mingw32  \
+            --enable-threads=posix \
+            --enable-languages=c,c++ \
+            --enable-shared --enable-static \
+            --enable-fully-dynamic-string \
+            --enable-libstdcxx-time=yes --enable-libstdcxx-filesystem-ts=yes \
+	        --with-system-zlib --enable-cloog-backend=isl \
+	        --enable-lto --enable-libgomp \
+            --enable-checking=release \
+            --disable-multilib \
+            --disable-sjlj-exceptions --with-dwarf2
+        make
+    else
+        mkdir -p "$srcdir"/build-i686-w64-mingw32 "$srcdir"/build-x86_64-w64-mingw32
+        
+        cd "$srcdir"/build-i686-w64-mingw32
+
+        "$srcdir"/gcc/configure \
+            --prefix=/usr \
+            --libexecdir=/usr/lib \
+            --target=i686-w64-mingw32  \
+            --enable-languages=c,c++,lto \
+            --disable-shared \
+            --enable-fully-dynamic-string \
+            --enable-libstdcxx-time=yes --enable-libstdcxx-filesystem-ts=yes \
+	        --with-system-zlib --enable-cloog-backend=isl \
+	        --enable-lto --enable-libgomp \
+            --disable-multilib \
+            --disable-threads \
+            --disable-sjlj-exceptions --with-dwarf2
+        make all-gcc
+
+        cd "$srcdir"/build-x86_64-w64-mingw32
+
+        "$srcdir"/gcc/configure \
+            --prefix=/usr \
+            --libexecdir=/usr/lib \
+            --target=x86_64-w64-mingw32 \
+            --enable-languages=c,c++,lto \
+            --disable-shared \
+            --enable-fully-dynamic-string \
+            --enable-libstdcxx-time=yes --enable-libstdcxx-filesystem-ts=yes \
+	        --with-system-zlib --enable-cloog-backend=isl \
+	        --enable-lto --enable-libgomp \
+            --disable-multilib \
+            --disable-threads \
+            --disable-sjlj-exceptions --with-dwarf2
+        make all-gcc  
+    fi
+}
+
+package() 
+{
+    if ( scratch isinstalled mingw-w64-winpthreads ); then 
+
+    cd "$srcdir"/build-x86_64-w64-mingw32
+
+    make DESTDIR="$pkgdir" install
+
+    strip "$pkgdir"/usr/lib/gcc/x86_64-w64-mingw32/${pkgver}/{cc1*,collect2,lto*}
+
+    cd "$srcdir"/build-i686-w64-mingw32
+
+    make DESTDIR="$pkgdir" install
+
+    strip "$pkgdir"/usr/lib/gcc/i686-w64-mingw32/${pkgver}/{cc1*,collect2,lto*}
+
+    else
+    cd "$srcdir"/build-i686-w64-mingw32
+
+    make DESTDIR="$pkgdir" install-gcc
+
+    cd "$srcdir"/build-x86_64-w64-mingw32
+    
+    make DESTDIR="$pkgdir" install-gcc
+    fi
+
+    strip "$pkgdir"/usr/bin/i686-w64-mingw32-*
+    ln -s i686-w64-mingw32-gcc "$pkgdir"/usr/bin/i686-w64-mingw32-cc
+    strip "$pkgdir"/usr/bin/x86_64-w64-mingw32-*
+    ln -s i686-w64-mingw32-gcc "$pkgdir"/usr/bin/x86_64-w64-mingw32-cc
+    strip "$pkgdir"/usr/bin/*
+
+    rm -r "$pkgdir"/usr/share
+    rm -f "$pkgdir"/usr/lib/libcc1.*
+}

@@ -5,7 +5,7 @@ pkgname=cbindgen
 pkgver=0.29.0
 pkgrel=1
 source=(https://github.com/mozilla/cbindgen/archive/v$pkgver/$pkgname-$pkgver.tar.gz
-        $pkgname-$pkgver-cargo.tar.xz)
+        local://$pkgname-$pkgver-cargo.tar.xz)
 
 build() {
 	cd $pkgname-$pkgver

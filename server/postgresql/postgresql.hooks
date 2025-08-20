@@ -1,4 +1,4 @@
 #!/bin/sh
 
-getent group postgres || groupadd -g 41 postgres
-getent passwd postgres || useradd -c "PostgreSQL Server" -g postgres -d /srv/pgsql/data -u 41 postgres
+getent group postgres > /dev/null || groupadd -g 41 postgres
+getent passwd postgres > /dev/null || useradd -c "PostgreSQL Server" -g postgres -d /srv/pgsql/data -u 41 postgres

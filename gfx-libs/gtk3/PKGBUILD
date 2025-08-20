@@ -11,7 +11,7 @@ pkgname=gtk3
 pkgver=3.24.50
 pkgrel=1
 source=(https://download.gnome.org/sources/gtk/${pkgver%.*}/gtk-$pkgver.tar.xz
-        settings.ini)
+        settings.ini $pkgname.hooks)
 
 build() {
 	cd gtk-$pkgver
@@ -31,4 +31,6 @@ package() {
 	DESTDIR="$pkgdir" ninja -C build install
 
     install -Dm 644 "$srcdir"/settings.ini "$pkgdir"/etc/gtk-3.0/settings.ini
+
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
 }

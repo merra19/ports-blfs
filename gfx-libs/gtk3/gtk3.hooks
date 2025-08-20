@@ -1,0 +1,12 @@
+#!bin/sh
+
+/usr/bin/gtk-query-immodules-3.0 --update-cache
+
+for dir in /usr/share/icons/* ; do
+	if [ -e $dir/index.theme ]; then
+		gtk-update-icon-cache -q $dir 2>/dev/null
+	else
+		rm -f $dir/icon-theme.cache
+		rmdir --ignore-fail-on-non-empty $dir
+	fi
+done

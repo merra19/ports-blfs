@@ -5,7 +5,8 @@
 pkgname=gdk-pixbuf
 pkgver=2.42.12
 pkgrel=1
-source=(https://ftp.gnome.org/pub/gnome/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+source=(https://ftp.gnome.org/pub/gnome/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz
+        $pkgname.hooks)
 
 build() {
 	cd $pkgname-$pkgver
@@ -24,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     DESTDIR="$pkgdir" ninja -C build install
+
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
 }

@@ -1,4 +1,4 @@
 #!/bin/sh
 
-getent group mariadb || groupadd -g 40 mariadb
-getent passwd mariadb || useradd -c "MariaDB Server" -d /srv/mariadb -g mariadb -s /bin/false -u 40 mariadb
+getent group mariadb > /dev/null || groupadd -g 40 mariadb
+getent passwd mariadb > /dev/null || useradd -c "MariaDB Server" -d /srv/mariadb -g mariadb -s /bin/false -u 40 mariadb

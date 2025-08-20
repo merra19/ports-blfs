@@ -1,0 +1,53 @@
+# description	: MinGW-w64 library
+# depends	: glibc mingw-w64-gcc
+
+pkgname=mingw-w64-crt
+pkgver=13.0.0
+pkgrel=1
+options=(!strip staticlibs !emptydirs)
+source=(https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/mingw-w64-v${pkgver}.tar.bz2)
+
+build() {
+    unset CFLAGS CXXFLAGS LDFLAGS
+    
+    mkdir build-x86_64 &&
+    cd    build-x86_64 &&
+
+    "$srcdir"/mingw-w64-v${pkgver}/configure \
+        --prefix=/usr/x86_64-w64-mingw32 \
+        --host=x86_64-w64-mingw32 \
+        --enable-wildcard \
+        --disable-lib32 \
+        --enable-lib64
+    make
+    cd -
+
+    mkdir build-i686
+    cd    build-i686
+
+    "$srcdir"/mingw-w64-v${pkgver}/configure \
+        --prefix=/usr/i686-w64-mingw32 \
+        --host=i686-w64-mingw32 \
+        --enable-wildcard \
+        --disable-lib64 \
+        --enable-lib32
+    make  
+}
+
+package() {
+    cd  "$srcdir"/build-x86_64
+
+    make DESTDIR="$pkgdir" install
+
+    cd  "$srcdir"/build-i686
+
+    make DESTDIR="$pkgdir" install
+
+    for i in h dlg rh inl ver hxx h16;do
+    find "$pkgdir"/usr/x86_64-w64-mingw32/include -name "*.$i"  -delete
+    find "$pkgdir"/usr/i686-w64-mingw32/include -name "*.$i"  -delete
+    done   
+
+    rm -f "$pkgdir"/usr/x86_64-w64-mingw32/include/msinkaut_i.c
+    rm -f "$pkgdir"/usr/i686-w64-mingw32/include/msinkaut_i.c
+}

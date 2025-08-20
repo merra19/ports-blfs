@@ -48,5 +48,5 @@ build() {
 package() {
     cd $pkgname-$pkgver.src
 
-    DESTDIR=$pkgdir cmake --install build
+    DESTDIR="$pkgdir" cmake --install build
 }
