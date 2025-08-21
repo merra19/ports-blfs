@@ -1,0 +1,51 @@
+# description	: SQL database engine
+# depends	: zlib-32 readline-32 tcl icu-32 unzip glibc sqlite
+
+pkgname=sqlite-32
+_pkgname=sqlite
+pkgver=3.50.4
+_version=$(echo $pkgver |awk -F. '{print $1  $2 "0" $3 "00"}')
+pkgrel=1
+options=(!emptydirs)
+source=(https://sqlite.org/2025/sqlite-autoconf-$_version.tar.gz
+        https://sqlite.org/2025/sqlite-doc-$_version.zip)
+noextract=(sqlite-doc-$_version.zip)
+optsflags=" -O3 -ffat-lto-objects -flto=auto "
+
+build() {
+    cd sqlite-autoconf-$_version
+
+    # this uses malloc_usable_size, which is incompatible with fortification level 3
+    export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+    export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+
+    
+    ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+    CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
+    CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
+    LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
+    export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+    
+
+
+    ./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --disable-static \
+        --build=i686-pc-linux-gnu \
+        --enable-fts{4,5} \
+        CPPFLAGS="-DSQLITE_ENABLE_COLUMN_METADATA=1 \
+                      -DSQLITE_ENABLE_UNLOCK_NOTIFY=1 \
+                      -DSQLITE_ENABLE_DBSTAT_VTAB=1 \
+                      -DSQLITE_SECURE_DELETE=1"  
+    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' Makefile
+    make
+    unset PKG_CONFIG_PATH
+}
+
+package() {
+    cd sqlite-autoconf-$_version
+
+    make DESTDIR="$pkgdir" install
+    rm -r "${pkgdir}"/usr/{bin,include,share/man}
+}

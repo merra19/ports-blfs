@@ -2,10 +2,10 @@
 # depends	: iptables
 
 pkgname=wireguard-tools
-pkgver=1.0.20210914
+pkgver=1.0.20250521
 pkgrel=1
 options=(!lto)
-source=(https://git.zx2c4.com/wireguard-tools/snapshot/$pkgname-$pkgver}.tar.xz
+source=(https://git.zx2c4.com/wireguard-tools/snapshot/$pkgname-$pkgver.tar.xz
         wireguard.conf wireguard.init)
 
 build() {
@@ -24,6 +24,7 @@ package() {
                 WITH_SYSTEMDUNITS=no \
                 install
 
+    install -d "$pkgdir"/usr/share/$pkgname/examples
 	cp -r contrib/ "$pkgdir"/usr/share/$pkgname/examples/
 
     install -Dm 0744 "$srcdir"/wireguard.conf "$pkgdir"/etc/wireguard.conf
@@ -31,8 +32,10 @@ package() {
     install -d "$pkgdir"/etc/modules-load.d
     echo "wireguard" > "$pkgdir"/etc/modules-load.d/wireguard.conf
 
+    install -Dm 0755 "$srcdir"/wireguard.init "$pkgdir"/etc/rc.d/init.d/wireguard
+
     for i in 0 1 2 3 4 5 6 7 8 9; do
-        install -d "$pkgdir"/etc/rc.d/rc$i.d/$i
+        install -d "$pkgdir"/etc/rc.d/rc$i.d
         case $i in
             0|1|6) ln -sf ../init.d/wireguard "$pkgdir"/etc/rc.d/rc$i.d/K30wireguard ;;
             *) ln -sf ../init.d/wireguard "$pkgdir"/etc/rc.d/rc$i.d/S70wireguard ;;

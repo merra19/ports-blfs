@@ -1,0 +1,52 @@
+# description	: Mozilla's Network Security Services library that implements PKI support
+# depends	: nspr sqlite-32 zlib-32 perl p11-kit-32 glibc nss nspr-32
+# depends	: py3-gyp
+
+pkgname=nss-32
+_pkgname=nss
+pkgver=3.114
+vrsn=$(echo $pkgver | sed 's/\./_/g')
+pkgrel=1
+options=(!lto)
+source=(https://archive.mozilla.org/pub/security/nss/releases/NSS_${vrsn}_RTM/src/$_pkgname-$pkgver.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/nss-standalone-1.patch
+        0001-Hack-mpi_x86.s-to-work-with-fno-plt.patch)
+
+prepare() {
+    cd nss-$pkgver
+
+    cd nss
+    # https://bugzilla.mozilla.org/show_bug.cgi?id=1382942
+    patch -Np1 -i "$srcdir"/0001-Hack-mpi_x86.s-to-work-with-fno-plt.patch
+}
+
+build() {
+	cd nss-$pkgver
+
+	patch -Np1 -i ../nss-standalone-1.patch
+
+	cd nss &&
+
+    CC="gcc -m32" CXX="g++ -m32" \
+	make BUILD_OPT=1 \
+	NSPR_INCLUDE_DIR=/usr/include/nspr  \
+	USE_SYSTEM_ZLIB=1 \
+	ZLIB_LIBS=-lz \
+	NSS_ENABLE_WERROR=0 \
+    NSS_DISABLE_GTESTS=1 \
+	$([ -f /usr/lib32/libsqlite3.so ] && echo NSS_USE_SYSTEM_SQLITE=1)
+}
+
+
+package() {
+    cd nss-$pkgver/dist
+
+	install -d  "$pkgdir"/usr/lib32/pkgconfig 
+
+
+    install -v -m755 Linux*/lib/*.so              "$pkgdir"/usr/lib32
+    install -v -m644 Linux*/lib/{*.chk,libcrmf.a} "$pkgdir"/usr/lib32
+    sed -i 's/lib/lib32/g' Linux*/lib/pkgconfig/nss.pc
+    install -v -m644 Linux*/lib/pkgconfig/nss.pc  "$pkgdir"/usr/lib32/pkgconfig 
+
+}

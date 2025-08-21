@@ -5,7 +5,8 @@ pkgname=sharutils
 pkgver=4.15.2
 pkgrel=1
 source=(https://ftp.gnu.org/gnu/sharutils/$pkgname-$pkgver.tar.xz
-        https://www.linuxfromscratch.org/patches/blfs/svn/sharutils-4.15.2-consolidated-1.patch)
+        https://www.linuxfromscratch.org/patches/blfs/svn/sharutils-4.15.2-consolidated-1.patch
+        sharutils-4.14.2-Pass-compilation-with-Werror-format-security.patch)
 
 build() {
 	cd $pkgname-$pkgver
@@ -13,9 +14,12 @@ build() {
     # First, fix issues exposed by current GCC versions
     patch -Np1 -i ../sharutils-4.15.2-consolidated-1.patch
 
+    patch -Np1 -i ../sharutils-4.14.2-Pass-compilation-with-Werror-format-security.patch
+
     autoreconf -fiv 
     ./configure \
-        --prefix=/usr
+        --prefix=/usr \
+        --disable-dependency-tracking
     make
 }
 

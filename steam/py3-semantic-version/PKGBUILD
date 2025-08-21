@@ -1,0 +1,19 @@
+# description	: A library implementing the 'SemVer' scheme
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
+
+pkgname=py3-semantic-version
+pkgver=2.10.0
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/rbarrois/python-semanticversion/archive/$pkgver.tar.gz)
+
+build() {
+	cd python-semanticversion-$pkgver
+
+    python3 setup.py build
+}
+
+package() {
+	cd python-semanticversion-$pkgver
+
+	python3 setup.py install --skip-build --root="$pkgdir"
+}

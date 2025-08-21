@@ -15,6 +15,10 @@ build() {
 	export CXX="g++ -m32 -mstackrealign"
 	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 
+	# Fix building with GCC-15
+	sed '/typedef enum/,/bool ;/d' -i \
+	src/ALAC/alac_{en,de}coder.c
+
     ./configure \
         --prefix=/usr \
         --libdir=/usr/lib32 \

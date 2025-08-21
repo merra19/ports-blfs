@@ -3,7 +3,7 @@
 # depends	: gnutls e2fsprogs libcap ncurses readline zlib libxcrypt 
 # depends	: acl cups jansson pam libtirpc glib dbus rpcsvc-proto 
 # depends	: gpgme lmdb libaio libnsl py3-markdown avahi openldap
-# depends	: krb5 
+# depends	: krb5 talloc
 
 pkgname=samba
 pkgver=4.22.3

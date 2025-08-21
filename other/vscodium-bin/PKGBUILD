@@ -6,7 +6,7 @@
 # depends	: xdg-utils p11-kit
 
 pkgname=vscodium-bin
-pkgver=1.101.24242
+pkgver=1.103.15539
 pkgrel=1
 options=(!strip)
 source=(https://github.com/VSCodium/vscodium/releases/download/$pkgver/VSCodium-linux-x64-$pkgver.tar.gz

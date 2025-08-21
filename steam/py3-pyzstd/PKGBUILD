@@ -1,0 +1,21 @@
+# description	: Python bindings to Zstandard (zstd) compression library
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel zstd
+
+pkgname=py3-pyzstd
+pkgver=1.5.7.2
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/sergey-dryabzhinsky/python-zstd/archive/v$pkgver/py3-zstd-$pkgver.tar.gz)
+
+build() {
+	cd python-zstd-$pkgver
+
+	export ZSTD_EXTERNAL="true"
+
+	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd python-zstd-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}

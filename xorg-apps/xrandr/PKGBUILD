@@ -1,0 +1,25 @@
+# description	: A primitive command line interface to RandR extension
+# depends	: libx11 xorg-proto libxrandr util-macros
+
+pkgname=xrandr
+pkgver=1.5.3
+pkgrel=1
+source=(https://www.x.org/pub/individual/app/$pkgname-$pkgver.tar.xz)
+optsflags=" -O3 -ffat-lto-objects -flto=auto "
+ 
+build() {
+	cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

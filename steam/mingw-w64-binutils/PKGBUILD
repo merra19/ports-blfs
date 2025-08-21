@@ -2,8 +2,8 @@
 # depends	: glibc zlib zstd
 
 pkgname=mingw-w64-binutils
-pkgver=2.44
-pkgrel=2
+pkgver=2.45
+pkgrel=1
 options=(!libtool !emptydirs)
 source=(https://ftp.gnu.org/gnu/binutils/binutils-${pkgver}.tar.xz)
 

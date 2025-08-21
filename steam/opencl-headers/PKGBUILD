@@ -1,0 +1,19 @@
+# description	: OpenCL (Open Computing Language) header files
+# depends	: cmake python3
+
+pkgname=opencl-headers
+pkgver=2024.10.24
+pkgrel=1
+epoch=2
+source=($pkgname-$pkgver.tar.gz::https://github.com/KhronosGroup/OpenCL-Headers/archive/v${pkgver}.tar.gz)
+
+build() {
+    cmake -B build -S OpenCL-Headers* \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+
+    cmake --build build
+}
+
+package() {
+    DESTDIR="$pkgdir" cmake --install build
+}

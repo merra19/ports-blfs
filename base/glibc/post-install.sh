@@ -15,6 +15,8 @@ pkg_postinst() {
             `dirname $(gcc --print-libgcc-file-name)`/specs
 
         touch /var/lib/scratchpkg/toolchain
+
+        echo -e '/usr/lib\n/tools/lib\n/tools/lib32' > /etc/ld.so.conf.d/tools.conf
     fi
 
     if [ ! -f /etc/localtime ] ;then

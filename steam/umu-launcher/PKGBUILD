@@ -1,0 +1,40 @@
+# description	: The Unified Launcher for Windows Games on Linux, to run Proton with fixes outside of Steam
+# depends	: bash curl dbus desktop-file-utils diffutils freetype
+# depends	: gcc gdk-pixbuf glibc hicolor-icon-theme alsa-plugins-32
+# depends	: libglvnd-32 libgpg-error-32 libx11-32 libxcrypt-32
+# depends	: libxscrnsaver-32  nss-32 mesa-32 vulkan-loader-32
+# depends	: libxcrypt lsof nss python3 py3-cbor2 py3-pyzstd scdoc
+# depends	: py3-urllib3 py3-xlib py3-xxhash noto-fonts py3-build
+# depends	: usbutils xdg-user-dirs xrandr zenity rustc py3-maturin
+# depends	: py3-hatchling
+
+pkgname=umu-launcher
+pkgver=1.2.9
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/Open-Wine-Components/umu-launcher/archive/refs/tags/$pkgver.tar.gz)
+optsflags=" -O3 -ffat-lto-objects -flto=auto "
+
+prepare() {
+    cd $pkgname-$pkgver
+
+    export RUSTUP_TOOLCHAIN=stable
+    export CARGO_HOME="$srcdir"/umu-cargo
+    cargo update
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+
+build() {
+    cd $pkgname-$pkgver
+
+    export RUSTUP_TOOLCHAIN=stable
+    export CARGO_HOME="$srcdir"/umu-cargo
+    ./configure.sh --prefix=/usr --use-system-pyzstd --use-system-urllib
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

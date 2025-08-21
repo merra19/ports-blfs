@@ -6,7 +6,7 @@
 # depends	: pango ffmpeg qt6-base
 
 pkgname=opera
-pkgver=119.0.5497.141
+pkgver=120.0.5543.161
 pkgrel=1
 source=(https://get.geo.opera.com/ftp/pub/$pkgname/desktop/$pkgver/linux/$pkgname-stable_${pkgver}_amd64.deb
         opera default)

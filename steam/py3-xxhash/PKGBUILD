@@ -1,0 +1,23 @@
+# description	: Python binding for the xxHash library
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
+# depends	: xxhash
+
+pkgname=py3-xxhash
+pkgver=3.5.0
+pkgrel=1
+source=($pkgname-$pkgver.tar.gz::https://github.com/ifduyue/python-xxhash/archive/refs/tags/v$pkgver.tar.gz)
+
+build() {
+	cd python-xxhash-$pkgver
+
+	export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
+	export XXHASH_LINK_SO=1
+
+	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd python-xxhash-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}

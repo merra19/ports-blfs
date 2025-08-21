@@ -27,7 +27,7 @@ build() {
 }
 
 package() {
-    cd ${_pkgname}-$pkgver
+    cd ${_pkgname}-$pkgver/build
 
     make DESTDIR="$PWD"/DESTDIR install
     mkdir -p "$pkgdir"/usr/lib32

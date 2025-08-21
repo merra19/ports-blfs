@@ -18,9 +18,7 @@ build() {
 
 	export CC="gcc -m32 -mstackrealign"
 	export CXX="g++ -m32 -mstackrealign"
-	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
-
-    export PATH=$PATH:/opt/rustc/bin/
+    export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 
 	meson setup \
         --prefix=/usr \

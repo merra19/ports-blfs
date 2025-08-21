@@ -1,0 +1,21 @@
+# description	: JSON (JavaScript Object Notation) encoder/decoder
+# depends	: perl
+
+pkgname=perl-json
+pkgver=4.10
+pkgrel=2
+options=(!emptydirs)
+source=(https://search.cpan.org/CPAN/authors/id/I/IS/ISHIGAKI/JSON-$pkgver.tar.gz)
+
+build() {
+	cd JSON-$pkgver
+
+	PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+	make
+}
+
+package() {
+    cd JSON-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

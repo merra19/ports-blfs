@@ -1,0 +1,44 @@
+# description	: Netscape Portable Runtime
+# depends	: glibc nspr
+
+pkgname=nspr-32
+_pkgname=nspr
+pkgver=4.37
+pkgrel=1
+options=(!lto)
+source=(https://archive.mozilla.org/pub/$pkgname/releases/v$pkgver/src/$_pkgname-$pkgver.tar.gz
+        0001-linux-prefer-GCC-provided-atomics-to-asssembly-imple.patch
+        0002-configure.in-Remove-assembly-files-from-build.patch)
+
+build() {
+	cd $_pkgname-$pkgver/$_pkgname
+
+    patch -Np1 -i "$srcdir"/0001-linux-prefer-GCC-provided-atomics-to-asssembly-imple.patch
+    patch -Np1 -i "$srcdir"/0002-configure.in-Remove-assembly-files-from-build.patch
+
+    autoreconf -fvi
+
+    ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+    CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
+    CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
+    LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
+    export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+	./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+		--with-mozilla \
+		--with-pthreads \
+		--disable-64bit
+	make
+    unset PKG_CONFIG_PATH
+}
+
+package() {
+    cd  $_pkgname-$pkgver/$_pkgname
+
+    make DESTDIR="$pkgdir" install
+    ln -s nspr.pc "$pkgdir/usr/lib32/pkgconfig/mozilla-nspr.pc"
+    
+    rm -r "$pkgdir"/usr/{bin,share,include}
+}

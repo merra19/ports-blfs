@@ -9,7 +9,7 @@ source=($pkgname-$pkgver.tar.gz::https://git.sr.ht/~sircmpwn/scdoc/archive/$pkgv
 build() {
 	cd $pkgname-$pkgver
 
-	make PREFIX="/usr"
+	make PREFIX="/usr" LDFLAGS="$LDFLAGS"
 }
 
 package() {

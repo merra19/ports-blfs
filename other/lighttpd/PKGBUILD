@@ -3,7 +3,7 @@
 # depends	: libunwind sqlite attr zlib zstd libxcrypt mariadb 
  
 pkgname=lighttpd
-pkgver=1.4.79
+pkgver=1.4.81
 pkgrel=1
 options=(!lto)
 source=(https://download.lighttpd.net/lighttpd/releases-${pkgver%.*}.x/$pkgname-$pkgver.tar.xz

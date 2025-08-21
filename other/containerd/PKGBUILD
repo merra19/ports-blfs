@@ -1,0 +1,27 @@
+# description	: Tool to display dialogs from the commandline and shell scripts
+# depends	: go btrfs-progs libseccomp
+
+pkgname=containerd
+pkgver=2.1.4
+pkgrel=1
+commit=091922f03c2762540fd057fba91260237ff86acb
+source=($pkgname-$pkgver.tar.gz::https://github.com/containerd/containerd/archive/refs/tags/v$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	export GOFLAGS="$GOFLAGS -modcacherw -mod=readonly"
+	export GOCACHE="${GOCACHE:-""$srcdir"/go-cache"}"
+	export GOTMPDIR="${GOTMPDIR:-""$srcdir""}"
+	export GOMODCACHE="${GOMODCACHE:-""$srcdir"/go"}"
+	export GO111MODULE=on
+
+    make VERSION="v$version" REVISION="$commit" BUILDMODE=pie
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+	mkdir -pv "$pkgdir"/usr/bin
+	install -Dsm755 ./bin/* "$pkgdir"/usr/bin/
+}

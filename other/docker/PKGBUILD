@@ -1,0 +1,94 @@
+# description	: The core functions you need to create Docker images and run Docker containers
+# depends	: containerd runc
+
+pkgname=docker
+pkgver=28.3.3
+pkgrel=1
+# from https://github.com/moby/moby:	grep libnetwork vendor.conf
+_libnetwork_commit=dcdf8f176d1e13ad719e913e796fb698d846de98
+_moby_commit=bea959c7b793b32a893820b97c4eadc7c87fabb0
+source=(https://github.com/moby/moby/archive/v${pkgver}/moby-${pkgver}.tar.gz \
+	https://github.com/docker/cli/archive/v${pkgver}/cli-${pkgver}.tar.gz \
+	libnetwork-$_libnetwork_commit.tar.gz::https://github.com/docker/libnetwork/archive/$_libnetwork_commit.tar.gz\
+	docker.init docker.conf $pkgname.hooks)
+
+# create a fake go path directory and pushd into it
+# $1 real directory
+# $2 gopath directory
+_fake_gopath_pushd() {
+  mkdir -p "$GOPATH/src/${2%/*}"
+  rm -f "$GOPATH/src/$2"
+  ln -rsT "$1" "$GOPATH/src/$2"
+  pushd  "$GOPATH/src/$2" >/dev/null
+}
+
+_fake_gopath_popd() {
+  popd >/dev/null
+}
+
+build() {
+	### globals
+	export GOPATH="$srcdir"
+	export PATH="$GOPATH/bin:$PATH"
+	export CGO_CPPFLAGS="${CPPFLAGS}"
+	export CGO_CFLAGS="${CFLAGS}"
+	export CGO_CXXFLAGS="${CXXFLAGS}"
+	export CGO_LDFLAGS="${LDFLAGS}"
+	export LDFLAGS=''
+	export GOFLAGS='-buildmode=pie -trimpath -mod=readonly -modcacherw -ldflags=-linkmode=external -ldflags=-compressdwarf=false -ldflags=-B=gobuildid'
+	export GO111MODULE=off
+	export DISABLE_WARN_OUTSIDE_CONTAINER=1
+
+	### cli
+	echo 'Building cli'
+	_fake_gopath_pushd cli-$pkgver  github.com/docker/cli
+	make VERSION=$pkgver dynbinary
+	make manpages
+	_fake_gopath_popd
+
+	### daemon
+	echo 'Building daemon'
+	_fake_gopath_pushd moby-$pkgver  github.com/docker/docker
+		DOCKER_GITCOMMIT=$_moby_commit \
+		VERSION=$pkgver \
+		hack/make.sh dynbinary
+	_fake_gopath_popd
+}
+
+
+package() {
+	### dockerd
+	install -Dm755 moby-$pkgver/bundles/dynbinary-daemon/dockerd "$pkgdir"/usr/bin/dockerd
+	install -Dm755 moby-$pkgver/bundles/dynbinary-daemon/docker-proxy "$pkgdir/usr/bin/docker-proxy"
+	### systemd units
+	cd "$srcdir"/moby-$pkgver/contrib
+	install -Dm644 'init/systemd/docker.service' "$pkgdir/usr/lib/systemd/system/docker.service"
+	install -Dm644 'init/systemd/docker.socket' "$pkgdir/usr/lib/systemd/system/docker.socket"
+	# systemd rules
+	install -Dm644 'udev/80-docker.rules' "$pkgdir/usr/lib/udev/rules.d/80-docker.rules"
+	### cli
+	cd "$srcdir"/cli-$pkgver
+	# binary
+	install -Dm755 build/docker "$pkgdir/usr/bin/docker"
+	# completion (see FS#79067)
+	install -Dm644 <(build/docker completion bash) "$pkgdir/usr/share/bash-completion/completions/docker"
+	install -Dm644 <(build/docker completion zsh) "$pkgdir/usr/share/zsh/site-functions/_docker"
+	install -Dm644 <(build/docker completion fish) "$pkgdir/usr/share/fish/vendor_completions.d/docker.fish"
+	# man
+	install -dm755 "$pkgdir/usr/share/man"
+	cp -r man/man* "$pkgdir/usr/share/man"
+
+	install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
+
+
+	install -Dm 0755 "$srcdir"/docker.init "$pkgdir"/etc/rc.d/init.d/docker
+
+    for i in 0 1 2 3 4 5 6; do
+        install -d "$pkgdir"/etc/rc.d/rc$i.d
+        case $i in
+            0|1|6) ln -sf ../init.d/docker "$pkgdir"/etc/rc.d/rc$i.d/K30docker ;;
+            *) ln -sf ../init.d/docker "$pkgdir"/etc/rc.d/rc$i.d/S70docker ;;
+            *) ;;
+        esac
+    done
+}

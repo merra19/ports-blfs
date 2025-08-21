@@ -2,7 +2,7 @@
 # depends	: sqlite xz python3 zlib bzip2 ninja boost
 
 pkgname=go
-pkgver=1.24.4
+pkgver=1.25.0
 pkgrel=1
 noextract=($pkgname-$pkgver.linux-amd64.tar.gz)
 source=($pkgname-$pkgver.src.tar.gz::https://golang.org/dl/go$pkgver.src.tar.gz 

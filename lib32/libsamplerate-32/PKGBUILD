@@ -1,0 +1,34 @@
+# description	: Secret Rabbit Code (aka libsamplerate) is a Sample Rate Converter for audio
+# depends	: alsa-lib-32 libsndfile-32 glibc libsamplerate
+
+pkgname=libsamplerate-32
+_pkgname=libsamplerate
+pkgver=0.2.2
+pkgrel=1
+source=(https://github.com/libsndfile/libsamplerate/releases/download/$pkgver/$_pkgname-$pkgver.tar.xz)
+optsflags=" -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition "
+
+build() {
+	cd $_pkgname-$pkgver
+
+    ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+    CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
+    CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
+    LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
+    export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+    
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --libdir=/usr/lib32 \
+        --host=i686-pc-linux-gnu 
+    make
+    unset PKG_CONFIG_PATH 
+}
+
+package() {
+    cd $_pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+    rm -rfv "$pkgdir"/usr/{include,share,bin}
+}

@@ -1,0 +1,24 @@
+# description	: Setuptools extension for CalVer package versions
+# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
+# depends	: py3-six
+
+pkgname=py3-gyp
+pkgver=20240207.1615ec32
+_gitrev=1615ec326858f8c2bd8f30b3a86ea71830409ce4
+pkgrel=1
+source=($pkgname-$_gitrev.tar.gz::https://github.com/chromium/gyp/archive/$_gitrev.tar.gz
+        0001-Fix-Python-compat-and-remove-six.patch)
+
+build() {
+	cd gyp-$_gitrev
+
+    patch -Np1 -i ../0001-Fix-Python-compat-and-remove-six.patch
+
+	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd gyp-$_gitrev
+
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}

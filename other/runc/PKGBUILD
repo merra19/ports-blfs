@@ -1,0 +1,24 @@
+# description	:  A lightweight universal runtime container
+# depends	: go libseccomp
+
+pkgname=runc
+pkgver=1.3.0
+pkgrel=1
+source=(https://github.com/opencontainers/runc/archive/v${pkgver}/$pkgname-$pkgver.tar.gz)
+
+build() {
+    mkdir -pv src/github.com/opencontainers
+    cd src/github.com/opencontainers
+    ln -sf "$srcdir"/$pkgname-$pkgver $pkgname
+    cd $pkgname
+    export GOPATH="$srcdir"
+    export BUILDTAGS="seccomp"
+    export GOFLAGS="-trimpath -mod=readonly -modcacherw"
+    make runc
+}
+
+package() {
+    cd src/github.com/opencontainers/$pkgname
+
+    install -D -m 0755 $pkgname "$pkgdir"/usr/bin/$pkgname
+}

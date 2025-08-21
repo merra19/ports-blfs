@@ -17,6 +17,8 @@ build() {
 
     export CFLAGS+=" -fPIC -fno-strict-aliasing -fstack-protector-all"
     export CPPFLAGS+=" -I/usr/include/et"
+
+    scratch isinstalled openldap &&  OPT_LDAP="--with-ldap"
    
 	./configure \
         --prefix=/usr \
@@ -27,7 +29,8 @@ build() {
         --with-system-ss \
         --with-system-verto=no \
         --enable-dns-for-realm \
-        --disable-rpath 
+        --disable-rpath \
+        $OPT_LDAP
 	make
 }
 

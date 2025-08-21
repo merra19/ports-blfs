@@ -1,0 +1,35 @@
+# description	: Audio compression format designed for speech -- DSP
+# depends	: speex glibc speexdsp
+
+pkgname=speexdsp-32
+_pkgname=speexdsp
+pkgver=1.2.1
+pkgrel=1
+source=(https://downloads.xiph.org/releases/speex/$_pkgname-$pkgver.tar.gz)
+optsflags=" -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition "
+
+build() {
+	cd $_pkgname-$pkgver
+
+    ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+    CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
+    CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
+    LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
+    export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+    
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --libdir=/usr/lib32 \
+        --host=i686-pc-linux-gnu 
+    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+    make
+    unset PKG_CONFIG_PATH 
+}
+
+package() {
+    cd $_pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+    rm -r "$pkgdir"/usr/{include,share}
+}

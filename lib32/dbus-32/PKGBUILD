@@ -22,7 +22,9 @@ build() {
         --prefix=/usr \
         --buildtype=plain \
         --libdir=/usr/lib32 \
+        --libexecdir=/usr/lib32/dbus \
         --wrap-mode=nofallback \
+        --cross-file lib32 \
         p11-build 
     ninja -C p11-build 
 }
@@ -34,6 +36,8 @@ package() {
 
     rm -fr DESTDIR/{var,etc,usr/{bin,share,lib,include}}
     cp -Rv DESTDIR/* "$pkgdir"/
+
+    find 
 
     chown -v root:messagebus "$pkgdir"/usr/lib32/dbus/dbus-daemon-launch-helper &&
     chmod -v      4750       "$pkgdir"/usr/lib32/dbus/dbus-daemon-launch-helper

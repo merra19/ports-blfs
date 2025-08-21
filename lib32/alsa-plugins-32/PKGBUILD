@@ -1,0 +1,43 @@
+# description	: Advanced Linux Sound Architecture Library
+# depends	: alsa-lib-32 ffmpeg libsamplerate-32 pulseaudio-32 speex
+# depends	: speexdsp-32 alsa-plugins dbus-32 
+
+pkgname=alsa-plugins-32
+_pkgname=alsa-plugins
+pkgver=1.2.12
+pkgrel=1
+options=(!lto)
+source=(https://www.alsa-project.org/files/pub/plugins/$_pkgname-$pkgver.tar.bz2)
+optsflags=" -O3 -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition "
+
+build() {
+	cd $_pkgname-$pkgver
+
+    ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+    CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
+    CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
+    LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
+    export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+    export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    mkdir build
+    cd build
+    
+    ../configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --enable-maemo-plugin \
+        --host=i686-pc-linux-gnu \
+        --disable-jack
+    make
+    unset PKG_CONFIG_PATH 
+}
+
+package() {
+    cd $_pkgname-$pkgver/build
+
+    make DESTDIR=$PWD/DESTDIR install
+
+	mkdir -p "$pkgdir"/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
+}

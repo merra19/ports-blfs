@@ -1,5 +1,5 @@
 # description	: Tool to display dialogs from the commandline and shell scripts
-# depends	: libadwaita help2man gdk-pixbu pango hicolor-icon-theme
+# depends	: libadwaita help2man gdk-pixbuf pango hicolor-icon-theme
 # depends	: glib util-linux meson 
 
 pkgname=zenity

@@ -1,0 +1,51 @@
+# description	: Provides a standard configuration setup for installing PKCS#11
+# depends	: libtasn1-32 libffi-32 meson glibc p11-kit
+
+pkgname=p11-kit-32
+_pkgname=p11-kit
+pkgver=0.25.5
+pkgrel=1
+options=(!lto)
+source=(https://github.com/p11-glue/p11-kit/releases/download/$pkgver/$_pkgname-$pkgver.tar.xz)
+optsflags=" -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
+
+build() {
+    cd $_pkgname-$pkgver
+
+    ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+    CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
+    CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
+    LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
+    export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+
+	sed '20,$ d' -i trust/trust-extract-compat
+
+cat >> trust/trust-extract-compat << "EOF"
+# Copy existing anchor modifications to /etc/ssl/local
+/usr/libexec/make-ca/copy-trust-modifications
+
+# Update trust stores
+/usr/sbin/make-ca -r
+EOF
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --cross-file lib32 \
+        --libexecdir=/usr/lib32 \
+		-D trust_paths=/etc/pki/anchors \
+        -D nls=false \
+        -D gtk_doc=false \
+        p11-build
+    ninja -C p11-build
+    unset PKG_CONFIG_PATH
+}
+
+package() {
+    cd $_pkgname-$pkgver
+
+	DESTDIR="$PWD"/DESTDIR ninja -C p11-build install
+    mkdir -p "$pkgdir"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
+}

@@ -1,5 +1,5 @@
 # description	: GNU regular expression matche
-# depends	: glibc
+# depends	: glibc pcre2
 
 pkgname=grep
 pkgver=3.12

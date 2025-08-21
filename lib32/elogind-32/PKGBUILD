@@ -1,0 +1,42 @@
+# description	: The systemd project's logind, extracted to a standalone package
+# depends	: pam-32 util-linux-32 libcap-32 udev-32 acl-32 elogind
+# depends	: 
+
+pkgname=elogind-32
+_pkgname=elogind
+pkgver=255.17
+pkgrel=1
+source=(https://github.com/elogind/elogind/archive/v$pkgver/$_pkgname-$pkgver.tar.gz)
+optsflags=" -O3 -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
+
+build() {
+    cd $_pkgname-$pkgver
+
+    ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+    CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
+    CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
+    LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
+    export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --libexecdir=/usr/lib32/elogind \
+        --libdir=lib32 \
+        -D man=false \
+        -D docdir=/usr/share/doc/$pkgname-$pkgver \
+        -D cgroup-controller=elogind \
+        -D dev-kvm-mode=0660 \
+        -D dbuspolicydir=/etc/dbus-1/system.d \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $_pkgname-$pkgver
+    
+	meson install -C build --destdir "${pkgdir}"
+
+    rm -rf "${pkgdir}"/{etc,var}
+    rm -rf "${pkgdir}"/usr/{bin,include,lib,lib32/elogind,share}
+}

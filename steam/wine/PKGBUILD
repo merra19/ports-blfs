@@ -1,0 +1,44 @@
+# description	: A compatibility layer for running Windows programs
+# depends	: attr desktop-file-utils fontconfig freetype gcc gettext
+# depends	: libpcap libxcursor libxi libxrandr wayland alsa-lib 
+# depends	: ffmpeg giflib gnutls gst-plugins-base gtk3 cups libva
+# depends	: pulseaudio libxcomposite libxinerama mesa
+# depends	: libxxf86vm mingw-w64-gcc opencl-headers opencl-loader
+# depends	: pcsclite perl sdl2 v4l-utils vulkan-loader 
+# depends	: mingw-w64-winpthreads
+### libgphoto2
+
+pkgname=wine
+pkgver=10.13
+pkgrel=1
+options=(!lto !strip)
+source=(https://dl.winehq.org/wine/source/10.x/$pkgname-$pkgver.tar.xz)
+
+build() {
+    mkdir $pkgname-64-build
+    cd "$srcdir/$pkgname-64-build"
+
+    unset CFLAGS CXXFLAGS LDFLAGS
+
+    # Apply flags for cross-compilation
+    export CROSSCFLAGS="-O2 -pipe"
+    export CROSSCXXFLAGS="-O2 -pipe"
+    export CROSSLDFLAGS="-Wl,-O1"
+
+    ../$pkgname-$pkgver/configure \
+        --prefix=/usr \
+        --libdir=/usr/lib \
+        --enable-archs=x86_64,i386
+    make
+}
+
+package() {
+    cd "$srcdir/$pkgname-64-build"
+
+    make prefix="$pkgdir/usr" \
+        libdir="$pkgdir/usr/lib" \
+        dlldir="$pkgdir/usr/lib/wine" install
+
+    i686-w64-mingw32-strip --strip-unneeded "$pkgdir"/usr/lib/wine/i386-windows/*.dll
+    x86_64-w64-mingw32-strip --strip-unneeded "$pkgdir"/usr/lib/wine/x86_64-windows/*.dll
+}
