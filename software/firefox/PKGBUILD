@@ -6,7 +6,7 @@
 # depends	: adwaita-icon-theme patchelf alsa-plugins bash ffmpeg lld
 # depends	: hicolor-icon-theme libxscrnsaver llvm mesa nasm libxt
 # depends	: nspr nss cbindgen diffutils nodejs yasm python3 rustc
-# depends	: unzip zip xlibre-server libnotify networkmanager libproxy
+# depends	: unzip zip xorg-server libnotify networkmanager libproxy
 # depends	: xdg-desktop-portal
 
 pkgname=firefox

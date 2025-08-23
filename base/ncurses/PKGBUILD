@@ -2,10 +2,10 @@
 # depends	: glibc
 
 pkgname=ncurses
-pkgver=6.5_20250531
+pkgver=6.5_20250809
 _pkgver=${pkgver/_/-}
 pkgrel=1
-source=(https://invisible-mirror.net/archives/ncurses/$pkgname-$_pkgver.tgz)
+source=(https://invisible-mirror.net/archives/ncurses/current/$pkgname-$_pkgver.tgz)
 
 build() {
     cd $pkgname-$_pkgver

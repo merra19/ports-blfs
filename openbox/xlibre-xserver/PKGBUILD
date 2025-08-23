@@ -6,7 +6,7 @@
 # depends	: libx11 xorg-legacy elogind xcb-util xcb-util-wm xterm
 
 pkgname=xlibre-xserver
-pkgver=25.0.0.8
+pkgver=25.0.0.9
 pkgrel=1
 source=(https://github.com/X11Libre/xserver/archive/refs/tags/$pkgname-$pkgver.tar.gz
         xvfb-run xvfb-run.1
@@ -18,10 +18,13 @@ build() {
   
     export CFLAGS=${CFLAGS/-fno-plt}
     export CXXFLAGS=${CXXFLAGS/-fno-plt}
-    export LDFLAGS=${LDFLAGS/-Wl,-z,now}
+    #export LDFLAGS=${LDFLAGS/-Wl,-z,now}
+    LDFLAGS=" -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,lazy -Wl,-z,relro -Wl,-z,pack-relative-relocs"
 
-    patch -Np1 -i ../xlibre-server-1.12-unloadsubmodule.patch
-    patch -Np1 -i ../xlibre-server-1.18-support-multiple-Files-sections.patch
+    export LDFLAG
+
+    #patch -Np1 -i ../xlibre-server-1.12-unloadsubmodule.patch
+    #patch -Np1 -i ../xlibre-server-1.18-support-multiple-Files-sections.patch
 
 	meson setup \
         --prefix=/usr \

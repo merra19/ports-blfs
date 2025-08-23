@@ -3,11 +3,14 @@
 
 pkgname=xlibre-xf86-input-libinput
 pkgver=1.5.0.1
-pkgrel=1
+pkgrel=2
 source=(https://github.com/X11Libre/xf86-input-libinput/archive/refs/tags/$pkgname-$pkgver.tar.gz)
 
 build() {
     cd xf86-input-libinput-xlibre-xf86-input-libinput-$pkgver
+
+    LDFLAGS=" -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,lazy -Wl,-z,relro -Wl,-z,pack-relative-relocs -Wl,-z,now"
+    export LDFLAGS
 
     autoreconf -fiv
 

@@ -3,10 +3,10 @@
 
 pkgname=ncurses-32
 _pkgname=ncurses
-pkgver=6.5_20250531
+pkgver=6.5_20250809
 _pkgver=${pkgver/_/-}
 pkgrel=1
-source=(https://invisible-mirror.net/archives/ncurses/${_pkgname}-${_pkgver}.tgz)
+source=(https://invisible-mirror.net/archives/ncurses/current/${_pkgname}-${_pkgver}.tgz)
 
 build() {
     cd ${_pkgname}-${_pkgver}
