@@ -1,5 +1,5 @@
 # description	: Utilities to deal with user accounts
-# depends	: acl attr xz linux-api-headers pam libxcrypt
+# depends	: acl attr xz linux-api-headers pam libxcrypt libxslt
 
 pkgname=shadow
 pkgver=4.18.0

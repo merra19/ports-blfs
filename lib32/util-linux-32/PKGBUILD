@@ -1,5 +1,6 @@
 # description	: Various useful Linux utilities
-# depends	: pcre2 ncurses-32 zlib-32 readline-32  util-linux 
+# depends	: pcre2 ncurses-32 zlib-32 readline-32 util-linux
+# depends	: sqlite-32 
 
 pkgname=util-linux-32
 _pkgname=util-linux

@@ -38,8 +38,6 @@ build() {
     export KCPPFLAGS=" -march=$MMARCH -O3"
     export KRUSTFLAGS=" -C target-cpu=$MMARCH"
 
-    ./scripts/config --enable MNATIVE_AMD
-
     yes "" | make oldconfig
     make all
 }

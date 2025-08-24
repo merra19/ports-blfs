@@ -1,6 +1,6 @@
 #!/bin/sh
 
-name="linux-gentoo-6.16.1"
+name="linux-6.16.2"
 kname="${name#*-}-LFS"
 export name kname
 
@@ -8,8 +8,8 @@ pkg_postinst() {
     version="$(awk 'NR==1 {print $1}' /var/lib/scratchpkg/db/$name)"
     
     cd /boot
-    mkinitramfs $version-$kname
-    depmod $version-$kname
+    mkinitramfs $kname
+    depmod $kname
 
     # run all dkms scripts
     if [ $(command -v dkms) ]; then
@@ -26,7 +26,7 @@ pkg_postupgrade() {
 pkg_preremove() {
     version="$(awk 'NR==1 {print $1}' /var/lib/scratchpkg/db/$name)"
     (
-        cd /usr/lib/modules/$version-$kname/
+        cd /usr/lib/modules/$kname/
         for i in * ;do
             case $i in
                 modules.order | modules.builtin | modules.builtin.modinfo) ;;
@@ -36,7 +36,7 @@ pkg_preremove() {
         done
     )
     echo "cleaning initramfs"
-    rm -fv /boot/initrd.img-$version-$kname
+    rm -fv /boot/initrd.img-$kname
 }
 
 

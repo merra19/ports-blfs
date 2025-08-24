@@ -14,8 +14,6 @@ build() {
 
     scratch isinstalled openldap && OPT_LDAP='--with-gssapi' ||  OPT_LDAP='--disable-ldap'
 
-    # Fix missing option --ftp-pasv
-
     ./configure \
         --prefix=/usr \
         --disable-static \

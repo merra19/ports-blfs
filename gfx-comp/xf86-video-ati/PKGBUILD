@@ -1,0 +1,29 @@
+# description	: X.org input driver based on libinput
+# depends	: libinput xorg-proto xorg-xserver udev libdrm meson
+
+pkgname=xf86-video-ati
+pkgver=22.0.0
+pkgrel=2
+epoch=1
+source=(https://xorg.freedesktop.org//releases/individual/driver/${pkgname}-${pkgver}.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    export CFLAGS=${CFLAGS/-fno-plt}
+    export CXXFLAGS=${CXXFLAGS/-fno-plt}
+    export LDFLAGS=${LDFLAGS/-Wl,-z,now}
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make "DESTDIR=${pkgdir}" install
+}

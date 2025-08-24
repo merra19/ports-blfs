@@ -2,7 +2,7 @@
 # depends	: xz zstd rdfind
 
 pkgname=linux-firmware
-pkgver=20250627
+pkgver=20250808
 pkgrel=1
 options=(!strip)
 source=(https://gitlab.com/kernel-firmware/linux-firmware/-/archive/$pkgver/$pkgname-$pkgver.tar.gz)

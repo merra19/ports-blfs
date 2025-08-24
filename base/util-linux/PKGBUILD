@@ -1,5 +1,6 @@
 # description	: Various useful Linux utilities
-# depends	: libxcrypt pcre2 ncurses zlib readline udev
+# depends	: libxcrypt pcre2 ncurses zlib readline udev sqlite
+# depends	: bash-completion
 
 pkgname=util-linux
 pkgver=2.41.1

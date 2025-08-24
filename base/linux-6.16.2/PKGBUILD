@@ -1,44 +1,55 @@
 # description	: Linux Kernel
 # depends	: initramfs linux-firmware openssl cpio bc terminus-font 
-# depends	: noto-fonts ttf-linux-libertine elfutils
+# depends	: noto-fonts ttf-linux-libertine elfutils libnvme harfbuzz
 
-pkgname=linux-gentoo-6.16.1
-pkgver=6.16.1
+pkgname=linux-6.16.2
+pkgver=6.16.2
 pkgrel=1
 options=(!strip)
-source=(https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${pkgver%.0}.tar.xz   
+_srcvers=$pkgver.arch1
+_srctag=v${_srcvers%.*}-${_srcvers##*.}
+source=(https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${pkgver%.0}.tar.xz
+        https://github.com/archlinux/linux/releases/download/$_srctag/linux-$_srctag.patch.zst
         configarch)
-
-K_GENPATCHES_VER="2"
-patchurl='https://dev.gentoo.org/~mpagano/genpatches/tarballs/genpatches'
-vpatch=${pkgver%.*}-$K_GENPATCHES_VER
-source+=($source $patchurl-$vpatch.base.tar.xz $patchurl-$vpatch.extras.tar.xz $patchurl-$vpatch.experimental.tar.xz)
 
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
-build() {
+
+prepare() {
+    zstd -d linux-$_srctag.patch.zst
+
     cd ${pkgname%-*}-${pkgver%.0}
 
-    for i in ../*.patch;do
-        bname=$(basename $i)
-        case $bname in
-            100*) ;;
-            *) patch -Np1 -i $i ;;
-        esac
+    local src
+    for src in "${source[@]}"; do
+        src="${src%%::*}"
+        src="${src##*/}"
+        src="${src%.zst}"
+        [[ $src = *.patch ]] || continue
+        echo "Applying patch $src..."
+        patch -Np1 < "../$src"
     done
+
 
     cp "$srcdir"/configarch .config
 
 	sed '/^CONFIG_LOCALVERSION=/d' -i .config
-    echo "CONFIG_LOCALVERSION=\"-${pkgname#*-}-LFS\""  >> .config
+    echo "CONFIG_LOCALVERSION=\"-LFS\""  >> .config
 
-    #sed "s/-mtune=generic/-mtune=generic -march=$MMARCH/g" -i arch/x86/Makefile
+    # clear EXTRAVERSION
+    sed 's/-arch1//' -i Makefile
+
+    if [ "$MMARCH" = "native" ] ;then
+        ./scripts/config --enable  X86_NATIVE_CPU
+    fi
+}
+
+build() {
+    cd ${pkgname%-*}-${pkgver%.0}
 
     export KCFLAGS=" -march=$MMARCH -O3"
     export KCPPFLAGS=" -march=$MMARCH -O3"
     export KRUSTFLAGS=" -C target-cpu=$MMARCH"
-
-    ./scripts/config --enable MNATIVE_AMD
 
     yes "" | make oldconfig
     make all
