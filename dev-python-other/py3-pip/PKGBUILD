@@ -2,7 +2,7 @@
 # depends	: python3 py3-setuptools py3-yaml
 
 pkgname=py3-pip
-pkgver=24.2
+pkgver=25.2
 pkgrel=1
 source=(https://pypi.io/packages/source/p/pip/pip-$pkgver.tar.gz)
 
