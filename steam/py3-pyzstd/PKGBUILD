@@ -2,12 +2,19 @@
 # depends	: python3 py3-gpep517 py3-setuptools py3-wheel zstd
 
 pkgname=py3-pyzstd
-pkgver=1.5.7.2
+pkgver=0.17.0
 pkgrel=1
-source=($pkgname-$pkgver.tar.gz::https://github.com/sergey-dryabzhinsky/python-zstd/archive/v$pkgver/py3-zstd-$pkgver.tar.gz)
+source=(https://files.pythonhosted.org/packages/source/p/pyzstd/pyzstd-$pkgver.tar.gz)
+
+prepare() {
+	cd pyzstd-$pkgver
+	
+	# HACK: workaround upstream setuptools version check specifically for Windows.
+	sed -i 's/setuptools>=64,<74/setuptools/' pyproject.toml
+}
 
 build() {
-	cd python-zstd-$pkgver
+	cd pyzstd-$pkgver
 
 	export ZSTD_EXTERNAL="true"
 
@@ -15,7 +22,7 @@ build() {
 }
 
 package() {
-	cd python-zstd-$pkgver
+	cd pyzstd-$pkgver
 
 	python3 -m installer -d "$pkgdir" .dist/*.whl
 }

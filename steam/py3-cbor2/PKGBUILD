@@ -3,7 +3,7 @@
 # depends	: py3-setuptools-scm
 
 pkgname=py3-cbor2
-pkgver=5.6.5
+pkgver=5.7.0
 pkgrel=1
 source=($pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/c/cbor2/cbor2-$pkgver.tar.gz)
 

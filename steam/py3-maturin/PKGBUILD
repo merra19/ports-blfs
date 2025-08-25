@@ -4,7 +4,7 @@
 # depends	: py3-semantic-version
 
 pkgname=py3-maturin
-pkgver=1.8.3
+pkgver=1.9.3
 pkgrel=1
 options=(!lto)
 source=($pkgname-$pkgver.tar.gz::https://github.com/PyO3/maturin/archive/v$pkgver.tar.gz
