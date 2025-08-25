@@ -34,7 +34,7 @@ package() {
 
     install -Dm 0755 "$srcdir"/wireguard.init "$pkgdir"/etc/rc.d/init.d/wireguard
 
-    for i in 0 1 2 3 4 5 6 7 8 9; do
+    for i in 0 1 2 3 4 5 6; do
         install -d "$pkgdir"/etc/rc.d/rc$i.d
         case $i in
             0|1|6) ln -sf ../init.d/wireguard "$pkgdir"/etc/rc.d/rc$i.d/K30wireguard ;;
