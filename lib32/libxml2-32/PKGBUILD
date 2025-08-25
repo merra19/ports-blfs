@@ -1,5 +1,5 @@
 # description	: XML C parser and toolkit
-# depends	: icu-32 zlib-32 python3 pkgconf libxml2 readline-32
+# depends	: icu-32 zlib-32 python3 pkgconf libxml2 readline-32 xz-32
 
 pkgname=libxml2-32
 _pkgname=libxml2

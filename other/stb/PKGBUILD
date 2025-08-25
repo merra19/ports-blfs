@@ -1,0 +1,17 @@
+# description	: single-file public domain (or MIT licensed) libraries for C/C++
+# depends	: glibc
+
+pkgname=stb
+pkgver=r2210.f58f558
+pkgrel=1
+CHECKSUM=f58f558c120e9b32c217290b80bad1a0729fbb2c
+source=(https://github.com/nothings/stb/archive/${CHECKSUM}.tar.gz
+        stb.pc)
+
+package() {
+    cd $pkgname-$CHECKSUM
+
+    install -Dm 644 *.{c,h} -t "$pkgdir"/usr/include/stb/
+    install -Dm 644 "$srcdir"/stb.pc  -t "$pkgdir"/usr/lib/pkgconfig
+    sed -i "s|@PKGVER@|$pkgver|" "$pkgdir"/usr/lib/pkgconfig/stb.pc
+}

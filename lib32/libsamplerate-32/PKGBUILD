@@ -1,5 +1,5 @@
 # description	: Secret Rabbit Code (aka libsamplerate) is a Sample Rate Converter for audio
-# depends	: alsa-lib-32 libsndfile-32 glibc libsamplerate
+# depends	: alsa-lib-32 libsndfile-32 glibc opus-32 libsamplerate
 
 pkgname=libsamplerate-32
 _pkgname=libsamplerate

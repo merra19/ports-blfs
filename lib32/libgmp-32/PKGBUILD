@@ -1,0 +1,38 @@
+# description	: Library for arbitrary-precision arithmetic on different type of numbers
+# depends	: m4 xz-32 libgmp
+
+pkgname=libgmp-32
+_pkgname=libgmp
+pkgver=6.3.0
+pkgrel=1
+source=(https://ftp.gnu.org/gnu/gmp/gmp-$pkgver.tar.xz)
+
+build() {
+    cd ${_pkgname#lib}-$pkgver
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    # First, make an adjustment for compatibility with gcc-15 and later
+    sed -i '/long long t1;/,+1s/()/(...)/' configure
+
+    LDFLAGS+=' -Wl,-z,shstk' \
+    ./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --build=i686-pc-linux-gnu \
+        --includedir=/usr/lib32/gmp \
+        --enable-cxx \
+        --disable-static
+    sed -i 's/$(exec_prefix)\/include/$\(includedir\)/' Makefile
+    make
+}
+
+package() {
+    cd ${_pkgname#lib}-$pkgver
+
+    make DESTDIR=$PWD/DESTDIR install
+    mkdir -p "$pkgdir"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
+}

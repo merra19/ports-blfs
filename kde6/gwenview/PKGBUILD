@@ -11,7 +11,7 @@
 # optional	: semantic-desktop!!kfilemetadata
 
 pkgname=gwenview
-pkgver=24.12.2
+pkgver=25.08.0
 pkgrel=1
 options=(!lto)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz)

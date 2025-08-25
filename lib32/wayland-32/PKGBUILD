@@ -1,5 +1,5 @@
 # description	: Wayland protocol libraries
-# depends	: libffi-32 meson wayland expat-32
+# depends	: libffi-32 meson wayland expat-32 libxml2-32
 
 pkgname=wayland-32
 _pkgname=wayland

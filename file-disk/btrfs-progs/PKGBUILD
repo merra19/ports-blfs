@@ -3,7 +3,7 @@
 # depends	: acl linux-api-headers
 
 pkgname=btrfs-progs
-pkgver=6.15
+pkgver=6.16
 pkgrel=1
 source=(https://www.kernel.org/pub/linux/kernel/people/kdave/btrfs-progs/$pkgname-v$pkgver.tar.xz)
 

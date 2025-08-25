@@ -2,7 +2,7 @@
 # depends	: cmake python3
 
 pkgname=abseil-cpp
-pkgver=20250512.0
+pkgver=20250814.0
 pkgrel=1
 source=(https://github.com/abseil/abseil-cpp/releases/download/$pkgver/$pkgname-$pkgver.tar.gz)
 

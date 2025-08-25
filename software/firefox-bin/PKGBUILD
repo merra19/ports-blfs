@@ -5,7 +5,7 @@
 
 pkgname=firefox-bin
 _pkgname=firefox
-pkgver=140.1
+pkgver=142.0
 pkgrel=1
 options=(!strip)
 source=(firefox-$pkgver-x86_64.tar.xz::https://archive.mozilla.org/pub/firefox/releases/$pkgver/linux-x86_64/en-US/firefox-$pkgver.tar.xz

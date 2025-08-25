@@ -1,5 +1,5 @@
 # description	: High-quality and portable font engine
-# depends	: libpng-32 which zlib-32 bzip2-32 freetype
+# depends	: libpng-32 which zlib-32 bzip2-32 freetype brotli-32
 
 pkgname=freetype-32
 _pkgname=freetype
@@ -19,13 +19,15 @@ build() {
 	export CC="gcc -m32 -mstackrealign"
 	export CXX="g++ -m32 -mstackrealign"
 	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    scratch isinstalled openldap &&  OPT_FREETYPE="--with-ldap" || OPT_FREETYPE="--with-ldap"
     
     ./configure \
         --prefix=/usr \
         --enable-freetype-config \
         --disable-static \
-        --with-harfbuzz=no \
-        --with-brotli=no \
+        --with-harfbuzz="$(isinstalled harfbuzz-32 && echo 'yes' || echo 'no' )" \
+        --with-brotli=yes \
         --libdir=/usr/lib32 \
         --host=i686-pc-linux-gnu
     make

@@ -1,0 +1,37 @@
+# description	: Multimedia processing graphs
+# depends	: meson pkgconf python3 ncurses glib-32 dbus-32 libx11-32
+# depends	: readline-32 alsa-lib-32 pulseaudio-32 libxfixes-32
+# depends	: alsa-plugins-32 udev-32 elogind-32 pipewire
+
+pkgname=pipewire-32
+_pkgname=pipewire
+pkgver=1.4.7
+pkgrel=1
+options=(!lto)
+source=(https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/$pkgver/$_pkgname-$pkgver.tar.bz2)
+
+build() {
+	cd $_pkgname-$pkgver
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+    export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --libdir=/usr/lib32 \
+        --cross-file lib32 \
+        -D session-managers="[]" \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $_pkgname-$pkgver
+
+    DESTDIR=$PWD/DESTDIR ninja -C build install
+
+	mkdir -p "$pkgdir"/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
+}

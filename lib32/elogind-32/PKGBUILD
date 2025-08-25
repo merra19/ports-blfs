@@ -22,7 +22,7 @@ build() {
         --prefix=/usr \
         --buildtype=plain \
         --libexecdir=/usr/lib32/elogind \
-        --libdir=lib32 \
+        --libdir=/usr/lib32 \
         -D man=false \
         -D docdir=/usr/share/doc/$pkgname-$pkgver \
         -D cgroup-controller=elogind \

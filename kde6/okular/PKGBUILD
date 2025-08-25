@@ -8,7 +8,7 @@
 # depends	: qt6-speech qt6-svg libtiff
 
 pkgname=okular
-pkgver=24.12.2
+pkgver=25.08.0
 pkgrel=1
 options=(!zipman)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz)

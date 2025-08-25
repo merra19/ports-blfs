@@ -1,6 +1,6 @@
 # description	: X C-language Bindings library
 # depends	: libxau-32 libxdmcp-32 xcb-proto util-macros xorg-proto 
-# depends	: libxcb
+# depends	: libxcb libxslt pkgconf python3
 
 pkgname=libxcb-32
 _pkgname=libxcb

@@ -1,5 +1,5 @@
 # description	: X.Org X authorization library
-# depends	: xorg-proto libxau
+# depends	: xorg-proto libxau pkgconf
 
 pkgname=libxau-32
 _pkgname=libXau

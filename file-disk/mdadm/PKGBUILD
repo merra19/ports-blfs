@@ -2,7 +2,7 @@
 # depends	: xz udev util-linux
 
 pkgname=mdadm
-pkgver=4.3
+pkgver=4.4
 pkgrel=1
 source=(https://www.kernel.org/pub/linux/utils/raid/mdadm/$pkgname-$pkgver.tar.xz
         mdadm.conf)
@@ -10,6 +10,10 @@ backup=(etc/mdadm.conf)
 
 build() {
     cd $pkgname-$pkgver
+
+    # Fix a build error introduced by gcc-15
+    sed -e "s/__u8 signature\[4\]/& __attribute__ ((nonstring))/" \
+        -i platform-intel.h
    
     make CWFLAGS="-Wall" CXFLAGS="${CFLAGS}"
 }

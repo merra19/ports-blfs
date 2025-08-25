@@ -1,0 +1,40 @@
+# description	: A vector graphics library with cross-device output support
+# depends	: pixman-32 fontconfig-32 freetype-32 libpng-32
+# depends	: zlib-32 glib-32 libxcb-32 libxrender-32 libx11-32
+# depends	: libxext-32 xorg-proto binutils cairo
+
+pkgname=cairo-32
+_pkgname=cairo
+pkgver=1.18.4
+pkgrel=1
+source=( https://www.cairographics.org/releases/$_pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $_pkgname-$pkgver
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --libdir=/usr/lib32 \
+		-D dwrite=disabled \
+		-D spectre=disabled \
+		-D symbol-lookup=disabled \
+		-D tests=disabled \
+        -D lzo=disabled \
+        -D gtk_doc=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $_pkgname-$pkgver
+
+    DESTDIR=$PWD/DESTDIR ninja -C build install
+
+	mkdir -p "$pkgdir"/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
+}

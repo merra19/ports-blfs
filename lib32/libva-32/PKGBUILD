@@ -1,0 +1,33 @@
+# description	: Video Acceleration (VA) API for Linux
+# depends	: libdrm-32 meson libx11-32 libxext-32 libxfixes-32
+# depends	: wayland-32 libglvnd-32 libva
+
+pkgname=libva-32
+_pkgname=libva
+pkgver=2.22.0
+pkgrel=1
+source=(https://github.com/intel/libva/archive/$pkgver/$_pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $_pkgname-$pkgver
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --libdir=/usr/lib32 \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $_pkgname-$pkgver
+
+    DESTDIR=$PWD/DESTDIR ninja -C build install
+
+	mkdir -p "$pkgdir"/usr/lib32
+	cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
+}

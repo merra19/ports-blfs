@@ -1,0 +1,16 @@
+version r12.3-1348
+
+August 23rd, 2025
+
+    [thomas] - Update to postfix-3.10.4. Fixes #21996.
+
+August 22nd, 2025
+
+    [bdubbs] - Update to cdrdao-1.2.5. Fixes #22009.
+
+    [bdubbs] - Update to nano-8.6. Fixes #22004.
+
+    [bdubbs] - Update to nmap-7.98. Fixes #22006.
+
+    [thomas] - Update to bind-9.20.12. Fixes #22002.
+

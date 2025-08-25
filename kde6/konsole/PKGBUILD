@@ -7,7 +7,7 @@
 # depends	: qt6-base qt6-multimedia
 
 pkgname=konsole
-pkgver=24.12.2
+pkgver=25.08.0
 pkgrel=1
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz
         https://www.linuxfromscratch.org/patches/blfs/svn/konsole-$pkgver-scrollbar-1.patch)

@@ -1,0 +1,40 @@
+# description	: An OpenType text shaping engine
+# depends	: meson glib-32 gobject-introspection icu-32 freetype-32
+# depends	: cairo-32 graphite2 harfbuzz
+
+pkgname=harfbuzz-32
+_pkgname=harfbuzz
+pkgver=11.4.1
+pkgrel=1
+source=(https://github.com/harfbuzz/harfbuzz/releases/download/$pkgver/$_pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $_pkgname-$pkgver
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    # Harfbuzz wants no exceptions
+    CFLAGS="$CFLAGS -fno-exceptions"
+    CXXFLAGS="$CXXFLAGS -fno-exceptions"
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        --libdir=/usr/lib32 \
+        -D docs=disabled \
+        -D cpp_std=c++17 \
+        -D graphite2=enabled \
+        -D cairo=enabled \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $_pkgname-$pkgver
+
+    DESTDIR="$PWD"/DESTDIR ninja -C build install
+    mkdir -p "$pkgdir"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
+}

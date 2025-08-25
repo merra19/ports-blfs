@@ -1,0 +1,46 @@
+# description	: Open codec for interactive speech and music transmission over the Internet
+# depends	: glibc opus
+
+pkgname=opus-32
+_pkgname=opus
+pkgver=1.5.2
+pkgrel=1
+options=(!lto)
+source=( https://downloads.xiph.org/releases/opus/$_pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $_pkgname-$pkgver
+
+    ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+    CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
+    CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
+    LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
+    export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+    if echo "$CFLAGS" | grep -q "\-Ofast"; then
+
+        meson setup \
+            --prefix=/usr \
+            --buildtype=plain \
+            --libdir=/usr/lib32 \
+            -D intrinsics=enabled \
+            -D float-approx=true \
+            build
+        ninja -C build
+    else
+        meson setup \
+            --prefix=/usr \
+            --buildtype=plain \
+            --libdir=/usr/lib32 \
+            build
+        ninja -C build
+    fi
+}
+
+package() {
+    cd $_pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+
+    rm -fr "$pkgdir"/usr/include
+}

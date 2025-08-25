@@ -1,0 +1,31 @@
+# description	: HTTP/2 C Library
+# depends	: openssl c-ares boost libevent py3-cython nghttp2
+ 
+pkgname=nghttp2-32
+_pkgname=nghttp2
+pkgver=1.66.0
+pkgrel=1
+source=(https://github.com/nghttp2/nghttp2/releases/download/v$pkgver/$_pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $_pkgname-$pkgver
+
+	export CC="gcc -m32 -mstackrealign"
+	export CXX="g++ -m32 -mstackrealign"
+	export PKG_CONFIG_LIBDIR="/usr/lib32/pkgconfig"
+
+    ./configure \
+        --prefix=/usr \
+        --libdir=/usr/lib32 \
+        --disable-static \
+        --enable-lib-only
+    make   
+}
+
+package() {
+    cd $_pkgname-$pkgver
+
+    make DESTDIR="$PWD"/DESTDIR install
+    mkdir -p "$pkgdir"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
+}

@@ -2,7 +2,7 @@
 # depends	: zlib bzip2 which icu python3 xz zstd py3-numpy
 
 pkgname=boost
-pkgver=1.88.0
+pkgver=1.89.0
 vrsn="$(echo $pkgver | sed 's/\./_/g')"
 pkgrel=1
 options=(!lto)

@@ -4,7 +4,7 @@
 # depends	: xfce4-dev-tools perl gettext pkgconf
 
 pkgname=libxfce4windowing
-pkgver=4.20.3
+pkgver=4.20.4
 pkgrel=1
 source=(https://archive.xfce.org/src/xfce/libxfce4windowing/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
 

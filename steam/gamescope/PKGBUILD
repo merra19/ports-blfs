@@ -1,0 +1,47 @@
+# description	:  Micro-compositor formerly known as steamcompgr
+# depends	: wlroots sdl2 pipewire libx11 libxcomposite libxcursor
+# depends	: libxdamage libdrm libxext libxfixes libxi libxkbcommon
+# depends	: libxmu libxrender libxres libxtst libxxf86vm wayland-protocols 
+# depends	: glslang vulkan-headers udev seatd luajit wayland glm
+# depends	: libdisplay-info vulkan-loader hwdata libcap stb libxcb
+# depends	: libei libavif libinput libglvnd mesa xwayland pixman
+# depends	: xcb-util-wm spirv-headers libdecor git
+
+pkgname=gamescope
+pkgver=3.16.14
+pkgrel=1
+source=(
+  git+https://github.com/ValveSoftware/gamescope.git#commit=${pkgver}
+  git+https://gitlab.freedesktop.org/emersion/libdisplay-info.git
+  git+https://gitlab.freedesktop.org/emersion/libliftoff.git
+  git+https://github.com/ValveSoftware/openvr.git
+  git+https://github.com/Joshua-Ashton/reshade.git
+  git+https://github.com/KhronosGroup/SPIRV-Headers.git
+  git+https://github.com/Joshua-Ashton/vkroots.git
+  git+https://github.com/Joshua-Ashton/wlroots.git
+)
+
+prepare() {
+    cd gamescope
+
+    meson subprojects download
+
+    for submodule in src/reshade subprojects/{libdisplay-info,libliftoff,openvr,vkroots,wlroots} thirdparty/SPIRV-Headers; do
+      git submodule init ${submodule}
+      git config submodule.${submodule}.url ../${submodule##*/}
+    done
+    git -c protocol.file.allow=always submodule update
+}
+
+build() {
+    meson setup gamescope \
+      -D force_fallback_for=glm,stb,libdisplay-info,libliftoff,vkroots,wlroots \
+      -D pipewire=enabled \
+      -D benchmark=disabled \
+      build
+    meson compile -C build
+}
+
+package()  {
+    DESTDIR="$pkgdir" meson install -C build --skip-subprojects
+}

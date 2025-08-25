@@ -37,7 +37,7 @@ for op in hwdb dbus_reload sysctl udev-reload  \
     ;;
 
     sysctl)
-        skip_chrooted && /usr/bin/sysctl -q -p
+        skip_chrooted && /usr/sbin/sysctl -q -p
     ;;
 
     dbus_reload)

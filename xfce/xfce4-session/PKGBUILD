@@ -5,7 +5,7 @@
 # optional	: xscreensaver
 
 pkgname=xfce4-session
-pkgver=4.20.2
+pkgver=4.20.3
 pkgrel=1
 source=(https://archive.xfce.org/src/xfce/xfce4-session/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
 

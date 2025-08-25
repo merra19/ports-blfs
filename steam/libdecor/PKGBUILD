@@ -1,0 +1,25 @@
+# description	: Client-side decorations library for Wayland clients
+# depends	: dbus pango wayland gtk3 cmake meson ninja
+# depends	: wayland-protocols
+
+pkgname=libdecor
+pkgver=0.2.3
+pkgrel=1
+source=(https://gitlab.freedesktop.org/libdecor/libdecor/-/archive/$pkgver/$pkgname-$pkgver.tar.bz2)
+
+build() {
+    cd $pkgname-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
+        -D demo=false \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

@@ -2,7 +2,7 @@
 # depends	: liburcu libuv json-c nghttp2 pam libcap libxml2
 
 pkgname=bind-utils
-pkgver=9.20.11
+pkgver=9.20.12
 pkgrel=1
 options=(!lto)
 source=(https://ftp.isc.org/isc/bind9/$pkgver/bind-$pkgver.tar.xz)

@@ -25,6 +25,6 @@ package() {
 
 	make DESTDIR="$pkgdir" install
 
-	install -dm0755 "$pkgdir/usr/lib/ld.so.conf.d/"
-	echo '/usr/lib/libfakeroot' > "$pkgdir/usr/lib/ld.so.conf.d/fakeroot.conf"
+	install -dm0755 "$pkgdir/etc/ld.so.conf.d/"
+	echo '/usr/lib/libfakeroot' > "$pkgdir/etc/ld.so.conf.d/fakeroot.conf"
 }

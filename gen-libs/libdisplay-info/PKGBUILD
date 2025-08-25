@@ -2,7 +2,7 @@
 # depends	: ninja python3 hwdata
 
 pkgname=libdisplay-info
-pkgver=0.2.0
+pkgver=0.3.0
 pkgrel=1
 source=(https://gitlab.freedesktop.org/emersion/$pkgname/-/releases/$pkgver/downloads/$pkgname-$pkgver.tar.xz)
 

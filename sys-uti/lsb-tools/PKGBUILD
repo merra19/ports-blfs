@@ -1,0 +1,21 @@
+# description	: tools for Linux Standards Base (LSB) conformance
+# depends	: python3
+
+pkgname=lsb-tools
+pkgver=0.12
+pkgrel=1
+source=(https://github.com/lfs-book/LSB-Tools/releases/download/v$pkgver/LSB-Tools-$pkgver.tar.gz)
+
+build() {
+	cd LSB-Tools-$pkgver
+
+    make
+}
+
+package() {
+    cd LSB-Tools-$pkgver
+
+    make DESTDIR="$pkgdir" install
+
+    rm "$pkgdir"/usr/sbin/lsbinstall
+}
