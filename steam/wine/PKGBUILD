@@ -41,4 +41,7 @@ package() {
 
     i686-w64-mingw32-strip --strip-unneeded "$pkgdir"/usr/lib/wine/i386-windows/*.dll
     x86_64-w64-mingw32-strip --strip-unneeded "$pkgdir"/usr/lib/wine/x86_64-windows/*.dll
+
+	install -dm0755 "$pkgdir/etc/revdep.d/"
+	echo '/usr/lib/wine/x86_64-unix/' > "$pkgdir/etc/revdep.d/wine.conf"
 }

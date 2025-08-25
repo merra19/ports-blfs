@@ -4,14 +4,13 @@
 # depends	: pango imlib2 startup-notification librsvg py3-xdg
 # depends	: openbox wmctrl slop xprop numlockx setxkbmap feh
 # depends	: xfce4-notifyd thunar-volman polkit-gnome pavucontrol
-# depends	: xfce4-terminal thunar
+# depends	: xfce4-terminal thunar rofi-dotfiles
 
 pkgname=openbox-meta
 pkgver=3.6.1
 pkgrel=1
 source=(autostart environment menu.xml rc.xml setupopenbox config.ini launch.sh
-        polywins.sh thumb-1920-1147144.png eteindre
-        https://github.com/owl4ce/dotfiles/archive/refs/heads/ng.zip)
+        polywins.sh thumb-1920-1147144.png eteindre)
 
 package() {
     install -Dm 755  "$srcdir"/autostart "$pkgdir"/usr/local/share/openbox/autostart
@@ -27,7 +26,4 @@ package() {
 
     install -Dm 755  "$srcdir"/polywins.sh "$pkgdir"/usr/local/share/polybar/scripts/polywins.sh
     install -Dm 755  "$srcdir"/eteindre "$pkgdir"/usr/local/share/polybar/scripts/eteindre
-    
-    install -d "$pkgdir"/usr/local/share/rofi
-    cp -r dotfiles-ng/.config/rofi/* "$pkgdir"/usr/local/share/rofi/
 }

@@ -2,7 +2,7 @@
 # depends	: cmake python3
 
 pkgname=opencl-headers
-pkgver=2024.10.24
+pkgver=2025.07.22
 pkgrel=1
 epoch=2
 source=($pkgname-$pkgver.tar.gz::https://github.com/KhronosGroup/OpenCL-Headers/archive/v${pkgver}.tar.gz)

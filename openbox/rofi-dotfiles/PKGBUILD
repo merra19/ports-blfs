@@ -1,0 +1,13 @@
+# description	: Rofi Dotfiles from https://github.com/owl4ce/dotfiles
+# depends	: rofi
+
+
+pkgname=rofi-dotfiles
+pkgver=3.6.1
+pkgrel=1
+source=(https://github.com/owl4ce/dotfiles/archive/refs/heads/ng.zip)
+
+package() {   
+    install -d "$pkgdir"/usr/local/share/rofi
+    cp -r dotfiles-ng/.config/rofi/* "$pkgdir"/usr/local/share/rofi/
+}

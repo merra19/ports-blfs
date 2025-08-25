@@ -2,7 +2,7 @@
 # depends	: xorg-proto libx11 libxext icu glm
 
 pkgname=slop
-pkgver=7.6
+pkgver=7.7
 pkgrel=1
 source=($pkgname-$pkgver.tar.gz::https://github.com/naelstrof/slop/archive/v$pkgver.tar.gz
         slop-7.5-missing-header.patch slop-7.6-cmake4.patch

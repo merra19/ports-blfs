@@ -4,7 +4,7 @@
 # depends	: wayland-protocols cmake
 
 pkgname=aquamarine
-pkgver=0.7.2
+pkgver=0.9.3
 pkgrel=1
 source=($pkgname-$pkgver.tar.gz::https://github.com/hyprwm/$pkgname/archive/refs/tags/v$pkgver.tar.gz)
 
