@@ -9,7 +9,7 @@ pkgname=networkmanager
 pkgver=1.54.0
 pkgrel=1
 source=(https://download.gnome.org/sources/NetworkManager/${pkgver%.*}/NetworkManager-$pkgver.tar.xz
-        NetworkManager.conf polkit.conf no-dns-update.conf rules)
+        NetworkManager.conf polkit.conf no-dns-update.conf rules $pkgname.hooks)
 backup=(etc/NetworkManager/NetworkManager.conf)
 
 build() {
@@ -54,4 +54,6 @@ package() {
     install -Dm 644 "$srcdir"/polkit.conf "$pkgdir"/etc/NetworkManager/conf.d/polkit.conf
     install -Dm 644 "$srcdir"/no-dns-update.conf "$pkgdir"/etc/NetworkManager/conf.d/no-dns-update.conf
     install -Dm 644 "$srcdir"/rules "$pkgdir"/usr/share/polkit-1/rules.d/org.freedesktop.NetworkManager.rules
+
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
 }

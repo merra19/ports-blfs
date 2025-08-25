@@ -1,0 +1,3 @@
+#!/bin/sh
+
+getent group netdev > /dev/null || groupadd -fg 86 netdev 

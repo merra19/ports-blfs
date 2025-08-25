@@ -1,7 +1,9 @@
 #!/bin/sh
 
 pkg_postinst() {
-    fc-cache -v 
+    fc-cache -v > /dev/null
+
+    printf "\e[1;32m %s \e[0m\n" " sudo usermod -a -G netdev <username>"
 }
 
 pkg_postupgrade() {
