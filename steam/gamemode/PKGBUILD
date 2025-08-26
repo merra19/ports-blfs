@@ -1,0 +1,30 @@
+# description	: Optimise Linux system performance on demand
+# depends	: bash gcc glibc dbus inih polkit libcap elogind
+
+pkgname=gamemode
+pkgver=1.8.2
+pkgrel=1
+source=(https://github.com/FeralInteractive/gamemode/releases/download/$pkgver/$pkgname-$pkgver.tar.xz
+        $pkgname.hooks)
+
+build() {
+    cd $pkgname-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
+        -D with-privileged-group=gamemode \
+        -D with-examples=false \
+        -D with-sd-bus-provider=elogind \
+        -D with-util=true \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
+}

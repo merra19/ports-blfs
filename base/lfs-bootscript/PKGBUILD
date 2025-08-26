@@ -6,7 +6,7 @@ pkgverlfs=20240825
 pkgrel=1
 source=(https://anduin.linuxfromscratch.org/BLFS/blfs-bootscripts/blfs-bootscripts-$pkgver.tar.xz
         https://www.linuxfromscratch.org/lfs/downloads/development/lfs-bootscripts-$pkgverlfs.tar.xz
-        c89 c99)
+        c89 c99 Makefile blfs-service)
         
 package() {
     cd blfs-bootscripts-$pkgver
@@ -23,4 +23,6 @@ package() {
     install -Dm755 "$srcdir"/c89 "$pkgdir"/usr/bin/c89
 	install -Dm755 "$srcdir"/c99 "$pkgdir"/usr/bin/c99
 
+    install -Dm755 "$srcdir"/Makefile "$pkgdir"/usr/share/blfs-bootscripts/other/Makefile
+    install -Dm755 "$srcdir"/blfs-service "$pkgdir"/usr/bin/blfs-service
 }

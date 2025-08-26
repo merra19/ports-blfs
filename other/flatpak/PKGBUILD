@@ -1,0 +1,43 @@
+# description	: Linux application sandboxing and distribution framework
+# depends	: libarchive zstd gpgme appstream appstream-glib glib
+# depends	: libxml2 json-glib libassuan ostree dconf curl socat
+# depends	: gsettings-desktop-schemas bubblewrap dbus fuse polkit
+# depends	: xdg-dbus-proxy xauth libxau gdk-pixbuf libseccomp
+# depends	: automake gettext pkgconf bison py3-parsing xmlto
+# depends	: gobject-introspection libxslt
+
+pkgname=flatpak
+pkgver=1.16.1
+pkgrel=3
+source=(https://github.com/flatpak/flatpak/releases/download/$pkgver/$pkgname-$pkgver.tar.xz
+        $pkgname.hooks)
+
+build() {
+    cd $pkgname-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D b_lto=true \
+        -D b_pie=true \
+        -D systemd=disabled \
+        -D dbus_config_dir=/usr/share/dbus-1/system.d \
+        -D system_helper_user=flatpak \
+        -D selinux_module=disabled \
+        -D system_bubblewrap=bwrap \
+        -D system_dbus_proxy=xdg-dbus-proxy \
+        -D xauth=enabled \
+        -D seccomp=enabled \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+
+    rm -r "$pkgdir"/usr/lib/systemd "$pkgdir"/usr/lib/sysusers.d
+
+    install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks
+}

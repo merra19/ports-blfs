@@ -1,0 +1,3 @@
+#!/bin/sh
+
+getent group gamemode > /dev/null || groupadd -g 385 gamemode

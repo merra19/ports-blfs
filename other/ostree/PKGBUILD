@@ -1,0 +1,41 @@
+# description	: Operating system and container binary deployment and upgrades
+# depends	: xz glib fuse zlib libarchive curl gpgme libgpg-error
+# depends	: grub gobject-introspection util-linux libsoup openssl
+# depends	: dbus avahi
+
+pkgname=ostree
+pkgver=2025.5
+pkgrel=1
+source=(https://github.com/ostreedev/ostree/releases/download/v$pkgver/libostree-$pkgver.tar.xz)
+
+build() {
+    cd libostree-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --enable-shared \
+		--with-grub2-mkconfig-path=grub-mkconfig \
+        --with-modern-grub \
+        --with-libarchive \
+        --with-curl \
+        --enable-introspection=yes \
+        --disable-gtk-doc \
+        --with-gpgme \
+        --with-http2 \
+        --without-selinux \
+        --with-soup3 \
+        --without-soup \
+        --with-libmount \
+        --with-crypto=openssl \
+        --without-ed25519-libsodium \
+        --without-libsystemd \
+		--without-avahi \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+    make
+}
+
+package() {
+    cd libostree-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

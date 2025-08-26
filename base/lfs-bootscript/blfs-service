@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# full list init service BLFS
+# init:
+# accounts-daemon acpid alsa atd autofs avahi bind bluetooth cups dbus dhcpd 
+# dovecot exim fcron firewalld git-daemon gpm httpd iptables kea-dhcpd krb5
+# mariadb netfs networkmanager nfs-client nfs-server nftables ntpd php-fpm
+# postfix postgresql power-profiles-daemon proftpd random rpcbind rsyncd
+# samba saslauthd sendmail slapd smartd sshd stunnel svn sysmond sysstat
+# unbound vsftpd winbindd xdm
+
+# service:
+# bridge dhclient  dhcpcd  wpa
+
+# cyrus-sasl (saslauthd)
+
 usage() {
     cat<< EOF
 Usage:
@@ -15,14 +29,17 @@ Options:
 
 Services:
 
-maria (mysql) apache (httpd)  cyrus-sasl (saslauthd)
+apache (httpd)  smartmontools (smartd)
 
 init:
-accounts-daemon acpid alsa atd autofs avahi bind bluetooth cups dbus dhcpd 
-dovecot exim fcron firewalld git-daemon gpm httpd iptables kea-dhcpd krb5
-mysql netfs networkmanager nfs-client nfs-server nftables ntpd php-fpm
-postfix postgresql proftpd random rpcbind rsyncd samba saslauthd sendmail 
-slapd smartd sshd stunnel svn sysstat unbound vsftpd winbindd xdm
+acpid avahi bind bluetooth bridge-utils cups dbus dhcpd fcron 
+git-daemon gpm httpd iptables krb5 mariadb netfs networkmanager 
+nfs-client nfs-server nftables ntpd php-fpm postgresql 
+power-profiles-daemon random rpcbind samba saslauthd slapd smartd
+sshd winbindd xdm
+
+init not in LFS/BLS:
+docker seatd lighttpd pcsclite
 
 service:
 bridge dhclient  dhcpcd  wpa
@@ -42,11 +59,16 @@ checkservice() {
     fi
 }
 
-list="status start stop restart enable disable help"
-service="$1"
-command="$2"
+[ "$(id -u)" = 0 ] || {
+    msgwarn " ${RED} this operation need root access! ${NC}"
+	exit 1
+}
 
-case $mode in
+list="status start stop restart enable disable help"
+service="$2"
+command="$1"
+
+case $command in
     -X) command="start" ;;
     -S) command="stop" ;;
     -V) command="status" ;;
@@ -61,6 +83,10 @@ if echo "$list" | (! grep -qw "$command"); then
     exit 1
 fi
 
+if [ "$command" = "help" ]; then
+    usage
+    exit 0
+fi
 
 case $command in
     status) checkservice ; /etc/init.d/"$service" status ; exit 0 ;;
@@ -74,6 +100,11 @@ cd /usr/share/blfs-bootscripts
 if [ "$service" = "samba" ]; then
     echo "With samba service, Don't forget the winbindd service"
 fi
+
+
+case $service in
+    docker|seatd|lighttpd|pcsclite) cd other  ;;
+esac
 
 if [ -f init.d/"$service"  ] ;then
     if [ "$command" = "enable" ];then

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+getent group flatpak > /dev/null || groupadd -g 313 flatpak
+getent passwd flatpak > /dev/null || useradd -d /dev/null -c "flatpak User" -g flatpak -s /bin/false -u 313 flatpak

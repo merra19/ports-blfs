@@ -4,6 +4,8 @@
 # depends	: xfce4-sensors-plugin xfce4-taskmanager xfce4-xkb-plugin
 # depends	: xfce4-weather-plugin xfce4-whiskermenu-plugin xfce4-dict
 # depends	: thunar-media-tags-plugin xfce4-screenshooter
+# depends	: xfce4-mount-plugin xfce4-cpugraph-plugin
+# depends	: xfce4-cpufreq-plugin xfce4-battery-plugin
 
 pkgname=xfce4-goodies
 pkgver=4.20.0
