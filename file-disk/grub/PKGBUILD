@@ -1,18 +1,14 @@
 # description	: GNU GRUB boot loader
 # depends	: gettext bash xz python3 efibootmgr freetype flex bison 
-# depends	: help2man texinfo ncurses lvm2 fuse
+# depends	: help2man texinfo ncurses lvm2 fuse unifont
 
 pkgname=grub
 pkgver=2.12
-pkgrel=1
-fontvers=16.0.01
-gccversion=13.2.0
+pkgrel=2
 options=(!makeflags !lto)
 source=(https://ftp.gnu.org/gnu/grub/$pkgname-$pkgver.tar.xz
-        https://unifoundry.com/pub/unifont/unifont-${fontvers}/font-builds/unifont-${fontvers}.pcf.gz
         fstab grub.default update-grub update-efi)
 backup=(etc/default/grub etc/grub.d/40_custom etc/fstab)
-noextract=(gcc-${gccversion}.tar.xz)
 
 build() {
     cd $pkgname-$pkgver
@@ -22,9 +18,6 @@ build() {
     unset CXXFLAGS
     unset LDFLAGS
     unset MAKEFLAGS
-
-    mkdir -pv "$pkgdir"/usr/share/fonts/unifont &&
-    gunzip -c ../unifont-${fontvers}.pcf.gz > "$pkgdir"/usr/share/fonts/unifont/unifont.pcf
 
     # Add a file missing from the release tarball:
     echo depends bli part_gpt > grub-core/extra_deps.lst

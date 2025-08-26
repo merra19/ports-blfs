@@ -1,16 +1,11 @@
-version r12.3-1348
+version r12.3-1372
 
-August 23rd, 2025
+August 25th, 2025
 
-    [thomas] - Update to postfix-3.10.4. Fixes #21996.
+    [renodr] - Update to FreeRDP-3.17.0. Fixes #22013.
 
-August 22nd, 2025
+    [renodr] - Update to samba-4.22.4. Fixes #22007.
 
-    [bdubbs] - Update to cdrdao-1.2.5. Fixes #22009.
+    [renodr] - Fixed building seahorse with gpgme-2.x.
 
-    [bdubbs] - Update to nano-8.6. Fixes #22004.
-
-    [bdubbs] - Update to nmap-7.98. Fixes #22006.
-
-    [thomas] - Update to bind-9.20.12. Fixes #22002.
 

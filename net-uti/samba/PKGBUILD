@@ -6,7 +6,7 @@
 # depends	: krb5 talloc
 
 pkgname=samba
-pkgver=4.22.3
+pkgver=4.22.4
 pkgrel=1
 source=(https://download.samba.org/pub/samba/stable/$pkgname-$pkgver.tar.gz)
 
