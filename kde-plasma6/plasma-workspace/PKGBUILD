@@ -21,7 +21,7 @@
 # depends	: kirigami kquickcharts kactivitymanagerd milou 
 # depends	: plasma-integration dbus xmessage xprop xrdb xsetroot 
 # depends	: accountsservice qt6-positioning ocean-sound-theme
-# optional	: appstream geolocation!!networkmanager-qt6 
+# optional	: appstream geolocation!!networkmanager-qt
 # optional	: telemetry!!kuserfeedback wallpaper-metadata!!libkexiv2
 
 pkgname=plasma-workspace
@@ -41,7 +41,7 @@ build() {
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
         -D CMAKE_DISABLE_FIND_PACKAGE_AppStreamQt="$(scratch isinstalled appstream && echo "OFF" || echo "ON")" \
-        -D CMAKE_DISABLE_FIND_PACKAGE_KF6NetworkManagerQt="$(scratch isinstalled networkmanager-qt6 && echo "OFF" || echo "ON")" \
+        -D CMAKE_DISABLE_FIND_PACKAGE_KF6NetworkManagerQt="$(scratch isinstalled networkmanager-qt && echo "OFF" || echo "ON")" \
         -D CMAKE_DISABLE_FIND_PACKAGE_KF6UserFeedback="$(scratch isinstalled kuserfeedback && echo "OFF" || echo "ON")" \
         -D CMAKE_DISABLE_FIND_PACKAGE_PackageKitQt6=ON \
         -Wno-dev

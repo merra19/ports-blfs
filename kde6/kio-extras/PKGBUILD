@@ -5,9 +5,8 @@
 # depends	: kxmlgui solid syntax-highlighting plasma-activities 
 # depends	: plasma-activities-stats phonon libx11 libxcursor 
 # depends	: extra-cmake-modules gperf kdoctools qt6-5compat 
-# depends	: qt6-base qt6-svg
-# optional	: samba samba!!kdsoap taglib 
-# optional	: samba!!kdsoap-ws-discovery-client
+# depends	: qt6-base qt6-svg taglib
+# optional	: samba samba!!kdsoap  samba!!kdsoap-ws-discovery-client
 
 pkgname=kio-extras
 pkgver=25.08.0

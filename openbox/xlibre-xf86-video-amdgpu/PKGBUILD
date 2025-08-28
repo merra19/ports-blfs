@@ -3,14 +3,14 @@
 
 pkgname=xlibre-xf86-video-amdgpu
 pkgver=23.0.0.4
-pkgrel=2
+pkgrel=1
 #options=(!lto)
 source=($pkgname-$pkgver.tar.gz::https://github.com/X11Libre/xf86-video-amdgpu/archive/refs/tags/$pkgname-$pkgver.tar.gz)
 
 build() {
     cd xf86-video-amdgpu-xlibre-xf86-video-amdgpu-$pkgver
 
-    LDFLAGS=" -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,lazy -Wl,-z,relro -Wl,-z,pack-relative-relocs"
+    LDFLAGS="$LDFLAGS -Wl,-z,lazy $DEBUGFLAGS"
     export LDFLAGS
 
     autoreconf -fiv

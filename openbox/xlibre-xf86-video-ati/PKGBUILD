@@ -2,15 +2,15 @@
 # depends	: libinput xorg-proto xlibre-xserver
 
 pkgname=xlibre-xf86-video-ati
-pkgver=22.0.0.1
-pkgrel=2
+pkgver=22.0.0.2
+pkgrel=1
 #options=(!lto)
 source=($pkgname-$pkgver.tar.gz::https://github.com/X11Libre/xf86-video-ati/archive/refs/tags/xfree-xf86-video-ati-$pkgver.tar.gz)
 
 build() {
     cd xf86-video-ati-xfree-xf86-video-ati-$pkgver
 
-    LDFLAGS=" -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,lazy -Wl,-z,relro -Wl,-z,pack-relative-relocs"
+    LDFLAGS="$LDFLAGS -Wl,-z,lazy $DEBUGFLAGS"
     export LDFLAGS
 
     autoreconf -fiv

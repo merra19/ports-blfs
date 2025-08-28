@@ -14,7 +14,7 @@ source=(https://mesa.freedesktop.org/archive/$pkgname-$pkgver.tar.xz)
 build() {
     cd $pkgname-$pkgver
 
-    meson setup \
+    meson setup \w
         --prefix=/usr \
         --buildtype=plain \
         -D android-libbacktrace=disabled \

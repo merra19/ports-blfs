@@ -18,9 +18,9 @@ noextract=(llvm-cmake-${_version}.src.tar.xz llvm-third-party-${_version}.src.ta
 build() {
 	cd $pkgname-$pkgver.src
 
-    export CFLAGS="-O2 -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x4000 -march=$MMARCH -fno-lto"
+    export CFLAGS="-O2 -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x4000 -march=$MMARCH -fno-lto $DEBUGFLAGS"
     export CXXFLAGS="$CFLAGS"
-    export FFLAGS="-O2 -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wno-error -Wl,-z,max-page-size=0x4000 -march=$MMARCH -fno-lto"
+    export FFLAGS="-O2 -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wno-error -Wl,-z,max-page-size=0x4000 -march=$MMARCH -fno-lto $DEBUGFLAGS"
     export FCFLAGS="$FFLAGS"
 
     tar -xf ../llvm-cmake-${_version}.src.tar.xz                 &&

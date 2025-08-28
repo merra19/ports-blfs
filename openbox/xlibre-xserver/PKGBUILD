@@ -19,7 +19,7 @@ build() {
     export CFLAGS=${CFLAGS/-fno-plt}
     export CXXFLAGS=${CXXFLAGS/-fno-plt}
     #export LDFLAGS=${LDFLAGS/-Wl,-z,now}
-    LDFLAGS=" -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,lazy -Wl,-z,relro -Wl,-z,pack-relative-relocs"
+    LDFLAGS="$LDFLAGS -Wl,-z,lazy $DEBUGFLAGS"
 
     export LDFLAG
 

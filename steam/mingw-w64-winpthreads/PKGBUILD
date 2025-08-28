@@ -4,7 +4,7 @@
 pkgname=mingw-w64-winpthreads
 pkgver=13.0.0
 pkgrel=1
-options=(!strip staticlibs !emptydirs)
+options=(!strip !emptydirs)
 source=(https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/mingw-w64-v${pkgver}.tar.bz2)
 
 build() {

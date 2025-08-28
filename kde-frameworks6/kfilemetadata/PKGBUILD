@@ -1,8 +1,7 @@
 # description	: Library for extracting file metadata
 # depends	: qt6-base qt6-tools extra-cmake-modules exiv2 karchive 
 # depends	: kconfig kcoreaddons ki18n poppler ffmpeg attr 
-# depends	: kcodecs
-# optional	: taglib
+# depends	: kcodecs taglib
 
 pkgname=kfilemetadata
 pkgver=6.11.0

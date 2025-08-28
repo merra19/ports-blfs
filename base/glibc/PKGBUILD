@@ -44,7 +44,7 @@ build() {
         export ASFLAGS="-D__AVX__=1 -D__AVX2__=1 -msse2avx -D__FMA__=1 "
     fi
 
-    export CFLAGS="-O3 -march=$MMARCH -m64  -Wl,-z,max-page-size=0x1000 -fPIC"
+    export CFLAGS="-O3 -g1 -march=$MMARCH -m64  -Wl,-z,max-page-size=0x1000 -fPIC"
     export ASFLAGS="-D__AVX__=1 -D__AVX2__=1 -msse2avx -D__FMA__=1 "
     unset LDFLAGS
     export LDFLAGS="-Wl,-z,max-page-size=0x1000 "
@@ -65,7 +65,7 @@ build() {
         --host=x86_64-pc-linux-gnu
     make
 
-    export CFLAGS="-O3 -march=$MMARCH -m32  -Wl,-z,max-page-size=0x1000 -fPIC"
+    export CFLAGS="-O3 -g1 -march=$MMARCH -m32  -Wl,-z,max-page-size=0x1000 -fPIC"
     unset ASFLAGS
     unset LDFLAGS
     export LDFLAGS="-Wl,-z,max-page-size=0x1000 "

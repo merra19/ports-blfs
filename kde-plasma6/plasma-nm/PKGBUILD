@@ -2,7 +2,7 @@
 # depends	: kcolorscheme kcompletion kconfig kcoreaddons ksvg
 # depends	: kdbusaddons ki18n kio knotifications kservice 
 # depends	: kwallet kwidgetsaddons kwindowsystem kxmlgui 
-# depends	: modemmanager-qt6 networkmanager-qt6 solid libplasma 
+# depends	: modemmanager-qt networkmanager-qt solid libplasma 
 # depends	: networkmanager qca kdeclarative kirigami kquickcharts
 # depends	: kcmutils qcoro6 qt6-base qt6-declarative prison 
 # depends	: plasma-workspace extra-cmake-modules 

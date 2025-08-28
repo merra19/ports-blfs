@@ -1,6 +1,6 @@
 # description	: Operating system and container binary deployment and upgrades
 # depends	: xz glib fuse zlib libarchive curl gpgme libgpg-error
-# depends	: grub gobject-introspection util-linux libsoup openssl
+# depends	: grub gobject-introspection util-linux libsoup3 openssl
 # depends	: dbus avahi
 
 pkgname=ostree

@@ -3,7 +3,7 @@
 # depends	: kdbusaddons kio kitemmodels kservice kwidgetsaddons 
 # depends	: libksysguard libplasma plasma-activities qt6-base 
 # depends	: qt6-declarative extra-cmake-modules
-# optional	: networkmanager!!networkmanager-qt6
+# optional	: networkmanager!!networkmanager-qt
 
 pkgname=plasma-vault
 pkgver=6.3.2

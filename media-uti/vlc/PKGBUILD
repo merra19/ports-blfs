@@ -7,9 +7,9 @@
 # depends	: udev libva libvdpau libvpx wayland-protocols libx11
 # depends	: libxcb xcb-util xcb-util-keysyms x265 libmad avahi
 # depends	: libxml2 fribidi harfbuzz liberation-fonts fdk-aac cairo
-# depends	: libgcrypt libass glib gdk-pixbuf gtk3 librsvg 
+# depends	: libgcrypt libass glib gdk-pixbuf gtk3 librsvg taglib
 # optional	: cddb!!libcddb dvd!!libdvdnav dvd!!libdvdread faad!faad2 
-# optional	: gstreamer!!gst-plugins-base libnotify!!libnotify taglib 
+# optional	: gstreamer!!gst-plugins-base libnotify!!libnotify
 # optional	: keyring!!libsecret 
 
 pkgname=vlc

@@ -2,8 +2,7 @@
 # depends	: openssl wayland-protocols wayland xorg-fonts libepoxy 
 # depends	: mesa libdrm libxau libxcvt libxdmcp xtrans pixman 
 # depends	: xkeyboard-config xkbcomp flex libxfont2 libxkbfile 
-# depends	: libxshmfence udev 
-# optional	: libei 
+# depends	: libxshmfence udev libei
 
 pkgname=xwayland
 pkgver=24.1.8

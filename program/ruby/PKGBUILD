@@ -10,7 +10,7 @@ source=(https://cache.ruby-lang.org/pub/ruby/${pkgver%.*}/$pkgname-$pkgver.tar.x
 build() {
 	cd $pkgname-$pkgver
 
-    export CFLAGS="-O2 -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=64 -Wformat -Wformat-security  -Wno-error -ftree-vectorize -ftree-slp-vectorize -ftrivial-auto-var-init=zero  -ffunction-sections -fasynchronous-unwind-tables -Wp,-D_REENTRANT -fPIC -march=x86-64-v3"
+    export CFLAGS="-O2 -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=64 -Wformat -Wformat-security  -Wno-error -ftree-vectorize -ftree-slp-vectorize -ftrivial-auto-var-init=zero  -ffunction-sections -fasynchronous-unwind-tables -Wp,-D_REENTRANT -fPIC -march=x86-64-v3 $DEBUGFLAGS"
     export CXXFLAGS="$CFLAGS"
 
     CC=clang CXX=clang++ \

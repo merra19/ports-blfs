@@ -3,15 +3,15 @@
 # depends	: udev
 
 pkgname=xlibre-xf86-input-evdev
-pkgver=2.11.0.1
-pkgrel=2
+pkgver=2.11.0.2
+pkgrel=1
 options=(!makeflags)
 source=(https://github.com/X11Libre/xf86-input-evdev/archive/refs/tags/$pkgname-$pkgver.tar.gz)
 
 build() {
     cd xf86-input-evdev-xlibre-xf86-input-evdev-$pkgver
 
-    LDFLAGS=" -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,lazy -Wl,-z,relro -Wl,-z,pack-relative-relocs -Wl,-z,now"
+    LDFLAGS="$LDFLAGS -Wl,-z,lazy $DEBUGFLAGS"
     export LDFLAGS
 
     autoreconf -fiv

@@ -24,4 +24,5 @@ package() {
     mkdir -p "$pkgdir"/usr/lib32
     cp -Rv DESTDIR/usr/lib/* "$pkgdir"/usr/lib32
     sed -e "/^libdir/s/lib$/lib32/" -i "$pkgdir"/usr/lib32/pkgconfig/libzstd.pc
+    rm -v "$pkgdir"/usr/lib32/libzstd.a
 }
