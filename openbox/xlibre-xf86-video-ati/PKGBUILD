@@ -4,11 +4,10 @@
 pkgname=xlibre-xf86-video-ati
 pkgver=22.0.0.2
 pkgrel=1
-#options=(!lto)
-source=($pkgname-$pkgver.tar.gz::https://github.com/X11Libre/xf86-video-ati/archive/refs/tags/xfree-xf86-video-ati-$pkgver.tar.gz)
+source=($pkgname-$pkgver.tar.gz::https://github.com/X11Libre/xf86-video-ati/archive/refs/tags/xlibre-xf86-video-ati-$pkgver.tar.gz)
 
 build() {
-    cd xf86-video-ati-xfree-xf86-video-ati-$pkgver
+    cd xf86-video-ati-xlibre-xf86-video-ati-$pkgver
 
     LDFLAGS="$LDFLAGS -Wl,-z,lazy $DEBUGFLAGS"
     export LDFLAGS
@@ -24,7 +23,7 @@ build() {
 }
 
 package() {
-    cd xf86-video-ati-xfree-xf86-video-ati-$pkgver
+    cd xf86-video-ati-xlibre-xf86-video-ati-$pkgver
 
     make DESTDIR="$pkgdir" install
 }
