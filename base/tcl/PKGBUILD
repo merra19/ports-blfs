@@ -3,7 +3,7 @@
 
 pkgname=tcl
 pkgver=8.6.16
-pkgrel=1
+pkgrel=2
 options=(!lto)
 source=(https://downloads.sourceforge.net/tcl/$pkgname$pkgver-src.tar.gz
         https://downloads.sourceforge.net/tcl/tcl$pkgver-html.tar.gz)
@@ -50,6 +50,7 @@ package() {
     make DESTDIR="$pkgdir" install install-private-headers
 
     make DESTDIR="$pkgdir" install-binaries
+    chmod 644 "$pkgdir"/usr/lib/libtclstub8.6.a
     chmod -v u+w "$pkgdir"/usr/lib/libtcl8.6.so
     
     ln -sfv tclsh8.6 "$pkgdir"/usr/bin/tclsh
