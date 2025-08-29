@@ -24,7 +24,7 @@ package() {
 	make -j1 DESTDIR="$pkgdir" \
 		install_doc_dir=/usr/share/doc/$pkgname-$pkgver \
 		SLSH_DOC_DIR=/usr/share/doc/$pkgname-$pkgver/slsh \
-	    install-all
+	    RPATH= install-all
 	chmod -v 755 "$pkgdir"/usr/lib/libslang.so.$pkgver \
             "$pkgdir"/usr/lib/slang/v2/modules/*.so
 }

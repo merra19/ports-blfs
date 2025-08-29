@@ -6,24 +6,23 @@ pkgname=modemmanager
 _pkgname=ModemManager
 pkgver=1.24.2
 pkgrel=1
-source=(https://www.freedesktop.org/software/ModemManager/ModemManager-$pkgver.tar.xz)
+source=(https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/archive/$pkgver/ModemManager-$pkgver.tar.gz)
 
 build() {
-	cd ${_pkgname}-$pkgver
+	cd $_pkgname-$pkgver
 
-    ./configure \
+	meson setup \
         --prefix=/usr \
-        --sysconfdir=/etc \
-        --localstatedir=/var \
-        --disable-static \
-        --disable-maintainer-mode \
-        --with-systemd-journal=no \
-        --with-systemd-suspend-resume 
-	make
+        --buildtype=plain \
+        -D man=false  \
+        -D qrtr=false \
+        -D systemdsystemunitdir=no \
+        build
+	ninja -C build
 }
 
 package() {
-    cd ${_pkgname}-$pkgver
+    cd $_pkgname-$pkgver
 
-    make DESTDIR="$pkgdir" install
+    DESTDIR="$pkgdir" ninja -C build install
 }
