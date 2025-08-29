@@ -14,6 +14,9 @@ build() {
 	export CXX="g++ -m32 -mstackrealign"
 	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 
+    # Prevent static libraries from being installed
+    sed -i '/install -m.*STA/d' libcap/Makefile
+
     make CC="gcc -m32 -mstackrealign -march=i686" lib=lib32
 }
 
