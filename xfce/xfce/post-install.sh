@@ -3,7 +3,9 @@
 pkg_postinst() {
     fc-cache -v > /dev/null
 
-    printf "\e[1;32m %s \e[0m\n" " sudo usermod -a -G netdev <username>"
+    if ( scratch isinstalled networkmanager );then
+        printf "\e[1;32m %s \e[0m\n" " sudo usermod -a -G netdev <username>"
+    fi
 }
 
 pkg_postupgrade() {
