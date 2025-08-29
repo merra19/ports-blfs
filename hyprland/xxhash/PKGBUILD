@@ -16,4 +16,6 @@ package() {
     cd xxHash-$pkgver
 
     make PREFIX=/usr DISPATCH=1 DESTDIR="$pkgdir" install
+
+    rm -f "$pkgdir"/usr/lib/libxxhash.a
 }

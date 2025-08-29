@@ -17,6 +17,7 @@ build() {
         --with-zlib \
         --without-boost \
         --with-sqlite3 \
+        --disable-static-library \
         --with-os-feature=getrandom
     make
 }
