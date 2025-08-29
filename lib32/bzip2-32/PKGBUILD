@@ -31,5 +31,4 @@ package() {
     ln -sf libbz2.so.1.0.8 "$pkgdir"/usr/lib32/libbz2.so
     ln -sf libbz2.so.1.0.8 "$pkgdir"/usr/lib32/libbz2.so.1
     ln -sf libbz2.so.1.0.8 "$pkgdir"/usr/lib32/libbz2.so.1.0
-    install -Dm644 libbz2.a "$pkgdir"/usr/lib32/libbz2.a
 }
