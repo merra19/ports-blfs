@@ -1,6 +1,6 @@
 # description	: A secure communications library implementing the SSL, TLS and DTLS protocols
 # depends	: nettle libtasn1 p11-kit libunistring libidn2 libgmp zlib 
-# depends	: zstd libseccomp brotli 
+# depends	: zstd libseccomp 
 
 pkgname=gnutls
 pkgver=3.8.10

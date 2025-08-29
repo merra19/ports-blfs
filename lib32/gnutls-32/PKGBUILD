@@ -1,6 +1,6 @@
 # description	: A secure communications library implementing the SSL, TLS and DTLS protocols
 # depends	: nettle-32 libtasn1-32 p11-kit-32 libunistring libidn2-32
-# depends	: zstd-32 libseccomp brotli-32 zlib-32 gnutls
+# depends	: zstd-32 libseccomp brotli-32 zlib-32
 
 pkgname=gnutls-32
 _pkgname=gnutls

@@ -12,7 +12,7 @@
 # depends	: util-linux e2fsprogs sysvinit sysklogd freetype libtasn1
 # depends	: nano  linux-firmware dosfstools mdadm py3-flit-core
 # depends	: fcron dbus cracklib sudo logrotate libpwquality
-# depends	: cmake fakeroot lsb-tools
+# depends	: cmake brotli fakeroot lsb-tools
 
 pkgname=base
 pkgver=20230101

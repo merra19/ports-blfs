@@ -3,8 +3,9 @@
 pkg_postinst() {
     rm -f /etc/ld.so.conf.d/tools.conf
 
-    echo "rebuild pam elogind udev"
-    echo "scratch -I -y -f -r pam elogind udev"
+    echo "rebuild gnutls pam elogind udev"
+    echo "to have gnutls with brotli , rebuild gnutls"
+    echo "scratch -I -y -f -r gnutls pam elogind udev"
     exit 1
 }
 
