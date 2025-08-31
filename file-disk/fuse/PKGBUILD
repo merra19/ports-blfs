@@ -2,7 +2,7 @@
 # depends	: glibc meson pkgconf udev
 
 pkgname=fuse
-pkgver=3.17.3
+pkgver=3.17.4
 pkgrel=1
 options=(!lto)
 source=(https://github.com/libfuse/libfuse/releases/download/$pkgname-$pkgver/$pkgname-$pkgver.tar.gz

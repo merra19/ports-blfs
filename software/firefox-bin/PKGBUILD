@@ -5,11 +5,11 @@
 
 pkgname=firefox-bin
 _pkgname=firefox
-pkgver=142.0
+pkgver=142.0.1
 pkgrel=1
 options=(!strip)
 source=(firefox-$pkgver-x86_64.tar.xz::https://archive.mozilla.org/pub/firefox/releases/$pkgver/linux-x86_64/en-US/firefox-$pkgver.tar.xz
-        $_name.sh $_name.desktop policies.json)
+        $_pkgname.sh $_pkgname.desktop policies.json)
 
 package() {
     # Create directories
@@ -21,7 +21,7 @@ package() {
     cp -r firefox/ "$pkgdir"/opt/$pkgname
 
     # Launchers
-    install -m755 $_name.sh "$pkgdir"/usr/bin/$_name
+    install -m755 $_pkgname.sh "$pkgdir"/usr/bin/$_pkgname
 
     # Desktops
     install -m644 *.desktop "$pkgdir"/usr/share/applications/
@@ -30,11 +30,11 @@ package() {
     for i in 16x16 32x32 48x48 64x64 128x128; do
         install -d "$pkgdir"/usr/share/icons/hicolor/$i/apps/
         ln -s /opt/$pkgname/browser/chrome/icons/default/default${i/x*}.png \
-            "$pkgdir"/usr/share/icons/hicolor/$i/apps/$_name.png
+            "$pkgdir"/usr/share/icons/hicolor/$i/apps/$_pkgname.png
     done
 
     # Use system-provided dictionaries
-    #rm -r "$pkgdir"/opt/$_name/dictionaries
+    #rm -r "$pkgdir"/opt/$_pkgname/dictionaries
     ln -Ts /usr/share/hunspell "$pkgdir"/opt/$pkgname/dictionaries
     ln -Ts /usr/share/hyphen "$pkgdir"/opt/$pkgname/hyphenation
 

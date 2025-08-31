@@ -11,7 +11,7 @@
 # depends	: xwayland glaze polkit
 
 pkgname=hyprland
-pkgver=0.47.2
+pkgver=0.50.1
 pkgrel=1
 source=($pkgname-$pkgver.tar.gz::https://github.com/hyprwm/Hyprland/releases/download/v$pkgver/source-v$pkgver.tar.gz)
 

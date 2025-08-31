@@ -7,7 +7,7 @@ _pkgname=httpd
 pkgver=2.4.65
 pkgrel=1
 source=(https://archive.apache.org/dist/httpd/httpd-$pkgver.tar.bz2
-        https://www.linuxfromscratch.org/patches/blfs/svn/httpd-$pkgver-blfs_layout-1.patch
+        https://www.linuxfromscratch.org/patches/blfs/svn/httpd-blfs_layout-1.patch
         $pkgname.hooks)
 backup=(
     etc/httpd/httpd.conf
@@ -22,7 +22,7 @@ backup=(
 build() {
 	cd httpd-$pkgver
 
-    patch -Np1 -i ../httpd-$pkgver-blfs_layout-1.patch
+    patch -Np1 -i ../httpd-blfs_layout-1.patch
 
     sed '/dir.*CFG_PREFIX/s@^@#@' -i support/apxs.in
 
@@ -49,7 +49,6 @@ build() {
         --with-suexec-uidmin=100 \
         --with-suexec-userdir=public_html
     make
-
 }
 
 package() {

@@ -11,6 +11,7 @@ pkgname=qt6-base
 pkgver=6.9.1
 pkgrel=1
 source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$pkgver/submodules/qtbase-everywhere-src-$pkgver.tar.xz
+        https://www.linuxfromscratch.org/patches/blfs/svn/qt-everywhere-src-6.9.1-upstream_fixes-1.patch
         qt6.sh qt6 qt6-base-cflags.patch qt6-base-nostrip.patch 
         assistant-qt6.desktop designer-qt6.desktop linguist-qt6.desktop qdbusviewer-qt6.desktop)
 
@@ -18,17 +19,13 @@ build() {
     cd qtbase-everywhere-src-$pkgver
 
 	patch -Np1 -i "$srcdir"/qt6-base-cflags.patch 
-	patch -Np1 -i "$srcdir"/qt6-base-nostrip.patch 
+	patch -Np1 -i "$srcdir"/qt6-base-nostrip.patch
+
+    patch -Np2 -i ../qt-everywhere-src-6.9.1-upstream_fixes-1.patch
 
 	mkdir -pv qtbase/.git
 
     export OPENSSL_LIBS=" -lssl -lcrypto"
-
-    # Disable a conflicting declaration on i686 systems
-    if [ "$(uname -m)" == "i686" ]; then
-        sed -e "/^#elif defined(Q_CC_GNU_ONLY)/s/.*/& \&\& 0/" \
-            -i src/corelib/global/qtypes.h
-    fi
 
     cmake -B build -G Ninja \
         -D BUILD_SHARED_LIBS=ON \

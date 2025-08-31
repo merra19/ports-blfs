@@ -3,15 +3,19 @@
 # depends	: boost libdisplay-info meson ninja nlohmann-json wcm
 
 pkgname=wayfire-plugins-extra-git
-# commit e8b974f
-pkgver=1.0
+# commit 3a58ab6
+commit=3a58ab6472f473b218b547b446313cf64a2f42ef
+pkgver=0.9.0.re${commit:0:7}
 pkgrel=1
-commit=e8b974ff2e96130febfb45729156faeb217122a5
+filter_commit=00024b531548817ac6c7fed7436e55c4edc5caab
+focus_commit=b5c5029f1a695bcd79e2fa0de615cd8028f64f62
+pixdecor_commit=8a0b02861221450947f02352d97c81a115ffe05d
+wayfireshadows_commit=453c21713dbe1ebbd209cfa29c14fbb6e9a9d991
 source=($pkgname-$pkgver.zip::https://github.com/WayfireWM/wayfire-plugins-extra/archive/$commit.zip
-        filters-$pkgver.zip::https://github.com/soreau/filters/archive/cf99c3a4376c8878c9cebd163ac39776091ced58.zip
-        focus-request-$pkgver.zip::https://gitlab.com/wayfireplugins/focus-request/-/archive/main/focus-request-main.zip
-        pixdecor-$pkgver.zip::https://github.com/soreau/pixdecor/archive/49a863be39c7a8cdcf24d336aed04766eb0a540f.zip
-        wayfire-shadows-$pkgver.zip::https://github.com/timgott/wayfire-shadows/archive/8257a4f04670d8baf29e2d9cee0d78f978f0233f.zip "
+        filters-$filter_commit.zip::https://github.com/soreau/filters/archive/$filter_commit.zip
+        focus-request-$focus_commit.zip::https://gitlab.com/wayfireplugins/focus-request/-/archive/$focus_commit/focus-request-$focus_commit.zip
+        pixdecor-$pkgver.zip::https://github.com/soreau/pixdecor/archive/$pixdecor_commit.zip
+        wayfire-shadows-$pkgver.zip::https://github.com/timgott/wayfire-shadows/archive/$wayfireshadows_commit.zip)
 
 prepare() {
 	cd wayfire-plugins-extra-$commit

@@ -6,12 +6,15 @@
 # depends	: seatd xcb-util-errors 
 
 pkgname=wlroots
-pkgver=0.18.2
+pkgver=0.19.0
 pkgrel=1
-source=(https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/$pkgver/downloads/$pkgname-$pkgver.tar.gz)
+source=(https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/$pkgver/downloads/$pkgname-$pkgver.tar.gz
+        Revert-layer-shell-error-on-0-dimension-without-anch.patch)
 
 build() {
     cd $pkgname-$pkgver
+
+    patch -Np1 -i ../Revert-layer-shell-error-on-0-dimension-without-anch.patch
 
 	meson setup \
         --prefix=/usr \

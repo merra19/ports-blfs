@@ -4,7 +4,7 @@
 pkgname=kio-fuse
 pkgver=5.1.0
 pkgrel=1
-source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz)
+source=(https://download.kde.org/Attic/$pkgname/$pkgname-$pkgver.tar.xz)
 
 build() {
 	cd $pkgname-$pkgver

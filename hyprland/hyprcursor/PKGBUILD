@@ -2,7 +2,7 @@
 # depends	: cairo hyprlang librsvg tomlplusplus libzip cmake
 
 pkgname=hyprcursor
-pkgver=0.1.11
+pkgver=0.1.13
 pkgrel=1
 source=($pkgname-$pkgver.tar.gz::https://github.com/hyprwm/$pkgname/archive/refs/tags/v$pkgver.tar.gz)
 

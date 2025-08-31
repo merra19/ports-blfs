@@ -6,7 +6,7 @@
 # depends	: openssl xxhash libcanberra imagemagick py3-pygments
 
 pkgname=kitty
-pkgver=0.39.1
+pkgver=0.42.2
 pkgrel=1
 source=(https://github.com/kovidgoyal/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz)
 

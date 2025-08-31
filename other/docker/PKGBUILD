@@ -55,16 +55,12 @@ build() {
 	_fake_gopath_popd
 }
 
-
 package() {
 	### dockerd
 	install -Dm755 moby-$pkgver/bundles/dynbinary-daemon/dockerd "$pkgdir"/usr/bin/dockerd
 	install -Dm755 moby-$pkgver/bundles/dynbinary-daemon/docker-proxy "$pkgdir/usr/bin/docker-proxy"
-	### systemd units
-	cd "$srcdir"/moby-$pkgver/contrib
-	install -Dm644 'init/systemd/docker.service' "$pkgdir/usr/lib/systemd/system/docker.service"
-	install -Dm644 'init/systemd/docker.socket' "$pkgdir/usr/lib/systemd/system/docker.socket"
 	# systemd rules
+	cd "$srcdir"/moby-$pkgver/contrib
 	install -Dm644 'udev/80-docker.rules' "$pkgdir/usr/lib/udev/rules.d/80-docker.rules"
 	### cli
 	cd "$srcdir"/cli-$pkgver

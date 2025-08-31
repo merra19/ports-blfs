@@ -11,7 +11,7 @@ build() {
     cd $pkgname-$pkgver
 
     # Fix the location of the CA certificates:
-    #sed -i 's@cert.pem@certs/ca-bundle.crt@' CMakeLists.txt
+    sed -i 's@cert.pem@certs/ca-bundle.crt@' CMakeLists.txt
 
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \

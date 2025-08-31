@@ -2,9 +2,9 @@
 # depends	: glibc cairo gdk-pixbuf glib gtk3 pango wayland meson
 
 pkgname=wofi
-pkgver=1.4.1
+pkgver=1.5.1
 pkgrel=1
-source=$pkgname-$pkgver.tar.gz::"https://hg.sr.ht/~scoopta/wofi/archive/v$pkgver.tar.gz)
+source=($pkgname-$pkgver.tar.gz::https://hg.sr.ht/~scoopta/wofi/archive/v$pkgver.tar.gz)
 
 build() {
 	cd $pkgname-v$pkgver

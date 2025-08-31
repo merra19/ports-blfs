@@ -1,7 +1,7 @@
 # description	: Data pack for Business::ISBN
 # depends	: perl
 
-pkgname=perl-business-data
+pkgname=perl-business-isbn-data
 pkgver=20250205.001
 pkgrel=1
 source=(https://cpan.metacpan.org/authors/id/B/BR/BRIANDFOY/Business-ISBN-Data-$pkgver.tar.gz)

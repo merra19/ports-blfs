@@ -4,7 +4,7 @@
 # depends	: kiconthemes kitemviews kwidgetsaddons
 
 pkgname=kxmlgui
-pkgver=6.11.0
+pkgver=6.17.0
 pkgrel=1
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
 
@@ -18,6 +18,7 @@ build() {
         -D CMAKE_SKIP_INSTALL_RPATH=ON  \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
+        -D BUILD_PYTHON_BINDINGS=OFF \
         -Wno-dev
     make -C build
 }

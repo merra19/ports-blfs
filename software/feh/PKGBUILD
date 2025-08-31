@@ -4,20 +4,15 @@
 
 pkgname=feh
 pkgver=3.10.3
-pkgrel=1
+pkgrel=2
 source=(https://feh.finalrewind.org/$pkgname-$pkgver.tar.bz2)
 
 build() {
     cd $pkgname-$pkgver
 
-    sed -i 's/ -DDEBUG -O0/ -DDEBUG /' config.mk
+    sed -i "s:doc/feh:&-3.10.3:" config.mk
 
-	make PREFIX=/usr \
-		exif=1 \
-		help=1 \
-		inotify=1 \
-		magic=1 \
-		stat64=1
+	make PREFIX=/usr
 }
 
 package() {

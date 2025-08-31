@@ -4,10 +4,10 @@
 
 pkgname=java
 _pkgname=OpenJDK
-pkgver=23.0.2
+pkgver=24.0.2
 pkgrel=1
 options=(!strip)
-source=(https://anduin.linuxfromscratch.org/BLFS/OpenJDK/OpenJDK-$pkgver/OpenJDK-$pkgver+7-x86_64-bin.tar.xz
+source=(https://anduin.linuxfromscratch.org/BLFS/OpenJDK/OpenJDK-$pkgver/OpenJDK-$pkgver+12-x86_64-bin.tar.xz
         openjdk.sh java)
 
 build() {
@@ -15,13 +15,13 @@ build() {
 }
 
 package() {
-    cd ${_pkgname}-$pkgver+7-x86_64-bin
+    cd ${_pkgname}-$pkgver+12-x86_64-bin
 
     install -vdm755 "$pkgdir"/opt/OpenJDK-$pkgver-bin &&
     mv -v * "$pkgdir"/opt/OpenJDK-$pkgver-bin         &&
     chown -R root:root "$pkgdir"/opt/OpenJDK-$pkgver-bin
 
-    ln -sfn OpenJDK-23.0.1-bin "$pkgdir"/opt/jdk
+    ln -sfn OpenJDK-$pkgver-bin "$pkgdir"/opt/jdk
 
     install -Dm 755 "$srcdir"/openjdk.sh "$pkgdir"/etc/profile.d/openjdk.sh
     install -Dm 644 "$srcdir"/java "$pkgdir"/etc/sudoers.d/java 

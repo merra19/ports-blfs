@@ -71,8 +71,8 @@ source=(0xproto-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases
         victormono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/VictorMono.tar.xz
         zedmono-$pkgver.tar.xz::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/ZedMono.tar.xz)
 
-for isource in $source;do
-   noextract=($noextract ${isource%%::*}) 
+for isource in ${source[@]};do
+   noextract=(${noextract[@]} ${isource%%::*}) 
 done
 
 build() {

@@ -3,12 +3,12 @@
 
 pkg_postinst() {
     cd /usr/share/blfs-bootscripts
-    make install-php-fpm
+    make install-php
 }
 
 pkg_preremove() {
     cd /usr/share/blfs-bootscripts
-    make uninstall-php-fpm
+    make uninstall-php
 }
 
 case $1 in

@@ -7,7 +7,7 @@
 # depends	: xcb-util-errors xcb-util-renderutil xcb-util-wm
 
 pkgname=wayfire
-pkgver=0.9.0
+pkgver=0.10.0
 pkgrel=1
 source=(https://github.com/WayfireWM/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz
         wayfire-session.desktop wayfire-session wayfire.env)

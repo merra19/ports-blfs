@@ -9,7 +9,7 @@ source=(https://anduin.linuxfromscratch.org/BLFS/sane/sane-backends-$pkgver.tar.
         $pkgname.hooks)
 
 build() {
-    cd $pkgname-$pkgver
+    cd $pkgname-backends-$pkgver
 
     PYTHON=python3 \
     ./configure \
@@ -18,17 +18,17 @@ build() {
         --localstatedir=/var \
         --with-lockdir=/run/lock \
         --docdir=/usr/share/doc/sane-backends-$pkgver
-make
+    make
 }
 
 package() {
-    cd $pkgname-$pkgver
+    cd $pkgname-backends-$pkgver
 
     make DESTDIR="$pkgdir" install
 
     install -Dm 644 -v tools/udev/libsane.rules  \
                     "$pkgdir"/etc/udev/rules.d/65-scanner.rules
-    mkdir -p          "$pkgdir"/run/lock/sane &&
+    mkdir -p          "$pkgdir"/run/lock/sane
     chgrp -v scanner  "$pkgdir"/run/lock/sane
 
     install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks

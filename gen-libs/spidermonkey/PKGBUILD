@@ -2,7 +2,7 @@
 # depends	: llvm rustc icu nspr readline zlib which py3-six cbindgen
 
 pkgname=spidermonkey
-pkgver=140.1.0
+pkgver=140.2.0
 pkgrel=1
 options=(!lto)
 source=(https://archive.mozilla.org/pub/firefox/releases/${pkgver}esr/source/firefox-${pkgver}esr.source.tar.xz)
@@ -25,6 +25,7 @@ build() {
             --disable-debug-symbols \
             --disable-jemalloc \
             --enable-readline \
+            --enable-rust-simd \
             --with-intl-api \
             --with-system-icu \
             --with-system-zlib \
@@ -37,5 +38,8 @@ package() {
 
     make DESTDIR="$pkgdir" -C obj install
     rm -v "$pkgdir"/usr/lib/libjs_static.ajs
-    sed -i '/@NSPR_CFLAGS@/d' "$pkgdir"/usr/bin/js128-config
+    sed -i '/@NSPR_CFLAGS@/d' "$pkgdir"/usr/bin/js140-config
+
+    # Still as the root user, fix an issue with one of the installed headers
+    sed '$i#define XP_UNIX' -i "$pkgdir"/usr/include/mozjs-140/js-config.h
 }

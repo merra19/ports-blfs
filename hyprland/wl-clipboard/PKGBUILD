@@ -1,5 +1,5 @@
 # description	: Wayland clipboard utilities
-# depends	: wayland mailcap xdg-utils meson wayland-protocols 
+# depends	: wayland mime-types xdg-utils meson wayland-protocols 
 
 pkgname=wl-clipboard
 pkgver=2.2.1

@@ -15,9 +15,9 @@
 # depends	: xcb-util-image libcap
 
 pkgname=kwin
-pkgver=6.3.2.1
+pkgver=6.4.4
 pkgrel=1
-source=(https://download.kde.org/stable/plasma/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+source=(https://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz)
 
 build() {
     cd $pkgname-$pkgver

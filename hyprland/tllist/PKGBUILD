@@ -7,7 +7,7 @@ pkgrel=1
 source=($pkgname-$pkgver.tar.gz::https://codeberg.org/dnkl/tllist/archive/$pkgver.tar.gz)
 
 build() {
-	cd $pkgname-$pkgver
+	cd $pkgname
 
 	meson setup \
         --prefix=/usr \
@@ -17,7 +17,7 @@ build() {
 }
 
 package() {
-    cd $pkgname-$pkgver
+    cd $pkgname
 
     DESTDIR="$pkgdir" ninja -C build install
 }

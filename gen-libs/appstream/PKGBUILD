@@ -5,7 +5,7 @@
 
 pkgname=appstream
 _pkgname=AppStream
-pkgver=1.0.5
+pkgver=1.0.6
 pkgrel=1
 options=(!lto)
 source=(https://www.freedesktop.org/software/appstream/releases/AppStream-$pkgver.tar.xz

@@ -10,7 +10,7 @@ build() {
     cd qtspeech-everywhere-src-$pkgver
 
     cmake -B build -G Ninja \
-        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS \
+        -D CMAKE_MESSAGE_LOG_LEVEL=STATUS
     cmake --build build
 }
 

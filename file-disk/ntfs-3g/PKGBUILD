@@ -3,23 +3,24 @@
 
 pkgname=ntfs-3g
 pkgver=2022.10.3
-pkgrel=1
+pkgrel=2
 options=(!lto)
-source=(https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2022.10.3.tgz)
+source=(https://tuxera.com/opensource/ntfs-3g_ntfsprogs-$pkgver.tgz)
 
 build() {
-	cd $pkgname-$pkgver
+	cd ntfs-3g_ntfsprogs-$pkgver
 
     ./configure \
         --prefix=/usr \
         --disable-static \
         --with-fuse=internal \
+        --disable-ldconfig \
         --docdir=/usr/share/doc/ntfs-3g-$pkgver
     make
 }
 
 package() {
-    cd $pkgname-$pkgver
+    cd ntfs-3g_ntfsprogs-$pkgver
 
 	make DESTDIR="$pkgdir" install
 

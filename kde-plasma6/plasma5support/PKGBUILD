@@ -4,7 +4,7 @@
 # depends	: extra-cmake-modules kdoctools kidletime
 
 pkgname=plasma5support
-pkgver=6.3.2
+pkgver=6.4.4
 pkgrel=1
 source=(https://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz)
 

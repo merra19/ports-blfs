@@ -4,7 +4,7 @@
 # init:
 # accounts-daemon acpid alsa atd autofs avahi bind bluetooth cups dbus dhcpd 
 # dovecot exim fcron firewalld git-daemon gpm httpd iptables kea-dhcpd krb5
-# mariadb netfs networkmanager nfs-client nfs-server nftables ntpd php-fpm
+# mariadb netfs networkmanager nfs-client nfs-server nftables ntpd php
 # postfix postgresql power-profiles-daemon proftpd random rpcbind rsyncd
 # samba saslauthd sendmail slapd smartd sshd stunnel svn sysmond sysstat
 # unbound vsftpd winbindd xdm
@@ -34,7 +34,7 @@ apache (httpd)  smartmontools (smartd)
 init:
 acpid avahi bind bluetooth bridge-utils cups dbus dhcpd fcron 
 git-daemon gpm httpd iptables krb5 mariadb netfs networkmanager 
-nfs-client nfs-server nftables ntpd php-fpm postgresql 
+nfs-client nfs-server nftables ntpd php postgresql 
 power-profiles-daemon random rpcbind samba saslauthd slapd smartd
 sshd winbindd xdm
 

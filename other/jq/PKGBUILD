@@ -13,6 +13,7 @@ build() {
 	autoreconf -i
 	./configure \
         --prefix=/usr \
+        --disable-static \
         --disable-docs
 	make
 }

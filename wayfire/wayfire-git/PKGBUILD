@@ -1,6 +1,6 @@
 # description	: compiz like 3D wayland compositor
 # depends	: nlohmann-json glib libevdev libinput wayland 
-# depends	: wayland-protocols wlroots glm libglvnd libjpeg-turbo
+# depends	: wayland-protocols glm libglvnd libjpeg-turbo
 # depends	: libpng cairo libxkbcommon pango pixman dbus libxcb
 # depends	: xkeyboard-config cmake vulkan-headers libxml2 libdrm
 # depends	: polkit seatd xwayland glslang libdisplay-info mesa
@@ -8,13 +8,13 @@
 # depends	: xdg-desktop-portal-gtk xdg-desktop-portal-wlr
 
 pkgname=wayfire-git
-# commit 32c4ada
-pkgver=0.9.0
+# commit 41fc08d
+pkgver=0.10.0.r${_commit:0:7}
 pkgrel=1
-_commit=32c4ada786926140d41bf3c9e3823f4bb00cebff
-wfconfig_commit=ee64fbd2f6a4bce8362da862535cdcaee6b8f13b
+_commit=41fc08d090f0ac00850af39f6fedc951e60ddd47
+wfconfig_commit=6e25b6d380c2280e5631a327b98670a4eaa5eb0e
 wftouch_commit=093d8943df03cc8a2667990a065513c1bf2b57e0
-wfutils_commit=08553c418f164bf5e84613d27447a32e380b75f0
+wfutils_commit=3ef27d1f76b5f3d1f34305bff12b3174e81727c2
 source=($pkgname-$_commit.zip::https://github.com/WayfireWM/wayfire/archive/$_commit.zip
         wf-config-$wfconfig_commit.zip::https://github.com/WayfireWM/wf-config/archive/$wfconfig_commit.zip
         wf-touch-$wftouch_commit.zip::https://github.com/WayfireWM/wf-touch/archive/$wftouch_commit.zip
@@ -35,7 +35,7 @@ build() {
         --prefix=/usr \
         --buildtype=release \
 		--auto-features=disabled \
-		-D use_system_wlroots=enabled \
+        -D use_system_wlroots=enabled \
 		-D xwayland=enabled \
 		-D tests=disabled \
         "wayfire-$_commit" build

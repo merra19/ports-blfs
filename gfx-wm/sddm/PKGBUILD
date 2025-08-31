@@ -17,6 +17,7 @@ build() {
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
         -D ENABLE_JOURNALD=OFF \
         -D NO_SYSTEMD=ON \
         -D RUNTIME_DIR=/run/sddm \

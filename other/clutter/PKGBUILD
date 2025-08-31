@@ -10,11 +10,10 @@ source=(https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgve
 build() {
     cd $pkgname-$pkgver
 
-    NOCONFIGURE=1 ./autogen.sh
-
     ./configure \
         --prefix=/usr \
         --sysconfdir=/etc \
+        --disable-static \
         --enable-introspection \
         --enable-egl-backend \
         --enable-x11-backend \

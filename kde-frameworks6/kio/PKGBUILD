@@ -9,7 +9,7 @@
 # optional	: kwallet!!kwallet
 
 pkgname=kio
-pkgver=6.11.0
+pkgver=6.17.0
 pkgrel=1
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
 

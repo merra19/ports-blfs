@@ -2,7 +2,7 @@
 # depends       : avahi cups desktop-file-utils nss
 
 pkgname=libreoffice-bin
-pkgver=25.2.3
+pkgver=25.2.5
 pkgrel=1
 options=(!strip)
 source=($pkgname-$pkgver.tar.gz::http://download.documentfoundation.org/libreoffice/stable/$pkgver/rpm/x86_64/LibreOffice_${pkgver}_Linux_x86-64_rpm.tar.gz)

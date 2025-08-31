@@ -10,10 +10,11 @@ source=(https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgve
 build() {
     cd $pkgname-$pkgver
 
-    NOCONFIGURE=1 ./autogen.sh
+    export CFLAGS="$CFLAGS -std=gnu17"
 
     ./configure \
         --prefix=/usr \
+        --disable-static \
         --disable-gles1 \
         --enable-gles2 \
         --enable-{kms,wayland,xlib}-egl-platform \

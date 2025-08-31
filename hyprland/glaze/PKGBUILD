@@ -2,7 +2,7 @@
 # depends	: cmake
 
 pkgname=glaze
-pkgver=5.6.0
+pkgver=5.6.1
 pkgrel=1
 options=(!lto)
 source=(https://github.com/stephenberry/glaze//archive/v$pkgver/$pkgname-$pkgver.tar.gz)

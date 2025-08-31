@@ -8,20 +8,11 @@ source=(https://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-$pkgver.sr
         format-security.patch gcc.patch
 		https://www.linuxfromscratch.org/patches/blfs/svn/cdparanoia-III-10.2-gcc_fixes-1.patch)
 
-builddir="$srcdir/cdparanoia-III-$pkgver"
-
 build() {
-	cd cdparanoia-III-c
+	cd cdparanoia-III-$pkgver
 
 	patch -Np1 -i ../cdparanoia-III-10.2-gcc_fixes-1.patch
 	
-	#mv configure.guess config.guess
-	#mv configure.sub config.sub
-    
-    #sed -i -e '/configure.\(guess\|sub\)/d' configure.in
-	#aclocal && autoconf
-	#libtoolize
-
 	./configure \
 		--prefix=/usr \
 		--sysconfdir=/etc \

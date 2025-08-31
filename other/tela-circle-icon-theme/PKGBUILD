@@ -10,13 +10,13 @@ source=($pkgname-$pkgver.tar.gz::https://github.com/vinceliuice/Tela-circle-icon
         do_not_generate_cache_files.patch)
 
 build() {
-    cd Tela-circle-icon-theme--$_pkgver
+    cd Tela-circle-icon-theme-$_pkgver
 
     patch -Np1 -i ../do_not_generate_cache_files.patch
 }
 
 package() {
-    cd Tela-circle-icon-theme--$_pkgver
+    cd Tela-circle-icon-theme-$_pkgver
 
     install -d "$pkgdir"/usr/share/themes
 

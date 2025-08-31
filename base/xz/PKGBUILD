@@ -7,7 +7,12 @@ pkgrel=1
 source=(https://github.com/tukaani-project/xz/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz)
 
 build_pgo() {
-    export LD_LIBRARY_PATH="$(pwd)"
+    unset PATHFAKEROOT
+	if [ -n "$FAKEROOTKEY" ]; then
+        PATHFAKEROOT=/usr/lib/libfakeroot:/usr/lib32/libfakeroot
+	fi
+
+    export LD_LIBRARY_PATH="$(pwd):$PATHFAKEROOT"
 
     CFLAGS="${CFLAGS_GENERATE}" CXXFLAGS="${CXXFLAGS_GENERATE}" FFLAGS="${FFLAGS_GENERATE}" \
     FCFLAGS="${FCFLAGS_GENERATE}" LDFLAGS="${LDFLAGS_GENERATE}" \

@@ -12,6 +12,7 @@ build() {
 
     cmake -B build -G Ninja \
         -D CMAKE_MESSAGE_LOG_LEVEL=STATUS \
+        -D CMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects"
     cmake --build build
 }
 

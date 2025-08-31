@@ -2,17 +2,20 @@
 # depends	: sassc gtk-engine-murrine
 
 pkgname=colloid-gtk-themes
-pkgver=2024-11-16
+pkgver=2024.11.16
+_pkgver="${pkgver//./-}"
 pkgrel=1
 options=(!strip)
-source=($pkgname-$pkgver.tar.gz::https://github.com/vinceliuice/Colloid-gtk-theme/archive/refs/tags/$pkgver.tar.gz)
+source=($pkgname-$pkgver.tar.gz::https://github.com/vinceliuice/Colloid-gtk-theme/archive/refs/tags/$_pkgver.tar.gz)
 
 build() {
+    cd Colloid-gtk-theme-$_pkgver
+
     sed -i 's/clean_theme && install_theme/install_theme/g' install.sh
 }
 
 package() {
-    cd $pkgname-$pkgver
+    cd Colloid-gtk-theme-$_pkgver
 
     install -d "$pkgdir"/usr/share/themes
     ./install.sh -t all -d "$pkgdir"/usr/share/themes

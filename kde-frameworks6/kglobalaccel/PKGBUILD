@@ -2,7 +2,7 @@
 # depends	: qt6-base qt6-tools extra-cmake-modules
 
 pkgname=kglobalaccel
-pkgver=6.11.0
+pkgver=6.17.0
 pkgrel=1
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
 

@@ -10,12 +10,12 @@ pkgname=konsole
 pkgver=25.08.0
 pkgrel=1
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz
-        https://www.linuxfromscratch.org/patches/blfs/svn/konsole-$pkgver-scrollbar-1.patch)
+        https://www.linuxfromscratch.org/patches/blfs/svn/konsole-adjust_scrollbar-1.patch)
 
 build() {
 	cd $pkgname-$pkgver
 
-    patch -Np1 -i ../konsole-$pkgver-scrollbar-1.patch
+    patch -Np1 -i ../konsole-adjust_scrollbar-1.patch
 
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \

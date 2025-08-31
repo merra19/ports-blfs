@@ -10,11 +10,11 @@ source=($pkgname-$pkgver.tar.gz::https://github.com/google/re2/archive/$_re2ver.
 build() {
 	cd $pkgname-$_re2ver
 
-    make 
+    make shared
 }
 
 package() {
     cd $pkgname-$_re2ver
 
-    make prefix=/usr DESTDIR="$pkgdir" install
+    make prefix=/usr DESTDIR="$pkgdir" shared-install
 }

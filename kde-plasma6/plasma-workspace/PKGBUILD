@@ -18,14 +18,15 @@
 # depends	: xcb-util-image polkit-qt libxcrypt kpipewire libglvnd 
 # depends	: pipewire libdrm baloo plasma-wayland-protocols 
 # depends	: xorg-proto qcoro6 iso-codes kirigami-addons kio-extras
-# depends	: kirigami kquickcharts kactivitymanagerd milou 
+# depends	: kirigami kquickcharts kactivitymanagerd milou kwin-x11
 # depends	: plasma-integration dbus xmessage xprop xrdb xsetroot 
 # depends	: accountsservice qt6-positioning ocean-sound-theme
+# depends	: qt6-location
 # optional	: appstream geolocation!!networkmanager-qt
 # optional	: telemetry!!kuserfeedback wallpaper-metadata!!libkexiv2
 
 pkgname=plasma-workspace
-pkgver=6.3.2
+pkgver=6.4.4
 pkgrel=1
 source=(https://download.kde.org/stable/plasma/${pkgver:0:5}/$pkgname-$pkgver.tar.xz
         plasma-workspace-5.22.5-krunner-cwd-at-home.patch)
@@ -40,6 +41,7 @@ build() {
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
+        -D BUILD_QT5=OFF \
         -D CMAKE_DISABLE_FIND_PACKAGE_AppStreamQt="$(scratch isinstalled appstream && echo "OFF" || echo "ON")" \
         -D CMAKE_DISABLE_FIND_PACKAGE_KF6NetworkManagerQt="$(scratch isinstalled networkmanager-qt && echo "OFF" || echo "ON")" \
         -D CMAKE_DISABLE_FIND_PACKAGE_KF6UserFeedback="$(scratch isinstalled kuserfeedback && echo "OFF" || echo "ON")" \

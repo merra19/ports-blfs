@@ -2,7 +2,7 @@
 # depends	: extra-cmake-modules qt6-base pcre2
 
 pkgname=plasma-wayland-protocols
-pkgver=1.16.0
+pkgver=1.18.0
 pkgrel=1
 source=(https://download.kde.org/stable/plasma-wayland-protocols/$pkgname-$pkgver.tar.xz)
 

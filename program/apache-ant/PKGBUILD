@@ -10,13 +10,13 @@ source=(https://archive.apache.org/dist/ant/source/$pkgname-$pkgver-src.tar.xz
 build() {
 	cd $pkgname-$pkgver
 
-    . /etc/profile
+    export JAVA_HOME=/opt/jdk
   
     ./bootstrap.sh
 
-    bootstrap/bin/ant -f fetch.xml -D dest=optional
+    bootstrap/bin/ant -f fetch.xml -Ddest=optional
 
-    ./build.sh -D dist.dir=$PWD/ant-$pkgver dist
+    ./build.sh -Ddist.dir=$PWD/ant-$pkgver dist
 }
 
 package() {

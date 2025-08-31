@@ -18,6 +18,9 @@ build() {
         -e 's#-m build#& --no-isolation#'  \
         -e '/pip install/s#(ZENMAP|NDIFF)DIR\)/#&dist/*.whl#'
 
+    # Remove a useless dependency on setuptools-gettext
+    sed 's/, "setuptools-gettext"//' -i zenmap/pyproject.toml
+
     ./configure \
         --prefix=/usr 
     make

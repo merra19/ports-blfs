@@ -2,7 +2,7 @@
 # depends	: python3 py3-wheel py3-greenlet py3-msgpack
 
 pkgname=py3-pynvim
-pkgrel=0.5.2
+pkgver=0.5.2
 pkgrel=1
 source=(https://pypi.io/packages/source/p/pynvim/pynvim-$pkgver.tar.gz)
 

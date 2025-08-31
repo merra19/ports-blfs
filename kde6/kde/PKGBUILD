@@ -12,6 +12,7 @@
 # depends	: systemsettings xdg-desktop-portal-kde bluedevil 
 # depends	: oxygen-icons plasma-pa drkonqi oxygen-sounds ark 
 # depends	: gwenview dolphin konsole kate okular plasma-disks
+# depends	: dolphin-plugins
 # optional	: colord cups!!print-manager discover!!discover 
 # optional	: flatpak!!flatpak-kcm gtk!!breeze-gtk 
 # optional	: gtk!!kde-gtk-config gtk!!xdg-desktop-portal-gtk 

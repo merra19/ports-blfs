@@ -7,10 +7,13 @@
 pkgname=polybar
 pkgver=3.7.2
 pkgrel=1
-source=(https://github.com/polybar/polybar/releases/download/$pkgver/$pkgname-$pkgver.tar.gz)
+source=(https://github.com/polybar/polybar/releases/download/$pkgver/$pkgname-$pkgver.tar.gz
+		polybar-3.7.2-gcc15-cstdint-includes.patch)
 
 build() {
     cd $pkgname-$pkgver
+
+	patch -Np1 -i ../polybar-3.7.2-gcc15-cstdint-includes.patch
 
 	cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \

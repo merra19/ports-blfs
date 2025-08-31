@@ -7,7 +7,7 @@
 # depends	: gnome-keyring
 
 pkgname=microsoft-edge
-pkgver=139.0.3405.102
+pkgver=139.0.3405.125
 pkgrel=1
 options=(!strip)
 source=($pkgname-$pkgver.deb::https://packages.microsoft.com/repos/edge/pool/main/m/$pkgname-stable/$pkgname-stable_$pkgver-1_amd64.deb)

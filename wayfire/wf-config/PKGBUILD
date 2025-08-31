@@ -2,7 +2,7 @@
 # depends	: libevdev libxml2 glm wayland-protocols wlroots
 
 pkgname=wf-config
-pkgver=0.9.0
+pkgver=0.10.0
 pkgrel=1
 source=(https://github.com/WayfireWM/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz)
 
