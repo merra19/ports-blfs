@@ -2,7 +2,7 @@
 # depends	: glibc libuv ninja luajit cmake py3-pynvim
 
 pkgname=neovim
-pkgver=0.11.2
+pkgver=0.11.4
 pkgrel=1
 options=(!lto)
 source=($pkgname-$pkgver.tar.gz::https://github.com/neovim/neovim/archive/refs/tags/v$pkgver.tar.gz)
