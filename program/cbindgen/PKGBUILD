@@ -7,13 +7,17 @@ pkgrel=1
 source=(https://github.com/mozilla/cbindgen/archive/v$pkgver/$pkgname-$pkgver.tar.gz
         local://$pkgname-$pkgver-cargo.tar.xz)
 
+createpack() {
+    mkdir -p vendor
+    cargo vendor vendor
+    tar -cJpf $pkgname-$pkgver-cargo.tar.xz vendor/
+    cp $pkgname-$pkgver-cargo.tar.xz /sources/src/
+}
+
 build() {
 	cd $pkgname-$pkgver
 
-    #mkdir -p vendor
-    #cargo vendor vendor
-    #tar -cJpf $pkgname-$pkgver-cargo.tar.xz vendor/
-    #cp $pkgname-$pkgver-cargo.tar.xz /sources/src/
+    #createpack
 
     mv "$srcdir"/vendor .
     

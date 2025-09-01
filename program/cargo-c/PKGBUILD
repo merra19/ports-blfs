@@ -8,15 +8,19 @@ source=(https://github.com/lu-zero/cargo-c/archive/v$pkgver/$pkgname-$pkgver.tar
         $pkgname-$pkgver.lock::https://github.com/lu-zero/cargo-c/releases/download/v$pkgver/Cargo.lock
         local://$pkgname-$pkgver-cargo.tar.xz)
 
+createpack() {
+    mkdir -p vendor
+    cargo vendor vendor
+    tar -cJpf $pkgname-$pkgver-cargo.tar.xz vendor/
+    cp $pkgname-$pkgver-cargo.tar.xz /sources/src/
+}
+
 build() {
 	cd $pkgname-$pkgver
 
     cp ../$pkgname-$pkgver.lock ./Cargo.lock
 
-    #mkdir -p vendor
-    #cargo vendor vendor
-    #tar -cJpf $pkgname-$pkgver-cargo.tar.xz vendor/
-    #cp $pkgname-$pkgver-cargo.tar.xz /sources/src/
+    #createpack
 
     mv "$srcdir"/vendor .
     

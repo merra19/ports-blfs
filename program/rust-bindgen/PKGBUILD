@@ -8,8 +8,18 @@ options=(!lto)
 source=(https://github.com/rust-lang/rust-bindgen/archive/v$pkgver/$pkgname-$pkgver.tar.gz
         local://rust-bindgen-$pkgver-cargo.tar.xz)
 
+
+createpack() {
+    mkdir -p vendor
+    cargo vendor vendor
+    tar -cJpf $pkgname-$pkgver-cargo.tar.xz vendor/
+    cp $pkgname-$pkgver-cargo.tar.xz /sources/src/
+}
+
 build() {
 	cd $pkgname-$pkgver
+
+    #createpack
 
     mv "$srcdir"/vendor .
     
