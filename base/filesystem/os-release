@@ -1,7 +1,7 @@
 NAME="Linux From Scratch"
-VERSION="r12.3"
+VERSION="r12.4"
 ID=lfs
-PRETTY_NAME="Linux From Scratch r12.3-multilib"
-VERSION_CODENAME="r12.3-multilib"
+PRETTY_NAME="Linux From Scratch r12.4-multilib"
+VERSION_CODENAME="r12.4-multilib"
 HOME_URL="https://www.linuxfromscratch.org/lfs/"
-RELEASE_TYPE="stable"
+RELEASE_TYPE="development"

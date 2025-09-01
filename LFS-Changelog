@@ -1,25 +1,6 @@
  Version r12.3-117 
  
-2025-08-27
+2025-09-01
 
-    [bdubbs] - Update network boot script corner case.
-
-2025-08-15
-
-    [bdubbs] - Add a modification to glibc from upstream to solve an incompatibility with valgrind. Fixes #5778.
-
-    [bdubbs] - Update to iana-etc-20250807. Addresses #5006.
-
-    [bdubbs] - Update to vim-9.1.1829. Addresses #4500.
-
-    [bdubbs] - Update to ncurses-6.5-20250809. Fixes #5780.
-
-    [bdubbs] - Update to Python-3.13.7 (Security Update). Fixes #5779.
-
-    [bdubbs] - Update to linux-6.16.1. Fixes #5758.
-
-    [bdubbs] - Update to iproute2-6.16.0. Fixes #5773.
-
-    [bdubbs] - Update to systemd-257.8. Fixes #5751.
-
+    [bdubbs] - LFS-12.4 released.
 

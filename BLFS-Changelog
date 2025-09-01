@@ -1,11 +1,19 @@
-version r12.3-1372
+version 12.4
 
-August 25th, 2025
+September 1st, 2025
 
-    [renodr] - Update to FreeRDP-3.17.0. Fixes #22013.
+    [bdubbs] - Release of BLFS-12.4.
 
-    [renodr] - Update to samba-4.22.4. Fixes #22007.
+August 31st, 2025
 
-    [renodr] - Fixed building seahorse with gpgme-2.x.
+    [renodr] - Fix building Guile on 32-bit systems.
+
+    [renodr] - Update to krb5-1.22.1 (Security Update). Fixes #22015.
+
+    [renodr] - Update to Qt6 and QtWebEngine 6.9.2 (Security Update). Fixes #22025.
+
+    [renodr] - Update to udisks2-2.10.2 (Security Update). Fixes #22029.
+
+    [renodr] - Update to libreoffice-25.8.1.1. Fixes #22039.
 
 

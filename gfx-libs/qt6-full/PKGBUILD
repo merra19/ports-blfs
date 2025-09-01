@@ -5,10 +5,10 @@
 # depends	: xcb-util-cursor xcb-util-image xcb-util-keysyms sqlite
 # depends	: xcb-util-renderutil xcb-util-wm at-spi2-core mesa mtdev 
 # depends	: libinput libglvnd cups gdk-pixbuf gtk3 pango xorg-proto 
-# depends	: vulkan-headers
+# depends	: vulkan-headers libproxy
 
 pkgname=qt6-full
-pkgver=6.9.1
+pkgver=6.9.2
 pkgrel=1
 source=(https://download.qt.io/archive/qt/${pkgver:0:3}/$pkgver/single/qt-everywhere-src-$pkgver.tar.xz
 		qt6.sh qt6 qt6-base-cflags.patch qt6-base-nostrip.patch 
@@ -24,11 +24,6 @@ build() {
 
     export OPENSSL_LIBS=" -lssl -lcrypto"
 
-    # Disable a conflicting declaration on i686 systems
-    if [ "$(uname -m)" == "i686" ]; then
-        sed -e "/^#elif defined(Q_CC_GNU_ONLY)/s/.*/& \&\& 0/" \
-            -i src/corelib/global/qtypes.h
-    fi
     ./configure \
         -prefix /usr  \
         -sysconfdir /etc/xdg \
@@ -47,6 +42,7 @@ build() {
         -nomake examples \
         -no-rpath \
         -syslog \
+        -libproxy \
         -skip qt3d \
         -skip qtquick3dphysics \
         -skip qtwebengine \

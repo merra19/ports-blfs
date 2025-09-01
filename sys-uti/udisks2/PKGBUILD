@@ -6,7 +6,7 @@
 
 pkgname=udisks2
 _pkgname=udisks
-pkgver=2.10.1
+pkgver=2.10.2
 pkgrel=1
 options=(!lto)
 source=(https://github.com/storaged-project/udisks/releases/download/udisks-$pkgver/udisks-$pkgver.tar.bz2
@@ -15,9 +15,6 @@ backup=(etc/udisks2/udisks2.conf)
 
 build() {
 	cd ${_pkgname}-$pkgver
-
-    # Fix a security vulnerability that can allow for privilege escalation, by forcing filesystems to be mounted with nosuid
-    sed -i 's/fstype, NULL/fstype, "nodev,nosuid"/' src/udiskslinuxfilesystemhelpers.c
 
 	./configure \
         --prefix=/usr \
