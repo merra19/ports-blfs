@@ -6,7 +6,7 @@
 # depends	: libx11 xorg-legacy elogind xcb-util xcb-util-wm xterm
 
 pkgname=xlibre-xserver
-pkgver=25.0.0.9
+pkgver=25.0.0.11
 pkgrel=1
 source=(https://github.com/X11Libre/xserver/archive/refs/tags/$pkgname-$pkgver.tar.gz
         xvfb-run xvfb-run.1
