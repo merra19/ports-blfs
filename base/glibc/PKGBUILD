@@ -49,7 +49,7 @@ build() {
     unset LDFLAGS
     export LDFLAGS="-Wl,-z,max-page-size=0x1000 "
 
-    CC="gcc -m64 -ffile-prefix-map=/tools=/usr" \
+    CC="gcc -m64 " \
     "$srcdir"/glibc/configure \
         --prefix=/usr \
         --libdir=/usr/lib \
@@ -73,8 +73,8 @@ build() {
 
     cd "$srcdir"/lib32-glibc-build
 
-    CC="gcc -ffile-prefix-map=/tools=/usr -m32 -mstackrealign" \
-    CXX="g++ -ffile-prefix-map=/tools=/usr -m32 -mstackrealign" \
+    CC="gcc -m32 -mstackrealign" \
+    CXX="g++ -m32 -mstackrealign" \
     "$srcdir"/glibc/configure \
         --prefix=/usr \
         --libdir=/usr/lib32 \

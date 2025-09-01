@@ -10,9 +10,6 @@ source=(https://ftp.gnu.org/gnu/binutils/$pkgname-$pkgver.tar.xz)
 build() {
     cd $pkgname-$pkgver
 
-    # System-dependent
-    MACHINE="$(gcc -dumpmachine)"
-
     ./configure \
         --prefix=/usr \
         --libdir=/usr/lib \
@@ -20,8 +17,6 @@ build() {
         --with-lib-path=/usr/lib:/usr/lib32 \
         --enable-shared \
         --disable-static \
-        --target=$MACHINE \
-        --build=$MACHINE \
         --enable-targets=all \
         --enable-deterministic-archives \
         --enable-lto \
