@@ -7,13 +7,18 @@ pkgrel=1
 source=(https://github.com/fastfloat/fast_float/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
 
 build() {
-    cmake -B build -S $pkgname-$pkgver \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_INSTALL_PREFIX=/usr \
+    cd $pkgname-$pkgver
+    
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -G Ninja \
         -Wno-dev
-    cmake --build build
+    ninja -C build
 }
 
 package() {
-    DESTDIR="$pkgdir" cmake --install build
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja install -C build
 }

@@ -1,5 +1,5 @@
 # description	: WS-Discovery client library based on KDSoap
-# depends	: qt6-base boost kdsoap
+# depends	: qt6-base boost kdsoap cmake
 
 pkgname=kdsoap-ws-discovery-client
 pkgver=0.4.0

@@ -1,5 +1,5 @@
 # description	: KDE Plasma screen management
-# depends	: kcmutils kconfig kcoreaddons kdbusaddons ksvg
+# depends	: kcmutils kconfig kcoreaddons kdbusaddons ksvg cmake
 # depends	: kglobalaccel ki18n  kwindowsystem layer-shell-qt 
 # depends	: libkscreen libplasma libx11 libxcb libxi qt6-base 
 # depends	: qt6-declarative qt6-sensors

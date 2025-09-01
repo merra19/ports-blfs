@@ -1,5 +1,5 @@
 # description	: Small, safe and fast formatting library
-# depends	: glibc
+# depends	: glibc cmake
 
 pkgname=fmt
 pkgver=11.2.0

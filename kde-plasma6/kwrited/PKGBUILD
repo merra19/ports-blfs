@@ -1,5 +1,5 @@
 # description	: KDE Plasma daemon listening for wall and write messages
-# depends	: kcoreaddons kdbusaddons ki18n knotifications kpty 
+# depends	: kcoreaddons kdbusaddons ki18n knotifications kpty cmake
 # depends	: qt6-base kdoctools
 
 pkgname=kwrited

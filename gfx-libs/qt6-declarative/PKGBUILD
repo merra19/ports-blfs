@@ -1,6 +1,6 @@
 # description	: Qt Declarative (Quick 2)
 # depends	: qt6-base python3 vulkan-headers qt6-languageserver 
-# depends	: qt6-shadertools qt6-svg
+# depends	: qt6-shadertools qt6-svg cmake
 
 pkgname=qt6-declarative
 pkgver=6.9.1

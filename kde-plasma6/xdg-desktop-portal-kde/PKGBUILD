@@ -1,5 +1,5 @@
 # description	: A backend implementation for xdg-desktop-portal using Qt/KF5
-# depends	: kcoreaddons kconfig kglobalaccel kguiaddons ki18n 
+# depends	: kcoreaddons kconfig kglobalaccel kguiaddons ki18n cmake
 # depends	: kiconthemes kio kirigami knotifications kservice 
 # depends	: kstatusnotifieritem kwidgetsaddons kwindowsystem
 # depends	: kwayland plasma-workspace libxkbcommon wayland 

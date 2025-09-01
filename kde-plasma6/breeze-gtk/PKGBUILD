@@ -1,5 +1,5 @@
 # description	: Official GTK+ port of Plasma's Breeze widget style
-# depends	: breeze py3-cairo sassc
+# depends	: breeze py3-cairo sassc cmake
 
 pkgname=breeze-gtk
 pkgver=6.4.4

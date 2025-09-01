@@ -1,6 +1,6 @@
 # description	: Extra Plasma applets and engines
 # depends	: icu kauth kcmutils kconfig kcoreaddons kdeclarative 
-# depends	: kglobalaccel kholidays ki18n kio knewstuff ksvg
+# depends	: kglobalaccel kholidays ki18n kio knewstuff ksvg cmake
 # depends	: knotifications kpackage krunner kservice kxmlgui
 # depends	: kunitconversion kwidgetsaddons sonnet libplasma 
 # depends	: plasma5support purpose kirigami-addons kirigami 

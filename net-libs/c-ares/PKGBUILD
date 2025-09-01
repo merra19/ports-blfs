@@ -1,5 +1,5 @@
 # description	: C library that resolves names asynchronously
-# depends	: glibc
+# depends	: glibc cmake
 
 pkgname=c-ares
 pkgver=1.34.5

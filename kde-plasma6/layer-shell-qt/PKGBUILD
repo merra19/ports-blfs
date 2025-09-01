@@ -1,5 +1,5 @@
 # description	: Qt component to allow applications make use of Wayland wl-layer-shell protocol
-# depends	: wayland-protocols wayland qt6-base qt6-declarative 
+# depends	: wayland-protocols wayland qt6-base qt6-declarative cmake
 # depends	: qt6-wayland libxkbcommon
 
 pkgname=layer-shell-qt

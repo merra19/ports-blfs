@@ -1,5 +1,5 @@
 # description	: Qt bindings for pulseaudio
-# depends	: extra-cmake-modules qt6-base glib pulseaudio 
+# depends	: extra-cmake-modules qt6-base glib pulseaudio cmake
 
 pkgname=pulseaudio-qt
 pkgver=1.7.0

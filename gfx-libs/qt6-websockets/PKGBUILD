@@ -1,5 +1,5 @@
 # description	: Implementation of the WebSocket protocol for the Qt6 framework
-# depends	: qt6-base qt6-declarative
+# depends	: qt6-base qt6-declarative cmake
 
 pkgname=qt6-websockets
 pkgver=6.9.1

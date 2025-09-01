@@ -1,6 +1,6 @@
 # description	: Qt module containing the unsupported Qt 5 APIs
 # depends	: qt6-base qt6-declarative qt6-shadertools python3 
-# depends	: vulkan-headers 
+# depends	: vulkan-headers cmake
 
 pkgname=qt6-5compat
 pkgver=6.9.1

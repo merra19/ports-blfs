@@ -1,6 +1,6 @@
 # description	: Universal document viewer based on KDE Frameworks
 # depends	: libkexiv2 karchive kbookmarks kcolorscheme kcrash
-# depends	: kcompletion kconfig kconfigwidgets kcoreaddons 
+# depends	: kcompletion kconfig kconfigwidgets kcoreaddons cmake
 # depends	: ki18n kio kitemviews kparts kpty ktextwidgets 
 # depends	: kwidgetsaddons kwindowsystem kxmlgui threadweaver 
 # depends	: plasma-activities freetype libjpeg-turbo zlib kwallet 

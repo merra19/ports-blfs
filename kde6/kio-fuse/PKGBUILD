@@ -1,5 +1,5 @@
 # description	: FUSE interface for KIO
-# depends	: glibc fuse gcc kcoreaddons kio ki18n qt6-base
+# depends	: glibc fuse gcc kcoreaddons kio ki18n qt6-base cmake
 
 pkgname=kio-fuse
 pkgver=5.1.0

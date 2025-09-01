@@ -1,6 +1,6 @@
 # description	: JPEG XL image format reference implementation
 # depends	: brotli highway lcms2 glib gdk-pixbuf giflib libpng 
-# depends	: libjpeg-turbo shared-mime-info
+# depends	: libjpeg-turbo shared-mime-info cmake
 
 pkgname=libjxl
 pkgver=0.11.1

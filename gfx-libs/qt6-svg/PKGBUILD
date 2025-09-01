@@ -1,5 +1,5 @@
 # description	: SVG rendering library for the Qt6 framework
-# depends	: qt6-base python3 vulkan-headers
+# depends	: qt6-base python3 vulkan-headers cmake
 
 pkgname=qt6-svg
 pkgver=6.9.1

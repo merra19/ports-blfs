@@ -1,5 +1,5 @@
 # description	: Qt Tools Collection
-# depends	: qt6-base qt6-declarative python3 vulkan-headers 
+# depends	: qt6-base qt6-declarative python3 vulkan-headers cmake
 
 pkgname=qt6-tools
 pkgver=6.9.1

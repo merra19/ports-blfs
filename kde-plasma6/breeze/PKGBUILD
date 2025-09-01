@@ -1,6 +1,6 @@
 # description	: Breeze visual style for the Plasma desktop
 # depends	: breeze-icons frameworkintegration kcmutils kconfig 
-# depends	: kconfigwidgets kcoreaddons kguiaddons ki18n 
+# depends	: kconfigwidgets kcoreaddons kguiaddons ki18n cmake
 # depends	: kiconthemes kirigami kwidgetsaddons kwindowsystem 
 # depends	: kdecoration hicolor-icon-theme qt6-base qt6-declarative
 

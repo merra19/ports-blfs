@@ -1,5 +1,5 @@
 # description	: Application that queries the user for a selection for printing
-# depends	: xorg-proto libx11 libxext icu glm
+# depends	: xorg-proto libx11 libxext icu glm cmake
 
 pkgname=slop
 pkgver=7.7

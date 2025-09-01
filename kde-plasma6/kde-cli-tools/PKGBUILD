@@ -1,5 +1,5 @@
 # description	: Tools based on KDE Frameworks 6 to better interact with the system
-# depends	: kcmutils kcompletion kconfig kconfigwidgets kdesu
+# depends	: kcmutils kcompletion kconfig kconfigwidgets kdesu cmake
 # depends	: kcoreaddons ki18n kiconthemes kio kparts kservice 
 # depends	: kwidgetsaddons kwindowsystem kdoctools dbus qt6-base 
 # depends	: qt6-svg

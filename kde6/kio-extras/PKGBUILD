@@ -1,6 +1,6 @@
 # description	: KIO plugins present a filesystem-like view of arbitrary data
 # depends	: qcoro6 libkexiv2 karchive kcmutils kcodecs kconfig 
-# depends	: kconfigwidgets kcoreaddons kdbusaddons kdnssd 
+# depends	: kconfigwidgets kcoreaddons kdbusaddons kdnssd cmake
 # depends	: kguiaddons ki18n kio kparts kservice ktextwidgets 
 # depends	: kxmlgui solid syntax-highlighting plasma-activities 
 # depends	: plasma-activities-stats phonon libx11 libxcursor 

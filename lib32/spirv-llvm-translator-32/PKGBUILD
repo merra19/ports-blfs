@@ -1,5 +1,5 @@
 # description	: Bi-directional translator between SPIR-V and LLVM IR
-# depends	: llvm32 libxml2-32 spirv-tools-32 spirv-headers 
+# depends	: llvm32 libxml2-32 spirv-tools-32 spirv-headers cmake
 # depends	: spirv-llvm-translator
 
 pkgname=spirv-llvm-translator-32

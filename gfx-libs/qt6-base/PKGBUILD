@@ -5,7 +5,7 @@
 # depends	: xcb-util-cursor xcb-util-image xcb-util-keysyms 
 # depends	: xcb-util-renderutil xcb-util-wm at-spi2-core mesa mtdev 
 # depends	: libinput libglvnd cups gdk-pixbuf gtk3 pango sqlite 
-# depends	: xorg-proto vulkan-headers
+# depends	: xorg-proto vulkan-headers cmake
 
 pkgname=qt6-base
 pkgver=6.9.1

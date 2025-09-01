@@ -1,5 +1,5 @@
 # description	: Collection of tools, libraries and tests for shader compilation
-# depends	: spirv-headers spirv-tools glslang
+# depends	: spirv-headers spirv-tools glslang cmake
 
 pkgname=shaderc
 pkgver=2025.3

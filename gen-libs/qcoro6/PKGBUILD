@@ -1,5 +1,5 @@
 # description	: uncompile an rgb color-name database
-# depends	: qt6-base qt6-websockets qt6-declarative
+# depends	: qt6-base qt6-websockets qt6-declarative cmake
 
 pkgname=qcoro6
 _pkgname=qcoro

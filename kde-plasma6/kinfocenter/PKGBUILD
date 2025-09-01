@@ -1,5 +1,5 @@
 # description	: Utility providing information about the computer hardware
-# depends	: kauth kcmutils kconfig kcoreaddons ki18n kio 
+# depends	: kauth kcmutils kconfig kcoreaddons ki18n kio cmake
 # depends	: kservice solid mesa kdoctools qt6-base kirigami
 # depends	: qt6-declarative systemsettings libusb
 

@@ -1,5 +1,5 @@
 # description	: Plasma crash handler, gives the user feedback if a program crashed
-# depends	: kconfig kcoreaddons kcrash ki18n kidletime kio 
+# depends	: kconfig kcoreaddons kcrash ki18n kidletime kio cmake
 # depends	: kjobwidgets knotifications kstatusnotifieritem 
 # depends	: kwallet kwidgetsaddons kwindowsystem kirigami
 # depends	: syntax-highlighting kitemmodels qt6-base qt6-declarative

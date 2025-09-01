@@ -1,6 +1,6 @@
 # description	: Daemon providing Global Keyboard Shortcut (Accelerator) functionality
 # depends	: kconfig kcoreaddons kcrash kdbusaddons kglobalaccel 
-# depends	: kio kjobwidgets knotifications kservice libxcb
+# depends	: kio kjobwidgets knotifications kservice libxcb cmake
 # depends	: kwindowsystem qt6-base xcb-util-keysyms
 
 pkgname=kglobalacceld

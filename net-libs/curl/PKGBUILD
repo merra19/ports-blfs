@@ -1,5 +1,5 @@
 # description	: A Client that groks URL
-# depends	: p11-kit openssl zlib zstd perl nghttp2 libpsl c-ares 
+# depends	: p11-kit openssl zlib zstd perl nghttp2 libpsl
 # depends	: dbus libidn2
 # optional	: krb5!!openldap
 
@@ -12,12 +12,13 @@ source=(https://curl.se/download/$pkgname-$pkgver.tar.xz)
 build() {
     cd $pkgname-$pkgver
 
-    scratch isinstalled openldap && OPT_LDAP='--with-gssapi' ||  OPT_LDAP='--disable-ldap'
+    scratch isinstalled openldap && OPT_CURL='--with-gssapi' ||  OPT_CURL='--disable-ldap'
+    scratch isinstalled c-ares && OPT_CURL+=' --enable-ares' ||  OPT_CURL+=' --disable-ares'
+
 
     ./configure \
         --prefix=/usr \
         --disable-static \
-		--enable-ares \
 		--enable-ipv6 \
 		--with-libidn2 \
 		--with-nghttp2 \
@@ -26,7 +27,7 @@ build() {
 		--with-fish-functions-dir \
 		--with-pic \
         --with-ca-path=/etc/ssl/certs \
-        $OPT_LDAP
+        $OPT_CURL
     make
 }
 

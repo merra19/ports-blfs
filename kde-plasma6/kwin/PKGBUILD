@@ -1,6 +1,6 @@
 # description	: Flexible, composited Window Manager for windowing systems on Linux
 # depends	: libinput wayland qt6-base qt6-declarative qt6-5compat
-# depends	: qt6-sensors qt6-wayland qt6-multimedia libei kauth 
+# depends	: qt6-sensors qt6-wayland qt6-multimedia libei kauth cmake
 # depends	: kcmutils kcolorscheme kconfig kconfigwidgets kcrash
 # depends	: kcoreaddons kdbusaddons kdeclarative kglobalaccel 
 # depends	: kguiaddons ki18n kidletime knewstuff knotifications

@@ -1,5 +1,5 @@
 # description	: Binary-decimal and decimal-binary conversion routines for IEEE doubles
-# depends	: glibc
+# depends	: glibc cmake
 
 pkgname=double-conversion
 pkgver=3.3.1

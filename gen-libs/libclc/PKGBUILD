@@ -1,5 +1,5 @@
 # description	: OpenCL C library
-# depends	: spirv-llvm-translator llvm
+# depends	: spirv-llvm-translator llvm cmake
 
 pkgname=libclc
 pkgver=20.1.8

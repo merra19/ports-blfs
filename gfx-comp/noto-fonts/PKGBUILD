@@ -2,15 +2,15 @@
 # depends	: fontconfig noto-fonts-cjk
 
 pkgname=noto-fonts
-pkgver=2024.11.01
+pkgver=20250801
 pkgrel=1
-options=(!lto)
-source=(https://github.com/notofonts/notofonts.github.io/archive/refs/tags/noto-monthly-release-$pkgver.tar.gz
+commit=24e93e695ddc0e7a150899aaf2671609459cd52f
+source=($pkgname-$pkgver.tar.gz::https://github.com/notofonts/notofonts.github.io/archive/$commit.tar.gz
         66-noto-sans.conf 66-noto-serif.conf 66-noto-mono.conf
         46-noto-sans.conf 46-noto-serif.conf 46-noto-mono.conf)
 
 package() {
-    cd notofonts.github.io-noto-monthly-release-$pkgver
+    cd notofonts.github.io-$commit
 
     install -Dm644 fonts/*/hinted/ttf/*.tt[fc] -t "$pkgdir"/usr/share/fonts/noto
     install -Dm644 fonts/*/hinted/ttf/*-Condensed*.tt[fc] fonts/*/hinted/ttf/*-Semi*.tt[fc] fonts/*/hinted/ttf/*-Extra*.tt[fc] -t "$pkgdir"/usr/share/fonts/noto

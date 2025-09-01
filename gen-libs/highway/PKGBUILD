@@ -1,5 +1,5 @@
 # description	: High performance source code search tool
-# depends	: meson
+# depends	: meson cmake
 
 pkgname=highway
 pkgver=1.3.0

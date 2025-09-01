@@ -1,5 +1,5 @@
 # description	: Digital camera raw image library wrapper
-# depends	: libraw extra-cmake-modules qt6-base
+# depends	: libraw extra-cmake-modules qt6-base cmake
 
 pkgname=libkdcraw
 pkgver=25.08.0

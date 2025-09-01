@@ -2,10 +2,12 @@
 # depends	: fontconfig
 
 pkgname=ttf-linux-libertine
-pkgver=5.3.0
+pkgver=5.3.0.20120702
 pkgrel=1
-source=(https://sourceforge.net/projects/linuxlibertine/files/linuxlibertine/$pkgver/LinLibertineTTF_5.3.0_2012_07_02.tgz
-		https://sourceforge.net/projects/linuxlibertine/files/linuxlibertine/$pkgver/LinLibertineOTF_5.3.0_2012_07_02.tgz)
+date="${pkgver##*.}"
+_pkgver="${pkgver%.*}_${date:0:4}_${date:4:2}_${date:6:2}"
+source=(https://sourceforge.net/projects/linuxlibertine/files/linuxlibertine/$pkgver/LinLibertineTTF_$_pkgver.tgz
+		https://sourceforge.net/projects/linuxlibertine/files/linuxlibertine/$pkgver/LinLibertineOTF_$_pkgver.tgz)
 
 package() {
 	mkdir -p "$pkgdir"/usr/share/fonts/TTF "$pkgdir"/usr/share/fonts/OTF

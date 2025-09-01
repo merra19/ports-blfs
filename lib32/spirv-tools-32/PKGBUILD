@@ -1,5 +1,5 @@
 # description	: Provides an API and commands for processing SPIR-V modules
-# depends	: spirv-headers vulkan-loader-32 spirv-tools
+# depends	: spirv-headers vulkan-loader-32 spirv-tools cmake
 
 pkgname=spirv-tools-32
 pkgver=1.4.321.0

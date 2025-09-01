@@ -1,6 +1,6 @@
 # description	: Screen gamma values kcontrol module
 # depends	: kcmutils kconfig kconfigwidgets kcoreaddons ki18n 
-# depends	: qt6-base libx11 libxxf86vm xorg-proto kdoctools
+# depends	: qt6-base libx11 libxxf86vm xorg-proto kdoctools cmake
 
 pkgname=kgamma
 pkgver=6.4.4

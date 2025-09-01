@@ -1,5 +1,5 @@
 # description	: Image viewer by KDE
-# depends	: wayland kcompletion kconfig kconfigwidgets 
+# depends	: wayland kcompletion kconfig kconfigwidgets cmake
 # depends	: kcoreaddons kguiaddons ki18n kiconthemes kio 
 # depends	: kitemmodels kitemviews kjobwidgets knotifications 
 # depends	: kparts kservice kwidgetsaddons kxmlgui solid exiv2 

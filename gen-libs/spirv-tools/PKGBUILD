@@ -1,5 +1,5 @@
 # description	: Provides an API and commands for processing SPIR-V modules
-# depends	: spirv-headers
+# depends	: spirv-headers cmake
 
 pkgname=spirv-tools
 pkgver=1.4.321.0

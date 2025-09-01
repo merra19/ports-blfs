@@ -1,5 +1,5 @@
 # description	: Add-ons for the Kirigami framework
-# depends	: extra-cmake-modules ki18n kirigami qt6-base 
+# depends	: extra-cmake-modules ki18n kirigami qt6-base cmake
 # depends	: qt6-declarative sound-theme-freedesktop
 
 pkgname=kirigami-addons

@@ -1,5 +1,5 @@
 # description	: Translation files for the Qt6 framework
-# depends	: qt6-base qt6-tools 
+# depends	: qt6-base qt6-tools cmake
 
 pkgname=qt6-translations
 pkgver=6.9.1

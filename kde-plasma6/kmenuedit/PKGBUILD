@@ -2,7 +2,7 @@
 # depends	: hicolor-icon-theme kcompletion kconfig kconfigwidgets 
 # depends	: kcoreaddons kdbusaddons kglobalaccel ki18n kxmlgui
 # depends	: kiconthemes kitemviews kio  kservice kwidgetsaddons 
-# depends	: kwindowsystem sonnet qt6-base kdoctools
+# depends	: kwindowsystem sonnet qt6-base kdoctools cmake
 
 pkgname=kmenuedit
 pkgver=6.4.4

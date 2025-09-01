@@ -1,5 +1,5 @@
 # description	: Dedicated search application built on top of Baloo
-# depends	: kconfig ki18n krunner ksvg libplasma qt6-base 
+# depends	: kconfig ki18n krunner ksvg libplasma qt6-base cmake
 # depends	: qt6-declarative kdoctools
 
 pkgname=milou

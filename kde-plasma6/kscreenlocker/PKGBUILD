@@ -1,6 +1,6 @@
 # description	: Library and components for secure lock screen architecture
 # depends	: glibc kcmutils kconfig kconfigwidgets kcoreaddons 
-# depends	: kcrash kglobalaccel  ki18n kidletime kio ksvg
+# depends	: kcrash kglobalaccel  ki18n kidletime kio ksvg cmake
 # depends	: knotifications kwindowsystem solid layer-shell-qt 
 # depends	: libplasma libkscreen kdoctools kirigami pam libx11 
 # depends	: libxcb libxi qt6-base qt6-declarative xcb-util-keysyms

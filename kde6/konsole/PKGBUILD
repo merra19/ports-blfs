@@ -1,5 +1,5 @@
 # description	: KDE's terminal emulator
-# depends	: icu kbookmarks kconfig kconfigwidgets kcoreaddons 
+# depends	: icu kbookmarks kconfig kconfigwidgets kcoreaddons cmake
 # depends	: kcrash kdbusaddons kglobalaccel kguiaddons ki18n 
 # depends	: kiconthemes kio kjobwidgets knewstuff kservice
 # depends	: knotifications knotifyconfig kparts kpty kxmlgui

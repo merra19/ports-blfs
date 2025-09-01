@@ -1,5 +1,5 @@
 # description	:  Serial port abstraction library for the Qt6 framework
-# depends	: qt6-base udev
+# depends	: qt6-base udev cmake
 
 pkgname=qt6-serialport
 pkgver=6.9.1

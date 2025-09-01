@@ -1,5 +1,5 @@
 # description	: Plasma Specific Protocols for Wayland
-# depends	: extra-cmake-modules qt6-base pcre2
+# depends	: extra-cmake-modules qt6-base pcre2 cmake
 
 pkgname=plasma-wayland-protocols
 pkgver=1.18.0

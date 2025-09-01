@@ -1,5 +1,5 @@
 # description	: Plugin based library to create window decorations
-# depends	: ki18n qt6-base
+# depends	: ki18n qt6-base cmake
 
 pkgname=kdecoration
 pkgver=6.4.4

@@ -5,7 +5,8 @@ pkg_postinst() {
 
     echo "rebuild gnutls pam elogind udev"
     echo "to have gnutls with brotli , rebuild gnutls"
-    echo "scratch -I -y -f -r gnutls pam elogind udev"
+    echo "to have curl with c-ares , build c-ares andd rebuild curl"
+    echo "scratch -I -y -f  c-ares && scratch -I -y -f -r curl gnutls pam elogind udev"
     exit 1
 }
 

@@ -2,7 +2,7 @@
 # depends	: bluez-qt kcmutils kconfig kcoreaddons kdbusaddons 
 # depends	: ki18n kio kjobwidgets knotifications kservice ksvg 
 # depends	: kwidgetsaddons kwindowsystem libplasma kirigami 
-# depends	: kdoctools qt6-base qt6-declarative
+# depends	: kdoctools qt6-base qt6-declarative cmake
 
 pkgname=bluedevil
 pkgver=6.4.4

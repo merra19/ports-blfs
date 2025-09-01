@@ -1,5 +1,5 @@
 # description	: Linker from the LLVM project
-# depends	: llvm
+# depends	: llvm cmake
 
 pkgname=lld
 pkgver=20.1.8
