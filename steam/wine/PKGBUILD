@@ -9,7 +9,7 @@
 ### libgphoto2
 
 pkgname=wine
-pkgver=10.13
+pkgver=10.14
 pkgrel=1
 options=(!lto !strip)
 source=(https://dl.winehq.org/wine/source/10.x/$pkgname-$pkgver.tar.xz)

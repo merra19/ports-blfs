@@ -1,6 +1,6 @@
 # description	: GNU debugger
 # depends	: bash expat gcc glibc libgmp elfutils xz libmpfr ncurses
-# depends	: readline zstd python3 boost texinfo py-six zlib bison
+# depends	: readline zstd python3 boost texinfo py3-six zlib bison
 
 pkgname=gdb
 pkgver=16.3

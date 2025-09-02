@@ -20,4 +20,7 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    # remove broken symlink
+    find "$pkgdir"/usr/share/icons/ -xtype l -delete
 }
