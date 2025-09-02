@@ -2,7 +2,7 @@
 # depends	: perl perl-business-isbn-data
 
 pkgname=perl-business-isbn
-pkgver=3.011
+pkgver=3.012
 pkgrel=1
 source=(https://www.cpan.org/authors/id/B/BR/BRIANDFOY/Business-ISBN-$pkgver.tar.gz)
 
