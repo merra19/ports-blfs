@@ -1,7 +1,7 @@
 # description	: Alternate application launcher for Xfce
 # depends	: accountsservice garcon gtk-layer-shell gtk3 meson ninja
 # depends	: xfce4-panel
-### mugshot
+# todo      : mugshot
 
 pkgname=xfce4-whiskermenu-plugin
 pkgver=2.10.0

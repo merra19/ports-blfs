@@ -13,10 +13,10 @@
 # depends	: oxygen-icons plasma-pa drkonqi oxygen-sounds ark 
 # depends	: gwenview dolphin konsole kate okular plasma-disks
 # depends	: dolphin-plugins aurorae
-# optional	: colord cups!!print-manager discover!!discover 
-# optional	: flatpak!!flatpak-kcm gtk!!breeze-gtk 
-# optional	: gtk!!kde-gtk-config gtk!!xdg-desktop-portal-gtk 
+# optional	: colord cups!!print-manager gtk!!xdg-desktop-portal-gtk
+# optional	: gtk!!breeze-gtk discover!!discover gtk!!kde-gtk-config
 # optional	: networkmanager networkmanager!!plasma-nm
+# todo      : flatpak-kcm
 
 pkgname=kde
 pkgver=6.0.0

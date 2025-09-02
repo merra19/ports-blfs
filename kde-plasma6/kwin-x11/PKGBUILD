@@ -11,7 +11,7 @@
 # depends	: kscreenlocker kglobalacceld kirigami kitemmodels
 # depends	: libplasma plasma-wayland-protocols wayland-protocols
 # depends	: xorg-proto
-# optional  : accessibility!!libqaccessibilityclient-qt6
+# todo      : libqaccessibilityclient-qt6
 
 pkgname=kwin-x11
 pkgver=6.4.4

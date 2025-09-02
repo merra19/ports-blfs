@@ -2,7 +2,7 @@
 # depends	: kcmutils kconfig kconfigwidgets kcoreaddons kio
 # depends	: kdbusaddons ki18n kiconthemes kirigami libplasma
 # depends	: knotifications kservice kwindowsystem cups
-# optional	: gtk!!system-config-printer
+# todo      : system-config-printer
 
 pkgname=print-manager
 pkgver=6.4.4

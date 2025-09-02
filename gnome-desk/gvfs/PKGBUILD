@@ -3,7 +3,8 @@
 # depends	: libarchive libgudev udev fuse udisks2 openssh libxslt
 # depends	: libgcrypt libusb libsecret libxml2 elogind avahi
 # optional	: cdda!!libcdio cdda!!libcdio-paranoia http!!libsoup3
-# optional	: mtp!!libmtp google!!libgdata
+# optional	: google!!libgdata
+# todo      : libmtp
 
 pkgname=gvfs
 pkgver=1.56.1

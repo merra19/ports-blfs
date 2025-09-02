@@ -2,8 +2,7 @@
 # depends	: libpaper fontconfig freetype lcms2 libpng libjpeg-turbo 
 # depends	: openjpeg2 libtiff zlib dbus libxext  libxt 
 # depends	: libidn cups
-
-### poppler 
+# todo      : poppler 
 
 pkgname=ghostscript
 pkgver=10.05.1

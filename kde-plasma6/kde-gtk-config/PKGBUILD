@@ -1,7 +1,8 @@
 # description	: Syncs KDE Plasma theme settings to GTK applications
 # depends	: glib gsettings-desktop-schemas kcolorscheme kconfig 
 # depends	: kcoreaddons kdbusaddons kguiaddons kwindowsystem cmake
-# depends	: gtk3 sassc qt6-base qt6-svg xsettingsd
+# depends	: gtk3 sassc qt6-base qt6-svg
+# todo      : xsettingsd
 
 pkgname=kde-gtk-config
 pkgver=6.4.4

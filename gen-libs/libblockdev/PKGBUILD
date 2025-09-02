@@ -1,8 +1,8 @@
 # description	: A library for manipulating block devices
 # depends	:  gobject-introspection libbytesize libnvme parted  
 # depends	: libyaml cryptsetup glib gptfdisk kmod util-linux   
-# depends	: lvm2 udev py3-gobject3 keyutils json-glib
-# optional	: escrow!!nss escrow!!volume_key 
+# depends	: lvm2 udev py3-gobject3 keyutils json-glib smartmontools
+# todo      : escrow!!nss escrow!!volume_key 
 
 pkgname=libblockdev
 pkgver=3.3.1
@@ -20,7 +20,8 @@ build() {
 		--without-escrow \
 		--without-gtk-doc \
 		--without-nvdimm \
-		--without-tools
+		--with-tools \
+		--with-smartmontools
 	make
 }
 

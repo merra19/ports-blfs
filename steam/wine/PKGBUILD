@@ -6,7 +6,7 @@
 # depends	: libxxf86vm mingw-w64-gcc opencl-headers opencl-loader
 # depends	: pcsclite perl sdl2 v4l-utils vulkan-loader 
 # depends	: mingw-w64-winpthreads
-### libgphoto2
+# todo      : libgphoto2
 
 pkgname=wine
 pkgver=10.14

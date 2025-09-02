@@ -1,6 +1,6 @@
 # description	: A lossy image compression format
-# depends	: ninja libjpeg-turbo libpng giflib 
-### freeglut mesa
+# depends	: ninja libjpeg-turbo libpng giflib
+# todo      : freeglut mesa
 
 pkgname=libwebp
 pkgver=1.6.0
