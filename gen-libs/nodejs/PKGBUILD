@@ -3,7 +3,7 @@
 # depends	: coreutils meson
 
 pkgname=nodejs
-pkgver=22.18.0
+pkgver=22.19.0
 pkgrel=1
 options=(!lto)
 source=(https://nodejs.org/dist/v$pkgver/node-v$pkgver.tar.xz)

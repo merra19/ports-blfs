@@ -1,14 +1,15 @@
 # description	: C library for encoding data in a QR Code symbol
 # depends	: libpng
 
-pkgname=qrencode
+pkgname=libqrencode
 pkgver=4.1.1
 pkgrel=1
-source=(https://fukuchi.org/works/$pkgname/$pkgname-$pkgver.tar.bz2)
+source=(https://github.com/fukuchi/libqrencode/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
 
 build() {
 	cd $pkgname-$pkgver
 	
+    sh autogen.sh  
 	./configure \
         --prefix=/usr
 	make

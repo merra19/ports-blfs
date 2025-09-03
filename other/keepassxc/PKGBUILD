@@ -1,6 +1,6 @@
 # description	: KeePassXC - KeePass Cross-platform Community Editio
-# depends	: glibc argon2 botan qt5 qrencode zlib zlib-minizip cmake
-# depends	: hicolor-icon-theme libusb pcsclite asciidoctor
+# depends	: glibc argon2 botan qt5 libqrencode zlib zlib-minizip
+# depends	: hicolor-icon-theme libusb pcsclite asciidoctor cmake
 
 pkgname=keepassxc
 pkgver=2.7.10

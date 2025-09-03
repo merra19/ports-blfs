@@ -1,6 +1,6 @@
 # description	: QRCode and data matrix barcode library
 # depends	: qt6-base qt6-tools qt6-declarative qt6-multimedia 
-# depends	: extra-cmake-modules libdmtx qrencode zxing-cpp
+# depends	: extra-cmake-modules libdmtx libqrencode zxing-cpp
 
 pkgname=prison
 pkgver=6.17.0
