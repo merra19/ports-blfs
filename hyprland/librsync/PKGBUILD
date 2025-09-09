@@ -14,5 +14,5 @@ build() {
         -D CMAKE_BUILD_TYPE=Release \
         -D CMAKE_INSTALL_LIBDIR=lib
 	make -C build
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install -C build
 }

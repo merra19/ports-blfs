@@ -25,7 +25,7 @@ build() {
 		-D CMAKE_CXX_FLAGS_RELEASE="$CXXFLAGS -m32" \
         -D LLVM_CONFIG="/usr/bin/llvm-config" 
     make -C build32
-    make DESTDIR="$PWD/dest" -C build32 install
+    make DESTDIR="$PWD/dest" install -C build32
 
     rm -r dest/usr/{bin,include}
     cp -R dest/* "$pkgdir"/

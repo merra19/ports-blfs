@@ -40,7 +40,7 @@ build() {
         -D TOKUDB_OK=0 \
         -W no-dev
     make -C build
-    make -j1 DESTDIR="$pkgdir" -C build install
+    make -j1 DESTDIR="$pkgdir" install -C build
 
     install -v -dm 755 "$pkgdir"/etc/mariadb
     install -Dm644 "$srcdir"/my.cnf "$pkgdir"/etc/mariadb/my.cnf

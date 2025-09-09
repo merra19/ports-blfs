@@ -20,5 +20,5 @@ build() {
         -D QT6=ON \
         -D WITH_ossl_PLUGIN=OFF
     make -C build 
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install -C build
 }

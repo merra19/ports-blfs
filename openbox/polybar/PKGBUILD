@@ -29,5 +29,5 @@ build() {
 		-D ENABLE_CCACHE=OFF \
 		-D CMAKE_INSTALL_SYSCONFDIR="/etc/"
 	make -C build
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install -C build
 }

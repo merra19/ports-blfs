@@ -15,7 +15,7 @@ build() {
         -D gtk_doc=false \
         build
 	ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 
     # conflict bash-completion
     rm -rf "$pkgdir"/usr/share/bash-completion/completions/secret-tool

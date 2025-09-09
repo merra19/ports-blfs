@@ -18,7 +18,7 @@ build() {
         --buildtype=plain \
         build
     ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
     chmod u+s "$pkgdir"/usr/bin/fusermount3 &&
 
     mkdir -p "$pkgdir"/usr/share/doc/fuse-$pkgver

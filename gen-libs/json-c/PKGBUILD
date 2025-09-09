@@ -18,5 +18,5 @@ build() {
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_STATIC_LIBS=OFF
     make -C build 
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install -C build
 }

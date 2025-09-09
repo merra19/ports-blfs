@@ -15,7 +15,7 @@ build() {
         -D wallpaper=disabled \
         build
     ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 
     rm -rf "$pkgdir"/usr/lib/systemd
 }

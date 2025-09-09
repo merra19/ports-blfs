@@ -16,6 +16,6 @@ build() {
         -D ENABLE_DOCS=no \
         -G Ninja
     ninja -C aom-build
-    DESTDIR="$pkgdir" ninja -C aom-build  install
+    DESTDIR="$pkgdir" ninja install -C aom-build
     rm -v "$pkgdir"/usr/lib/libaom.a
 }

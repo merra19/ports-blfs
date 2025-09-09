@@ -26,7 +26,7 @@ build() {
         build
     sed "/WF_SRC_DIR/d" -i build/config.h
 	ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 
     install -Dm 0755 "$srcdir"/wayfire-session "$pkgdir"/usr/share/wayland-sessions/wayfire-session
     install -Dm 0644 "$srcdir"/wayfire-session.desktop "$pkgdir"/usr/share/wayland-sessions/wayfire.desktop

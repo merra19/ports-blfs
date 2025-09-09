@@ -15,5 +15,5 @@ build() {
         -D BUILD_SHARED_LIBS=ON \
         -D FMT_TEST=OFF 
     ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 }

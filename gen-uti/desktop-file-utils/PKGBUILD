@@ -15,7 +15,7 @@ build() {
         --buildtype=plain \
         build
 	ninja -C build
-	DESTDIR="$pkgdir" ninja -C build install
+	DESTDIR="$pkgdir" ninja install -C build
 	install -vdm755 "$pkgdir"/usr/share/applications
 
 	install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks

@@ -23,7 +23,7 @@ build() {
         -D cairo-tests=disabled \
         build32
 	ninja -C build32
-    DESTDIR="$PWD"/DESTDIR ninja -C build32 install
+    DESTDIR="$PWD"/DESTDIR ninja install -C build32
     mkdir -p "$pkgdir"/usr/lib32
     cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
 }

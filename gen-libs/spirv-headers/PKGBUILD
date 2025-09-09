@@ -13,5 +13,5 @@ build() {
     cmake -B build -G Ninja \
          -D CMAKE_INSTALL_PREFIX=/usr
     ninja -C build
-    DESTDIR="$pkgdir" ninja install
+    DESTDIR="$pkgdir" ninja install -C build
 }

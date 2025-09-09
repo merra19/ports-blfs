@@ -16,5 +16,5 @@ build() {
 		-D sd-bus-provider=libelogind \
 		"$pkgname-$pkgver" build
 	ninja -C build
-	DESTDIR="$pkgdir" ninja -C build install
+	DESTDIR="$pkgdir" ninja install -C build
 }

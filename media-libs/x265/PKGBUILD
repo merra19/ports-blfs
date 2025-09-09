@@ -18,6 +18,6 @@ build() {
         -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
 		-Wno-dev source
 	make -C bld
-	make DESTDIR="$pkgdir" -C bld install &&
+	make DESTDIR="$pkgdir" install -C bld &&
 	rm -vf "$pkgdir"/usr/lib/libx265.a
 }

@@ -29,7 +29,7 @@ build() {
 
     mkdir -p "$pkgdir"/etc/pam.d
 
-	make DESTDIR="$pkgdir" -C build install
+	make DESTDIR="$pkgdir" install -C build
     
     install -v -dm755 -o sddm -g sddm "$pkgdir"/var/lib/sddm
     "$pkgdir"/usr/bin/sddm --example-config > "$pkgdir"/etc/sddm.conf

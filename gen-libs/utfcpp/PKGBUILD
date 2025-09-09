@@ -11,5 +11,5 @@ build() {
 
     cmake -B build \
          -D CMAKE_INSTALL_PREFIX=/usr
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install -C build
 }

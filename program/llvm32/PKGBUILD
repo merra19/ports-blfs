@@ -79,7 +79,7 @@ build() {
         -D CLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang \
         -W no-dev -G Ninja
     ninja -C build
-    DESTDIR=$PWD/DESTDIR ninja -C build install
+    DESTDIR=$PWD/DESTDIR ninja install -C build
 
     mkdir -p "$pkgdir"/usr/lib32 "$pkgdir"/usr/bin/ "$pkgdir"/usr/include/llvm/Config
     cp -vr DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32

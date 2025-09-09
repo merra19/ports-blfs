@@ -16,5 +16,5 @@ build() {
         -D SLOP_UNICODE=ON \
         -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     make -C build
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install -C build
 }

@@ -22,5 +22,5 @@ build() {
         -D demos=false \
         build
 	ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 }

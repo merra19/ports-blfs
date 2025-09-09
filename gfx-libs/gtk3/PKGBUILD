@@ -23,7 +23,7 @@ build() {
         -D cloudproviders=true \
         build
 	ninja -C build
-	DESTDIR="$pkgdir" ninja -C build install
+	DESTDIR="$pkgdir" ninja install -C build
 
     install -Dm 644 "$srcdir"/settings.ini "$pkgdir"/etc/gtk-3.0/settings.ini
 

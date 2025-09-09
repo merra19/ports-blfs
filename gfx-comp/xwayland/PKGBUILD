@@ -21,7 +21,7 @@ build() {
         -D xkb_output_dir=/var/lib/xkb \
         build
 	ninja -C build
-	DESTDIR="$pkgdir" ninja -C build install
+	DESTDIR="$pkgdir" ninja install -C build
 
     # conflict xorg-server
     rm -f "$pkgdir"/usr/lib/xorg/protocol.txt

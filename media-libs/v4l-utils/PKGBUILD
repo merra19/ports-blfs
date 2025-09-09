@@ -17,7 +17,7 @@ build() {
         -D doxygen-doc=disabled \
         build
 	ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 
     for prog in v4l2gl v4l2grab; do
         cp -v build/contrib/test/$prog "$pkgdir"/usr/bin

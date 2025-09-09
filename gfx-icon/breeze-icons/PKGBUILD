@@ -14,7 +14,7 @@ build() {
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build 
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install -C build
 
     # remove broken symlink
     find "$pkgdir"/usr/share/icons/ -xtype l -delete

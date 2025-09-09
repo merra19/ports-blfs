@@ -19,5 +19,5 @@ build() {
         -D modem-gps-source=true \
         build
 	ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 }

@@ -21,5 +21,5 @@ build() {
 		-D SPIRV-Headers_SOURCE_DIR=/usr \
         -Wno-dev
     ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 }

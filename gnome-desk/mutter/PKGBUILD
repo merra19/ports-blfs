@@ -22,5 +22,5 @@ build() {
         -D bash_completion=false \
         build
 	ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 }

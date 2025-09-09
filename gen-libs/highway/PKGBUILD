@@ -16,5 +16,5 @@ build() {
         -D BUILD_SHARED_LIBS=ON \
         -G Ninja 
     ninja -C build
-	DESTDIR="$pkgdir" ninja -C build install
+	DESTDIR="$pkgdir" ninja install -C build
 }

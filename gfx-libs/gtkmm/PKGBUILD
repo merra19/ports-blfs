@@ -14,5 +14,5 @@ build() {
         --buildtype=plain \
         gtkmm4-build
 	ninja -C gtkmm4-build
-    DESTDIR="$pkgdir" ninja -C gtkmm4-build install
+    DESTDIR="$pkgdir" ninja install -C gtkmm4-build
 }

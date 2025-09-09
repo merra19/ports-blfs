@@ -16,5 +16,5 @@ build() {
         -D CMAKE_BUILD_TYPE=None \
         -D CMAKE_INSTALL_MANDIR=/usr/share/man
 	make -C build
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install -C build
 }

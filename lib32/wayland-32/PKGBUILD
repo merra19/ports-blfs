@@ -21,7 +21,7 @@ build() {
         -D documentation=false \
         build32
 	ninja -C build32
-    DESTDIR="$PWD"/DESTDIR ninja -C build32 install
+    DESTDIR="$PWD"/DESTDIR ninja install -C build32
     rm -fr DESTDIR/usr/{bin,share,include}
     cp -Rv DESTDIR/* "$pkgdir"/
 }

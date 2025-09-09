@@ -25,7 +25,7 @@ build() {
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_STATIC_LIBS=OFF
     make -C build32
-    make DESTDIR=$PWD/DESTDIR -C build32 install
+    make DESTDIR=$PWD/DESTDIR install -C build32
     mkdir -p "$pkgdir"/usr/lib32
     cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
 }

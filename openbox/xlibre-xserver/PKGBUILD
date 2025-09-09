@@ -33,7 +33,7 @@ build() {
         -D xkb_output_dir=/var/lib/xkb \
         build
 	ninja -C build
-	DESTDIR="$pkgdir" ninja -C build install
+	DESTDIR="$pkgdir" ninja install -C build
 
     chmod u+s "$pkgdir"/usr/bin/Xorg   
 

@@ -17,5 +17,5 @@ build() {
         -D BUILD_TESTING=OFF \
         -D QT_MAJOR_VERSION=6 \
         -Wno-dev
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install -C build
 }

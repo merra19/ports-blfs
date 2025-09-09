@@ -15,5 +15,5 @@ build() {
         -D ZXING_EXAMPLES=OFF \
         -W no-dev
     make -C out
-	make DESTDIR="$pkgdir" -C out install
+	make DESTDIR="$pkgdir" install -C out
 }

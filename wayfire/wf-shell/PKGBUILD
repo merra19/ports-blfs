@@ -18,7 +18,7 @@ build() {
         -D wayland-logout=false \
         build
 	ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 
     install -Dm644 wf-shell.ini.example "$pkgdir"/usr/share/doc/wf-shell/wf-shell.ini.example
 }

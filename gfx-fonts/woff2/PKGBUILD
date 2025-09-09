@@ -18,5 +18,5 @@ build() {
         -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
         -D CMAKE_SKIP_INSTALL_RPATH=ON
     make -C out
-	make DESTDIR="$pkgdir" -C out install
+	make DESTDIR="$pkgdir" install -C out
 }

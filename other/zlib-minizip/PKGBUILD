@@ -32,7 +32,7 @@ build() {
         --prefix=/usr \
         --enable-static=no
     make
-    make DESTDIR="$pkgdir" -C contrib/minizip install
+    make DESTDIR="$pkgdir" install -C contrib/minizip
 
     rm "$pkgdir/usr/include/minizip/crypt.h"
 }

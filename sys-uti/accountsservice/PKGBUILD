@@ -35,7 +35,7 @@ build() {
         -D systemdsystemunitdir=no \
         build
 	ninja -C build
-	DESTDIR="$pkgdir" ninja -C build install
+	DESTDIR="$pkgdir" ninja install -C build
 
 	install -Dm 644  "$srcdir"/40-adm.rules   "$pkgdir"/etc/polkit-1/rules.d/40-adm.rules
 }

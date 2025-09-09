@@ -32,7 +32,7 @@ build() {
         -D ENABLE_X11=ON \
         -D ENABLE_LIBSPIRO=ON
 	make -C build
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install -C build
 
     ln -sv fontforge "$pkgdir"/usr/share/doc/$pkgname-$pkgver
 }

@@ -14,7 +14,7 @@ build() {
         --buildtype=plain \
         build
 	ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 
     install -Dm755 build/wayland-logout "$pkgdir"/usr/bin/wayland-logout
     install -Dm644 wayland-logout.1 "$pkgdir"/usr/share/man/man1/wayland-logout.1

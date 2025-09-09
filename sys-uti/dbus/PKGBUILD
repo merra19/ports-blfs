@@ -21,7 +21,7 @@ build() {
         -D systemd=disabled \
         p11-build 
     ninja -C p11-build 
-    DESTDIR=${pkgdir} ninja -C p11-build install
+    DESTDIR=${pkgdir} ninja install -C p11-build
    
     chown -v root:messagebus "$pkgdir"/usr/libexec/dbus-daemon-launch-helper &&
     chmod -v      4750       "$pkgdir"/usr/libexec/dbus-daemon-launch-helper

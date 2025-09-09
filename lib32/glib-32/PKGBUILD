@@ -35,7 +35,7 @@ build() {
         -D man=false \
         build32
     ninja -C build32
-    DESTDIR="$PWD"/DESTDIR ninja -C build32 install
+    DESTDIR="$PWD"/DESTDIR ninja install -C build32
 
 	rm -r DESTDIR/usr/share
 	rm -r DESTDIR/usr/include

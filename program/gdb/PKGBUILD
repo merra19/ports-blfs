@@ -19,6 +19,6 @@ build() {
 		--with-system-zlib \
 		--with-python=/usr/bin/python3
 	make
-	make DESTDIR="$pkgdir" -C gdb install
-	make DESTDIR="$pkgdir" -C gdbserver install
+	make DESTDIR="$pkgdir" install -C gdb
+	make DESTDIR="$pkgdir" install -C gdbserver
 }

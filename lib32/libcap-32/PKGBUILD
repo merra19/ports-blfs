@@ -18,7 +18,7 @@ build() {
     sed -i '/install -m.*STA/d' libcap/Makefile
 
     make CC="gcc -m32 -mstackrealign -march=i686" lib=lib32
-    make CC="gcc -m32 -mstackrealign -march=i686" lib=lib32 prefix=$PWD/DESTDIR/usr -C libcap install
+    make CC="gcc -m32 -mstackrealign -march=i686" lib=lib32 prefix=$PWD/DESTDIR/usr install -C libcap
 
     mkdir -p "$pkgdir"/usr/lib32
     cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32

@@ -27,5 +27,5 @@ build() {
         -D wwan="$(scratch isinstalled modemmanager && echo "true" || echo "false")" \
         build
 	ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 }

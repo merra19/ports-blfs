@@ -18,5 +18,5 @@ build() {
 		--disable-static \
 		--docdir=/usr/share/doc/$pkgname-$pkgver
 	make
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install -C build
 }

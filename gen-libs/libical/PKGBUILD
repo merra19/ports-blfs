@@ -18,5 +18,5 @@ build() {
 		-D GOBJECT_INTROSPECTION=true \
 		-D ICAL_GLIB_VAPI=true
 	make -j1 -C build 
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install -C build
 }

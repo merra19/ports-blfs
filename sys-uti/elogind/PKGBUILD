@@ -21,7 +21,7 @@ build() {
         -D dbuspolicydir=/etc/dbus-1/system.d \
         build
 	ninja -C build
-	DESTDIR="$pkgdir" ninja -C build install
+	DESTDIR="$pkgdir" ninja install -C build
 
     ln -sfv  libelogind.pc "$pkgdir"/usr/lib/pkgconfig/libsystemd.pc &&
     ln -sfvn elogind "$pkgdir"/usr/include/systemd

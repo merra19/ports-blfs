@@ -36,7 +36,7 @@ build() {
         ninja -C build
     fi
 
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 
     rm -fr "$pkgdir"/usr/include
 }

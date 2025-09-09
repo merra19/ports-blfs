@@ -17,7 +17,7 @@ build() {
         -Dsd-bus-provider=libelogind \
         build
     ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 
     # fix detection with x-d-p 1.18
     install -vDm644 -t "$pkgdir"/usr/share/xdg-desktop-portal "$srcdir"/wlr-portals.conf

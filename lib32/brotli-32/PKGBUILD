@@ -20,7 +20,7 @@ build() {
 		-D CMAKE_BUILD_TYPE=Release \
 		-D CMAKE_INSTALL_LIBDIR=/usr/lib32
 	make -C out
-    make DESTDIR="$pkgdir" -C out install
+    make DESTDIR="$pkgdir" install -C out
 
 	rm -rf "$pkgdir"/usr/bin
 	rm -rf "$pkgdir"/usr/include

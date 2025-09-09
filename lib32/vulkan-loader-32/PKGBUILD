@@ -29,5 +29,5 @@ build() {
 		-D CMAKE_BUILD_TYPE=Release \
 		-Wno-dev
 	make -C build32
-    make DESTDIR="$pkgdir" -C build32 install
+    make DESTDIR="$pkgdir" install -C build32
 }

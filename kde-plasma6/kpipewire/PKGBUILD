@@ -17,7 +17,7 @@ build() {
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install -C build
 
     rm -rf "$pkgdir"/usr/lib/systemd
 }

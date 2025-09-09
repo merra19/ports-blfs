@@ -20,7 +20,7 @@ build() {
         -D tests=true \
         build
 	ninja -C build
-	DESTDIR="$pkgdir" ninja -C build install
+	DESTDIR="$pkgdir" ninja install -C build
 
     rm -rf "$pkgdir"/tmp rm -rf "$pkgdir"/usr/lib/{sysusers,tmpfiles}.d
 

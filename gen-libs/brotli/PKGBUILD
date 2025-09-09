@@ -14,5 +14,5 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
 		-D CMAKE_BUILD_TYPE=Release
 	make -C out
-    make DESTDIR="$pkgdir" -C out install
+    make DESTDIR="$pkgdir" install -C out
 }

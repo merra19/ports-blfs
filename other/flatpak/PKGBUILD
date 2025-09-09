@@ -30,7 +30,7 @@ build() {
         -D seccomp=enabled \
         build
     ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install
+    DESTDIR="$pkgdir" ninja install -C build
 
     rm -r "$pkgdir"/usr/lib/systemd "$pkgdir"/usr/lib/sysusers.d
 

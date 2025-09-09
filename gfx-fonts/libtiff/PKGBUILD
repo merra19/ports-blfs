@@ -15,5 +15,5 @@ build() {
 		-D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_POLICY_VERSION_MINIMUM=3.5
 	ninja -C libtiff-build
-    DESTDIR="$pkgdir" ninja -C libtiff-build install
+    DESTDIR="$pkgdir" ninja install -C libtiff-build
 }

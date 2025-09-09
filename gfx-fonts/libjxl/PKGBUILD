@@ -26,5 +26,5 @@ build() {
         -D JPEGXL_INSTALL_JARDIR=/usr/share/java \
         -G Ninja 
     ninja -C build
-	DESTDIR="$pkgdir" ninja -C build install
+	DESTDIR="$pkgdir" ninja install -C build
 }

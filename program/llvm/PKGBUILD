@@ -63,7 +63,7 @@ build() {
         -D CLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang \
         -Wno-dev -G Ninja
     ninja -C build
-    DESTDIR="$pkgdir" ninja -C build install 
+    DESTDIR="$pkgdir" ninja install -C build 
 
     cp build/bin/FileCheck "$pkgdir"/usr/bin
 

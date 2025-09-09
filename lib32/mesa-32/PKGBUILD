@@ -45,7 +45,7 @@ build() {
         -D glvnd=enabled \
         build32
     ninja -C build32
-    DESTDIR=$PWD/DESTDIR ninja -C build32 install
+    DESTDIR=$PWD/DESTDIR ninja install -C build32
 
 	# indirect rendering symlink
 	ln -s libGLX_mesa.so.0 DESTDIR/usr/lib32/libGLX_indirect.so.0

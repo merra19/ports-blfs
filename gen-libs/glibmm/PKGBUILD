@@ -14,5 +14,5 @@ build() {
         --buildtype=plain \
         bld
 	ninja -C bld
-    DESTDIR="$pkgdir" ninja -C bld  install
+    DESTDIR="$pkgdir" ninja install -C bld
 }

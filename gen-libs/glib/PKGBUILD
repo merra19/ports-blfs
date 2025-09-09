@@ -34,7 +34,7 @@ build() {
         -D nls=enabled \
         build
     ninja -C build
-    ninja -C build install
+    ninja install -C build
 
     cd "$srcdir"/${pkgname2}-${pkgver2}
 
@@ -47,7 +47,7 @@ build() {
         -D glib:nls=disabled \
         build
     ninja -C build
-    ninja -C build install
+    ninja install -C build
 
     cd "$srcdir"/$pkgname-$pkgver/build
 

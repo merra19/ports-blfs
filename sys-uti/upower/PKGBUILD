@@ -21,7 +21,7 @@ build() {
         -D udevrulesdir=/usr/lib/udev/rules.d \
         build
 	ninja -C build
-	DESTDIR="$pkgdir" ninja -C build install
+	DESTDIR="$pkgdir" ninja install -C build
 
 	install -Dm 644 "$srcdir"/rules "$pkgdir"/usr/share/polkit-1/rules.d/org.freedesktop.upower.rules
 }

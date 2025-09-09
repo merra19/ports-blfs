@@ -41,7 +41,7 @@ EOF
     ninja -C p11-build
     unset PKG_CONFIG_PATH
 
-	DESTDIR="$PWD"/DESTDIR ninja -C p11-build install
+	DESTDIR="$PWD"/DESTDIR ninja install -C p11-build
     mkdir -p "$pkgdir"/usr/lib32
     cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
 }
