@@ -32,11 +32,6 @@ build() {
         --disable-rpath \
         $OPT_LDAP
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver/src
-
 	make DESTDIR="$pkgdir" install
 
     mkdir -p "$pkgdir"/usr/share/doc/$pkgname-$pkgver

@@ -21,10 +21,5 @@ build() {
         --enable-openmp \
         --docdir=/usr/share/doc/$pkgname-$pkgver
     make
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

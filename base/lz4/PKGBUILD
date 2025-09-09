@@ -10,10 +10,5 @@ build() {
     cd $pkgname-$pkgver
 
     make BUILD_STATIC=no
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make BUILD_STATIC=no PREFIX=/usr DESTDIR="$pkgdir" install
 }

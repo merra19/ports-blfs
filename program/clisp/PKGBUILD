@@ -18,10 +18,5 @@ build() {
         --prefix=/usr \
         --docdir=/usr/share/doc/$pkgname-$pkgver
     make -j1
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make -j1 DESTDIR="$pkgdir" -C build install
 }

@@ -6,7 +6,7 @@ pkgver=1.0.1
 pkgrel=1
 source=(https://github.com/g-truc/glm/archive/$pkgver/$pkgname-$pkgver.tar.gz)
 
-package() {
+build() {
     cd $pkgname-$pkgver
 
     mkdir -p "$pkgdir"/usr/include/  "$pkgdir"/usr/share/doc/$pkgname-$pkgver

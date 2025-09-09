@@ -1,5 +1,5 @@
 # description	: Password Checking Library
-# depends	: zlib python3
+# depends	: zlib python
 
 pkgname=cracklib
 pkgver=2.10.3
@@ -20,11 +20,6 @@ build() {
         --disable-static \
         --with-default-dict=/usr/lib/$pkgname/pw_dict
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
     install -v -m644 -D    ../$pkgname-words-$pkgver.xz \
                             "$pkgdir"/usr/share/dict/$pkgname-words.xz

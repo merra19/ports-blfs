@@ -1,5 +1,5 @@
 # description	: Canonical source for classifiers on PyPI (pypi.org)
-# depends	: python3 py3-gpep517 py3-setuptools py3-wheel 
+# depends	: python py3-gpep517 py3-setuptools py3-wheel 
 # depends	: py3-calver
 
 pkgname=py3-trove-classifiers
@@ -14,10 +14,5 @@ build() {
     echo "Version: $pkgver" > PKG-INFO
    
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd ${_pkgname}-$pkgver
-
 	python3 -m installer -d "$pkgdir" .dist/trove_classifiers-$pkgver-py3-none-any.whl
 }

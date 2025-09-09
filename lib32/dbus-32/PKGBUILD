@@ -27,11 +27,6 @@ build() {
         --cross-file lib32 \
         p11-build 
     ninja -C p11-build 
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     DESTDIR="$PWD"/DESTDIR ninja -C p11-build install
 
     rm -fr DESTDIR/{var,etc,usr/{bin,share,lib,include}}

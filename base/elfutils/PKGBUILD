@@ -15,11 +15,6 @@ build() {
         --disable-debuginfod \
         --enable-libdebuginfod=dummy
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     rm "$pkgdir"/usr/lib/{libasm,libdw,libelf}.a

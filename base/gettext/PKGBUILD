@@ -15,11 +15,6 @@ build() {
         --enable-nls \
         --docdir=/usr/share/doc/$pkgname-$pkgver
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
     chmod -v 0755 "$pkgdir"/usr/lib/preloadable_libintl.so
 }

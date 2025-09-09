@@ -26,11 +26,6 @@ build() {
         build
     sed "/WF_SRC_DIR/d" -i build/config.h
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 
     install -Dm 0755 "$srcdir"/wayfire-session "$pkgdir"/usr/share/wayland-sessions/wayfire-session
@@ -40,32 +35,4 @@ package() {
 
     #install -Dm644 wayfire.desktop "$pkgdir"/usr/share/wayland-sessions/wayfire.desktop
     install -Dm 0644 wayfire.ini "$pkgdir"/usr/share/wayfire/wayfire.ini
-}
-
-build2() {
-	cd $pkgname-$pkgver
-
-    patch -Np1 -i ../decor_title_font_scale.patch
-    patch -Np1 -i ../add-session-lock-config.patch
-
-	meson setup \
-        --prefix=/usr \
-        --buildtype=plain \
-        -D xwayland=auto \
-        -D use_system_wlroots=disabled \
-        -D use_system_wfconfig=enabled \
-        -D b_lto=true \
-        -D b_pie=true \
-        build
-    sed "/WF_SRC_DIR/d" -i build/config.h
-	ninja -C build
-}
-
-package2() {
-    cd $pkgname-$pkgver
-
-    DESTDIR="$pkgdir" ninja -C build install
-
-    install -Dm644 wayfire.desktop "$pkgdir"/usr/share/wayland-sessions/wayfire.desktop
-    cp wayfire.ini "$pkgdir"/usr/share
 }

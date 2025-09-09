@@ -19,10 +19,5 @@ build() {
         --enable-warmstarts \
         --without-systemdsystemunitdir  
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

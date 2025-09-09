@@ -15,10 +15,6 @@ build() {
         --localstatedir=/var \
         --disable-static \
         --with-xinitdir=/etc/X11/app-defaults
-}
-
-package() {
-    cd $pkgname-$pkgver
-
+    make
     make DESTDIR="$pkgdir" install
 }

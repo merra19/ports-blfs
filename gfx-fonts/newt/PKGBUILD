@@ -20,10 +20,5 @@ build() {
         --with-gpm-support \
         --with-python=python3.13
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

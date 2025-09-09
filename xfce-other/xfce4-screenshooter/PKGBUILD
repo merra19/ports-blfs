@@ -7,14 +7,10 @@ pkgver=1.11.2
 pkgrel=1
 source=(https://archive.xfce.org/src/apps/xfce4-screenshooter/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
 
-prepare() {
-    cd $pkgname-$pkgver
-
-    NOCONFIGURE=1 ./autogen.sh
-}
-
 build() {
 	cd $pkgname-$pkgver
+
+    NOCONFIGURE=1 ./autogen.sh
 
     ./configure \
         --prefix=/usr \
@@ -23,10 +19,5 @@ build() {
         --localstatedir=/var \
         --disable-debug
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

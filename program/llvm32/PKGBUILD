@@ -1,5 +1,5 @@
 # description	: Low Level Virtual Machine 32 bit
-# depends	: cmake ninja libffi-32 python3 libxml2-32 perl ncurses-32 
+# depends	: cmake ninja libffi-32 python libxml2-32 perl ncurses-32 
 # depends	: zlib-32 binutils zstd-32 llvm
 
 pkgname=llvm32
@@ -79,12 +79,7 @@ build() {
         -D CLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang \
         -W no-dev -G Ninja
     ninja -C build
-}
-
-package() {
-    cd ${_pkgname}-$pkgver.src/build
-
-    DESTDIR=$PWD/DESTDIR ninja install
+    DESTDIR=$PWD/DESTDIR ninja -C build install
 
     mkdir -p "$pkgdir"/usr/lib32 "$pkgdir"/usr/bin/ "$pkgdir"/usr/include/llvm/Config
     cp -vr DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32

@@ -12,11 +12,6 @@ build() {
     cd $pkgname-$pkgver
 
     make -C src/
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	make -C src/ \
 		DESTDIR="$pkgdir" \
 		WITH_BASHCOMPLETION=yes \

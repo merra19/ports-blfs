@@ -40,10 +40,6 @@ EOF
         p11-build
     ninja -C p11-build
     unset PKG_CONFIG_PATH
-}
-
-package() {
-    cd $_pkgname-$pkgver
 
 	DESTDIR="$PWD"/DESTDIR ninja -C p11-build install
     mkdir -p "$pkgdir"/usr/lib32

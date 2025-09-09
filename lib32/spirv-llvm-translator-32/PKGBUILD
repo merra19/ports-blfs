@@ -25,11 +25,6 @@ build() {
 		-D CMAKE_CXX_FLAGS_RELEASE="$CXXFLAGS -m32" \
         -D LLVM_CONFIG="/usr/bin/llvm-config" 
     make -C build32
-}
-
-package() {
-    cd SPIRV-LLVM-Translator-$pkgver
-
     make DESTDIR="$PWD/dest" -C build32 install
 
     rm -r dest/usr/{bin,include}

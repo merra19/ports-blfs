@@ -30,10 +30,6 @@ build() {
         --docdir=/usr/share/doc/$pkgname-$pkgver \
         ADJTIME_PATH=/var/lib/hwclock/adjtime 
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     mkdir -pv "$pkgdir"/var/lib/hwclock
 

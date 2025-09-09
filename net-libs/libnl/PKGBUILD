@@ -1,5 +1,5 @@
 # description	: Libraries providing APIs to netlink protocol based Linux kernel interfaces"
-# depends	: python3
+# depends	: python
 
 pkgname=libnl
 pkgver=3.11.0
@@ -16,10 +16,5 @@ build() {
 		--sysconfdir=/etc \
 		--disable-static
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

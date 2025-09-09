@@ -14,10 +14,5 @@ build() {
 		--enable-shared \
 		--disable-cli
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" BASHCOMPLETIONSDIR=/usr/share/bash-completion/completions install
 }

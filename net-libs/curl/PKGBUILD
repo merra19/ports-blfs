@@ -31,10 +31,5 @@ build() {
         --with-libssh2 \
         --enable-ares
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

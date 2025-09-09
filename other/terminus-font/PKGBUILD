@@ -1,5 +1,5 @@
 # description	: Monospace bitmap font (for X11 and console)
-# depends	: python3 gzip gawk grub xorg-fonts freetype fontconfig
+# depends	: python gzip gawk grub xorg-fonts freetype fontconfig
 # depends	: xorg-legacy
 
 pkgname=terminus-font
@@ -20,15 +20,10 @@ build() {
 		--psfdir=/usr/share/consolefonts
 	make all otb
 
-  # build grub fonts
-  for i in *.bdf; do
-    grub-mkfont -o "$(basename "$i" .bdf).pf2" "$i"
-  done
-
-}
-
-package() {
-    cd $pkgname-$pkgver
+    # build grub fonts
+    for i in *.bdf; do
+        grub-mkfont -o "$(basename "$i" .bdf).pf2" "$i"
+    done
 
     make DESTDIR="$pkgdir" install install-otb
 

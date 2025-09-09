@@ -1,5 +1,5 @@
 # description	: Virtual filesystem implementation for GIO
-# depends	: glib dbus gcr4 libcap libsoup3 udisks2 openssh libxslt
+# depends	: glib dbus gcr4 libcap libsoup3 udisks openssh libxslt
 # depends	: libarchive libgudev udev fuse libxml2 elogind avahi
 # depends	: libgcrypt libusb libsecret libcdio libcdio-paranoia
 # depends	: bluez
@@ -34,10 +34,5 @@ build() {
         -D http=true \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

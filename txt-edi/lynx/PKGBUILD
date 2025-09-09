@@ -21,11 +21,6 @@ build() {
         --enable-locale-charset \
 		--enable-ipv6
 	make
-}
-
-package() {
-    cd $pkgname$pkgver
-
 	make DESTDIR="$pkgdir" install-full
 
     sed -e '/#LOCALE/     a LOCALE_CHARSET:TRUE' -i "$pkgdir"/etc/lynx/lynx.cfg

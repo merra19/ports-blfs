@@ -2,7 +2,7 @@
 # depends	: glib pango gdk-pixbuf hicolor-icon-theme sassc librsvg
 # depends	: libepoxy graphene iso-codes gobject-introspection cups
 # depends	: vulkan-loader wayland-protocols linux-api-headers libvpx
-# depends	: shaderc colord xorg-proto py3-gobject3 libcloudproviders
+# depends	: shaderc colord xorg-proto py3-gobject libcloudproviders
 # depends	: adwaita-icon-theme
 # optional  : gstreamer!!gst-plugins-good gstreamer!!gst-plugins-bad
 # todo      : tinysparql
@@ -30,11 +30,6 @@ build() {
         -D media-gstreamer="$(scratch isinstalled gst-plugins-bad && echo enabled || echo disabled)" \
         build
 	ninja -C build
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
 	DESTDIR="$pkgdir" ninja -C build install
 
     install -Dm 644 "$srcdir"/settings.ini "$pkgdir"/etc/gtk-4.0/settings.ini

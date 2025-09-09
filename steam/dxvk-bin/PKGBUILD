@@ -8,7 +8,7 @@ options=(!strip)
 source=(https://github.com/doitsujin/dxvk/releases/download/v$pkgver/dxvk-$pkgver.tar.gz
         setup_dxvk.sh)
 
-package () {
+build () {
     install -D "dxvk-$pkgver"/x32/* -t "$pkgdir/usr/share/dxvk/x32"
     install -D "dxvk-$pkgver"/x64/* -t "$pkgdir/usr/share/dxvk/x64"
     install setup_dxvk.sh -t "$pkgdir/usr/share/dxvk/"

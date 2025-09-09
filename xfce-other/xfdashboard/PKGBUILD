@@ -15,10 +15,5 @@ build() {
         --sysconfdir=/etc \
         --enable-maintainer-mode
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

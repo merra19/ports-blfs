@@ -40,15 +40,6 @@ build() {
         ADJTIME_PATH=/var/lib/hwclock/adjtime
     make
 
-    unset NCURSES6_CONFIG NCURSES5_CONFIG NCURSESW6_CONFIG NCURSESW5_CONFIG
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
-    export NCURSES6_CONFIG=false NCURSES5_CONFIG=false
-	export NCURSESW6_CONFIG=false NCURSESW5_CONFIG=false
-
     mkdir -p "$pkgdir"/usr/lib32
     make DESTDIR=$PWD/DESTDIR install
     cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32

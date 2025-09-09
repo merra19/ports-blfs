@@ -11,7 +11,7 @@ pkgrel=1
 source=(autostart environment menu.xml rc.xml setupopenbox config.ini launch.sh
         polywins.sh thumb-1920-1147144.png eteindre)
 
-package() {
+build() {
     install -Dm 755  "$srcdir"/autostart "$pkgdir"/usr/local/share/openbox/autostart
     install -Dm 755  "$srcdir"/environment "$pkgdir"/usr/local/share/openbox/environment
     install -Dm 644  "$srcdir"/menu.xml "$pkgdir"/usr/local/share/openbox/menu.xml

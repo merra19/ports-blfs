@@ -24,11 +24,6 @@ build() {
         --shared-zlib \
         --with-intl=system-icu
 	make
-}
-
-package() {
-    cd node-v$pkgver
-
     make DESTDIR="$pkgdir" install
 
     ln -sf node "$pkgdir"/usr/share/doc/node-$pkgver

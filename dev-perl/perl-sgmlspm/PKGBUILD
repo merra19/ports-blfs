@@ -25,10 +25,6 @@ build() {
     prepareEnvironment
 	perl Makefile.PL INSTALLDIRS=vendor
 	make
-}
-
-package() {
-	cd SGMLSpm-$pkgver
 
     prepareEnvironment
 	make install

@@ -9,7 +9,7 @@ source=(https://github.com/docbook/xslt10-stylesheets/releases/download/release/
         https://github.com/docbook/xslt10-stylesheets/releases/download/release/$pkgver/docbook-xsl-doc-$pkgver.tar.bz2)
 noextract=(docbook-xsl-doc-$pkgver.tar.bz2)
 
-package() {
+build() {
 	cd $pkgname-$pkgver
 
 	patch -Np1 -i ../docbook-xsl-nons-$pkgver-stack_fix-1.patch

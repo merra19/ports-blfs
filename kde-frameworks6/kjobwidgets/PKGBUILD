@@ -19,11 +19,6 @@ build() {
         -D BUILD_PYTHON_BINDINGS=OFF \
         -Wno-dev
     make -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 
     rm -rf "$pkgdir"/usr/lib/systemd

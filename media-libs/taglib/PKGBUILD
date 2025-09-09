@@ -14,10 +14,5 @@ build() {
 		-D CMAKE_BUILD_TYPE=Release \
 		-D BUILD_SHARED_LIBS=ON
 	make -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 }

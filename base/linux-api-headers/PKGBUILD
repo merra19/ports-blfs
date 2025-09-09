@@ -11,10 +11,6 @@ build() {
 
 	make mrproper
 	make headers
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
 
 	find usr/include -type f ! -name '*.h' -delete
 

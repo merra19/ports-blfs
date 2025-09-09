@@ -14,10 +14,5 @@ build() {
 		-D CMAKE_BUILD_TYPE=Release \
         -D BUILD_SHARED_LIBS=ON
 	cmake --build build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" cmake --install build
 }

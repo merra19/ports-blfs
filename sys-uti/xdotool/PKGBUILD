@@ -10,10 +10,5 @@ build() {
     cd $pkgname-$pkgver
 
     make WITHOUT_RPATH_FIX=1   
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" PREFIX=/usr INSTALLMAN=/usr/share/man install
 }

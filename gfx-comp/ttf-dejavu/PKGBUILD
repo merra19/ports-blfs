@@ -9,7 +9,7 @@ source=(https://downloads.sourceforge.net/project/dejavu/dejavu/$pkgver/dejavu-f
         45-dejavu.conf
         90-tt-dejavu.conf)
 
-package() {
+build() {
 	mkdir -p "$pkgdir"/etc/fonts/conf.d
 
 	install -Dm644 \

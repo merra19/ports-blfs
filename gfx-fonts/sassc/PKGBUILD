@@ -12,10 +12,5 @@ build() {
 	autoreconf -fi &&
 	./configure --prefix=/usr
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

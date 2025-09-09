@@ -11,10 +11,6 @@ build() {
 
     ./configure
     make mandoc
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     mkdir -p "${pkgdir}"/usr/bin "${pkgdir}"/usr/share/man/man1
     install -vm755 mandoc   "${pkgdir}"/usr/bin &&

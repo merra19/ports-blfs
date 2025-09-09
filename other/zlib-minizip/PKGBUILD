@@ -10,17 +10,16 @@ getversionpkg() {
     awk 'NR==1 {print $1}' /var/lib/scratchpkg/db/$1 2>/dev/null
 }
 
-prepare() {
+
+build() {
+    cd zlib-$pkgver
+
     vers="$(getversionpkg zlib)"
     
     if [ ! "$vers" == "$pkgver" ]; then
         echo "$pkgname version is $vers // $pkgver"
         exit 1
     fi
-}
-
-build() {
-    cd zlib-$pkgver
 
     cd contrib/minizip
 
@@ -33,11 +32,6 @@ build() {
         --prefix=/usr \
         --enable-static=no
     make
-}
-
-package() {
-    cd zlib-$pkgver
-
     make DESTDIR="$pkgdir" -C contrib/minizip install
 
     rm "$pkgdir/usr/include/minizip/crypt.h"

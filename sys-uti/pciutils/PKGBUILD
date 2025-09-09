@@ -13,11 +13,6 @@ build() {
     sed -r '/INSTALL.*(PCI_IDS|update-pciids)/d' -i Makefile
 
     make OPT="${CFLAGS}" PREFIX=/usr SHAREDIR=/usr/share/hwdata SHARED=yes
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make PREFIX=/usr SHAREDIR=/usr/share/hwdata SHARED=yes DESTDIR="$pkgdir" install install-lib 
 
     chmod -v 755 "$pkgdir"/usr/lib/libpci.so

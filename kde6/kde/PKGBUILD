@@ -10,7 +10,7 @@ pkgver=6.0.0
 pkgrel=1
 source=(kde kde-np kscreensaver)
 
-package() {
+build() {
     install -Dm 644 kde "$pkgdir"/etc/pam.d/kde
     install -Dm 644 kde-np "$pkgdir"/etc/pam.d/kde-np
     install -Dm 644 kscreensaver "$pkgdir"/etc/pam.d/kscreensaver

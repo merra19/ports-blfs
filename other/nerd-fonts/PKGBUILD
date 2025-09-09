@@ -76,24 +76,22 @@ for isource in ${source[@]};do
 done
 
 build() {
-  # archives don't include a font-specific directory, so we have to make them
-  for _font in 3270 agave anonymouspro arimo aurulent bigblueterminal \
-               bitstreamveramono cascadiacode codenewroman cousine \
-               daddytimemono dejavu droid fantasque fira firamono go hack \
-               hasklig heavydata hermit iawriter ibmplexmono inconsolata \
-               inconsolatago inconsolatalgc iosevka jetbrainsmono lekton \
-               liberationmono lilex meslo monofur monoid mononoki mplus noto \
-               opendyslexic overpass profont proggyclean robotomono \
-               sharetechmono sourcecodepro spacemono terminus tinos ubuntu \
-               ubuntumono victormono iosevkaterm comicshanns intone 0xproto \
-               cascadiamono commitmono d2coding envycoder geistmono martianmono \
-               monaspace gohu iosevkatermslab recursive zedmono; do
-  mkdir $_font
-  bsdtar xf ${_font}-$pkgver.tar.xz -C $_font
-  done
-}
-
-package() {
+    # archives don't include a font-specific directory, so we have to make them
+    for _font in 3270 agave anonymouspro arimo aurulent bigblueterminal \
+                bitstreamveramono cascadiacode codenewroman cousine \
+                daddytimemono dejavu droid fantasque fira firamono go hack \
+                hasklig heavydata hermit iawriter ibmplexmono inconsolata \
+                inconsolatago inconsolatalgc iosevka jetbrainsmono lekton \
+                liberationmono lilex meslo monofur monoid mononoki mplus noto \
+                opendyslexic overpass profont proggyclean robotomono \
+                sharetechmono sourcecodepro spacemono terminus tinos ubuntu \
+                ubuntumono victormono iosevkaterm comicshanns intone 0xproto \
+                cascadiamono commitmono d2coding envycoder geistmono martianmono \
+                monaspace gohu iosevkatermslab recursive zedmono; do
+    mkdir $_font
+    bsdtar xf ${_font}-$pkgver.tar.xz -C $_font
+    done
+    
     for _font in 3270 agave anonymouspro arimo bigblueterminal \
                bitstreamveramono cascadiacode cousine \
                daddytimemono dejavu fantasque fira go hack \

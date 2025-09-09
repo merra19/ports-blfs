@@ -1,5 +1,5 @@
 # description	: Boost Libraries for C++"
-# depends	: zlib bzip2 which icu python3 xz zstd py3-numpy
+# depends	: zlib bzip2 which icu python xz zstd py3-numpy
 
 pkgname=boost
 pkgver=1.89.0
@@ -19,10 +19,5 @@ build() {
 
 	./bootstrap.sh --prefix=/usr --with-python=python3
 	./b2 stage -j$jobs threading=multi link=shared
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     ./b2 install --prefix="$pkgdir"/usr threading=multi link=shared
 }

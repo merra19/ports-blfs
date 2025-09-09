@@ -24,10 +24,5 @@ build() {
         --disable-gtk \
         $OPT_GTK3
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" docdir=/usr/share/doc/$pkgname-$pkgver install
 }

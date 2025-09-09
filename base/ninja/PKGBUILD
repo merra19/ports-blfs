@@ -1,5 +1,5 @@
 # description	: A small build system similar to make
-# depends	: python3 re2c
+# depends	: python re2c
 
 pkgname=ninja
 pkgver=1.13.1
@@ -17,10 +17,6 @@ build() {
     ' src/ninja.cc
 
     python3 configure.py --bootstrap    
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     mkdir -pv "$pkgdir"/usr/bin/
     install -vm755 ninja "$pkgdir"/usr/bin/

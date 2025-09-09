@@ -7,6 +7,6 @@ pkgrel=1
 source=()
 
 
-package() {
+build() {
     mkdir -p "$pkgdir"/usr
 }

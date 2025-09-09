@@ -10,11 +10,6 @@ build() {
     cd $pkgname-$pkgver
 
     make prefix=/usr
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" prefix=/usr install
     rm -v "$pkgdir"/usr/lib/libzstd.a
 }

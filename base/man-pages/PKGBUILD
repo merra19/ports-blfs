@@ -6,7 +6,7 @@ pkgver=6.15
 pkgrel=1
 source=(https://www.kernel.org/pub/linux/docs/man-pages/$pkgname-$pkgver.tar.xz)
 
-package() {
+build() {
     cd "$srcdir"/$pkgname-$pkgver
 
     # Install man-pages

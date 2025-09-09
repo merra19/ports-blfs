@@ -7,7 +7,7 @@ pkgrel=1
 options=(!strip)
 source=($pkgname-$pkgver.tar.gz::http://download.documentfoundation.org/libreoffice/stable/$pkgver/rpm/x86_64/LibreOffice_${pkgver}_Linux_x86-64_rpm.tar.gz)
 
-package() {
+build() {
 	for rpm in "$srcdir"/LibreOffice_$pkgver*/RPMS/*; do
 		bsdtar -xf $rpm -p -o -C "$pkgdir"
 	done

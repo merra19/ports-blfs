@@ -16,10 +16,5 @@ build() {
         --disable-static \
         --enable-nss
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

@@ -16,11 +16,6 @@ build() {
     ./configure $XORG_CONFIG     \
         --with-app-defaults=/etc/X11/app-defaults &&
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	make DESTDIR="$pkgdir" install
 
 	install -m755 -d $pkgdir/usr/share/applications

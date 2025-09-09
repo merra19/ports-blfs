@@ -21,7 +21,7 @@ source=($pkgname-$pkgver-blue.zip::https://github.com/catppuccin/cursors/release
         $pkgname-$pkgver-teal.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-teal-cursors.zip
         $pkgname-$pkgver-yellow.zip::https://github.com/catppuccin/cursors/releases/download/v$pkgver/catppuccin-mocha-yellow-cursors.zip)
 
-package() {
+build() {
 	install -d "$pkgdir"/usr/share/icons/
 	cp -r -a --no-preserve=ownership catppuccin-mocha-* "$pkgdir"/usr/share/icons
 }

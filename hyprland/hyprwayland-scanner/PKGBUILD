@@ -13,10 +13,5 @@ build() {
 		-D CMAKE_INSTALL_PREFIX=/usr \
 		-D CMAKE_BUILD_TYPE:STRING=Release
 	cmake --build build --config Release
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" cmake --install build
 }

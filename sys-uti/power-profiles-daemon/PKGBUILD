@@ -1,5 +1,5 @@
 # description	: Makes power profiles handling available over D-Bus
-# depends	: py3-gobject3 polkit upower meson
+# depends	: py3-gobject polkit upower meson
 
 pkgname=power-profiles-daemon
 pkgver=0.30
@@ -17,11 +17,6 @@ build() {
         -D systemdsystemunitdir=/tmp \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	DESTDIR="$pkgdir" ninja -C build install
 
     rm -rf "$pkgdir"/tmp

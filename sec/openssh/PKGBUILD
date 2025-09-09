@@ -25,11 +25,7 @@ build() {
         --with-pid-dir=/run \
         $OPT_OPENSSH
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
+    
     install -v -g sys -m700 -d "$pkgdir"/var/lib/sshd
 
 	make DESTDIR="$pkgdir" install

@@ -32,14 +32,10 @@ build() {
         --enable-selftest \
         --disable-rpath-install 
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     # Fix hard coded paths to Python 3 interpreter:
     sed '1s@^.*$@#!/usr/bin/python3@' \
-    -i ./bin/default/source4/scripting/bin/*.inst
+        -i ./bin/default/source4/scripting/bin/*.inst
 
     make DESTDIR="$pkgdir" install
 

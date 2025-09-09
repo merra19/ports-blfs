@@ -1,6 +1,6 @@
 # description	: Intelligent Input Bus for Linux / Unix OS
 # depends	: iso-codes glib dconf gtk3 wayland vala libxkbcommon
-# depends	: gobject-introspection libnotify gtk4 py3-gobject3
+# depends	: gobject-introspection libnotify gtk4 py3-gobject
 # depends	: py3-dbus libarchive
 # optional	: appindicator!!libdbusmenu
 
@@ -41,10 +41,5 @@ build() {
         --enable-gtk4 \
         --disable-systemd-services
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

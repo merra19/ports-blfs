@@ -15,11 +15,6 @@ build() {
         -D gtk_doc=false \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 
     # conflict bash-completion

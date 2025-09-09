@@ -30,10 +30,6 @@ build() {
         --with-pkg-config-libdir=/usr/lib32/pkgconfig \
         --enable-widec 
     make
-}
-
-package() {
-    cd ${_pkgname}-${_pkgver}
 
     local _pkgver=${_pkgver/-*/}
 

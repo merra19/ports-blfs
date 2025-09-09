@@ -6,7 +6,7 @@ pkgver=1.2.5.1
 pkgrel=1
 source=(https://www.alsa-project.org/files/pub/lib/$pkgname-$pkgver.tar.bz2)
 
-package() {
+build() {
 	cd $pkgname-$pkgver
     
 	for i in topology/*; do

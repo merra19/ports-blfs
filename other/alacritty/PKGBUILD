@@ -12,10 +12,6 @@ build() {
 
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
     CARGO_INCREMENTAL=0 cargo build --release --locked --offline
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     desktop-file-install -m 644 --dir "$pkgdir/usr/share/applications/" "extra/linux/Alacritty.desktop"
     install -D -m755 "target/release/alacritty" "$pkgdir/usr/bin/alacritty"

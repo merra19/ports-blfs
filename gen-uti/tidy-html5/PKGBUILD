@@ -1,5 +1,5 @@
 # description	: HTML parser based on the WHATWG HTML specification
-# depends	: python3 py3-gpep517 py3-wheel cmake libxslt
+# depends	: python py3-gpep517 py3-wheel cmake libxslt
 
 pkgname=tidy-html5
 pkgver=5.8.0
@@ -19,11 +19,6 @@ build() {
         -D BUILD_TAB2SPACE=ON \
         ../..
     make
-}
-
-package() {
-    cd $pkgname-$pkgver/build/cmake
-
     make DESTDIR="$pkgdir"
     rm -fv "$pkgdir"/usr/lib/libtidy.a
     install -d "$pkgdir"/usr/bin/

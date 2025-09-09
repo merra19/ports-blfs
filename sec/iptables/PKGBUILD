@@ -16,11 +16,6 @@ build() {
         --disable-nftables \
         --enable-libipq
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     install -Dm 700 ../rc.iptables "$pkgdir"/etc/rc.d/rc.iptables

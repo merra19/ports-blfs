@@ -13,10 +13,5 @@ build() {
         --prefix=/usr \
         --without-gtk-doc
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

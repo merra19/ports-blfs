@@ -8,6 +8,6 @@ pkgver=1.0
 pkgrel=1
 source=(setup)
 
-package() {
+build() {
     install -Dm 755 setup "$pkgdir"/usr/local/bin/setup
 }

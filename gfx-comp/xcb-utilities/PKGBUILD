@@ -17,7 +17,7 @@ for listsrc in ${noextract[@]};do
     source=(${source[@]} https://xcb.freedesktop.org/dist/$listsrc)
 done
 
-package() {
+build() {
     export PKG_CONFIG_PATH="$pkgdir/usr/lib/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig/"
     export PKG_CONFIG_LIBDIR="$pkgdir/usr/lib/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig/"
 

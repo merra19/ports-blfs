@@ -30,11 +30,6 @@ build() {
     export FCFLAGS="$FFLAGS"
 
     make linux MYCFLAGS="${CFLAGS} -fpic" MYLDFLAGS="${CFLAGS}"
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     make TO_BIN='lua5.2 luac5.2' \
         TO_LIB="liblua5.2.so liblua5.2.so.5.2 liblua5.2.so.5.2.4" \
         INSTALL_DATA="cp -d" \

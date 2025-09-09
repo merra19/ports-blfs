@@ -91,11 +91,6 @@ build() {
         libc_cv_slibdir=/usr/lib32 
     make
 
-    unset LDFLAGS
-    unset CFLAGS
-} 
-
-package() {
     cd "$srcdir"/glibc-build
 
     unset LDFLAGS

@@ -38,11 +38,6 @@ build() {
         -U d_off64_t \
         -D inc_version_list="$pkgver"
     make
-    unset BUILD_ZLIB BUILD_BZIP2 PERL5LIB
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
+    unset BUILD_ZLIB BUILD_BZIP2 PERL5LIB
 }

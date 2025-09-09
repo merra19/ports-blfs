@@ -1,22 +1,17 @@
 # description	: A full-featured template engine for Python
-# depends	: python3 py3-markupsafe py3-gpep517 py3-wheel
+# depends	: python py3-markupsafe py3-gpep517 py3-wheel
 # depends	: py3-setuptools
 
-pkgname=py3-jinja
+pkgname=py3-jinja2
 pkgver=3.1.6
 pkgrel=1
 options=(!lto)
 source=(https://pypi.org/packages/source/J/Jinja2/jinja2-$pkgver.tar.gz)
 
 build() {
-    cd jinja2-$pkgver
+	cd ${pkgname#*-}-$pkgver
     
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd jinja2-$pkgver
-
     python3 -m installer -d "$pkgdir" .dist/*.whl
     
 	local docdir="$pkgdir/usr/share/doc/$pkgname-$pkgver"

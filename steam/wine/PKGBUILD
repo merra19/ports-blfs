@@ -29,11 +29,6 @@ build() {
         --libdir=/usr/lib \
         --enable-archs=x86_64,i386
     make
-}
-
-package() {
-    cd "$srcdir/$pkgname-64-build"
-
     make prefix="$pkgdir/usr" \
         libdir="$pkgdir/usr/lib" \
         dlldir="$pkgdir/usr/lib/wine" install

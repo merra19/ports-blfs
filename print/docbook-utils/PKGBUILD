@@ -18,11 +18,6 @@ build() {
         --prefix=/usr \
         --mandir=/usr/share/man
     make 2>&1 | tee make.log
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make docdir=/usr/share/doc DESTDIR="$pkgdir" install
 
     for doctype in html ps dvi man pdf rtf tex texi txt

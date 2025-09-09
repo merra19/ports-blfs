@@ -14,10 +14,5 @@ build() {
 		-D INSTALL_QML_PREFIX=/usr/lib/qt6/qml \
 		-D CMAKE_BUILD_TYPE=Release
 	cmake --build build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" cmake --install build
 }

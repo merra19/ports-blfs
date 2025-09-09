@@ -13,10 +13,6 @@ build() {
 cat >> make-ca << "EOF"
 ln -svf /etc/pki/tls/certs/ca-bundle.crt /etc/ssl/certs/ca-certificates.crt
 EOF
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" install
     install -vdm755 "$pkgdir"/etc/ssl/local

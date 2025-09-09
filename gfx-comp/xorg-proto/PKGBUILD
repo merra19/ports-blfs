@@ -14,11 +14,6 @@ build() {
         --prefix=/usr \
         build
     ninja -C build
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 
     mv -v "$pkgdir"/usr/share/doc/xorgproto{,-$pkgver}

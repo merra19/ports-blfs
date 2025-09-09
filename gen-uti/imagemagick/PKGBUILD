@@ -1,5 +1,5 @@
 # description	: Lists open files for running Unix processes
-# depends	: libtool bzip2 fftw libjpeg-turbo openjpeg2 xorg-libs
+# depends	: libtool bzip2 fftw libjpeg-turbo openjpeg xorg-libs
 # depends	: lcms2 pango perl libpng ghostscript librsvg libtiff cups
 # depends	: libwebp xorg-proto xz zlib ttf-dejavu 7zip libraw libjxl
 # depends	: curl wget xdg-utils xterm jasper libgxps ghostscript 
@@ -23,10 +23,5 @@ build() {
         --with-perl \
         --disable-static
 	make
-}
-
-package() {
-    cd ImageMagick-$_version
-
     make DESTDIR="$pkgdir" DOCUMENTATION_PATH=/usr/share/doc/$pkgname-$pkgver install
 }

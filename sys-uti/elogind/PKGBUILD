@@ -1,5 +1,5 @@
 # description	: The systemd project's logind, extracted to a standalone package
-# depends	: pam docbook-xml libxslt py3-lxml py3-jinja gperf acl
+# depends	: pam docbook-xml libxslt py3-lxml py3-jinja2 gperf acl
 # depends	: util-linux libcap udev dbus docbook-xsl-nons
 
 pkgname=elogind
@@ -21,11 +21,6 @@ build() {
         -D dbuspolicydir=/etc/dbus-1/system.d \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	DESTDIR="$pkgdir" ninja -C build install
 
     ln -sfv  libelogind.pc "$pkgdir"/usr/lib/pkgconfig/libsystemd.pc &&

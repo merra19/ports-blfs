@@ -13,10 +13,5 @@ build() {
         --prefix=/usr \
         --disable-static
 	make
-}
-
-package() {
-    cd onig-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

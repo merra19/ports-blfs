@@ -17,12 +17,8 @@ build() {
 	rm    install/usr/bin/hostname install/usr/bin/dnsdomainname install/usr/bin/domainname install/usr/bin/ifconfig
 	rm -r install/usr/share/man/man1
 	rm    install/usr/share/man/man8/ifconfig.8
+    
 	unset BINDIR SBINDIR
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     chown -R root:root install &&
     cp -a install/* "$pkgdir"/
 }

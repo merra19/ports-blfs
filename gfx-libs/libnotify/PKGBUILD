@@ -17,11 +17,6 @@ build() {
         -D man=false \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 
     mv "$pkgdir"/usr/share/doc/libnotify{,-$pkgver}

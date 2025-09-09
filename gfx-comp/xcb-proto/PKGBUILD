@@ -1,5 +1,5 @@
 # description	: X C-language Bindings protocol headers
-# depends	: libxml2 python3
+# depends	: libxml2 python
 
 pkgname=xcb-proto
 pkgver=1.17.0
@@ -15,10 +15,5 @@ build() {
         --sysconfdir=/etc \
         --localstatedir=/var \
         --disable-static
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

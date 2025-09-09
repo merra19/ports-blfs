@@ -30,11 +30,6 @@ build() {
         -D dbuspolicydir=/etc/dbus-1/system.d \
         build
 	ninja -C build
-}
-
-package() {
-    cd $_pkgname-$pkgver
-    
 	meson install -C build --destdir "${pkgdir}"
 
     rm -rf "${pkgdir}"/{etc,var}

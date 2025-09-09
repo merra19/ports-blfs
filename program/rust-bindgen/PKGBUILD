@@ -31,10 +31,6 @@ build() {
     echo 'directory = "vendor"' >> .cargo/config.toml
 
 	cargo build --release
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     mkdir -p "$pkgdir"/usr/bin/
     install -Dm755 target/release/bindgen "$pkgdir"/usr/bin/

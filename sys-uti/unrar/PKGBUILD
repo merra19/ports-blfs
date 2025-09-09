@@ -10,11 +10,5 @@ build() {
     cd $pkgname
 
     make -f makefile
-}
-
-package() {
-    cd $pkgname
-
-    install -v -Dm755 unrar "$pkgdir"/usr/bin/unrar
-    
+    install -v -Dm755 unrar "$pkgdir"/usr/bin/unrar    
 }

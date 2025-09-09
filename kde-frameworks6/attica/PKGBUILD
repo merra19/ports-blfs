@@ -5,9 +5,9 @@
 # depends	: shared-mime-info curl aspell aspell-fr aspell-en avahi
 # depends	: polkit-qt modemmanager networkmanager vulkan-loader
 # depends	: zxing-cpp bluez noto-fonts py3-requests libavif libjxl
-# depends	: libraw udisks2 upower gpgmepp py3-doxypypy py3-doxyqml
-# depends	: doxygen python3 py3-wheel py3-gpep517 py3-setuptools
-# depends	: py3-jinja py3-yaml 
+# depends	: libraw udisks upower gpgmepp py3-doxypypy py3-doxyqml
+# depends	: doxygen python py3-wheel py3-gpep517 py3-setuptools
+# depends	: py3-jinja2 py3-yaml 
 
 pkgname=attica
 pkgver=6.17.0
@@ -27,11 +27,6 @@ build() {
         -D BUILD_PYTHON_BINDINGS=OFF \
         -Wno-dev
     make -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 
     rm -rf "$pkgdir"/usr/lib/systemd

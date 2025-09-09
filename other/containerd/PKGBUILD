@@ -17,10 +17,6 @@ build() {
 	export GO111MODULE=on
 
     make VERSION="v$version" REVISION="$commit" BUILDMODE=pie
-}
-
-package() {
-    cd $pkgname-$pkgver
 
 	mkdir -pv "$pkgdir"/usr/bin
 	install -Dsm755 ./bin/* "$pkgdir"/usr/bin/

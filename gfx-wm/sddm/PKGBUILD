@@ -26,10 +26,6 @@ build() {
         -D DATA_INSTALL_DIR=/usr/share/sddm \
         -D DBUS_CONFIG_FILENAME=sddm_org.freedesktop.DisplayManager.conf
     make -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     mkdir -p "$pkgdir"/etc/pam.d
 

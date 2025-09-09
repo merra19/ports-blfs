@@ -32,10 +32,5 @@ build() {
 		--without-avahi \
         --docdir=/usr/share/doc/$pkgname-$pkgver
     make
-}
-
-package() {
-    cd libostree-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

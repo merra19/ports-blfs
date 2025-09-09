@@ -11,20 +11,14 @@ source=(https://archive.mozilla.org/pub/security/nss/releases/NSS_${vrsn}_RTM/sr
         https://www.linuxfromscratch.org/patches/blfs/svn/nss-standalone-1.patch
         0001-Hack-mpi_x86.s-to-work-with-fno-plt.patch)
 
-prepare() {
+build() {
     cd nss-$pkgver
+
+    patch -Np1 -i ../nss-standalone-1.patch
 
     cd nss
     # https://bugzilla.mozilla.org/show_bug.cgi?id=1382942
     patch -Np1 -i "$srcdir"/0001-Hack-mpi_x86.s-to-work-with-fno-plt.patch
-}
-
-build() {
-	cd nss-$pkgver
-
-	patch -Np1 -i ../nss-standalone-1.patch
-
-	cd nss &&
 
     CC="gcc -m32" CXX="g++ -m32" \
 	make BUILD_OPT=1 \
@@ -34,11 +28,8 @@ build() {
 	NSS_ENABLE_WERROR=0 \
     NSS_DISABLE_GTESTS=1 \
 	$([ -f /usr/lib32/libsqlite3.so ] && echo NSS_USE_SYSTEM_SQLITE=1)
-}
 
-
-package() {
-    cd nss-$pkgver/dist
+    cd ../dist
 
 	install -d  "$pkgdir"/usr/lib32/pkgconfig 
 

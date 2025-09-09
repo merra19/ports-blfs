@@ -1,5 +1,5 @@
 # description	: Fast, feature-rich, GPU-based terminal
-# depends	: python3 bash gcc simde dbus zlib libxkbcommon wayland
+# depends	: python bash gcc simde dbus zlib libxkbcommon wayland
 # depends	: ttf-nerd-fonts-symbols wayland-protocols fontconfig go
 # depends	: freetype hicolor-icon-theme lcms2 libglvnd libpng
 # depends	: librsync xorg-libs libcanberra imagemagick py3-pygments
@@ -20,10 +20,6 @@ build() {
     export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
 
     python3 setup.py linux-package --update-check-interval=0
-}
-
-package() {
-    cd $pkgname-$pkgver
 
 	mkdir -p "$pkgdir"
 	cp -r linux-package "$pkgdir"/usr/

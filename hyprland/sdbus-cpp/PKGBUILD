@@ -15,10 +15,5 @@ build() {
 		-D SDBUSCPP_BUILD_CODEGEN=ON \
 		-D SDBUSCPP_BUILD_DOCS=OFF
 	cmake --build build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" cmake --install build
 }

@@ -1,5 +1,5 @@
 # description	: Filters for web typography, supporting Django & Jinja templates
-# depends	: python3 py3-gpep517 py3-setuptools py3-wheel 
+# depends	: python py3-gpep517 py3-setuptools py3-wheel 
 # depends	: py3-flit-core
 
 pkgname=py3-typogrify
@@ -11,10 +11,5 @@ build() {
 	cd ${pkgname#*-}-$pkgver
     
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2s
-}
-
-package() {
-	cd ${pkgname#*-}-$pkgver
-
 	python3 -m installer -d "$pkgdir" .dist/typogrify-$pkgver-*-none-any.whl
 }

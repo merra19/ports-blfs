@@ -27,10 +27,5 @@ build() {
         --with-gtk=3 \
         $OPT_JSONGLIB
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make -j1  DESTDIR="$pkgdir" install
 }

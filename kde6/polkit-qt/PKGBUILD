@@ -15,10 +15,5 @@ build() {
         -D QT_MAJOR_VERSION=6 \
         -Wno-dev
     make -C build
-}
-
-package() {
-    cd $pkgname-1-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 }

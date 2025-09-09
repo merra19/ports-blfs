@@ -24,10 +24,5 @@ build() {
         -D WITH_XC_UPDATECHECK=OFF \
         -D WITH_XC_YUBIKEY=OFF
     ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	DESTDIR="$pkgdir" ninja -C build install
 }

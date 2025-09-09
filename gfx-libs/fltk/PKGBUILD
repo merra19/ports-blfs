@@ -16,11 +16,6 @@ build() {
         --prefix=/usr \
         --enable-shared 
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" docdir=/usr/share/doc/$pkgname-$pkgver install
 
     rm -vf "$pkgdir"/usr/lib/libfltk*.a

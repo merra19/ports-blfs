@@ -16,11 +16,5 @@ build() {
         -D BUILD_WITH_QT6=ON \
         -Wno-dev
     make -C build
-}
-
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 }

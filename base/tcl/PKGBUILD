@@ -42,10 +42,6 @@ build() {
         -i pkgs/itcl$itcl/itclConfig.sh
 
     unset SRDIR
-}
-
-package() {
-    cd $pkgname$pkgver/unix
 
     make DESTDIR="$pkgdir" install install-private-headers
 

@@ -29,11 +29,6 @@ build() {
         --sysconfdir=/etc \
         --with-xinput=yes 
     make
-}
-
-package() {
-    cd gtk+-$pkgver
-
     make DESTDIR="$pkgdir" install
 
 	cat > $pkgdir/etc/gtk-2.0/gtkrc << "EOF"

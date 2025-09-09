@@ -76,10 +76,6 @@ build() {
     else
         build_nopgo
     fi
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     mkdir -p "$pkgdir"/usr/bin/ "$pkgdir"/usr/lib
 

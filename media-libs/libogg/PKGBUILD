@@ -18,10 +18,5 @@ build() {
 		--disable-static \
 		--docdir=/usr/share/doc/$pkgname-$pkgver
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 }

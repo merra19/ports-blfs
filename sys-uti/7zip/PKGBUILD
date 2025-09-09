@@ -12,10 +12,6 @@ build() {
     for i in Bundles/{Alone,Alone7z,Format7zF,SFXCon} UI/Console; do
         make -C CPP/7zip/$i -f ../../cmpl_gcc.mak
     done
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     install -d "$pkgdir"/usr/lib "$pkgdir"/usr/bin "$pkgdir"/usr/share/doc/$pkgname-$pkgver
     

@@ -22,7 +22,7 @@ for listsrc in ${noextract[@]};do
     esac
 done
 
-package() {
+build() {
     export PATH=$PATH:"$pkgdir/usr/bin"
 
     for package in ${noextract[@]}

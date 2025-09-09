@@ -16,10 +16,5 @@ build() {
         --sysconfdir=/etc \
         --disable-legacy-sm
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

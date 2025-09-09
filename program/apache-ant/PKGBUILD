@@ -20,10 +20,6 @@ build() {
     bootstrap/bin/ant -f fetch.xml -Ddest=optional
 
     ./build.sh -Ddist.dir=$PWD/ant-$pkgver dist
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     mkdir -p "$pkgdir"/opt
     cp -rv ant-$pkgver "$pkgdir"/opt/            &&

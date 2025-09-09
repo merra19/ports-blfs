@@ -12,10 +12,6 @@ build() {
     cd Colloid-gtk-theme-$_pkgver
 
     sed -i 's/clean_theme && install_theme/install_theme/g' install.sh
-}
-
-package() {
-    cd Colloid-gtk-theme-$_pkgver
 
     install -d "$pkgdir"/usr/share/themes
     ./install.sh -t all -d "$pkgdir"/usr/share/themes

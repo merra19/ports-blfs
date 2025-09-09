@@ -20,11 +20,6 @@ build() {
         --libdir=/usr/lib32 \
         build
 	ninja -C build
-}
-
-package() {
-    cd $_pkgname-$pkgver
-
     DESTDIR=$PWD/DESTDIR ninja -C build install
 
 	mkdir -p "$pkgdir"/usr/lib32

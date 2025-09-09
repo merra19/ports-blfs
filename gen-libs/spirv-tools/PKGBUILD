@@ -21,10 +21,5 @@ build() {
 		-D SPIRV-Headers_SOURCE_DIR=/usr \
         -Wno-dev
     ninja -C build
-}
-
-package() {
-    cd SPIRV-Tools-vulkan-sdk-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

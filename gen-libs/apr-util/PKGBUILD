@@ -18,10 +18,5 @@ build() {
         "$(scratch isinstalled openldap && echo "--with-ldap" || echo "--without-ldap")" \
         --with-crypto
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

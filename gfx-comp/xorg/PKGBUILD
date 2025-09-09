@@ -7,7 +7,7 @@ pkgver=1.0
 pkgrel=1
 source=(setup hyprland.conf waybar xdg-portal-hyprland kitty.conf)
 
-package() {
+build() {
     install -Dm 755 setup "$pkgdir"/usr/local/bin/setup
 
     for i in hyprland.conf kitty.conf waybar xdg-portal-hyprland;do

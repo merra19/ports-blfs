@@ -1,5 +1,5 @@
 # description	: PostgreSQL RDBMS
-# depends	: less intltool icu pam perl python3 readline openssl tcl 
+# depends	: less intltool icu pam perl python readline openssl tcl 
 # depends	: libxml2 zlib zstd util-linux libxslt openjade
 # depends	: docbook-dtd45 docbook-dsssl docbook-utils perl-sgmlspm
 # optional	: krb5 openldap
@@ -25,11 +25,6 @@ build() {
         --with-tcl \
         --docdir=/usr/share/doc/$pkgname-$pkgver
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	make DESTDIR="$pkgdir" install
     make DESTDIR="$pkgdir" install-docs
 

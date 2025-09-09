@@ -10,10 +10,5 @@ build() {
 	cd pyparsing-$pkgver
 
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd pyparsing-$pkgver
-
 	python3 -m installer -d "$pkgdir" .dist/pyparsing-$pkgver-py3-none-any.whl
 }

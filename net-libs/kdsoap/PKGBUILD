@@ -15,10 +15,5 @@ build() {
         -D KDSoap_QT6=ON \
         -D CMAKE_INSTALL_DOCDIR=/usr/share/doc/$pkgname-$pkgver
 	make -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 }

@@ -1,5 +1,5 @@
 # description	: Fancy PyPI READMEs with Hatch
-# depends	: python3 py3-wheel py3-hatchling
+# depends	: python py3-wheel py3-hatchling
 
 pkgname=py3-hatch_fancy_pypi_readme
 pkgver=25.1.0
@@ -10,10 +10,5 @@ build() {
 	cd ${pkgname#*-}-$pkgver
 
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd ${pkgname#*-}-$pkgver
-
 	python3 -m installer -d "$pkgdir" .dist/*.whl
 }

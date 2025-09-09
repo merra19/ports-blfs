@@ -11,7 +11,7 @@ options=(!strip)
 source=(firefox-$pkgver-x86_64.tar.xz::https://archive.mozilla.org/pub/firefox/releases/$pkgver/linux-x86_64/en-US/firefox-$pkgver.tar.xz
         $_pkgname.sh $_pkgname.desktop policies.json)
 
-package() {
+build() {
     # Create directories
     mkdir -p "$pkgdir"/usr/bin
     mkdir -p "$pkgdir"/usr/share/applications

@@ -35,20 +35,7 @@ build() {
             --localstatedir=/var \
             --disable-static
         make
-        cd ..
-    done  
-}
-
-package() {
-    for package in ${noextract[@]}
-    do
-        packagedir=${package%.tar.?z*}
-        cd $packagedir
-
         make DESTDIR="$pkgdir" install
         cd ..
-        rm -rf $packagedir
     done  
-
-    install -v -d -m755 "$pkgdir"/usr/share/fonts
 }

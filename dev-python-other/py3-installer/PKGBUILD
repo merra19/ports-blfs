@@ -1,5 +1,5 @@
 # description	: A library for installing Python wheels"
-# depends	: python3 unzip
+# depends	: python unzip
 
 pkgname=py3-installer
 pkgver=0.7.0
@@ -15,9 +15,7 @@ build() {
 	unzip -d "$srcdir" "$srcdir"/installer-$pkgver-py3-none-any.whl   
 
     patch -Np1 -i ./default-bytecode-levels.patch
-}
 
-package() {
 	local sitedir="$(python3 -c 'import site;print(site.getsitepackages()[0])')"
 	mkdir -p "$pkgdir/$sitedir"
 	cp -a installer* "$pkgdir/$sitedir"

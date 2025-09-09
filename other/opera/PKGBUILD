@@ -13,9 +13,6 @@ backup=(etc/$pkgname/default)
 
 build() {
     ar x $pkgname-stable_${pkgver}_amd64.deb
-}
-
-package() {
     tar -xf data.tar.xz --exclude=usr/share/{lintian,menu} -C "$pkgdir/"
 
     # get rid of the extra subfolder {i386,x86_64}-linux-gnu

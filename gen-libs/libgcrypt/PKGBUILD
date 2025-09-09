@@ -15,11 +15,6 @@ build() {
     make -C doc html
     makeinfo --html --no-split -o doc/gcrypt_nochunks.html doc/gcrypt.texi
     makeinfo --plaintext       -o doc/gcrypt.txt           doc/gcrypt.texi
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install   
 
     install -v -dm755   "$pkgdir"/usr/share/doc/$pkgname-$pkgver

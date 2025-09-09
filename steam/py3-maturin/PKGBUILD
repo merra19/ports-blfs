@@ -1,7 +1,6 @@
 # description	: Build and publish crates with pyo3, rust-cpython and cffi bindings - Python bindings
-# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
-# depends	: bzip2 rustc dbus openssl py3-setuptools-rust
-# depends	: py3-semantic-version
+# depends	: python py3-gpep517 py3-setuptools py3-wheel bzip2 rustc
+# depends	: dbus openssl py3-setuptools-rust py3-semantic-version
 
 pkgname=py3-maturin
 pkgver=1.9.4
@@ -18,7 +17,7 @@ createpack() {
     cp $pkgname-$pkgver-cargo.tar.xz /sources/src/
 }
 
-prepare() {
+build() {
 	cd maturin-$pkgver
 
 	#createpack
@@ -32,10 +31,6 @@ prepare() {
     echo 'directory = "vendor"' >> .cargo/config.toml
 
 	#cargo build --release
-}
-
-build() {
-	cd maturin-$pkgver
 
 	export OPENSSL_NO_VENDOR=1
 
@@ -46,10 +41,6 @@ build() {
 	./target/release/maturin completions bash > $pkgname.bash
 	./target/release/maturin completions fish > $pkgname.fish
 	./target/release/maturin completions zsh > $pkgname.zsh
-}
-
-package() {
-	cd maturin-$pkgver
 
 	install -Dm644 $pkgname.bash "$pkgdir"/usr/share/bash-completion/completions/$pkgname
 	install -Dm644 $pkgname.fish "$pkgdir"/usr/share/fish/vendor_completions.d/$pkgname.fish

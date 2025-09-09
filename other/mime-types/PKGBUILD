@@ -10,9 +10,6 @@ backup=(etc/mailcap etc/mime.types etc/nginx/mime.types)
 
 build() {
     make
-}
-
-package() {
     make DESTDIR="$pkgdir" install
 }
 

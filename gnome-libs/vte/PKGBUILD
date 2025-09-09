@@ -24,11 +24,6 @@ build() {
         -D _systemd=false \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	DESTDIR="$pkgdir" ninja -C build install
 
     rm -v "$pkgdir"/etc/profile.d/vte.*

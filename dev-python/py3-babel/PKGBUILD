@@ -1,5 +1,5 @@
 # description	: Collection of tools for internationalizing Python applications
-# depends	: python3 py3-gpep517 py3-setuptools py3-wheel py3-pytz
+# depends	: python py3-gpep517 py3-setuptools py3-wheel py3-pytz
 
 pkgname=py3-babel
 pkgver=2.17.0
@@ -17,10 +17,5 @@ build() {
     cd babel-$pkgver
 
 	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd babel-$pkgver
-
 	python3 -m installer -d "$pkgdir" .dist/*.whl
 }

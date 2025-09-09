@@ -1,5 +1,5 @@
 # description	: Basepack of plugins for gstreamer
-# depends	: gst-plugins-base meson python3 liba52 x264 libmpeg2
+# depends	: gst-plugins-base meson python liba52 x264 libmpeg2
 # depends	: libcdio libcdio-paranoia
 
 pkgname=gst-plugins-ugly
@@ -16,10 +16,5 @@ build() {
         -D gpl=enabled \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

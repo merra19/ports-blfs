@@ -1,5 +1,5 @@
 # description	: Implements a XML/HTML/XHTML Markup safe string for Python
-# depends	: python3 py3-wheel py3-gpep517 py3-setuptools
+# depends	: python py3-wheel py3-gpep517 py3-setuptools
 
 pkgname=py3-markupsafe
 pkgver=3.0.2
@@ -11,11 +11,6 @@ build() {
     cd ${pkgname#*-}-$pkgver
 
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd ${pkgname#*-}-$pkgver
-
     python3 -m installer -d "$pkgdir" .dist/*.whl
 	find "$pkgdir" -name "*.c" -delete   
 }

@@ -1,5 +1,5 @@
 # description	: A concurrent garbage collected and typesafe programming language
-# depends	: sqlite xz python3 zlib bzip2 ninja boost
+# depends	: sqlite xz python zlib bzip2 ninja boost
 
 pkgname=go
 pkgver=1.25.1
@@ -31,10 +31,6 @@ build() {
 	
 	cd go/src
 	./make.bash
-}
-
-package() {
-    cd go/src
 
 	install -d "$pkgdir"/usr/lib
 	mv "$srcdir"/go "$pkgdir"/usr/lib/

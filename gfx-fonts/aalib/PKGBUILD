@@ -41,10 +41,5 @@ build() {
 		--with-ncurses=/usr \
 		--disable-static
 	make
-}
-
-package() {
-    cd $pkgname-$_pkgver
-
     make DESTDIR="$pkgdir" install
 }

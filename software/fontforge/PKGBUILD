@@ -1,7 +1,7 @@
 # description	: postscript font editor and converter
-# depends	: giflib libtiff libtool libxml2 python3 glib cmake
-# depends	: libjpeg-turbo libpng readline xorg-proto xorg-libs
-# depends	: py3-sphinx woff2 gtk3 libspiro
+# depends	: giflib libtiff libtool libxml2 python glib cmake libpng
+# depends	: libjpeg-turbo readline xorg-proto xorg-libs py3-sphinx
+# depends	: woff2 gtk3 libspiro
 
 pkgname=fontforge
 pkgver=20230101
@@ -32,11 +32,6 @@ build() {
         -D ENABLE_X11=ON \
         -D ENABLE_LIBSPIRO=ON
 	make -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 
     ln -sv fontforge "$pkgdir"/usr/share/doc/$pkgname-$pkgver

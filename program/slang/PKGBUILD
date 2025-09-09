@@ -16,11 +16,6 @@ build() {
         --sysconfdir=/etc \
         --with-readline=gnu
 	make RPATH=
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	make -j1 DESTDIR="$pkgdir" \
 		install_doc_dir=/usr/share/doc/$pkgname-$pkgver \
 		SLSH_DOC_DIR=/usr/share/doc/$pkgname-$pkgver/slsh \

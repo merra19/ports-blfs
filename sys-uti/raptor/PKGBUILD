@@ -18,10 +18,5 @@ build() {
         --disable-static \
         --with-icu-config=/usr/bin/icu-config
 	make
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

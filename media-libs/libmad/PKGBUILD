@@ -20,11 +20,6 @@ build() {
         --prefix=/usr \
         --disable-static 
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     install -Dm 644 "$srcdir"/mad.pc "$pkgdir"/usr/lib/pkgconfig/mad.pc

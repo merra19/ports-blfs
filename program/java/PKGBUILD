@@ -9,7 +9,7 @@ options=(!strip)
 source=(https://anduin.linuxfromscratch.org/BLFS/OpenJDK/OpenJDK-$pkgver/OpenJDK-$pkgver+12-x86_64-bin.tar.xz
         openjdk.sh java)
 
-package() {
+build() {
     cd ${_pkgname}-$pkgver+12-x86_64-bin
 
     install -vdm755 "$pkgdir"/opt/OpenJDK-$pkgver-bin &&

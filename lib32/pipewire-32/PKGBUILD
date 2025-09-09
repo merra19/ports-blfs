@@ -25,11 +25,6 @@ build() {
         -D session-managers="[]" \
         build
 	ninja -C build
-}
-
-package() {
-    cd $_pkgname-$pkgver
-
     DESTDIR=$PWD/DESTDIR ninja -C build install
 
 	mkdir -p "$pkgdir"/usr/lib32

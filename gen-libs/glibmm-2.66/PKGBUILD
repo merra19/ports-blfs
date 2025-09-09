@@ -15,10 +15,5 @@ build() {
         --buildtype=plain \
         bld
 	ninja -C bld
-}
-
-package() {
-    cd $_pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C bld  install
 }

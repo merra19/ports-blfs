@@ -11,9 +11,7 @@ source=(install.sh)
 build() {
     xxxxxxxxxxxx
 :
-}
 
-package() {
     mkdir -p "$pkgdir"/opt/pihole
     install -m 0755 install.sh "$pkgdir"/opt/pihole
 }

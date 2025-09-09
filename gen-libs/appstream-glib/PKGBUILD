@@ -16,11 +16,6 @@ build() {
         -D rpm=false \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	DESTDIR="$pkgdir" ninja -C build install
 
     rm -v -rf "$pkgdir"/usr/share/installed-tests

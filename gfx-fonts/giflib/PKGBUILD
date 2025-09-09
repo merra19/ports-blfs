@@ -21,11 +21,6 @@ build() {
     cp pic/gifgrid.gif doc/giflib-logo.gif   
 
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	make PREFIX="$pkgdir"/usr install
 	rm "$pkgdir"/usr/lib/libgif.a
 

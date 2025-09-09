@@ -18,10 +18,6 @@ build() {
         shared zlib-dynamic
     make depend
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
     make MANSUFFIX=ssl DESTDIR="$pkgdir" install

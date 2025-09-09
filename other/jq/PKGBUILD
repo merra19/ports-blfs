@@ -1,5 +1,5 @@
 # description	: Lightweight and flexible command-line JSON processor
-# depends	: oniguruma autoconf automake bison flex python3
+# depends	: oniguruma autoconf automake bison flex python
 
 pkgname=jq
 pkgver=1.8.1
@@ -16,10 +16,5 @@ build() {
         --disable-static \
         --disable-docs
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

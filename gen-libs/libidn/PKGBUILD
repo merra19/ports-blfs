@@ -19,11 +19,6 @@ build() {
         --disable-static \
         --enable-java
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     find doc -name "Makefile*" -delete

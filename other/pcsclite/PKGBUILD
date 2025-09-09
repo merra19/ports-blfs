@@ -1,5 +1,5 @@
 # description	: PC/SC Architecture smartcard middleware library
-# depends	: glibc polkit udev python3 meson
+# depends	: glibc polkit udev python meson
 
 pkgname=pcsclite
 pkgver=2.3.3
@@ -19,11 +19,6 @@ build() {
         -D serial=true \
         build
     ninja -C build
-}
-
-package() {
-    cd PCSC-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 
     install -d "$pkgdir/usr/lib/pcsc/drivers"

@@ -12,10 +12,6 @@ build() {
 
     patch -Np1 -i ../dynamiclib.diff
     make
-}
-
-package() {
-    cd ${pkgname%-*}-$pkgver
 
 	install -Dm644 ./include/libstemmer.h "$pkgdir"/usr/include/libstemmer.h
 	install -D ./libstemmer.so.0 "$pkgdir"/usr/lib/libstemmer.so.0.0.0

@@ -17,11 +17,6 @@ build() {
         -D doxygen-doc=disabled \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 
     for prog in v4l2gl v4l2grab; do

@@ -23,10 +23,5 @@ build() {
     make -f unix/Makefile prefix=/usr \
         D_USE_BZ2=-DUSE_BZIP2 L_BZ2=-lbz2 \
         LF2="$LDFLAGS" CF="$CFLAGS $CPPFLAGS -I. $DEFINES -std=gnu17" unzips
-}
-
-package() {
-    cd $pkgname$_version
-
     make -f unix/Makefile prefix="${pkgdir}"/usr MANDIR="${pkgdir}"/usr/share/man/man1 install
 }

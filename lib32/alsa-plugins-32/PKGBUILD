@@ -31,10 +31,6 @@ build() {
         --disable-jack
     make
     unset PKG_CONFIG_PATH 
-}
-
-package() {
-    cd $_pkgname-$pkgver/build
 
     make DESTDIR=$PWD/DESTDIR install
 

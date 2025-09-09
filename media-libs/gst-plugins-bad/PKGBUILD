@@ -3,7 +3,7 @@
 # depends	: bzip2 libva wayland soundtouch bluez curl faac faad2
 # depends	: fdk-aac json-glib lcms2 libaom libass libexif librsvg
 # depends	: libsndfile libssh2 libusb libwebp libxkbcommon libxml2
-# depends	: neon libgcrypt openjpeg2 opus pango libqrencode sbc 
+# depends	: neon libgcrypt openjpeg opus pango libqrencode sbc 
 # depends	: vulkan-loader shaderc x265 zxing-cpp gtk3
 
 pkgname=gst-plugins-bad
@@ -20,10 +20,5 @@ build() {
         -D gpl=enabled \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

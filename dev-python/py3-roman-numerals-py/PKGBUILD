@@ -1,5 +1,5 @@
 # description	: Manipulate roman numerals
-# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
+# depends	: python py3-gpep517 py3-setuptools py3-wheel
 
 pkgname=py3-roman-numerals-py
 pkgver=3.1.0
@@ -10,10 +10,5 @@ build() {
 	cd roman_numerals_py-$pkgver
 
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd roman_numerals_py-$pkgver
-
 	python3 -m installer -d "$pkgdir" .dist/*.whl
 }

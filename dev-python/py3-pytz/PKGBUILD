@@ -1,5 +1,5 @@
 # description	: World timezone definitions for Python
-# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
+# depends	: python py3-gpep517 py3-setuptools py3-wheel
 
 pkgname=py3-pytz
 pkgver=2025.2
@@ -11,10 +11,5 @@ build() {
     cd pytz-$pkgver
     
 	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-    cd pytz-$pkgver
-
     python3 -m installer -d "$pkgdir" .dist/*.whl
 }

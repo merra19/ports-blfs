@@ -18,10 +18,5 @@ build() {
         -D protobuf_BUILD_SHARED_LIBS=ON \
         -G Ninja                      
     ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja install -C build
 }

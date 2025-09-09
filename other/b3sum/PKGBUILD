@@ -9,10 +9,5 @@ source=($pkgname-$pkgver.tar.gz::https://git.sr.ht/~mcf/b3sum/archive/$commit.ta
 build() {
     cd $pkgname-$commit
     make
-}
-
-package() {
-    cd $pkgname-$commit
-
     make PREFIX=/usr DESTDIR="$pkgdir" install
 }

@@ -31,11 +31,6 @@ build() {
         --with-voxin=no \
         --without-flite
     make
-}
-
-package() {
-  cd $pkgname-$pkgver
-
   make DESTDIR="$pkgdir" install
 
   sed -i 's|includedir=.*|includedir=${prefix}/include/speech-dispatcher|g' "$pkgdir"/usr/lib/pkgconfig/speech-dispatcher.pc

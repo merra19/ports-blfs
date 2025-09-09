@@ -17,12 +17,7 @@ build() {
     makeinfo --html --no-split -o doc/dejagnu.html ../doc/dejagnu.texi
     makeinfo --plaintext       -o doc/dejagnu.txt  ../doc/dejagnu.texi
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
-    make DESTDIR="$pkgdir" -C build install
+    make DESTDIR="$pkgdir" install
     install -v -dm755  "$pkgdir"/usr/share/doc/$pkgname-$pkgver
-    install -v -m644   build/doc/dejagnu.{html,txt} "$pkgdir"/usr/share/doc/$pkgname-$pkgver
+    install -v -m644   doc/dejagnu.{html,txt} "$pkgdir"/usr/share/doc/$pkgname-$pkgver
 }

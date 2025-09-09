@@ -10,10 +10,5 @@ build() {
     cd $pkgname-$pkgver
 
     make EFIDIR=LFS EFI_LOADER=grubx64.efi
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install EFIDIR=LFS
 }

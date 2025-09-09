@@ -12,7 +12,7 @@ pkgver=4.20.0
 pkgrel=1
 source=()
 
-package() {
+build() {
     mkdir -p "$pkgdir"/usr
 
     mkdir -p "$pkgdir"/etc/X11/xinit

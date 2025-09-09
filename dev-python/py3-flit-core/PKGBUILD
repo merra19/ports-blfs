@@ -13,10 +13,5 @@ build() {
     sed -i -e 's:from \.vendor ::' flit_core/*.py 
 	sed -i -e '/license-files/d' pyproject.toml 
     python3 build_dists.py
-}
-
-package() {
-	cd flit_core-$pkgver
-
 	python3 -m installer -d "$pkgdir" dist/flit_core-$pkgver-py3-none-any.whl
 }

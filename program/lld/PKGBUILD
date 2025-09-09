@@ -42,11 +42,5 @@ build() {
 		-D LLVM_LINK_LLVM_DYLIB=ON \
 		-Wno-dev
 	cmake --build build
-	
-}
-
-package() {
-    cd $pkgname-$pkgver.src
-
     DESTDIR="$pkgdir" cmake --install build
 }

@@ -16,10 +16,5 @@ build() {
         --docdir=/usr/share/doc/${pkgname#lib}-$pkgver
     make
     make html
-}
-
-package() {
-    cd ${pkgname#lib}-$pkgver
-
     make DESTDIR="$pkgdir" install install-html
 }

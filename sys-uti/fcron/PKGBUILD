@@ -25,10 +25,6 @@ build() {
         --with-systemdsystemunitdir=no \
         --with-editor=/usr/bin/vim
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     install -vdm755 "$pkgdir"/etc/pam.d
 

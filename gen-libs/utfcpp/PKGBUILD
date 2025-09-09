@@ -11,10 +11,5 @@ build() {
 
     cmake -B build \
          -D CMAKE_INSTALL_PREFIX=/usr
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 }

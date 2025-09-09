@@ -17,11 +17,6 @@ build() {
         -Dsd-bus-provider=libelogind \
         build
     ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 
     # fix detection with x-d-p 1.18

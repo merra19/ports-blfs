@@ -1,5 +1,5 @@
 # description	: GnuPG Made Easy is a library for making GnuPG easier to use
-# depends	: gnupg libassuan python3 
+# depends	: gnupg libassuan python 
 
 pkgname=gpgme
 pkgver=2.0.0
@@ -17,10 +17,5 @@ build() {
         --prefix=/usr \
         --disable-static
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
-    make DESTDIR="$pkgdir" PYTHONS= -C build install
+    make DESTDIR="$pkgdir" PYTHONS= install
 }

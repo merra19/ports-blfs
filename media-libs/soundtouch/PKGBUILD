@@ -14,10 +14,5 @@ build() {
         --prefix=/usr \
         --docdir=/usr/share/doc/$pkgname-$pkgver
 	make
-}
-
-package() {
-    cd $pkgname
-
     make DESTDIR="$pkgdir" install
 }

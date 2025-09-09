@@ -23,11 +23,6 @@ build() {
         --disable-gss \
         LIBS="-lsqlite3 -levent_core"
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     mv "$pkgdir"/sbin/* "$pkgdir"/usr/sbin/

@@ -19,11 +19,6 @@ build() {
         --libdir=/usr/lib32 \
 		--disable-static
 	make
-}
-
-package() {
-    cd $_pkgname-$pkgver
-
 	make DESTDIR=$PWD/DESTDIR install
 
 	mkdir -p "$pkgdir"/usr/lib32

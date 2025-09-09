@@ -17,10 +17,5 @@ build() {
         --without-expat \
         --without-xml2
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

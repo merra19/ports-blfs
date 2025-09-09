@@ -17,10 +17,5 @@ build() {
         -D ALLOW_IN_SOURCE_BUILD=YES \
         -D CMAKE_INSTALL_DOCDIR=/usr/share/doc/$pkgname-$pkgver
     make -C BUILD
-}
-
-package() {
-    cd $pkgname-version-$pkgver
-
     make DESTDIR="$pkgdir" install -C BUILD
 }

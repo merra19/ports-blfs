@@ -17,10 +17,5 @@ build() {
         -D CMAKE_POSITION_INDEPENDENT_CODE=ON \
         -D LLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=/usr
     make -C build
-}
-
-package() {
-    cd SPIRV-LLVM-Translator-$pkgver/build
-
     make DESTDIR="$pkgdir" install
 }

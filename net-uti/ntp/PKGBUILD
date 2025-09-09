@@ -24,11 +24,6 @@ build() {
         --with-lineeditlibs=readline \
         --docdir=/usr/share/doc/$pkgname-$pkgver
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     install -v -o ntp -g ntp -d "$pkgdir"/var/lib/ntp

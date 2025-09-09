@@ -17,11 +17,6 @@ build() {
 		--enable-pkgconfig \
 		--enable-udev_sync
 	make
-}
-
-package() {
-    cd LVM2.$pkgver
-
 	make DESTDIR="$pkgdir" install
 
     rm -fv "$pkgdir"/usr/lib/udev/rules.d/69-dm-lvm.rules

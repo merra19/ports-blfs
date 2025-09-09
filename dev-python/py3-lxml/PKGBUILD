@@ -15,10 +15,5 @@ build() {
 		--wheel-dir .dist \
 		--config-json '{"--build-option": ["--with-cython"]}' \
 		--output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd ${pkgname#*-}-$pkgver
-
 	python3 -m installer -d "$pkgdir" .dist/*.whl
 }

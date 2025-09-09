@@ -16,10 +16,5 @@ build() {
          -D CMAKE_INSTALL_PREFIX=/usr \
         -Wno-dev
     make -C build 
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 }

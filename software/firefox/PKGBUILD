@@ -1,7 +1,7 @@
 # description	: Firefox Web Browser
 # depends	: pulseaudio alsa-lib bash gtk3 ffmpeg lld llvm nasm
 # depends	: libarchive startup-notification libevent libvpx libxcb
-# depends	: libwebp icu curl geoclue pciutils wget liboauth python3
+# depends	: libwebp icu curl geoclue pciutils wget liboauth python
 # depends	: nss cbindgen diffutils nodejs yasm libnotify libproxy
 # depends	: wireless_tools sqlite xorg-libs 
 
@@ -15,7 +15,7 @@ source=(https://archive.mozilla.org/pub/firefox/releases/${pkgver}esr/source/fir
 # Google API keys (see http://www.chromium.org/developers/how-tos/api-keys)
 _google_api_key=AIzaSyDxKL42zsPjbke5O8_rPVpVrLrJ8aeE9rQ
 
-prepare() {
+build() {
     mkdir mozbuild
     cd firefox-$pkgver
 
@@ -116,10 +116,6 @@ mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/firefox-build-dir
 # firefox.
 MOZ_APP_REMOTINGNAME=firefox
 END
-}
-
-build() {
-    cd firefox-$pkgver
 
     cp ../mozconfig ./
 
@@ -140,14 +136,7 @@ build() {
     export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none &&
     export MOZBUILD_STATE_PATH=${PWD}/mozbuild &&
     ./mach build --priority normal
-    unset MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE
-    unset MOZBUILD_STATE_PATH
-}
 
-package() {
-    cd firefox-$pkgver
-
-    export MOZBUILD_STATE_PATH=${PWD}/mozbuild 
     export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none && DESTDIR="$pkgdir" ./mach install
 
     unset MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE

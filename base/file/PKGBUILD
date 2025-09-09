@@ -24,10 +24,5 @@ build() {
     ./configure \
         --prefix=/usr
     make FILE_COMPILE=$(pwd)/build/src/file
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

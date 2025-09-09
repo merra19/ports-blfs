@@ -15,11 +15,6 @@ build() {
         --buildtype=release \
         build
     ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
     hardlink -c "$pkgdir/usr/share/help"
 }

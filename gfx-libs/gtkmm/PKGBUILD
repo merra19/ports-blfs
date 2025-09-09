@@ -14,10 +14,5 @@ build() {
         --buildtype=plain \
         gtkmm4-build
 	ninja -C gtkmm4-build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C gtkmm4-build install
 }

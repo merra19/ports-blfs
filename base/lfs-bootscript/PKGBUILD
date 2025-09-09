@@ -8,7 +8,7 @@ source=(https://www.linuxfromscratch.org/lfs/downloads/development/lfs-bootscrip
         https://anduin.linuxfromscratch.org/BLFS/blfs-bootscripts/blfs-bootscripts-$pkgverblfs.tar.xz
         c89 c99 Makefile blfs-service)
         
-package() {
+build() {
     cd blfs-bootscripts-$pkgverblfs
             
     mkdir -p "$pkgdir"/usr/share/blfs-bootscripts

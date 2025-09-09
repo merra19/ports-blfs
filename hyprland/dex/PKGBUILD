@@ -1,5 +1,5 @@
 # description	: DesktopEntry eXecution - tool to manage and launch autostart entries
-# depends	: python3 py3-sphinx
+# depends	: python py3-sphinx
 
 pkgname=dex
 pkgver=0.10.1
@@ -10,10 +10,5 @@ build() {
 	cd $pkgname-$pkgver
 
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make install PREFIX=/usr MANPREFIX=/usr/share/man DESTDIR="$pkgdir"
 }

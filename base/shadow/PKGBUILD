@@ -31,10 +31,6 @@ build() {
         --with-{b,yes}crypt \
         --with-group-name-max-length=32
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     mkdir -pv "$pkgdir"/usr/bin
     touch "$pkgdir"/usr/bin/passwd

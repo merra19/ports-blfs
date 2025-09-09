@@ -22,11 +22,6 @@ build() {
         -D stemming=true \
         build
     ninja -C build
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
 	DESTDIR="$pkgdir" ninja -C build install
 
 	install -Dm 644 "$srcdir"/metainfo "$pkgdir"/usr/share/metainfo

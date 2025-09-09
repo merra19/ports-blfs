@@ -17,10 +17,5 @@ build() {
         --localstatedir=/var \
         --disable-static
     make -j1
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

@@ -1,5 +1,5 @@
 # description	: C++ JSON reader and writer
-# depends	: python3 meson
+# depends	: python meson
 
 pkgname=jsoncpp
 pkgver=1.9.6
@@ -15,10 +15,5 @@ build() {
         --default-library shared \
         build
     ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

@@ -1,5 +1,5 @@
 # description	: OpenCL (Open Computing Language) header files
-# depends	: cmake python3
+# depends	: cmake python
 
 pkgname=opencl-headers
 pkgver=2025.07.22
@@ -12,8 +12,5 @@ build() {
         -DCMAKE_INSTALL_PREFIX=/usr \
 
     cmake --build build
-}
-
-package() {
     DESTDIR="$pkgdir" cmake --install build
 }

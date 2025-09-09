@@ -10,9 +10,7 @@ source=(https://www.docbook.org/sgml/$_version/docbook-$_version.zip)
 build() {
     sed -i -e '/ISO 8879/d' \
         -e '/gml/d' docbook.cat
-}
 
-package() {
     install -dm 755 "$pkgdir"/etc/sgml/
     install -v -d -m755 "$pkgdir"/usr/share/sgml/docbook/sgml-dtd-${_version} &&
     chown -R root:root . &&

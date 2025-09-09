@@ -1,5 +1,5 @@
 # description	: Python bindings for the cairo library
-# depends	: python3 cairo
+# depends	: python cairo
 
 pkgname=py3-cairo
 pkgver=1.28.0
@@ -14,11 +14,5 @@ build() {
         --buildtype=plain \
         build
     ninja -C build
-}
-
-
-package() {
-	cd pycairo-$pkgver
-
 	DESTDIR="$pkgdir" ninja -C build install
 }

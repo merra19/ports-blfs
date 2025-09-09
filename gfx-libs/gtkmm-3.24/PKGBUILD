@@ -14,10 +14,5 @@ build() {
         --buildtype=plain \
         gtkmm3-build
 	ninja -C gtkmm3-build
-}
-
-package() {
-    cd gtkmm-$pkgver
-
     DESTDIR="$pkgdir" ninja -C gtkmm3-build install
 }

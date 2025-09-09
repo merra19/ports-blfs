@@ -20,11 +20,6 @@ build() {
         -D tests=true \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	DESTDIR="$pkgdir" ninja -C build install
 
     rm -rf "$pkgdir"/tmp rm -rf "$pkgdir"/usr/lib/{sysusers,tmpfiles}.d

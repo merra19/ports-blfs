@@ -1,6 +1,6 @@
 # description	: D-Bus abstraction for enumerating power devices, querying history and statistics
 # depends	: libgudev libusb gobject-introspection glib libxslt
-# depends	: py3-gobject3 docbook-xsl-nons
+# depends	: py3-gobject docbook-xsl-nons
 
 pkgname=upower
 pkgver=1.90.10
@@ -21,11 +21,6 @@ build() {
         -D udevrulesdir=/usr/lib/udev/rules.d \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-v$pkgver
-
 	DESTDIR="$pkgdir" ninja -C build install
 
 	install -Dm 644 "$srcdir"/rules "$pkgdir"/usr/share/polkit-1/rules.d/org.freedesktop.upower.rules

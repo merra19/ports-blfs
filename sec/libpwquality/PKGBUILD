@@ -20,11 +20,6 @@ build() {
         --with-python-binary=python3 
     make
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
     python3 -m installer -d "$pkgdir" .dist/*.whl
 }

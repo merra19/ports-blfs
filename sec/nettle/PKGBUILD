@@ -13,11 +13,6 @@ build() {
         --prefix=/usr \
 		--disable-static
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	make DESTDIR="$pkgdir" install
 
     chmod -v 755 "$pkgdir"/usr/lib/lib{hogweed,nettle}.so &&

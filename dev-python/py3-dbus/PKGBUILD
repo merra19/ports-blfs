@@ -15,11 +15,6 @@ build() {
         --buildtype=plain \
         build
     ninja -C build
-}
-
-package() {
-	cd dbus-python-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 
 	local pyminor="$(python3 -c 'import sys; print("%i" % sys.version_info.minor)')"

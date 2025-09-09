@@ -13,10 +13,5 @@ build() {
         --prefix=/usr \
         --localstatedir=/var/lib/locate
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

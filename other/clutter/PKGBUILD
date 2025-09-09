@@ -21,10 +21,5 @@ build() {
         --enable-wayland-backend \
         --enable-wayland-compositor 
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

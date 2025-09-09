@@ -18,11 +18,6 @@ build() {
         --prefix=/usr \
         --enable-alsa-mmap
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
     
     # default config

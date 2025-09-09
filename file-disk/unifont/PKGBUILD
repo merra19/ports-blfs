@@ -7,8 +7,7 @@ pkgrel=1
 options=(!makeflags !lto)
 source=(https://unifoundry.com/pub/unifont/unifont-$pkgver/font-builds/unifont-$pkgver.pcf.gz)
 
-
-package() {
+build() {
     mkdir -pv "$pkgdir"/usr/share/fonts/unifont &&
     gunzip -c unifont-$pkgver.pcf.gz > "$pkgdir"/usr/share/fonts/unifont/unifont.pcf
 }

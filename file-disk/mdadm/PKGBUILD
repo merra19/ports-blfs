@@ -16,11 +16,6 @@ build() {
         -i platform-intel.h
    
     make CWFLAGS="-Wall" CXFLAGS="${CFLAGS}"
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" CWFLAGS="-Wall" CXFLAGS="${CFLAGS}" BINDIR=/usr/sbin install
     
     install -Dm 644 ../mdadm.conf "$pkgdir"/etc/mdadm.conf

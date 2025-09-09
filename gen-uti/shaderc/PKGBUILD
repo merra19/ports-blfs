@@ -28,10 +28,5 @@ build() {
 		-D glslang_SOURCE_DIR:PATH='/usr/include/glslang' \
 		-Wno-dev
 	ninja -C build 
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja install -C build 
 }

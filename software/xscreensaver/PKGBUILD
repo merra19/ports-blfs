@@ -19,11 +19,7 @@ build() {
         --prefix=/usr \
         --with-elogind 
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
+    
     mkdir -p "$pkgdir"/etc/pam.d
 
 	make install_prefix="$pkgdir" install

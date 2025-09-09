@@ -1,6 +1,6 @@
 # description	: Btrfs filesystem utilities
-# depends	: glibc lzo lvm2 util-linux zlib python3 udev zstd 
-# depends	: acl linux-api-headers
+# depends	: glibc lzo lvm2 util-linux zlib python udev zstd acl
+# depends	: linux-api-headers
 
 pkgname=btrfs-progs
 pkgver=6.16
@@ -15,11 +15,6 @@ build() {
         --disable-static \
         --disable-documentation
     make
-}
-
-package() {
-    cd $pkgname-v$pkgver
-
     make DESTDIR="$pkgdir" install
 
     mkdir -p "$pkgdir"/usr/share/man/man{5,8}

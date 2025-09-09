@@ -17,11 +17,6 @@ build() {
         -D tests=disabled \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	DESTDIR="$pkgdir" ninja -C build install
 
     rm -rf "$pkgdir"/usr/lib/systemd

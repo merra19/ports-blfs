@@ -32,9 +32,7 @@ build() {
         --disable-lib64 \
         --enable-lib32
     make  
-}
 
-package() {
     cd  "$srcdir"/build-x86_64
 
     make DESTDIR="$pkgdir" install

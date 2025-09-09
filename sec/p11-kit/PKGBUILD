@@ -28,11 +28,6 @@ EOF
         -D gtk_doc=false \
         p11-build
     ninja -C p11-build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C p11-build install
 
 	ln -s /usr/libexec/p11-kit/trust-extract-compat  \

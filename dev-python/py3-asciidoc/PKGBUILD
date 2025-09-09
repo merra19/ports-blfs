@@ -1,5 +1,5 @@
 # description	: A plain text human readable/writable document format
-# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
+# depends	: python py3-gpep517 py3-setuptools py3-wheel
 
 pkgname=py3-asciidoc
 pkgver=10.2.1
@@ -11,11 +11,6 @@ build() {
 	cd asciidoc-${pkgver}
 
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd asciidoc-${pkgver}
-    
 	python3 -m installer -d "$pkgdir" .dist/*.whl
 	install -Dm644 asciidoc/api.py -t "$pkgdir"/usr/lib/python3*/site-packages/asciidoc/
 }

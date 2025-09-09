@@ -49,11 +49,6 @@ build() {
         --with-suexec-uidmin=100 \
         --with-suexec-userdir=public_html
     make
-}
-
-package() {
-	cd httpd-$pkgver
-
 	make DESTDIR="$pkgdir" install
 
     chown -v -R apache:apache "$pkgdir"/srv/www

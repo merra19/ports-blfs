@@ -1,6 +1,6 @@
 # description	: A plugin for setuptools to build Rust Python extensions
-# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
-# depends	: py3-setuptools-scm
+# depends	: python py3-gpep517 py3-setuptools py3-setuptools-scm
+# depends	: py3-wheel
 
 pkgname=py3-setuptools-rust
 pkgver=1.11.1
@@ -11,10 +11,5 @@ build() {
 	cd setuptools-rust-$pkgver
 
 	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd setuptools-rust-$pkgver
-
 	python3 -m installer -d "$pkgdir" .dist/*.whl
 }

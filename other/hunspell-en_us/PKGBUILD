@@ -13,10 +13,7 @@ build() {
     # recognize apostrophes - FS#70425
     # https://sourceforge.net/p/hunspell/patches/35/
     patch -Np1 -i ./hunspell-en-allow-non-typographical.marks.patch
-}
 
-package() {
-    cd "$srcdir"
     install -vDm 644 en_US*.dic en_US*.aff -t "$pkgdir/usr/share/hunspell"
 
     pushd "$pkgdir/usr/share/hunspell/"

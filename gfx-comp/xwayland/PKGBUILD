@@ -21,11 +21,6 @@ build() {
         -D xkb_output_dir=/var/lib/xkb \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	DESTDIR="$pkgdir" ninja -C build install
 
     # conflict xorg-server

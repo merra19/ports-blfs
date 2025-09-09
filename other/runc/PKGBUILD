@@ -15,10 +15,6 @@ build() {
     export BUILDTAGS="seccomp"
     export GOFLAGS="-trimpath -mod=readonly -modcacherw"
     make runc
-}
-
-package() {
-    cd src/github.com/opencontainers/$pkgname
 
     install -D -m 0755 $pkgname "$pkgdir"/usr/bin/$pkgname
 }

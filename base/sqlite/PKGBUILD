@@ -23,11 +23,6 @@ build() {
                       -DSQLITE_ENABLE_DBSTAT_VTAB=1 \
                       -DSQLITE_SECURE_DELETE=1"  
     make
-}
-
-package() {
-    cd $pkgname-autoconf-$_version
-
     make DESTDIR="$pkgdir" install
 
     install -v -m755 -d "$pkgdir"/usr/share/doc/$pkgname-$pkgver

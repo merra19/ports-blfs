@@ -21,11 +21,6 @@ build() {
         --libdir=/usr/lib32 \
         --host=i686-pc-linux-gnu 
     make
-}
-
-package() {
-    cd ${_pkgname}/source
-
     make DESTDIR="$PWD"/DESTDIR install
     rm -fr DESTDIR/usr/{bin,sbin,share,include}
     cp -Rv DESTDIR/* "$pkgdir"/

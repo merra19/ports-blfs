@@ -23,10 +23,5 @@ build() {
         --wrap-mode=nofallback \
         build
 	ninja -C build
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

@@ -13,10 +13,5 @@ build() {
         --prefix=/usr \
         --disable-lua
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

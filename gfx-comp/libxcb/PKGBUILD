@@ -18,11 +18,6 @@ build() {
         --without-doxygen \
         --docdir='${datadir}'/doc/$pkgname-$pkgver
     LC_ALL=en_US.UTF-8 make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     chown -Rv root:root "$pkgdir"/usr/share/doc/libxcb-1.17.0

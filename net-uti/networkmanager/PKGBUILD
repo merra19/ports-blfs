@@ -1,7 +1,7 @@
 # description	: A set of co-operative tools that make networking simple and straightforward
 # depends	: gobject-introspection vala glib libndp curl util-linux 
 # depends	: nss readline newt intltool libxslt polkit iptables
-# depends	: py3-gobject3 wpa_supplicant udev libpsl bluez perl
+# depends	: py3-gobject wpa_supplicant udev libpsl bluez perl
 # depends	: linux-api-headers jansson elogind libnvme modemmanager
 # depends	: dhcpcd upower
 
@@ -34,11 +34,6 @@ build() {
 		-D qt=false \
         build
 	ninja -C build
-}
-
-package() {
-    cd NetworkManager-$pkgver
-
 	DESTDIR="$pkgdir" ninja -C build install
 
     for file in $(echo man/*.[1578]); do

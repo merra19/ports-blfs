@@ -19,10 +19,5 @@ build() {
         --enable-animation \
         --enable-animationrtl
     make
-}
-
-package() {
-    cd murrine-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

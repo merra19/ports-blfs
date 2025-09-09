@@ -19,11 +19,6 @@ build() {
 		--disable-docs \
         --docdir=/usr/share/doc/$pkgname-$pkgver
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
     
     install -v -dm755 "$pkgdir"/usr/share/{man/man{1,3,5},doc/$pkgname-$pkgver} &&

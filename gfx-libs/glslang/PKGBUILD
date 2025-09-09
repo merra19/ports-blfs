@@ -19,10 +19,5 @@ build() {
 		-D BUILD_SHARED_LIBS=ON \
 		-Wno-dev
 	ninja -C build-shared
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build-shared install
 }

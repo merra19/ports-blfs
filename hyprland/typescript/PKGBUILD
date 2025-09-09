@@ -6,7 +6,7 @@ pkgver=5.8.2
 pkgrel=1
 source=(https://github.com/microsoft/TypeScript/releases/download/v$pkgver/typescript-$pkgver.tgz)
 
-package() {
+build() {
     cd package
 
 	local destdir="usr/share/node_modules/typescript"

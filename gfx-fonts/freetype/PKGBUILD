@@ -21,10 +21,5 @@ build() {
         --with-harfbuzz="$(isinstalled harfbuzz && echo 'yes' || echo 'no' )" \
         --disable-static
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

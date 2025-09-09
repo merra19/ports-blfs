@@ -20,10 +20,5 @@ build() {
         --localstatedir=/var \
         --disable-static
     make
-}
-
-package() {
-    cd xf86-input-libinput-xlibre-xf86-input-libinput-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

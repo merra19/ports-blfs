@@ -24,10 +24,5 @@ build() {
         -D EXIV2_ENABLE_NLS=no \
 		-G "Unix Makefiles"
 	make -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 }

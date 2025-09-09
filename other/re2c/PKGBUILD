@@ -1,5 +1,5 @@
 # description	: Tool for generating C-based recognizers from regular expressions
-# depends	: glibc python3
+# depends	: glibc python
 
 pkgname=re2c
 pkgver=4.3
@@ -13,10 +13,5 @@ build() {
     ./configure \
         --prefix=/usr
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

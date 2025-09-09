@@ -14,10 +14,5 @@ build() {
         --disable-static \
         --disable-tester
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

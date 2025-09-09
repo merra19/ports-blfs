@@ -47,11 +47,6 @@ build() {
         -skip qtquick3dphysics \
         -skip qtwebengine
     ninja
-}
-
-package() {
-    cd qt-everywhere-src-$pkgver
-
     DESTDIR="$pkgdir" ninja install
 
 	find "$pkgdir"/ -name \*.prl \

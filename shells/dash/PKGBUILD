@@ -13,10 +13,5 @@ build() {
         --bindir=/bin \
         --mandir=/usr/share/man
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

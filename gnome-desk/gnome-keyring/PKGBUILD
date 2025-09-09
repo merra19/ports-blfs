@@ -18,10 +18,5 @@ build() {
         -D ssh-agent=true  \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

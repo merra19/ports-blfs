@@ -15,10 +15,5 @@ build() {
         --sysconfdir=/etc \
         --disable-documentation
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

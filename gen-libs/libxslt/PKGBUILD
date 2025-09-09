@@ -1,5 +1,5 @@
 # description	: XSLT libraries and tools
-# depends	: libxml2 python3
+# depends	: libxml2 python
 
 pkgname=libxslt
 pkgver=1.1.43
@@ -15,10 +15,5 @@ build() {
         PYTHON=/usr/bin/python3 \
         --docdir=/usr/share/doc/$pkgname-$pkgver
     make    
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

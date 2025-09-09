@@ -45,11 +45,6 @@ build() {
         -D glvnd=enabled \
         build32
     ninja -C build32
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     DESTDIR=$PWD/DESTDIR ninja -C build32 install
 
 	# indirect rendering symlink

@@ -25,10 +25,6 @@ build() {
     sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
     make
     unset PKG_CONFIG_PATH 
-}
-
-package() {
-    cd $_pkgname-$pkgver
 
     make DESTDIR="$pkgdir" install
     rm -r "$pkgdir"/usr/{include,share}

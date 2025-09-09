@@ -12,10 +12,5 @@ build() {
 	./configure \
         --sysconfdir=/etc
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

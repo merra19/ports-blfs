@@ -16,9 +16,6 @@ build() {
         -D ESPEAK_BUILD_MANPAGES=ON \
         -Wno-dev
     cmake --build build
-}
-
-package() {
     DESTDIR="$pkgdir" cmake --install build
     rm -rv "$pkgdir"/usr/include/espeak
 }

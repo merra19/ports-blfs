@@ -22,10 +22,5 @@ build() {
         -D BUILD_WSI_WAYLAND_SUPPORT=On \
         -D CMAKE_BUILD_TYPE=Release
     make -C build
-}
-
-package() {
-    cd Vulkan-Loader*/build
-
     make DESTDIR="$pkgdir" install
 }

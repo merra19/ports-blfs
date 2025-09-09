@@ -14,11 +14,6 @@ build() {
     rm -fv man/man8/arpd.8
 
     make NETNS_RUN_DIR=/run/netns
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" SBINDIR=/usr/sbin install
 
     mkdir -pv "$pkgdir"/usr/share/doc/$pkgname-$pkgver

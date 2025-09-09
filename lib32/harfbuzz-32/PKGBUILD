@@ -30,11 +30,6 @@ build() {
         -D introspection=disabled \
         build
 	ninja -C build
-}
-
-package() {
-    cd $_pkgname-$pkgver
-
     DESTDIR="$PWD"/DESTDIR ninja -C build install
     mkdir -p "$pkgdir"/usr/lib32
     cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32

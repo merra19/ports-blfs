@@ -26,10 +26,6 @@ build() {
             build
         ninja -C build
     fi
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     DESTDIR="$pkgdir" ninja -C build install
 }

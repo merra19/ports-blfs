@@ -6,12 +6,10 @@ pkgver=4.4.38
 pkgrel=1
 source=(https://github.com/besser82/libxcrypt/releases/download/v$pkgver/libxcrypt-$pkgver.tar.xz)
 
-prepare() {
-    mkdir $pkgname-$pkgver/{build,build2}
-}
-
 build() {
     cd $pkgname-$pkgver
+
+    mkdir build build2
 
     cd build
 
@@ -23,6 +21,7 @@ build() {
         --disable-static \
         --disable-failure-tokens
     make
+    make DESTDIR="$pkgdir" install
 
     cd ../build2
 
@@ -33,11 +32,5 @@ build() {
         --disable-static \
         --disable-failure-tokens
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
-    make DESTDIR="$pkgdir" install -C build
-    cp -av --remove-destination build2/.libs/libcrypt.so.1* "$pkgdir"/usr/lib
+    cp -av --remove-destination .libs/libcrypt.so.1* "$pkgdir"/usr/lib
 }

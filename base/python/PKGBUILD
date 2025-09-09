@@ -2,7 +2,7 @@
 # depends	: bzip2 xz zlib readline libffi sqlite expat gdbm openssl
 # depends	: libxcrypt bluez-headers libnsl
 
-pkgname=python3
+pkgname=python
 pkgver=3.13.7
 pkgrel=1
 options=(!lto)
@@ -47,10 +47,6 @@ build() {
     fi
 
     # --without-ensurepip \
-}
-
-package() {
-    cd Python-$pkgver
 
     make DESTDIR="$pkgdir" install
 

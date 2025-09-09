@@ -1,5 +1,5 @@
 # description	: GNU GRUB boot loader
-# depends	: gettext bash xz python3 efibootmgr freetype flex bison 
+# depends	: gettext bash xz python efibootmgr freetype flex bison 
 # depends	: help2man texinfo ncurses lvm2 fuse unifont
 
 pkgname=grub
@@ -33,11 +33,6 @@ build() {
         --enable-nls \
         --enable-device-mapper
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
     
     mkdir -pv "$pkgdir"/usr/share/bash-completion/completions

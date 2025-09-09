@@ -105,14 +105,6 @@ build() {
 
     qtbase/bin/qmake CONFIG+=fat-static-lto -- -redo
 	make
-}
-
-package() {
-	cd qt-everywhere-src-$pkgver
-
-	export QT5PREFIX=/usr
-    export OPENSSL_LIBS=" -lssl -lcrypto"
-
 	make INSTALL_ROOT="$pkgdir" install
 
 	find "$pkgdir"/$QT5PREFIX/ -name \*.prl \

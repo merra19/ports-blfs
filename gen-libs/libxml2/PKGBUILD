@@ -1,5 +1,5 @@
 # description	: XML C parser and toolkit
-# depends	: glibc zlib xz readline python3 pkgconf icu
+# depends	: glibc zlib xz readline python pkgconf icu
 
 pkgname=libxml2
 pkgver=2.14.5
@@ -18,10 +18,5 @@ build() {
         PYTHON=/usr/bin/python3 \
         --docdir=/usr/share/doc/$pkgname-$pkgver
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

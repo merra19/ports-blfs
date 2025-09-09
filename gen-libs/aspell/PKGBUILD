@@ -17,11 +17,6 @@ build() {
         --prefix=/usr \
         --enable-curses=ncursesw
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	make DESTDIR="$pkgdir" install
     ln -svfn aspell-0.60 "$pkgdir"/usr/lib/aspell &&
 

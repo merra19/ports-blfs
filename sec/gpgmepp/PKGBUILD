@@ -10,10 +10,7 @@ source=(https://www.gnupg.org/ftp/gcrypt/gpgmepp/$pkgname-$pkgver.tar.xz)
 build() {
     cmake -B build -S $pkgname-$pkgver \
         -DCMAKE_INSTALL_PREFIX=/usr
-    cmake --build build
-}
-
-package() {
-    DESTDIR="$pkgdir" cmake --install build
+    make -C build
+    DESTDIR="$pkgdir" make install -C build
 }
 

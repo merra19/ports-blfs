@@ -16,10 +16,5 @@ build() {
         --disable-static \
         --disable-gssapi 
     make CC="gcc -std=gnu17"
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

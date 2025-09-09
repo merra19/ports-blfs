@@ -32,11 +32,6 @@ build() {
         -D with_maxminddb=disabled \
         p11-build
     ninja -C p11-build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C p11-build install
 
 	install -D -m644 "$srcdir"/lighttpd.conf "$pkgdir"/etc/lighttpd/lighttpd.conf

@@ -1,5 +1,5 @@
 # description	: Sphinx extension which outputs Apple help book
-# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
+# depends	: python py3-gpep517 py3-setuptools py3-wheel
 
 pkgname=py3-sphinxcontrib-applehelp
 pkgver=2.0.0
@@ -10,10 +10,5 @@ build() {
 	cd sphinxcontrib_applehelp-$pkgver
 
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd sphinxcontrib_applehelp-$pkgver
-
     python3 -m installer -d "$pkgdir" .dist/*.whl
 }

@@ -1,5 +1,5 @@
 # description	: PEP 621 metadata parsing
-# depends	: python3 py3-packaging py3-wheel py3-gpep517
+# depends	: python py3-packaging py3-wheel py3-gpep517
 # depends	: py3-setuptools
 
 pkgname=py3-pyproject-metadata
@@ -11,10 +11,5 @@ build() {
 	cd pyproject_metadata-$pkgver
     
 	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd pyproject_metadata-$pkgver
-
 	python3 -m installer -d "$pkgdir" .dist/*.whl
 }

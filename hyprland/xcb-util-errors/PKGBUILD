@@ -1,5 +1,5 @@
 # description	: Library that gives human readable names to XCB error, event, & request codes
-# depends	: glibc libxcb python3 xorg-proto
+# depends	: glibc libxcb python xorg-proto
 
 pkgname=xcb-util-errors
 pkgver=1.0.1
@@ -15,10 +15,5 @@ build() {
         --localstatedir=/var \
         --disable-static
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

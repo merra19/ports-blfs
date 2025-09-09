@@ -29,10 +29,5 @@ build() {
           -D man-pages=disabled \
           build
     meson compile -C build
-}
-
-package() {
-    cd Waybar-$pkgver
-
     meson install -C build --destdir "$pkgdir"
 }

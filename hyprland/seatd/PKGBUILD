@@ -19,11 +19,6 @@ build() {
         -D man-pages=disabled \
         build
     ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 
     install -Dm 0755 "$srcdir"/seatd.init "$pkgdir"/etc/rc.d/init.d/seatd

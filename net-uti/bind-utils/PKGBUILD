@@ -21,10 +21,6 @@ build() {
     make -C bin/nsupdate &&
     make -C bin/rndc     &&
     make -C doc
-}
-
-package() {
-    cd bind-$pkgver
 
     make -C lib/isc      DESTDIR="$pkgdir" install &&
     make -C lib/dns      DESTDIR="$pkgdir" install &&

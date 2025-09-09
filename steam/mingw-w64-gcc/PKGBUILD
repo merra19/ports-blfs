@@ -1,7 +1,6 @@
 # description	: Cross GCC for the MinGW-w64 cross-compiler
 # depends	: bash gcc glibc libgmp libisl libmpc libmpfr
-# depends	: mingw-w64-binutils python3 zlib zstd
-# depends	: mingw-w64-headers
+# depends	: mingw-w64-binutils python zlib zstd mingw-w64-headers
   
 pkgname=mingw-w64-gcc
 pkgver=15.2.0
@@ -9,7 +8,7 @@ pkgrel=2
 options=(!emptydirs !strip !lto)
 source=(https://ftp.gnu.org/gnu/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz)
 
-prepare() {
+build() {
     ln -sf gcc-${pkgver/+/-} gcc
     cd gcc
 
@@ -17,9 +16,7 @@ prepare() {
     sed -i 's|\-Werror||g' libbacktrace/configure
     # Ada fails to compile, fix it with including the correct headers
     sed -i '/#include "mingw32.h"/a #include <stdlib.h>' gcc/ada/rtinit.c
-}
 
-build() {
     unset CFLAGS CXXFLAGS LDFLAGS
 
     if ( scratch isinstalled mingw-w64-winpthreads ); then 
@@ -97,10 +94,7 @@ build() {
             --disable-sjlj-exceptions --with-dwarf2
         make all-gcc  
     fi
-}
 
-package() 
-{
     if ( scratch isinstalled mingw-w64-winpthreads ); then 
 
     cd "$srcdir"/build-x86_64-w64-mingw32

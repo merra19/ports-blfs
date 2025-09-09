@@ -15,10 +15,5 @@ build() {
         --sysconfdir=/etc \
         --disable-systemd 
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

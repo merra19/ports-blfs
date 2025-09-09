@@ -21,12 +21,6 @@ build() {
     sed -e "s@^\(TK_SRC_DIR='\).*@\1/usr/include'@" \
         -e "/TK_B/s@='\(-L\)\?.*unix@='\1/usr/lib@" \
         -i tkConfig.sh
-}
-
-package() {
-	cd $pkgname$pkgver
-
-    cd unix
 
 	make DESTDIR="$pkgdir" install
     make DESTDIR="$pkgdir" install-private-headers &&

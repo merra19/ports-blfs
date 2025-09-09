@@ -21,11 +21,6 @@ build() {
         -D documentation=false \
         build32
 	ninja -C build32
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     DESTDIR="$PWD"/DESTDIR ninja -C build32 install
     rm -fr DESTDIR/usr/{bin,share,include}
     cp -Rv DESTDIR/* "$pkgdir"/

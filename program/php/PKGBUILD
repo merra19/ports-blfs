@@ -44,11 +44,6 @@ build() {
         --with-readline   
     make
 
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     export LDFLAGS="-Wl,-O1 -Wl,--as-needed -Wl,-z,now,-z,relro,-z,separate-code -Wl,--enable-new-dtags"
 
 	make -j1 INSTALL_ROOT="$pkgdir" DESTDIR="$pkgdir" install

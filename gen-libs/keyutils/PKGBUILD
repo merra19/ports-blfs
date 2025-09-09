@@ -12,10 +12,5 @@ build() {
 	cd $pkgname-$pkgver
 
 	make CFLAGS="$CFLAGS" CXXFLAGS="${CXXFLAGS}"
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" NO_ARLIB=1 LIBDIR=/usr/lib BINDIR=/usr/bin SBINDIR=/usr/sbin install
 }

@@ -9,23 +9,14 @@ options=(!lto)
 source=(https://downloads.sourceforge.net/infozip/zip${_version}.tar.gz
 		https://src.fedoraproject.org/rpms/zip/raw/rawhide/f/zip-3.0-format-security.patch)
 
-prepare() {
+build() {
 	cd $pkgname${_version}
 
 	patch -p1 -i ../zip-3.0-format-security.patch
-}
-
-build() {
-	cd $pkgname${_version}
 
 	sed -e "/^CFLAGS_NOOPT =/s/\$/ $CPPFLAGS $CFLAGS/" -i unix/Makefile
 	sed -e "s/^LFLAGS1=''/LFLAGS1=$LDFLAGS/" -i unix/configure
 
 	make -f unix/Makefile generic CC="gcc -std=gnu89"
-}
-
-package() {
-    cd $pkgname${_version}
-
     make prefix="$pkgdir"/usr MANDIR="$pkgdir"/usr/share/man/man1 -f unix/Makefile install
 }

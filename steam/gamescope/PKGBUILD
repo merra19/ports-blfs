@@ -20,7 +20,7 @@ source=(
   git+https://github.com/Joshua-Ashton/wlroots.git
 )
 
-prepare() {
+build() {
     cd gamescope
 
     meson subprojects download
@@ -30,17 +30,12 @@ prepare() {
       git config submodule.${submodule}.url ../${submodule##*/}
     done
     git -c protocol.file.allow=always submodule update
-}
 
-build() {
     meson setup gamescope \
       -D force_fallback_for=glm,stb,libdisplay-info,libliftoff,vkroots,wlroots \
       -D pipewire=enabled \
       -D benchmark=disabled \
       build
     meson compile -C build
-}
-
-package()  {
     DESTDIR="$pkgdir" meson install -C build --skip-subprojects
 }

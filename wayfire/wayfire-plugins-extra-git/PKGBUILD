@@ -17,16 +17,14 @@ source=($pkgname-$pkgver.zip::https://github.com/WayfireWM/wayfire-plugins-extra
         pixdecor-$pkgver.zip::https://github.com/soreau/pixdecor/archive/$pixdecor_commit.zip
         wayfire-shadows-$pkgver.zip::https://github.com/timgott/wayfire-shadows/archive/$wayfireshadows_commit.zip)
 
-prepare() {
+build() {
 	cd wayfire-plugins-extra-$commit
 
     cp -r "$srcdir/"filters-*/* subprojects/filters/
     cp -r "$srcdir/"focus-request-*/* subprojects/focus-request/
     cp -r "$srcdir/"pixdecor-*/* subprojects/pixdecor/
     cp -r "$srcdir/"wayfire-shadows-*/* subprojects/wayfire-shadows/
-}
 
-build() {
     meson setup \
         --prefix=/usr \
         --buildtype=release \
@@ -36,8 +34,5 @@ build() {
         -Denable_filters=true \
         wayfire-plugins-extra-$commit build
     ninja -C build
-}
-
-package() {
     DESTDIR="$pkgdir/" ninja -C build install
 }

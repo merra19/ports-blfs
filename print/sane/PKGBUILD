@@ -19,11 +19,6 @@ build() {
         --with-lockdir=/run/lock \
         --docdir=/usr/share/doc/sane-backends-$pkgver
     make
-}
-
-package() {
-    cd $pkgname-backends-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     install -Dm 644 -v tools/udev/libsane.rules  \

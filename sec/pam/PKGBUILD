@@ -19,10 +19,6 @@ build() {
 		-D docdir=/usr/share/doc/Linux-PAM-$pkgver \
         build
     ninja -C build
-}
-
-package() {
-    cd Linux-PAM-$pkgver
 
     mkdir -p "$pkgdir"/etc/pam.d
 

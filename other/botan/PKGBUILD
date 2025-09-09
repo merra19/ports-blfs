@@ -1,5 +1,5 @@
 # description	: C++ crypto library
-# depends	: sqlite xz python3 zlib bzip2 ninja boost
+# depends	: sqlite xz python zlib bzip2 ninja boost
 
 pkgname=botan
 _pkgname=Botan
@@ -20,10 +20,5 @@ build() {
         --disable-static-library \
         --with-os-feature=getrandom
     make
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

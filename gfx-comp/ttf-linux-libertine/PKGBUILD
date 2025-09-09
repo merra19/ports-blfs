@@ -9,7 +9,7 @@ _pkgver="${pkgver%.*}_${date:0:4}_${date:4:2}_${date:6:2}"
 source=(https://sourceforge.net/projects/linuxlibertine/files/linuxlibertine/$pkgver/LinLibertineTTF_$_pkgver.tgz
 		https://sourceforge.net/projects/linuxlibertine/files/linuxlibertine/$pkgver/LinLibertineOTF_$_pkgver.tgz)
 
-package() {
+build() {
 	mkdir -p "$pkgdir"/usr/share/fonts/TTF "$pkgdir"/usr/share/fonts/OTF
     
 	cp ./*.ttf "$pkgdir"/usr/share/fonts/TTF

@@ -13,11 +13,6 @@ build() {
     sed -i '/install -m.*STA/d' libcap/Makefile
 
     make CC="gcc" prefix=/usr lib=lib
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make CC="gcc" DESTDIR="$pkgdir" prefix=/usr lib=lib install
 
     install -v -Dm644 pam_cap/capability.conf "$pkgdir"/etc/security/capability.conf

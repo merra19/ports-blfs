@@ -30,10 +30,5 @@ build() {
         --disable-libplacebo \
         --enable-qt
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make  docdir=/usr/share/doc/$pkgname-$pkgver DESTDIR="$pkgdir" install
 }

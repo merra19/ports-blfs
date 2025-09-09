@@ -8,7 +8,7 @@ CHECKSUM=f58f558c120e9b32c217290b80bad1a0729fbb2c
 source=(https://github.com/nothings/stb/archive/${CHECKSUM}.tar.gz
         stb.pc)
 
-package() {
+build() {
     cd $pkgname-$CHECKSUM
 
     install -Dm 644 *.{c,h} -t "$pkgdir"/usr/include/stb/

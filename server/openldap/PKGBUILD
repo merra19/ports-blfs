@@ -39,11 +39,6 @@ backup=(etc/openldap/ldap.conf etc/openldap/slapd.conf etc/openldap/slapd.ldif)
         --enable-overlays=mod &&
     make depend &&
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     sed -e "s/\.la/.so/" -i "$pkgdir"/etc/openldap/slapd.{conf,ldif}{,.default} &&

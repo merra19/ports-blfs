@@ -10,10 +10,6 @@ build() {
 	cd $pkgname-$pkgver
 
 	make lib
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     mkdir -p "$pkgdir"/usr/include "$pkgdir"/usr/lib
     install -vm644 linear.h "$pkgdir"/usr/include &&

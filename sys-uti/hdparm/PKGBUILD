@@ -13,10 +13,5 @@ build() {
     patch -Np1 -i ../pass-ldflags.patch
 
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make binprefix=/usr DESTDIR="$pkgdir" install
 }

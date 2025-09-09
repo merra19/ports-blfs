@@ -27,11 +27,6 @@ build() {
         --disable-static
     sed -i 's/$(exec_prefix)\/include/$\(includedir\)/' Makefile
     make
-}
-
-package() {
-    cd ${_pkgname#lib}-$pkgver
-
     make DESTDIR=$PWD/DESTDIR install
     mkdir -p "$pkgdir"/usr/lib32
     cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32

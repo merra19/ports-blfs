@@ -28,9 +28,7 @@ build() {
         --host=i686-w64-mingw32 \
         --enable-static --enable-shared
     make  
-}
 
-package() {
     cd  "$srcdir"/build-x86_64
 
     make DESTDIR="$pkgdir" install

@@ -18,11 +18,6 @@ build() {
 		--disable-static \
 		--with-ipc=sysv
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	make DESTDIR="$pkgdir" install
 
 	install -dm0755 "$pkgdir/etc/ld.so.conf.d/"

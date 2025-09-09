@@ -19,10 +19,5 @@ build() {
         --with-ssl=openssl \
         --enable-libproxy
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

@@ -15,10 +15,5 @@ source=(https://www.x.org/pub/individual/driver/$pkgname-$pkgver.tar.xz)
         --localstatedir=/var \
         --disable-static
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

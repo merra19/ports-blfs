@@ -14,10 +14,5 @@ build() {
         --libexecdir=/usr/lib/xfce4 \
         --docdir=/usr/share/doc/$pkgname-$pkgver
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

@@ -20,10 +20,6 @@ build() {
         --enable-pc-files \
         --with-pkg-config-libdir=/usr/lib/pkgconfig
     make
-}
-
-package() {
-    cd $pkgname-$_pkgver
 
     local _pkgver=${_pkgver/-*/}
 

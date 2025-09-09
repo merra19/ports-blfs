@@ -15,10 +15,5 @@ build() {
         --disable-static \
         --with-gcc-arch=$MMARCH
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

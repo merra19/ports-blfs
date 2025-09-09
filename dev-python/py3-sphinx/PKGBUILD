@@ -1,5 +1,5 @@
 # description	: Python documentation generator
-# depends	: py3-babel py3-docutils py3-imagesize py3-jinja
+# depends	: py3-babel py3-docutils py3-imagesize py3-jinja2
 # depends	: py3-packaging py3-pygments py3-requests py3-alabaster
 # depends	: py3-snowballstemmer py3-sphinxcontrib-applehelp
 # depends	: py3-sphinxcontrib-devhelp py3-sphinxcontrib-htmlhelp 
@@ -20,10 +20,5 @@ build() {
 	cd ${pkgname#*-}-$pkgver
 
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd ${pkgname#*-}-$pkgver
-
     python3 -m installer -d "$pkgdir" .dist/sphinx-*.whl
 }

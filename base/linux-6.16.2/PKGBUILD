@@ -1,6 +1,6 @@
 # description	: Linux Kernel
-# depends	: initramfs linux-firmware openssl cpio bc terminus-font 
-# depends	: noto-fonts ttf-linux-libertine elfutils libnvme harfbuzz
+# depends	: initramfs linux-firmware openssl cpio bc
+# depends	: elfutils libnvme harfbuzz
 
 pkgname=linux-6.16.2
 pkgver=6.16.2
@@ -15,7 +15,7 @@ source=(https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${pkgver%.0}.tar.xz
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
 
-prepare() {
+build() {
     zstd -d linux-$_srctag.patch.zst
 
     cd ${pkgname%-*}-${pkgver%.0}
@@ -42,10 +42,6 @@ prepare() {
     if [ "$MMARCH" = "native" ] ;then
         ./scripts/config --enable  X86_NATIVE_CPU
     fi
-}
-
-build() {
-    cd ${pkgname%-*}-${pkgver%.0}
 
     export KCFLAGS=" -march=$MMARCH -O3"
     export KCPPFLAGS=" -march=$MMARCH -O3"
@@ -53,10 +49,6 @@ build() {
 
     yes "" | make oldconfig
     make all
-}
-
-package() {
-    cd ${pkgname%-*}-${pkgver%.0}
 
     kernver=${pkgver}$(grep CONFIG_LOCALVERSION= .config | cut -d '"' -f2)
     local modulesdir="$pkgdir/usr/lib/modules/$kernver"

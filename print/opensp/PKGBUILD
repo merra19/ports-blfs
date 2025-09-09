@@ -31,11 +31,6 @@ build() {
         --enable-http \
         --enable-default-search-path=/usr/share/sgml
     make pkgdatadir=/usr/share/sgml/OpenSP
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     make DESTDIR="$pkgdir" pkgdatadir=/usr/share/sgml/OpenSP docdir=/usr/share/doc/OpenSP-$pkgver install
 
     ln -v -sf onsgmls   "$pkgdir"/usr/bin/nsgmls   &&

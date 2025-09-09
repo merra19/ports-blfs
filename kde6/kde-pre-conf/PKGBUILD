@@ -4,14 +4,14 @@
 # depends	: qca libqrencode plasma-wayland-protocols py3-yaml avahi
 # depends	: shared-mime-info perl-uri curl aspell modemmanager bluez
 # depends	: networkmanager polkit-qt vulkan-loader zxing-cpp gpgmepp
-# depends	: noto-fonts libavif libjxl libraw udisks2 upower
+# depends	: noto-fonts libavif libjxl libraw udisks upower
 
 pkgname=kde-pre-conf
 pkgver=6.0.0
 pkgrel=1
 source=(kf6.sh kde6)
 
-package() {
+build() {
     install -v -dm755 "$pkgdir"/etc/profile.d "$pkgdir"/etc/sudoers.d/ 
 
     install -Dm 755 kf6.sh "$pkgdir"/etc/profile.d/kf6.sh

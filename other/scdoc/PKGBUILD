@@ -10,10 +10,5 @@ build() {
 	cd $pkgname-$pkgver
 
 	make PREFIX="/usr" LDFLAGS="$LDFLAGS"
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" PREFIX="/usr" install
  }

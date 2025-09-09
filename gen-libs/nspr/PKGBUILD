@@ -22,10 +22,5 @@ build() {
 		--with-pthreads \
 		--enable-64bit
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver/$pkgname
-
     make DESTDIR="$pkgdir" install
 }

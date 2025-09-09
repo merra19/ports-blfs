@@ -16,10 +16,5 @@ build() {
 	go build \
 		-ldflags "-linkmode external -extldflags '$LDFLAGS'" \
 		-o $pkgname
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     install -Dm0755 -t "$pkgdir/usr/bin/" $pkgname
 }

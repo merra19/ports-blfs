@@ -7,22 +7,13 @@ pkgver=2.3.3
 pkgrel=1
 source=($_pkgname-$pkgver.tar.gz::https://github.com/OCL-dev/${_pkgname}/archive/v${pkgver}.tar.gz)
 
-prepare() {
+build() {
     cd "$srcdir/$_pkgname-$pkgver"
     
     autoreconf -fiv
-}
-
-build() {
-    cd "$srcdir/$_pkgname-$pkgver"
 
     CFLAGS+=' -fcommon' # https://wiki.gentoo.org/wiki/Gcc_10_porting_notes/fno_common
     ./configure --prefix=/usr
     make
-}
-
-package() {
-    cd "$srcdir/$_pkgname-$pkgver"
-
     make DESTDIR="$pkgdir/" install
 }

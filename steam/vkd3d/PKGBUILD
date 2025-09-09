@@ -15,10 +15,5 @@ build() {
         --with-spirv-tools
 
     make
-}
-
-package() {
-    cd vkd3d-$pkgver
-    
     make DESTDIR="$pkgdir" install
 }

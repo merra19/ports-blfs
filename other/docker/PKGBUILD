@@ -53,9 +53,7 @@ build() {
 		VERSION=$pkgver \
 		hack/make.sh dynbinary
 	_fake_gopath_popd
-}
 
-package() {
 	### dockerd
 	install -Dm755 moby-$pkgver/bundles/dynbinary-daemon/dockerd "$pkgdir"/usr/bin/dockerd
 	install -Dm755 moby-$pkgver/bundles/dynbinary-daemon/docker-proxy "$pkgdir/usr/bin/docker-proxy"

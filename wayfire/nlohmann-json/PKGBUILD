@@ -20,10 +20,5 @@ build() {
         -D JSON_BuildTests=OFF \
         -D JSON_MultipleHeaders=ON
 	cmake --build build
-}
-
-package() {
-    cd json-$pkgver
-
     DESTDIR="$pkgdir" cmake --install build
 }

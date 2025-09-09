@@ -31,10 +31,5 @@ build() {
         --enable-default-hash-style=gnu
 
     make -O tooldir=/usr
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" tooldir=/usr install
 }

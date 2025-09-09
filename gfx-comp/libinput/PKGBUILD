@@ -18,10 +18,5 @@ build() {
         -D udev-dir=/usr/lib/udev \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

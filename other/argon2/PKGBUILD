@@ -19,10 +19,5 @@ build() {
 
     sed -i -e '/LIBRARIES =/s/\$(LIB_ST)//' Makefile
     make ARGON2_version=$pkgver OPTTARGET='none' LIBRARY_REL='lib'
-}
-
-package() {
-    cd phc-winner-$pkgname-$pkgver
-
     make ARGON2_version=$pkgver OPTTARGET='none' LIBRARY_REL='lib' DESTDIR="$pkgdir" install
 }

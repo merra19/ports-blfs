@@ -14,10 +14,5 @@ build() {
 
     cmake  -D CMAKE_INSTALL_PREFIX=/usr ..
 	make DEFAULTFLAGS="$CFLAGS"
-}
-
-package() {
-    cd $pkgname-$pkgver
-
-    make DESTDIR="$pkgdir" install -C build
+    make DESTDIR="$pkgdir" install
 }

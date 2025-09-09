@@ -23,11 +23,6 @@ build() {
     export FCFLAGS="$FFLAGS"
 
     make CC=gcc linux MYCFLAGS="${CFLAGS} -fpic -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" MYLDFLAGS="${CFLAGS}"
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make CC=cc INSTALL_TOP="$pkgdir"/usr \
         INSTALL_DATA="cp -d" \
         INSTALL_MAN="$pkgdir"/usr/share/man/man1 \

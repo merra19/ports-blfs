@@ -27,27 +27,6 @@ build() {
     pushd $tool_dir
         ./configure --prefix=/usr
         make
-    popd
-
-    done
-    unset tool tool_dir
-}
-
-package() {
-    cd $pkgname-$pkgver
-
-    for tool in *
-    do
-    case $tool in
-        seq )
-        tool_dir=seq/sbiload
-        ;;
-        * )
-        tool_dir=$tool
-        ;;
-    esac
-
-    pushd $tool_dir
         make DESTDIR="$pkgdir"  install
     popd
 

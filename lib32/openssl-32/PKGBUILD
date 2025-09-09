@@ -22,11 +22,6 @@ build() {
         shared zlib-dynamic linux-x86
     #make depend
     make
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     make DESTDIR=$PWD/DESTDIR install
     mkdir -p "$pkgdir"/usr/lib32
     cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32

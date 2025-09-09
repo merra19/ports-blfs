@@ -22,11 +22,6 @@ build() {
 		--with-default-trust-store-pkcs11="pkcs11:" \
         --with-seccomp-tests 
 	make
-}
-
-package() {
-    cd $_pkgname-$pkgver
-
     make DESTDIR="$PWD"/DESTDIR install
     mkdir -p "$pkgdir"/usr/lib32
     cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32

@@ -24,10 +24,5 @@ build() {
 		--docdir=/usr/share/doc/$pkgname-$pkgver
 	make
     make capi
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install 
 }

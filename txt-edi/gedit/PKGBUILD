@@ -1,6 +1,6 @@
 # description	: A text editor for the GNOME desktop
 # depends	: gtk3 libgedit-amtk libpeas libgedit-tepl gspell itstool
-# depends	: libxml2 libhandy py3-gobject3 libgedit-gtksourceview
+# depends	: libxml2 libhandy py3-gobject libgedit-gtksourceview
 # depends	: adwaita-icon-theme gvfs iso-codes vala
 # depends	: gsettings-desktop-schemas
 
@@ -18,10 +18,5 @@ build() {
         -D gtk_doc=false \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

@@ -1,5 +1,5 @@
 # description	: YAML parser and emitter for Python
-# depends	: python3 py3-gpep517 py3-setuptools py3-wheel py3-pygdbmi
+# depends	: python py3-gpep517 py3-setuptools py3-wheel py3-pygdbmi
 # depends	: libyaml py3-cython
 
 pkgname=py3-yaml
@@ -14,10 +14,5 @@ build() {
     sed -i '/Cython/s/ import build_ext/.old_build_ext import old_build_ext/' setup.py
 
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-    cd pyyaml-$pkgver
-
     python3 -m installer -d "$pkgdir" .dist/*.whl
 }

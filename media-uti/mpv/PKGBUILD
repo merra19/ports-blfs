@@ -27,10 +27,5 @@ build() {
         -D lua=enabled \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

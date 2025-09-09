@@ -8,24 +8,15 @@ pkgrel=1
 source=(https://archive.xfce.org/src/panel-plugins/xfce4-weather-plugin/${pkgver%.*}/$pkgname-$pkgver.tar.xz
         1d8e5e5dbbc4d53e4b810f9b01a460197cd47b64.patch)
 
-prepare() {
+build() {
     cd $pkgname-$pkgver
 
     patch -Np1 -i ../1d8e5e5dbbc4d53e4b810f9b01a460197cd47b64.patch
-}
-
-build() {
-    cd $pkgname-$pkgver
 
 	meson setup \
         --prefix=/usr \
         --buildtype=plain \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-    
     DESTDIR="$pkgdir" ninja -C build install
 }

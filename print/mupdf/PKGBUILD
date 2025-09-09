@@ -1,5 +1,5 @@
 # description	: Legacy library for PPD files, split out of cups-filters
-# depends	: harfbuzz openjpeg2 libglvnd libjpeg-turbo curl openssl
+# depends	: harfbuzz openjpeg libglvnd libjpeg-turbo curl openssl
 # depends	: freeglut zlib xorg-libs xorg-proto xdg-utils
 
 pkgname=mupdf
@@ -16,10 +16,6 @@ build() {
     export XCFLAGS="$CFLAGS -fPIC"
     make -j1 build=release shared=yes
     unset XCFLAGS
-}
-
-package() {
-    cd $pkgname-$pkgver-source
 
     make prefix=/usr \
         shared=yes \

@@ -35,10 +35,6 @@ build() {
 		--disable-64bit
 	make
     unset PKG_CONFIG_PATH
-}
-
-package() {
-    cd  $_pkgname-$pkgver/$_pkgname
 
     make DESTDIR="$pkgdir" install
     ln -s nspr.pc "$pkgdir/usr/lib32/pkgconfig/mozilla-nspr.pc"

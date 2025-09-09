@@ -14,11 +14,6 @@ build() {
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build 
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 
     # remove broken symlink

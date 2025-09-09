@@ -16,11 +16,6 @@ build() {
         --without-bash-malloc \
         --docdir=/usr/share/doc/$pkgname-$pkgver
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     ln -sv bash "$pkgdir"/usr/bin/sh

@@ -6,7 +6,7 @@ pkgver=5.83
 pkgrel=0
 source=(https://www.kernel.org/pub/linux/bluetooth/${pkgname%-*}-$pkgver.tar.xz)
 
-package() {
+build() {
     cd ${pkgname%-*}-$pkgver
 
 	local headers="

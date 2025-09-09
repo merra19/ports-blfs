@@ -16,10 +16,5 @@ source=(https://www.x.org/pub/individual/driver/$pkgname-$pkgver.tar.xz)
         --disable-static \
         --with-systemd-unit-dir=no
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

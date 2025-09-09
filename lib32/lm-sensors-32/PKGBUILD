@@ -20,11 +20,6 @@ build() {
     make PREFIX=/usr \
         BUILD_STATIC_LIB=0 \
         MANDIR=/usr/share/man
-}
-
-package() {
-    cd ${_pkgname}-"${vrsn}"
-
     make DESTDIR="$PWD/DESTDIR" \
         PREFIX=/usr \
         LIBDIR=/usr/lib32 \

@@ -19,11 +19,6 @@ build() {
         --docdir=/usr/share/doc/$pkgname-$pkgver \
         --with-passprompt="[sudo] password for %p: " &&
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     mkdir -p "$pkgdir"/etc/pam.d
 
     make DESTDIR="$pkgdir" install

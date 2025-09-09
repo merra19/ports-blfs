@@ -15,10 +15,5 @@ build() {
         -G Ninja \
         -Wno-dev
     ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja install -C build
 }

@@ -17,10 +17,5 @@ build() {
         -D AVIF_LIBYUV=OFF \
         -G Ninja
     ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

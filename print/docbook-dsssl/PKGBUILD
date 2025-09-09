@@ -12,10 +12,6 @@ build() {
     cd $pkgname-$pkgver
 
     tar -xf ../$pkgname-doc-$pkgver.tar.bz2 --strip-components=1
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     mkdir -p "$pkgdir"/usr/bin "$pkgdir"/usr/share/man/man1 "$pkgdir"/etc/sgml
 

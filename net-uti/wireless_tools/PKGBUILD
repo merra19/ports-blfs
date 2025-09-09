@@ -13,10 +13,5 @@ build() {
     patch -Np1 -i ../wireless_tools-$pkgver-fix_iwlist_scanning-1.patch
 
     make CFLAGS="${CFLAGS} -I." LDFLAGS="${LDFLAGS}"
-}
-
-package() {
-    cd $pkgname.$pkgver
-
     make PREFIX="$pkgdir"/usr INSTALL_MAN="$pkgdir"/usr/share/man install
 }

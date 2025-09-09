@@ -18,10 +18,5 @@ build() {
         -D BUILD_SHARED_LIBS=ON \
         -Wno-dev
     make -C build 
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 }

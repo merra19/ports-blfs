@@ -21,11 +21,6 @@ build() {
     rm -fv scripts/generateVersion.sh
 
     make release PREFIX=/usr
-}
-
-package() {
-    cd $pkgname-source
-
     make DESTDIR="$pkgdir" install
     rm -fv "$pkgdir/usr/include/hyprland/src/version.h.in"
     # Drop this line when hyprland-portals.conf is removed from xdg-desktop-portal-hyprland

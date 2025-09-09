@@ -9,7 +9,7 @@ source=(mocha.conf hyprland.conf current-theme.conf kitty.conf
         alacritty.toml catppuccin-mocha.toml hyprpaper.conf
         White-Haired_Anime_Girl_in_Garden.png xdg-portal-hyprland)
 
-package() {
+build() {
     install -d "$pkgdir"/usr/local/share/hyprland-dots/
     
     install -Dm 755 setup-hypr "$pkgdir"/usr/local/bin/setup-hyprdots

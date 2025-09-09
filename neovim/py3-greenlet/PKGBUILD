@@ -1,5 +1,5 @@
 # description	: Lightweight in-process concurrent programming 
-# depends	: python3 py3-wheel py3-setuptools
+# depends	: python py3-wheel py3-setuptools
 
 pkgname=py3-greenlet
 pkgver=3.2.4
@@ -10,11 +10,6 @@ build() {
 	cd greenlet-$pkgver
 
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd greenlet-$pkgver
-
 	python3 -m installer -d "$pkgdir" .dist/*.whl
     rm -r "$pkgdir"/usr/lib/python3*/site-packages/greenlet/tests/
 }

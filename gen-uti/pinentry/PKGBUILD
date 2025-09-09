@@ -22,10 +22,5 @@ build() {
         --enable-pinentry-tty \
         --disable-pinentry-qt5 
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

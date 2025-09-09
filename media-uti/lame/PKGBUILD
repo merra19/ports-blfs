@@ -19,10 +19,5 @@ build() {
         --disable-static \
 		--enable-mp3rtp
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" pkghtmldir=/usr/share/doc/$pkgname-$pkgver install
 }

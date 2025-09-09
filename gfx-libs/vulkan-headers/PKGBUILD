@@ -14,10 +14,5 @@ build() {
         -D CMAKE_BUILD_TYPE=Release \
         -G Ninja
     ninja -C build
-}
-
-package() {
-    cd Vulkan-Headers-$pkgver
-    
     DESTDIR="$pkgdir" ninja  -C build install
 }

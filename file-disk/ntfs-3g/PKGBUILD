@@ -17,11 +17,6 @@ build() {
         --disable-ldconfig \
         --docdir=/usr/share/doc/ntfs-3g-$pkgver
     make
-}
-
-package() {
-    cd ntfs-3g_ntfsprogs-$pkgver
-
 	make DESTDIR="$pkgdir" install
 
     ln -sv ../bin/ntfs-3g "$pkgdir"/usr/sbin/mount.ntfs

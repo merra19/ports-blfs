@@ -1,5 +1,5 @@
 # description	: A backend script to aid installing Python packages in Gentoo
-# depends	: python3 py3-installer
+# depends	: python py3-installer
 
 pkgname=py3-gpep517
 pkgver=16
@@ -11,10 +11,6 @@ build() {
     cd ${pkgname#*-}-$pkgver
 
     patch -Np1 -i ../default-bytecode-levels.patch
-}
-
-package() {
-	cd ${pkgname#*-}-$pkgver
 
 	local sitedir="$(python3 -c 'import site;print(site.getsitepackages()[0])')"
 	mkdir -p "$pkgdir/$sitedir"

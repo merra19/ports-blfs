@@ -25,10 +25,6 @@ build() {
         --enable-libpaper \
 		--with-docdir=/usr/share/cups/doc-$pkgver
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     mkdir -p "$pkgdir"/etc/pam.d
 

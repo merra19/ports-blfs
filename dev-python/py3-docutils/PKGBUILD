@@ -1,5 +1,5 @@
 # description	: Python Documentation Utilities (reference reStructuredText impl.)
-# depends	: python3 py3-setuptools py3-wheel py3-gpep517
+# depends	: python py3-setuptools py3-wheel py3-gpep517
 # depends	: py3-flit-core
 
 pkgname=py3-docutils
@@ -12,10 +12,5 @@ build() {
 	cd ${pkgname#*-}-$pkgver
 
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd ${pkgname#*-}-$pkgver
-
 	python3 -m installer -d "$pkgdir" .dist/*.whl
 }

@@ -66,10 +66,6 @@ build() {
     else
         build_nopgo
     fi
-}
-
-package() {
-    cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" install
     rm -fv "$pkgdir"/usr/lib/libz.a

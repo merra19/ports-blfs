@@ -13,10 +13,5 @@ build() {
 	# disable the installation of the static library
 	sed -i '/install.*libaio.a/s/^/#/' src/Makefile
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

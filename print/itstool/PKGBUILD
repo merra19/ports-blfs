@@ -1,5 +1,5 @@
 # description	: Translation tool for XML documents that uses gettext files and ITS rules
-# depends	: docbook-xml python3
+# depends	: docbook-xml python
 
 pkgname=itstool
 pkgver=2.0.7
@@ -16,10 +16,5 @@ build() {
 
     PYTHON=/usr/bin/python3 ./configure --prefix=/usr &&
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

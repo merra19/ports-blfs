@@ -40,11 +40,6 @@ build() {
         -D TOKUDB_OK=0 \
         -W no-dev
     make -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make -j1 DESTDIR="$pkgdir" -C build install
 
     install -v -dm 755 "$pkgdir"/etc/mariadb

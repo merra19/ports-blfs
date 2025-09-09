@@ -12,10 +12,5 @@ build() {
     sed -i "s:doc/feh:&-3.10.3:" config.mk
 
 	make PREFIX=/usr
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make PREFIX=/usr DESTDIR="$pkgdir" install
 }

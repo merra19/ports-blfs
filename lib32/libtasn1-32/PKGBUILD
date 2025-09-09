@@ -25,10 +25,6 @@ build() {
         --host=i686-pc-linux-gnu
     CODE_COVERAGE_LDFLAGS=$LDFLAGS make
     unset PKG_CONFIG_PATH
-}
-
-package() {
-    cd $_pkgname-$pkgver
 
     make DESTDIR="$pkgdir" install
     rm -rf "${pkgdir}/usr/"{bin,include,share}

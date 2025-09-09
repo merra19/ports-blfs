@@ -12,10 +12,5 @@ build() {
 
 	perl Makefile.PL INSTALLDIRS=vendor
 	make
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

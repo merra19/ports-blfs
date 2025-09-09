@@ -9,6 +9,6 @@ pkgver=0.47.2
 pkgrel=1
 source=()
 
-package() {
+build() {
     mkdir -p "$pkgdir"/usr
 }

@@ -22,15 +22,13 @@ source=($pkgname-$_commit.zip::https://github.com/WayfireWM/wayfire/archive/$_co
         add-session-lock-config.patch
         wayfire-session.desktop wayfire-session wayfire.env)
 
-prepare() {
+build() {
     mv wf-config-$wfconfig_commit wf-config
     mv wf-touch-$wftouch_commit wf-touch
     mv wf-utils-$wfutils_commit wf-utils
 
     mv wf-config wf-touch wf-utils wayfire-$_commit/subprojects/
-}
 
-build() {
     meson setup \
         --prefix=/usr \
         --buildtype=release \
@@ -41,9 +39,6 @@ build() {
         "wayfire-$_commit" build
     sed "/WF_SRC_DIR/d" -i build/config.h
 	ninja -C build
-}
-
-package() {
     DESTDIR="$pkgdir/" ninja -C build install
 
     cd "$srcdir"

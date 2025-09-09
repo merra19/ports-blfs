@@ -16,11 +16,6 @@ build() {
 	make -C doc html
 	makeinfo --html --no-split -o doc/assuan_nochunks.html doc/assuan.texi 
 	makeinfo --plaintext       -o doc/assuan.txt           doc/assuan.texi
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	make DESTDIR="$pkgdir" install
     
 	install -v -dm755 "$pkgdir"/usr/share/doc/$pkgname-$pkgver/html &&

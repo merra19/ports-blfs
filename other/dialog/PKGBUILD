@@ -16,10 +16,5 @@ build() {
 		--with-ncursesw \
 		--with-libtool
 	make
-}
-
-package() {
-    cd $pkgname-$vrsn
-
 	make DESTDIR="$pkgdir" install
 }

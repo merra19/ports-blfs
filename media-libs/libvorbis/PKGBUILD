@@ -13,11 +13,6 @@ build() {
         --prefix=/usr \
         --disable-static
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	make DESTDIR="$pkgdir" install
     mkdir -p "$pkgdir"/usr/share/doc/$pkgname-$pkgver
 	install -v -m644 doc/Vorbis* "$pkgdir"/usr/share/doc/$pkgname-$pkgver

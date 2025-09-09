@@ -8,7 +8,7 @@ commit=be6c059ac1587e556e2412b27f5155c8eb3ddbe6
 source=($pkgname-$pkgver.tar.gz::https://github.com/notofonts/noto-cjk/archive/$commit.tar.gz
         70-noto-cjk.conf)
 
-package() {
+build() {
     cd noto-cjk-$commit
 
     install -Dm644 *.ttc -t "$pkgdir"/usr/share/fonts/noto-cjk

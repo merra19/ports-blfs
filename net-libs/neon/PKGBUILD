@@ -18,10 +18,5 @@ build() {
         --with-libproxy
     make
     make docs
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

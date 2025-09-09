@@ -1,6 +1,6 @@
 # description	: Screen saver and locker (port of MATE screensaver)
-# depends	: xorg-libs libxklavier libwnck garcon dbus-glib python3
-# depends	: py3-gobject3 glib xfce4-dev-tools
+# depends	: xorg-libs libxklavier libwnck garcon dbus-glib python
+# depends	: py3-gobject glib xfce4-dev-tools
 
 pkgname=xfce4-screensaver
 pkgver=4.20.1
@@ -15,10 +15,5 @@ build() {
         --buildtype=plain \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

@@ -14,10 +14,5 @@ build() {
         --sysconfdir=/etc \
         --localstatedir=/var \
         --disable-static
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

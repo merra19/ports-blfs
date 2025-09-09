@@ -29,11 +29,6 @@ build() {
         --enable-default-search-path=/usr/share/sgml \
         --datadir=/usr/share/sgml/openjade-$pkgver
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
     make DESTDIR="$pkgdir" install-man
 

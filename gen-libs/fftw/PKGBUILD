@@ -20,6 +20,7 @@ build() {
         --enable-fortran \
         --enable-openmp
     make
+    make DESTDIR="$pkgdir" install
 
     cd ../single-build 
 
@@ -32,6 +33,7 @@ build() {
         --enable-float \
         --enable-openmp
     make
+    make DESTDIR="$pkgdir" install
 
     cd ../ldouble-build
 
@@ -44,17 +46,6 @@ build() {
         --enable-long-double \
         --enable-openmp
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
-    cd double-build
-    make DESTDIR="$pkgdir" install
-
-    cd ../single-build 
-    make DESTDIR="$pkgdir" install
-
-    cd ../ldouble-build
     make DESTDIR="$pkgdir" install
 }
+

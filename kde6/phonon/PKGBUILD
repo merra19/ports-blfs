@@ -14,10 +14,5 @@ build() {
         -D CMAKE_BUILD_TYPE=Release \
         -D PHONON_BUILD_QT5=OFF
     make -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" -C build install
 }

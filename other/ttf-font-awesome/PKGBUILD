@@ -6,7 +6,7 @@ pkgver=7.0.1
 pkgrel=1
 source=($pkgname-$pkgver.tar.gz::https://github.com/FortAwesome/Font-Awesome/archive/$pkgver.tar.gz)
 
-package() {
+build() {
     cd Font-Awesome-$pkgver
 
 	install -d "${pkgdir}/usr/share/fonts/WOFF2"

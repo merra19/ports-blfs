@@ -45,11 +45,6 @@ build() {
         -D elogind=disabled \
         build32
 	ninja -C build32
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
 	DESTDIR="$PWD"/DESTDIR ninja -C build32 install
     mkdir -p "$pkgdir"/usr/lib32
     cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32

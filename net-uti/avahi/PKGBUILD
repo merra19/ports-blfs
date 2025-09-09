@@ -43,11 +43,6 @@ build() {
         --with-dbus-system-address='unix:path=/run/dbus/system_bus_socket' \
         $OPT_GTK3
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     install -Dm755 "$srcdir"/$pkgname.hooks "$pkgdir"/usr/share/blfs-bootscripts/hooks/$pkgname.hooks

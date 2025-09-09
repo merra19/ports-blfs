@@ -1,6 +1,6 @@
 # description	: Pure Python CBOR (de)serializer with extensive tag support
-# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
-# depends	: py3-setuptools-scm
+# depends	: python py3-gpep517 py3-setuptools py3-setuptools-scm
+# depends	: py3-wheel
 
 pkgname=py3-cbor2
 pkgver=5.7.0
@@ -11,10 +11,5 @@ build() {
 	cd cbor2-$pkgver
 
 	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd cbor2-$pkgver
-
 	python3 -m installer -d "$pkgdir" .dist/*.whl
 }

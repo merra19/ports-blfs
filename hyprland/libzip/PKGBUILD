@@ -15,10 +15,5 @@ build() {
         -D CMAKE_INSTALL_LIBDIR=lib \
         -W no-dev
 	cmake --build build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" cmake --install build
 }

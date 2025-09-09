@@ -24,11 +24,6 @@ build() {
         --sysconfdir=/etc \
         ac_cv_path_emacs=no
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
     install-info --dir-file="$pkgdir"/usr/share/info/dir \
                 "$pkgdir"/usr/share/info/gpm.info

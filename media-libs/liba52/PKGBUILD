@@ -17,11 +17,6 @@ build() {
         --disable-static \
         CFLAGS="${CFLAGS:--g -O3} -fPIC"
 	make
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     cp liba52/a52_internal.h "$pkgdir"/usr/include/a52dec

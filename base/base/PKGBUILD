@@ -5,21 +5,21 @@
 # depends	: pkgconf ncurses sed psmisc gettext bison grep bash 
 # depends	: bash-completion shadow libtool gdbm gperf expat less 
 # depends	: perl perl-xml-parser inetutils intltool autoconf 
-# depends	: automake openssl kmod elfutils libffi python3 
-# depends	: py3-wheel ninja meson coreutils diffutils gawk 
-# depends	: findutils groff gzip iproute2 kbd libpipeline make patch 
-# depends	: tar texinfo make-ca curl grub udev man-db procps-ng 
-# depends	: util-linux e2fsprogs sysvinit sysklogd freetype libtasn1
-# depends	: nano  linux-firmware dosfstools mdadm py3-flit-core
-# depends	: fcron dbus cracklib sudo logrotate libpwquality
-# depends	: cmake brotli fakeroot lsb-tools c-ares
+# depends	: automake openssl kmod elfutils libffi python py3-wheel
+# depends	: ninja meson coreutils diffutils gawk findutils groff
+# depends	: gzip iproute2 kbd libpipeline make patch tar texinfo
+# depends	: make-ca curl grub udev man-db procps-ng util-linux
+# depends	: e2fsprogs sysvinit sysklogd freetype libtasn1 nano
+# depends	: linux-firmware dosfstools mdadm py3-flit-core fcron
+# depends	: dbus cracklib sudo logrotate libpwquality cmake brotli
+# depends	: fakeroot lsb-tools c-ares
 
 pkgname=base
 pkgver=20230101
 pkgrel=1
 source=(ifconfig.eth0)
 
-package() {
+build() {
     mkdir -p "$pkgdir"/etc
 
     dircolors -p > "$pkgdir"/etc/dircolors

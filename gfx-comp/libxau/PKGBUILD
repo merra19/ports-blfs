@@ -16,11 +16,6 @@ build() {
         --localstatedir=/var \
         --disable-static
     make
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     rm -f "$pkgdir"/usr/lib/*.la

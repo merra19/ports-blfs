@@ -1,5 +1,5 @@
 # description	: The PyPA recommended tool for installing Python packages
-# depends	: python3 py3-setuptools py3-yaml
+# depends	: python py3-setuptools py3-yaml
 
 pkgname=py3-pip
 pkgver=25.2
@@ -10,11 +10,6 @@ build() {
 	cd ${pkgname#*-}-$pkgver
 
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-    cd ${pkgname#*-}-$pkgver
-
     python3 -m installer -d "$pkgdir" .dist/*.whl
 
 	local _py3ver=$(python3 -c 'import sys; print("{}.{}".format(sys.version_info.major, sys.version_info.minor))')

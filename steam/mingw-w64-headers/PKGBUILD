@@ -18,9 +18,7 @@ build() {
             --enable-sdk=all \
             --host=${_target}
     done
-}
 
-package() {
     for _target in ${_targets}; do
         echo "Installing ${_target} headers"
         cd "$srcdir"/headers-${_target}

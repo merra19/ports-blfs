@@ -35,11 +35,6 @@ build() {
         -D man=false \
         build32
     ninja -C build32
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     DESTDIR="$PWD"/DESTDIR ninja -C build32 install
 
 	rm -r DESTDIR/usr/share

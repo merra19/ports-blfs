@@ -23,11 +23,6 @@ build() {
         --with-curses \
         --docdir=/usr/share/doc/$pkgname-$pkgver
     make SHLIB_LIBS="-lncursesw"
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" SHLIB_LIBS="-lncursesw" install
 
     install -v -m644 doc/*.{ps,pdf,html,dvi} "$pkgdir"/usr/share/doc/$pkgname-$pkgver

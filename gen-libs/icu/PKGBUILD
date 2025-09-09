@@ -14,10 +14,6 @@ build() {
     CC="gcc" CXX="g++" \
     ./configure \
         --prefix=/usr
-}
-
-package() {
-    cd $pkgname/source
-
+    make
     make DESTDIR="$pkgdir" install
 }

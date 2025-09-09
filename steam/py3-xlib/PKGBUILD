@@ -1,6 +1,6 @@
 # description	: A fully functional X client library for Python, written in Python
-# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
-# depends	: py3-setuptools-scm
+# depends	: python py3-gpep517 py3-setuptools py3-setuptools-scm
+# depends	: py3-wheel
 
 pkgname=py3-xlib
 pkgver=0.33
@@ -11,10 +11,5 @@ build() {
 	cd python-xlib-$pkgver
 
 	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd python-xlib-$pkgver
-
 	python3 -m installer -d "$pkgdir" .dist/*.whl
 }

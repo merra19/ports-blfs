@@ -7,13 +7,12 @@ pkgrel=1
 options=(!libtool !emptydirs)
 source=(https://ftp.gnu.org/gnu/binutils/binutils-${pkgver}.tar.xz)
 
-prepare() {
-  cd "$srcdir"/binutils-${pkgver}
-  #do not install libiberty
-  sed -i 's/install_to_$(INSTALL_DEST) //' libiberty/Makefile.in
-}
-
 build() {
+    cd "$srcdir"/binutils-${pkgver}
+
+    #do not install libiberty
+    sed -i 's/install_to_$(INSTALL_DEST) //' libiberty/Makefile.in
+
     #unset CFLAGS CXXFLAGS LDFLAGS
     
     mkdir build-x86_64 &&
@@ -44,9 +43,7 @@ build() {
         --disable-nls \
         --disable-werror
     make  
-}
 
-package() {
     cd  "$srcdir"/build-x86_64
 
     make DESTDIR="$pkgdir" install

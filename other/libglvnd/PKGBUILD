@@ -19,10 +19,5 @@ build() {
         -D gles1=false \
         build
 	ninja -C build
-}
-
-package() {
-    cd libglvnd-v$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

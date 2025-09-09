@@ -15,10 +15,5 @@ build() {
         --enable-sse \
 		--docdir=/usr/share/doc/speex-$pkgver
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

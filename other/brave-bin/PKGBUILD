@@ -13,9 +13,7 @@ build() {
 	mkdir -p brave
 	bsdtar -xf "$pkgname-$pkgver.zip" -C brave
 	chmod +x brave/brave
-}
 
-package() {
 	install -dm0755 "$pkgdir"/opt
 	cp -a brave "$pkgdir"/opt/$pkgname
 

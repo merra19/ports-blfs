@@ -20,10 +20,5 @@ build() {
         --localstatedir=/var \
         --disable-static
     make
-}
-
-package() {
-    cd xf86-input-synaptics-xlibre-xf86-input-synaptics-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

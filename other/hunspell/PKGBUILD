@@ -15,11 +15,6 @@ build() {
         --with-ui \
         --with-readline
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     # add generic hunspell.so for development and projects not using pkgconfig flags - FS#30592

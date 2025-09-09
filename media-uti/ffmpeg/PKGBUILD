@@ -1,9 +1,9 @@
 # description	: Complete solution to record/convert/stream audio and video. Includes libavcodec
 # depends	: bzip2 libass freetype lame gnutls libvorbis libvpx opus 
 # depends	: x264 x265 alsa-lib yasm dav1d libaom fdk-aac libva
-# depends	: libdrm libjxl libwebp openjpeg2 speexdsp vulkan-loader
+# depends	: libdrm libjxl libwebp openjpeg speexdsp vulkan-loader
 # depends	: v4l-utils libvdpau fontconfig fribidi pulseaudio
-# depends	: libcdio-paranoia libplacebo
+# depends	: libcdio-paranoia libplacebo libdvdnav
 # todo      : frei0r
 # optional  : samba
 
@@ -17,7 +17,6 @@ build() {
 	cd $pkgname-$pkgver
 
     patch -Np1 -i ../ffmpeg-$pkgver-chromium_method-1.patch
-
 
 	./configure \
         --prefix=/usr \
@@ -46,13 +45,8 @@ build() {
 		--enable-libpulse \
 		--enable-libplacebo \
 		--docdir=/usr/share/doc/$pkgname-$pkgver
-
 	make &&      
 	gcc tools/qt-faststart.c -o tools/qt-faststart
-}
-
-package() {
-    cd $pkgname-$pkgver
 
 	make DESTDIR="$pkgdir" install
 	install -m755 tools/qt-faststart "$pkgdir"/usr/bin

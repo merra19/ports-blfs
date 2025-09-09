@@ -15,11 +15,5 @@ build() {
         -D CMAKE_INSTALL_PREFIX:PATH=/usr -S . \
         -B ./build
 	cmake --build ./build --config Release --target all
-
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" cmake --install build
 }

@@ -18,11 +18,7 @@ build() {
         --disable-static \
         --enable-intel-sse \
         --enable-hardware-optimizations
-}
-
-package() {
-    cd $pkgname-$pkgver
-
+    make
     make DESTDIR="$pkgdir" install
     
     mkdir -p "$pkgdir"/usr/share/doc/$pkgname-$pkgver

@@ -14,10 +14,5 @@ build() {
         --prefix=/usr \
         --disable-static
     make    
-}
-
-package() {
-    cd $pkgname-v$pkgver
-
     make DESTDIR="$pkgdir" install
 }

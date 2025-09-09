@@ -6,7 +6,7 @@ pkgver=4.5
 pkgrel=1
 source=(https://www.docbook.org/xml/$pkgver/$pkgname-$pkgver.zip)
 
-package() {
+build() {
     install -v -d -m755 "${pkgdir}"/usr/share/xml/docbook/xml-dtd-$pkgver
     install -v -d -m755 "${pkgdir}"/etc/xml
     cp -v -af --no-preserve=ownership docbook.cat *.dtd ent/ *.mod \

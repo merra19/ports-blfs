@@ -62,11 +62,6 @@ build() {
         -D man-pages=disabled \
         -D nls=enabled
     PATH="$_prefix/bin:$PATH" LD_LIBRARY_PATH="$_prefix/lib:$PATHFAKEROOT" ninja
-}
-
-package() {
-    cd $pkgname-$pkgver/build
-
     DESTDIR="$pkgdir" ninja install
 
     mkdir -p "$pkgdir"/usr/share/doc/$pkgname-$pkgver &&

@@ -40,10 +40,6 @@ build() {
 
     yes "" | make oldconfig
     make all
-}
-
-package() {
-    cd ${pkgname%-*}-${pkgver%.0}
 
     kernver=${pkgver}$(grep CONFIG_LOCALVERSION= .config | cut -d '"' -f2)
     local modulesdir="$pkgdir/usr/lib/modules/$kernver"

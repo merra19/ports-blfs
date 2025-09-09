@@ -19,10 +19,6 @@ build() {
 		--with-gitconfig=/etc/gitconfig \
 		--with-python=python3
 	make
-}
-
-package() {
-	cd $pkgname-$pkgver
 
 	perlver=$(getversionpkg perl)
 

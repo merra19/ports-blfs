@@ -1,6 +1,6 @@
 # description	: GNU debugger
 # depends	: bash expat gcc glibc libgmp elfutils xz libmpfr ncurses
-# depends	: readline zstd python3 boost texinfo py3-six zlib bison
+# depends	: readline zstd python boost texinfo py3-six zlib bison
 
 pkgname=gdb
 pkgver=16.3
@@ -19,11 +19,6 @@ build() {
 		--with-system-zlib \
 		--with-python=/usr/bin/python3
 	make
-}
-
-package() {
-	cd $pkgname-$pkgver/build
-
 	make DESTDIR="$pkgdir" -C gdb install
 	make DESTDIR="$pkgdir" -C gdbserver install
 }

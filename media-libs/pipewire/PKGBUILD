@@ -1,5 +1,5 @@
 # description	: Multimedia processing graphs
-# depends	: meson pkgconf python3 ncurses dbus readline openssl 
+# depends	: meson pkgconf python ncurses dbus readline openssl 
 # depends	: fdk-aac alsa-lib opus ffmpeg pulseaudio xorg-libs libxcb
 # depends	: alsa-plugins alsa-firmware avahi bluez sbc libusb libdrm
 # depends	: vulkan-loader libsndfile v4l-utils
@@ -22,10 +22,5 @@ build() {
         -D vulkan=enabled \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

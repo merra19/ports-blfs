@@ -1,5 +1,5 @@
 # description	: Sphinx extension which renders display math in HTML via JavaScript
-# depends	: python3 py3-gpep517 py3-setuptools py3-wheel
+# depends	: python py3-gpep517 py3-setuptools py3-wheel
 
 pkgname=py3-sphinxcontrib-jsmath
 pkgver=1.0.1
@@ -10,10 +10,5 @@ build() {
 	cd ${pkgname#*-}-$pkgver
 
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
-}
-
-package() {
-	cd ${pkgname#*-}-$pkgver
-
     python3 -m installer -d "$pkgdir" .dist/*.whl
 }

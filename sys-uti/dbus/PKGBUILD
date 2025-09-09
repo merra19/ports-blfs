@@ -21,11 +21,6 @@ build() {
         -D systemd=disabled \
         p11-build 
     ninja -C p11-build 
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR=${pkgdir} ninja -C p11-build install
    
     chown -v root:messagebus "$pkgdir"/usr/libexec/dbus-daemon-launch-helper &&

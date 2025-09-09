@@ -21,10 +21,5 @@ build() {
         --disable-unit-tests \
 		--disable-static
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
-    make DESTDIR="$pkgdir" -C libvpx-build install
+    make DESTDIR="$pkgdir" install
 }

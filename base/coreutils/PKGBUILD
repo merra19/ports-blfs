@@ -25,11 +25,6 @@ build() {
         --prefix=/usr \
         --enable-no-install-program=kill,uptime 
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
     
     mkdir -pv "$pkgdir"/usr/share/man/man8/ "$pkgdir"/usr/sbin

@@ -22,11 +22,6 @@ build() {
         --disable-static \
         --docdir=/usr/share/doc/$pkgname-$pkgver
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     rm -v "$pkgdir"/usr/share/xsessions/openbox-{gnome,kde}.desktop

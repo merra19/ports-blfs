@@ -13,10 +13,5 @@ build() {
     patch -Np1 -i ../sysvinit-$pkgver-consolidated-1.patch
 
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

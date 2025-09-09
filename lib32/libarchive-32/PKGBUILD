@@ -23,11 +23,6 @@ build() {
         --without-xml2 \
         --host=i686-pc-linux-gnu
     make
-}
-
-package() {
-    cd libarchive-$pkgver
-
     make DESTDIR=$PWD/DESTDIR install
     mkdir -p "$pkgdir"/usr/lib32
     cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32

@@ -1,6 +1,6 @@
 # description	: Customize advanced GNOME options
 # depends	: sound-theme-freedesktop gtk4  libgudev libadwaita
-# depends	: gsettings-desktop-schemas py3-gobject3 
+# depends	: gsettings-desktop-schemas py3-gobject
 
 pkgname=gnome-tweaks
 pkgver=46.1
@@ -15,10 +15,5 @@ build() {
         --buildtype=plain \
         build
 	ninja -C build
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" ninja -C build install
 }

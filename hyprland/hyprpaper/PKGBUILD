@@ -17,11 +17,5 @@ build() {
 		-D CMAKE_BUILD_TYPE=Release
     make protocols
 	cmake --build build
-
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     DESTDIR="$pkgdir" cmake --install build
 }

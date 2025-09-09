@@ -15,11 +15,6 @@ build() {
         --disable-static \
         --docdir=/usr/share/doc/${pkgname#lib}-$pkgver
     make
-}
-
-package() {
-    cd ${pkgname#lib}-$pkgver
-
     make DESTDIR="$pkgdir" install
     install -vd "$pkgdir"/usr/share/doc/${pkgname#lib}-$pkgver
     install -m644 doc/{CodingStyle,manual.pdf,SubmittingPatches,user.pod} \

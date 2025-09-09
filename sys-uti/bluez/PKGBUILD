@@ -20,11 +20,6 @@ build() {
 		--enable-manpages \
         --disable-systemd 
 	make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
 	make DESTDIR="$pkgdir" install
 
 	install -d "$pkgdir"/usr/sbin

@@ -16,10 +16,5 @@ build() {
         --enable-x11 \
         --disable-debug
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

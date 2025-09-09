@@ -11,9 +11,7 @@ build() {
     sed -i "s:sbin:bin:g" Makefile
     make CFLAGS="$CFLAGS -DHAVE_GETTEXT=0 -DTZDEFAULT='\"/etc/localtime\"'"
     make TZDIR=zoneinfo zones
-}
 
-package() {
     mkdir -p "$pkgdir"/usr/share/zoneinfo
     cp -a zoneinfo "$pkgdir"/usr/share/zoneinfo/posix
     cp -al "$pkgdir"/usr/share/zoneinfo/posix/. "$pkgdir"/usr/share/zoneinfo

@@ -24,10 +24,8 @@ build() {
     NSS_DISABLE_GTESTS=1 \
 	"$([ "$(uname -m)" = x86_64 ] && echo USE_64=1)" \
 	"$([ -f /usr/include/sqlite3.h ] && echo NSS_USE_SYSTEM_SQLITE=1)"
-}
 
-package() {
-    cd $pkgname-$pkgver/dist
+    cd ../dist
 
 	install -d "$pkgdir"/usr/lib "$pkgdir"/usr/lib/pkgconfig "$pkgdir"/usr/bin
 	install -v -m755 Linux*/lib/*.so  "$pkgdir"/usr/lib

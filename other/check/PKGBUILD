@@ -13,10 +13,5 @@ build() {
         --prefix=/usr \
         --disable-static
     make
-}
-
-package() {
-    cd $pkgname-$pkgver
-
     make docdir=/usr/share/doc/$pkgname-$pkgver DESTDIR="$pkgdir" install
 }

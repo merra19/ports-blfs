@@ -12,10 +12,5 @@ build() {
 
 	PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
 	make
-}
-
-package() {
-    cd JSON-$pkgver
-
     make DESTDIR="$pkgdir" install
 }

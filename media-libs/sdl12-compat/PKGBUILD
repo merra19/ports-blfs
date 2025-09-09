@@ -13,11 +13,6 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_BUILD_TYPE=RELEASE
     make -C build
-}
-
-package() {
-    cd $pkgname-release-$pkgver
-
     make DESTDIR="$pkgdir" install -C build
     rm -vf "$pkgdir"/usr/lib/libSDLmain.a
 }

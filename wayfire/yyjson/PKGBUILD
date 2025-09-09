@@ -14,9 +14,6 @@ build() {
 	  -D YYJSON_BUILD_TESTS='ON' \
 	  -Wno-dev
 	cmake --build build
-}
-
-package() {
 	DESTDIR="$pkgdir" cmake --install build
 
 	cd $pkgname-$pkgver

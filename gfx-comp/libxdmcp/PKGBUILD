@@ -17,11 +17,6 @@ build() {
         --disable-static \
         --docdir=/usr/share/doc/libXdmcp-$pkgver
     make
-}
-
-package() {
-    cd ${_pkgname}-$pkgver
-
     make DESTDIR="$pkgdir" install
 
     rm -f "$pkgdir"/usr/lib/*.la

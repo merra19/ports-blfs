@@ -16,6 +16,6 @@ pkgver=6.4.4
 pkgrel=1
 source=()
 
-package() {
+build() {
     install -v -dm755 "$pkgdir"/usr
 }
