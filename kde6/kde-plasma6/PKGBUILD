@@ -1,0 +1,11 @@
+# description	: KDE Plasma 6
+# depends	: spectacle
+
+pkgname=kde-plasma6
+pkgver=6.4.4
+pkgrel=1
+source=()
+
+package() {
+     mkdir -p "$pkgdir"/usr
+}

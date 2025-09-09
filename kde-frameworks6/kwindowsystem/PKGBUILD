@@ -1,8 +1,5 @@
-# description	: Framework providing access to properties and features of the window manager
-# depends	: qt6-base qt6-tools qt6-declarative qt6-wayland 
-# depends	: extra-cmake-modules libx11 libxcb libxfixes xorg-proto
-# depends	: plasma-wayland-protocols xcb-util-keysyms 
-# depends	: wayland-protocols
+# description	: KDE Framework
+# depends	: kwidgetsaddons
 
 pkgname=kwindowsystem
 pkgver=6.17.0
@@ -19,6 +16,7 @@ build() {
         -D CMAKE_SKIP_INSTALL_RPATH=ON  \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
+        -D BUILD_PYTHON_BINDINGS=OFF \
         -Wno-dev
     make -C build
 }
@@ -27,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

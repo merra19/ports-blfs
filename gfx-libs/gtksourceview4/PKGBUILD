@@ -1,5 +1,5 @@
 # description	: A text widget implementing syntax highlighting and other features
-# depends	: gtk3 gobject-introspection libxml2 vala glib fribidi
+# depends	: gtk3 gobject-introspection libxml2 vala glib itstool
 
 pkgname=gtksourceview4
 pkgver=4.8.4

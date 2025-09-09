@@ -1,6 +1,6 @@
 # description	: Customize advanced GNOME options
-# depends	: sound-theme-freedesktop glib gobject-introspection gtk4 
-# depends	: libadwaita gsettings-desktop-schemas libnotify pango 
+# depends	: sound-theme-freedesktop gtk4  libgudev libadwaita
+# depends	: gsettings-desktop-schemas py3-gobject3 
 
 pkgname=gnome-tweaks
 pkgver=46.1

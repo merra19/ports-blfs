@@ -1,5 +1,5 @@
 # description	: Systems programming language from Mozilla
-# depends	: cmake curl llvm llvm32 xz zlib openssl lld
+# depends	: cmake curl llvm llvm32 xz zlib openssl lld libssh2
 
 pkgname=rustc
 pkgver=1.89.0

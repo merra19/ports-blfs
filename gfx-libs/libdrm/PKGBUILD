@@ -1,5 +1,6 @@
 # description	: X.Org libdrm library
-# depends	: meson libxslt libpciaccess
+# depends	: meson libxslt docbook-xml py3-docutils docbook-xsl-nons
+# depends	: libatomic_ops xorg-libs
 
 pkgname=libdrm
 pkgver=2.4.125

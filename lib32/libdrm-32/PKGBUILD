@@ -1,5 +1,5 @@
 # description	: X.Org libdrm library
-# depends	: meson libxslt libdrm libpciaccess-32 cairo-32
+# depends	: xorg-libs-32 libdrm
 
 pkgname=libdrm-32
 _pkgname=libdrm

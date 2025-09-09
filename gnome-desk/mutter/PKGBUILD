@@ -1,14 +1,10 @@
 # description	: GNOME compositing window manager based on Clutter
-# depends	: glib gobject-introspection graphene gdk-pixbuf pango
-# depends	: cairo pixman fribidi gsettings-desktop-schemas libice
-# depends	: gnome-settings-daemon json-glib libxkbcommon dbus libei
-# depends	: at-spi2-core colord lcms2 harfbuzz libcanberra libglvnd
-# depends	: wayland wayland-protocols libdrm mesa libinput elogind
-# depends	: xwayland libgudev libsm libwacom startup-notification
-# depends	: pipewire libdisplay-info gtk4 libx11 libxcomposite
-# depends	: libxcursor libxdamage libxext libxfixes libxtst libxcb
-# depends	: libxkbfile xkeyboard-config libxrender libxrandr libxau
-# depends	: libxinerama xorg-proto gettext linux-api-headers libxcvt
+# depends	: glib gobject-introspection graphene desktop-file-utils
+# depends	: libxkbcommon libei libglvnd gnome-settings-daemon 
+# depends	: wayland wayland-protocols libinput bash-completion
+# depends	: pipewire libdisplay-info gtk4 xorg-libs libxcb libxau
+# depends	: xorg-proto gettext linux-api-headers libxcvt xwayland
+# depends	: startup-notification
 
 pkgname=mutter
 pkgver=48.4

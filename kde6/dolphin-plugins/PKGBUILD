@@ -1,7 +1,5 @@
 # description	: Plasma filemanager focusing on usability
-# depends	: dolphin gcc glibc kcompletion kconfig kcoreaddons ki18n
-# depends	: kio kjobwidgets kservice ktexteditor ktextwidgets cmake
-# depends	: kwidgetsaddons kxmlgui qt6-base solid extra-cmake-modules 
+# depends	: dolphin gcc glibc cmake
 
 pkgname=dolphin-plugins
 pkgver=25.08.0

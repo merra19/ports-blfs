@@ -1,5 +1,5 @@
 # description	: Changes keyboard's numlock state under X
-# depends	: xorg-proto libx11 libxext libxtst 
+# depends	: xorg-libs
 
 pkgname=numlockx
 pkgver=1.2

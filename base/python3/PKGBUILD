@@ -1,6 +1,6 @@
 # description	: An interpreted, interactive, object-oriented programming language
 # depends	: bzip2 xz zlib readline libffi sqlite expat gdbm openssl
-# depends	: libxcrypt bluez-headers
+# depends	: libxcrypt bluez-headers libnsl
 
 pkgname=python3
 pkgver=3.13.7

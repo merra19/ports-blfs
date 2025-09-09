@@ -1,5 +1,5 @@
 # description	: The GL Vendor-Neutral Dispatch library
-# depends	: libxext-32 libx11-32 xorg-proto libglvnd
+# depends	: xorg-libs-32 libglvnd
 
 pkgname=libglvnd-32
 _pkgname=libglvnd

@@ -1,0 +1,22 @@
+# description	: A library for registering global keyboard shortcuts
+# depends	: gtk3 gobject-introspection
+
+pkgname=keybinder-3.0
+pkgver=0.3.2
+pkgrel=1
+source=(https://github.com/kupferlauncher/keybinder/releases/download/keybinder-3.0-v$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --disable-lua
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

@@ -1,4 +1,4 @@
-# description	: High performance source code search tool
+# description	: Performance-portable, length-agnostic SIMD with runtime dispatch
 # depends	: meson cmake
 
 pkgname=highway

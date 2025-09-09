@@ -1,6 +1,5 @@
 # description	: Video Acceleration (VA) API for Linux
-# depends	: libdrm-32 meson libx11-32 libxext-32 libxfixes-32
-# depends	: wayland-32 libglvnd-32 libva
+# depends	: libdrm-32 xorg-libs-32 libxcb-32 wayland-32 libva
 
 pkgname=libva-32
 _pkgname=libva

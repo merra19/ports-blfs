@@ -1,5 +1,6 @@
 # description	: Wayland protocol libraries
-# depends	: libffi meson
+# depends	: libffi meson libxml2 docbook-xml docbook-xsl-nons
+# depends	: libxslt
 
 pkgname=wayland
 pkgver=1.24.0

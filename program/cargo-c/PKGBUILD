@@ -1,5 +1,5 @@
 # description	: Helper program to build and install c-like libraries
-# depends	: rustc libssh2 sqlite curl zlib
+# depends	: rustc libssh2 sqlite zlib
 
 pkgname=cargo-c
 pkgver=0.10.15

@@ -1,10 +1,9 @@
 # description	: Legacy library for PPD files, split out of cups-filters
-# depends	: libarchive freetype harfbuzz libpng openjpeg2 libglvnd
-# depends	: libjpeg-turbo curl openssl freeglut zlib libx11 libxext 
-# depends	: libxrandr xorg-proto 
+# depends	: harfbuzz openjpeg2 libglvnd libjpeg-turbo curl openssl
+# depends	: freeglut zlib xorg-libs xorg-proto xdg-utils
 
 pkgname=mupdf
-pkgver=1.26.5
+pkgver=1.26.7
 pkgrel=1
 source=(https://www.mupdf.com/downloads/archive/mupdf-$pkgver-source.tar.gz
         user.make)

@@ -1,5 +1,5 @@
 # description	: User-land utilities for LVM2 (device-mapper) software
-# depends	: libaio udev util-linux readline
+# depends	: libaio udev util-linux readline libnvme mdadm which
 
 pkgname=lvm2
 pkgver=2.03.34

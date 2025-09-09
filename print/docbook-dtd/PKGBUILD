@@ -5,7 +5,7 @@ pkgname=docbook-dtd
 pkgver=31
 _version=3.1
 pkgrel=1
-source=(https://www.docbook.org/sgml/3.1/docbk31.zip)
+source=(https://www.docbook.org/sgml/$_pkgver/docbk$pkgver.zip)
 
 build() {
 

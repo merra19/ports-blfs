@@ -1,12 +1,10 @@
 # description	: Media player for the command line
-# depends	: libass libplacebo ffmpeg libx11 libxscrnsaver libxext 
-# depends	: libxpresent libxrandr libxv alsa-lib libarchive libdrm 
-# depends	: mesa libglvnd libjpeg-turbo lcms2 pipewire pulseaudio 
+# depends	: libass libplacebo ffmpeg xorg-libs alsa-lib uchardet
+# depends	: mesa libglvnd libjpeg-turbo pipewire pulseaudio shaderc
 # depends	: wireplumber libva libvdpau vulkan-loader wayland 
 # depends	: wayland-protocols libxkbcommon zlib xorg-proto luajit 
-# depends	: linux-api-headers shaderc
-# optional	: cdda!!libcdio-paranoia cdda!!libcdio sdl!!sdl2 
-# optional	: dvd!!libdvdnav dvd!!libdvdcss dvd!!libdvdread
+# depends	: linux-api-headers libcdio-paranoia libdvdnav libdvdcss
+# depends	: libdvdread sdl2
 
 pkgname=mpv
 pkgver=0.40.0

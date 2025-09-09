@@ -1,5 +1,5 @@
 # description	: Linux-PAM (Pluggable Authentication Modules)
-# depends	: flex bison libxcrypt-32 autoconf automake pam
+# depends	: libxcrypt-32 libnsl-32 libtirpc-32 pam
 
 pkgname=pam-32
 pkgver=1.7.1

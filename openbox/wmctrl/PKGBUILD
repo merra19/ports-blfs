@@ -1,5 +1,5 @@
 # description	: Command line tool to interact with an EWMH/NetWM compatible X Window
-# depends	: glib xorg-proto libx11 libxmu
+# depends	: glib xorg-libs
 
 pkgname=wmctrl
 pkgver=1.07

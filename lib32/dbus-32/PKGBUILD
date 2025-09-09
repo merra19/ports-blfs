@@ -1,5 +1,5 @@
 # description	: A message bus system, a simple way for applications to talk to each other
-# depends	: expat-32 elogind-32 xorg-proto libx11-32 libxt-32 
+# depends	: expat-32 xorg-libs-32 dbus
 
 pkgname=dbus-32
 _pkgname=dbus

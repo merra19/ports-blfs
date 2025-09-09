@@ -1,6 +1,6 @@
 # description	: Javascript bindings for GNOME
 # depends	: glib gobject-introspection libffi spidermonkey cairo
-# depends	: readline
+# depends	: readline dbus
 
 pkgname=gjs
 pkgver=1.84.2

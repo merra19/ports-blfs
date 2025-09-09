@@ -1,0 +1,23 @@
+# description	: C++ interface for the ATK library
+# depends	: at-spi2-core glibmm-2.66
+
+pkgname=atkmm-2.28
+pkgver=2.28.4
+pkgrel=1
+source=(https://download.gnome.org/sources/atkmm/${pkgver%.*}/atkmm-$pkgver.tar.xz)
+
+build() {
+	cd atkmm-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd atkmm-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

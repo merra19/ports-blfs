@@ -1,8 +1,5 @@
 # description	: File archiver by KDE
-# depends	: libarchive kcompletion kconfig kconfigwidgets cmake
-# depends	: kcoreaddons kcrash kdbusaddons kfilemetadata ki18n 
-# depends	: kio kjobwidgets kparts kpty kservice kiconthemes
-# depends	: kwidgetsaddons kwindowsystem kxmlgui zlib unzip
+# depends	: libarchive cmake kde-frameworks6 zlib unzip cpio 7zip
 
 pkgname=ark
 pkgver=25.08.0

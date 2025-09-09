@@ -1,8 +1,9 @@
 # description	: An enhanced, drop-in replacement for MySQL
 # depends	: pcre2 texinfo ncurses zlib libxcrypt binutils readline 
-# depends	: libaio procps-ng bzip2 xz libarchive boost 
-# depends	: libxml2 lz4 lzo bison cmake pam curl openssl 
-# optional	: cracklib odbc!!unixodbc krb5!!openldap
+# depends	: libaio procps-ng bzip2 xz boost libevent libxml2 lz4
+# depends	: lzo bison cmake pam openssl fmt ruby
+# depends	: unixodbc snowball-stemmer
+# optional	: krb5 openldap
 
 pkgname=mariadb
 pkgver=11.8.3
@@ -36,7 +37,8 @@ build() {
         -D WITH_EXTRA_CHARSETS=complex \
         -D WITH_EMBEDDED_SERVER=ON \
         -D SKIP_TESTS=ON \
-        -D TOKUDB_OK=0
+        -D TOKUDB_OK=0 \
+        -W no-dev
     make -C build
 }
 

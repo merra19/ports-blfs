@@ -1,5 +1,5 @@
 # description	: Library providing a virtual terminal emulator widget
-# depends	: fribidi glib icu pango pcre2 gtk3 zlib lz4 cairo libxml2
+# depends	: glib icu pango pcre2 gtk3 zlib lz4 libxml2 gtk4
 # depends	: gobject-introspection vala gnutls fast_float
 
 pkgname=vte

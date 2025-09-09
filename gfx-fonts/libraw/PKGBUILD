@@ -1,5 +1,5 @@
 # description	: LibRaw is a library for reading RAW files obtained from digital photo cameras
-# depends	: lcms2 libjpeg-turbo zlib
+# depends	: lcms2 libjpeg-turbo zlib jasper
 
 pkgname=libraw
 _pkgname=LibRaw

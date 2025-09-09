@@ -1,6 +1,6 @@
 # description	: Modem and mobile broadband management libraries
 # depends	: libgudev glib udev gobject-introspection libqmi 
-# depends	: libmbim polkit vala
+# depends	: libmbim polkit vala elogind
 
 pkgname=modemmanager
 _pkgname=ModemManager

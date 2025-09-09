@@ -1,9 +1,7 @@
 # description	: Visual Studio Code (vscode) editor without MS branding/telemetry/licensing
 # depends	: at-spi2-core libsecret expat glib nspr nss alsa-lib 
 # depends	: libglvnd mesa curl dbus zlib lsof cairo gtk3 libdrm 
-# depends	: libx11 libxcb libxcomposite libxdamage libxext libxfixes 
-# depends	: libxkbcommon libxkbfile libxrandr libxscrnsaver pango 
-# depends	: xdg-utils p11-kit
+# depends	: libxcb xorg-libs libxkbcommon pango xdg-utils p11-kit
 
 pkgname=vscodium-bin
 pkgver=1.103.25610

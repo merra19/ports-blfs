@@ -1,5 +1,5 @@
 # description	: An implementation of the IDNA2008 specifications (RFCs 5890, 5891, 5892, 5893)
-# depends	: libunistring-32 perl libidn2
+# depends	: libunistring-32 libidn2
 
 pkgname=libidn2-32
 _pkgname=libidn2

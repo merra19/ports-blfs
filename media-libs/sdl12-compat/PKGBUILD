@@ -1,0 +1,23 @@
+# description	: Compatibility layer SDL 1.2 for SDL 2.0
+# depends	: cmake glu sdl2
+
+pkgname=sdl12-compat
+pkgver=1.2.68
+pkgrel=1
+source=(https://github.com/libsdl-org/sdl12-compat/archive/release-$pkgver/$pkgname-release-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-release-$pkgver
+	
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=RELEASE
+    make -C build
+}
+
+package() {
+    cd $pkgname-release-$pkgver
+
+    make DESTDIR="$pkgdir" install -C build
+    rm -vf "$pkgdir"/usr/lib/libSDLmain.a
+}

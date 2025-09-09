@@ -1,9 +1,9 @@
 # description	: Fast, feature-rich, GPU-based terminal
-# depends	: python3 bash gcc libxinerama libxrandr simde dbus zlib
+# depends	: python3 bash gcc simde dbus zlib libxkbcommon wayland
 # depends	: ttf-nerd-fonts-symbols wayland-protocols fontconfig go
 # depends	: freetype hicolor-icon-theme lcms2 libglvnd libpng
-# depends	: librsync libx11 libxcursor libxi libxkbcommon wayland
-# depends	: openssl xxhash libcanberra imagemagick py3-pygments
+# depends	: librsync xorg-libs libcanberra imagemagick py3-pygments
+# depends	: openssl xxhash 
 
 pkgname=kitty
 pkgver=0.42.2

@@ -1,5 +1,5 @@
 # description	: High-level C++ D-Bus library
-# depends	:  cmake expat elogind
+# depends	: cmake expat elogind
 
 pkgname=sdbus-cpp
 pkgver=2.1.0

@@ -1,7 +1,10 @@
 # description	: Less plugins for GStreamer
-# depends	: gst-plugins-base meson gobject-introspection libx11 
-# depends	: bzip2 gstreamer libgudev libva wayland libdrm 
-# depends	: wayland-protocols glib
+# depends	: gst-plugins-base meson libdvdread libdvdnav
+# depends	: bzip2 libva wayland soundtouch bluez curl faac faad2
+# depends	: fdk-aac json-glib lcms2 libaom libass libexif librsvg
+# depends	: libsndfile libssh2 libusb libwebp libxkbcommon libxml2
+# depends	: neon libgcrypt openjpeg2 opus pango libqrencode sbc 
+# depends	: vulkan-loader shaderc x265 zxing-cpp gtk3
 
 pkgname=gst-plugins-bad
 pkgver=1.26.5

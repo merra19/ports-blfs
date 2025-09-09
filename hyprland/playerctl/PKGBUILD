@@ -1,5 +1,5 @@
 # description	: A CLI utility to control media players over MPRIS
-# depends	:  meson dbus glib gobject-introspection 
+# depends	: meson dbus glib gobject-introspection 
 
 pkgname=playerctl
 pkgver=2.4.1

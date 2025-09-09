@@ -1,5 +1,5 @@
 # description	: Advanced Linux Sound Architecture tools
-# depends	: alsa-lib fltk gtk3 gobject-introspection xorg-legacy
+# depends	: alsa-lib fltk gtk3
 
 pkgname=alsa-tools
 pkgver=1.2.14

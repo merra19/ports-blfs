@@ -1,5 +1,5 @@
 # description	: A JSON implementation in C
-# depends	: cmake ninja json-c
+# depends	: json-c
 
 pkgname=json-c-32
 _pkgname=json-c

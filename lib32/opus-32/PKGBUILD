@@ -1,5 +1,5 @@
 # description	: Open codec for interactive speech and music transmission over the Internet
-# depends	: glibc opus
+# depends	: opus
 
 pkgname=opus-32
 _pkgname=opus

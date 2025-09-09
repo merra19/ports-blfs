@@ -1,6 +1,6 @@
 # description	: A JavaScript runtime built on Chrome's V8 JavaScript engine
-# depends	: glibc brotli sqlite c-ares nghttp2 zlib icu openssl
-# depends	: coreutils meson
+# depends	: glibc brotli c-ares nghttp2 zlib icu openssl coreutils
+# depends	: libuv meson which
 
 pkgname=nodejs
 pkgver=22.19.0

@@ -1,5 +1,5 @@
 # description	: Extensions, widgets and framework library with session support for Xfce
-# depends	: libxfce4ui intltool glib gtk3 libxfce4util
+# depends	: libxfce4ui intltool gtk3 libxfce4util
 
 pkgname=exo
 pkgver=4.20.0

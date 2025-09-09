@@ -1,15 +1,15 @@
 # description	: Installer, launcher and supplementary files for Valve's Steam client
-# depends	: glibc xorg-proto xcb-proto libxau libx11 libdrm xz icu 
-# depends	: libxshmfence mesa xdg-user-dirs lsof tar bash fontconfig 
+# depends	: glibc xorg-proto xcb-proto libxau libdrm xz icu 
+# depends	: mesa xdg-user-dirs lsof tar bash fontconfig xorg-libs
 # depends	: libglvnd ttf-dejavu at-spi2-core bzip2 ibus gcc make-ca
-# depends	: libxau-32 libx11-32 libdrm-32 bzip2-32 libxshmfence-32
+# depends	: libxau-32 libdrm-32 bzip2-32 xorg-libs-32 libxcrypt-32 
 # depends	: icu-32 fontconfig-32 mesa-32 libglvnd-32 zenity freetype
-# depends	: coreutils curl dbus desktop-file-utils diffutils gcc
+# depends	: coreutils curl dbus desktop-file-utils diffutils
 # depends	: hicolor-icon-theme libxcrypt libxkbcommon nss python3
-# depends	: usbutils xrandr polkit xdg-desktop-portal-gtk noto-fonts
-# depends	: ttf-dejavu libxcrypt-32 libxinerama-32 libxscrnsaver-32
-# depends	: gcc libva-32 vulkan-loader cairo-32 libgpg-error-32
+# depends	: usbutils polkit xdg-desktop-portal-gtk noto-fonts
+# depends	: libva-32 vulkan-loader cairo-32 libgpg-error-32
 # depends	: nss-32 alsa-plugins-32 pipewire-32 udev-32
+# depends	: xorg-applications
 
 pkgname=steam
 pkgver=1.0.0.83

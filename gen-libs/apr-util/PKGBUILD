@@ -1,5 +1,6 @@
 # description	: Apache Portable Runtime Utility Library
-# depends	: apr sqlite unixodbc gdbm openssl expat
+# depends	: apr sqlite gdbm openssl expat
+# optional  : openldap postgresql mariadb unixodbc 
 
 pkgname=apr-util
 pkgver=1.6.3

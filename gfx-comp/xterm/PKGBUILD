@@ -1,7 +1,5 @@
 # description	: Terminal emulator for the X Window System
-# depends	: fontconfig ncurses freetype xmessage libice libx11 
-# depends	: libxaw libxft libxkbfile libxmu libxext libxt luit 
-# depends	: libxinerama xorg-proto  
+# depends	: ncurses xorg-libs luit ttf-dejavu
 
 pkgname=xterm
 pkgver=401

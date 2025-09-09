@@ -1,5 +1,5 @@
 # description	: Suspend and hibernation utilities
-# depends	: dbus util-linux alsa-utils xmlto hdparm wireless_tools
+# depends	: dbus util-linux xmlto hdparm wireless_tools
 
 pkgname=pm-utils
 pkgver=1.4.1

@@ -1,5 +1,5 @@
 # description	: A GObject plugins library
-# depends	: glib gobject-introspection lua py3-gobject3
+# depends	: glib gobject-introspection lua py3-gobject3 gtk3 libxml2
 
 pkgname=libpeas
 pkgver=1.36.0

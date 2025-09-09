@@ -1,5 +1,5 @@
 # description	: X.Org cursor themes: whiteglass, redglass and handhelds
-# depends	: xcursorgen libx11 libxcursor
+# depends	: xorg-applications
 
 pkgname=xcursor-themes
 pkgver=1.0.7

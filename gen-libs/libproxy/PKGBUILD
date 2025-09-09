@@ -1,6 +1,5 @@
 # description	: Library for automatic proxy configuration management
 # depends	: curl glib gobject-introspection meson ninja vala duktape
-# depends	: py3-pygments py3-typogrify py3-smartypants py3-markdown
 # depends	: gsettings-desktop-schemas
 
 pkgname=libproxy

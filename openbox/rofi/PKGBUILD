@@ -1,11 +1,10 @@
 # description	: A window switcher, run dialog and dmenu replacement
 # depends	: bison flex pkgconf glib cairo gdk-pixbuf libxcb pango
-# depends	: libxkbcommon startup-notification xcb-util xcb-util-wm
-# depends	: xcb-util-cursor xkeyboard-config xorg-proto
-# depends	: xcb-util-keysyms
+# depends	: libxkbcommon startup-notification xcb-util xcb-utilities
+# depends	: xkeyboard-config xorg-proto
 
 pkgname=rofi
-pkgver=1.7.9.1
+pkgver=2.0.0
 pkgrel=1
 source=(https://github.com/davatorium/rofi/releases/download/$pkgver/$pkgname-$pkgver.tar.xz
         fix_xfce4-terminal_binary_name.patch)

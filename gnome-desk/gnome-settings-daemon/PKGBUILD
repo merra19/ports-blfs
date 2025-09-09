@@ -1,11 +1,10 @@
 # description	: Gnome Settings Daemon
-# depends	: glib gobject-introspection geocode-glib gnome-desktop
-# depends	: gsettings-desktop-schemas gtk3 libgweather colord upower
-# depends	: libcanberra geoclue libnotify polkit pulseaudio libx11
-# depends	: libxfixes libgudev wayland libwacom pango gdk-pixbuf
-# depends	: gcr4 cups alsa-lib libxi libxext fontconfig elogind
-# depends	: xorg-proto dconf linux-api-headers networkmanager
-# optional  : modemmanager modemmanager!!gcr3
+# depends	: geocode-glib gnome-desktop modemmanager nss xorg-libs
+# depends	: libgweather colord upower networkmanager geoclue dconf
+# depends	: libcanberra  libnotify pulseaudio libwacom wayland
+# depends	: fontconfig elogind linux-api-headers gcr4 cups alsa-lib
+# depends	: xorg-proto
+# todo      : gnome-session 
 
 pkgname=gnome-settings-daemon
 pkgver=48.1

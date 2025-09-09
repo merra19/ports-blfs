@@ -1,5 +1,5 @@
 # description	: Video Acceleration (VA) API for Linux
-# depends	: libdrm meson libx11 libxext libxfixes libxcb wayland
+# depends	: libdrm meson libxcb wayland xorg-libs
 
 pkgname=libva
 pkgver=2.22.0

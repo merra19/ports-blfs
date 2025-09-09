@@ -1,10 +1,5 @@
-# description	: Framework providing a full text editor component
-# depends	: qt6-base qt6-tools qt6-declarative extra-cmake-modules 
-# depends	: karchive kauth kcodecs kcompletion kconfig ki18n
-# depends	: kconfigwidgets kcoreaddons kguiaddons kiconthemes 
-# depends	: kio kitemviews kjobwidgets kparts ktextwidgets
-# depends	: kwidgetsaddons kwindowsystem kxmlgui sonnet 
-# depends	: syntax-highlighting qt6-speech
+# description	: KDE Framework
+# depends	: syntax-highlighting
 
 pkgname=ktexteditor
 pkgver=6.17.0
@@ -21,6 +16,7 @@ build() {
         -D CMAKE_SKIP_INSTALL_RPATH=ON  \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
+        -D BUILD_PYTHON_BINDINGS=OFF \
         -Wno-dev
     make -C build
 }
@@ -29,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

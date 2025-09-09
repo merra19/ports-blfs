@@ -1,5 +1,5 @@
 # description	: Firefox Web Browser
-# depends	: dbus-glib gtk3 libxt mime-types nss ffmpeg libnotify
+# depends	: dbus-glib gtk3 xorg-libs mime-types nss ffmpeg libnotify
 # depends	: networkmanager pulseaudio speech-dispatcher hunspell
 # depends	: hunspell-en_us liberation-fonts ttf-dejavu noto-fonts
 

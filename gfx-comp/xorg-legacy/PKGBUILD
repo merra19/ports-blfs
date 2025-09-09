@@ -1,24 +1,31 @@
 # description	: Xorg Legacy Fonts
-# depends	: bdftopcf xorg-fonts
+# depends	: xorg-fonts
 
 pkgname=xorg-legacy
 pkgver=1.0.0
 pkgrel=1
-source=(https://www.x.org/pub/individual/font/font-adobe-100dpi-1.0.4.tar.xz
-        https://www.x.org/pub/individual/font/font-adobe-75dpi-1.0.4.tar.xz
-        https://www.x.org/pub/individual/font/font-jis-misc-1.0.4.tar.xz
-        https://www.x.org/pub/individual/font/font-daewoo-misc-1.0.4.tar.xz
-        https://www.x.org/pub/individual/font/font-isas-misc-1.0.4.tar.xz
-        https://www.x.org/pub/individual/font/font-misc-misc-1.1.3.tar.xz)
-noextract=( font-adobe-100dpi-1.0.4.tar.xz
-            font-adobe-75dpi-1.0.4.tar.xz
-            font-jis-misc-1.0.4.tar.xz
-            font-daewoo-misc-1.0.4.tar.xz
-            font-isas-misc-1.0.4.tar.xz
-            font-misc-misc-1.1.3.tar.xz)
+source=()
+noextract=( 
+    bdftopcf-1.1.1.tar.xz
+    font-adobe-100dpi-1.0.4.tar.xz
+    font-adobe-75dpi-1.0.4.tar.xz
+    font-jis-misc-1.0.4.tar.xz
+    font-daewoo-misc-1.0.4.tar.xz
+    font-isas-misc-1.0.4.tar.xz
+    font-misc-misc-1.1.3.tar.xz
+    )
 
-build() {
-    for package in $noextract
+for listsrc in ${noextract[@]};do
+    case $listsrc in
+        bdftopcf*) source=(${source[@]} https://www.x.org/pub/individual/util/$listsrc) ;;
+        *) source=(${source[@]} https://www.x.org/pub/individual/font/$listsrc) ;;
+    esac
+done
+
+package() {
+    export PATH=$PATH:"$pkgdir/usr/bin"
+
+    for package in ${noextract[@]}
     do
         packagedir=${package%.tar.?z*}
         tar -xf $package
@@ -30,16 +37,6 @@ build() {
             --localstatedir=/var \
             --disable-static
         make
-        cd ..
-    done  
-}
-
-package() {
-    for package in $noextract
-    do
-        packagedir=${package%.tar.?z*}
-        cd $packagedir
-
         make DESTDIR="$pkgdir" install
         cd ..
         rm -rf $packagedir

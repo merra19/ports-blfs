@@ -4,20 +4,24 @@
 # depends	: py3-semantic-version
 
 pkgname=py3-maturin
-pkgver=1.9.3
+pkgver=1.9.4
 pkgrel=1
-options=(!lto)
 source=($pkgname-$pkgver.tar.gz::https://github.com/PyO3/maturin/archive/v$pkgver.tar.gz
 		local://$pkgname-$pkgver-cargo.tar.xz)
 
 _features="--features=full,native-tls,password-storage"
 
+createpack() {
+    mkdir -p vendor
+    cargo vendor vendor
+    tar -cJpf $pkgname-$pkgver-cargo.tar.xz vendor/
+    cp $pkgname-$pkgver-cargo.tar.xz /sources/src/
+}
+
 prepare() {
 	cd maturin-$pkgver
 
-    #mkdir vendor
-    #cargo vendor vendor
-    #tar -cJf /sources/src/$pkgname-$pkgver-cargo.tar.xz vendor/
+	#createpack
 
     mv "$srcdir"/vendor .
 

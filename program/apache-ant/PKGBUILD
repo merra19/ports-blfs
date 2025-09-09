@@ -10,7 +10,10 @@ source=(https://archive.apache.org/dist/ant/source/$pkgname-$pkgver-src.tar.xz
 build() {
 	cd $pkgname-$pkgver
 
-    export JAVA_HOME=/opt/jdk
+    if [ -z "$JAVA_HOME" ];then
+        echo "JAVA_HOME not set.  source /etc/profile"
+        exit 1
+    fi
   
     ./bootstrap.sh
 

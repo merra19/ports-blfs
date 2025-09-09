@@ -1,5 +1,5 @@
 # description	: High-performance, full-featured text search engine based off of lucene in C++
-# depends	: cmake ninja
+# depends	: cmake ninja boost
 
 pkgname=clucene
 pkgver=2.3.3.4

@@ -1,5 +1,6 @@
 # description	: Basepack of plugins for gstreamer
-# depends	: gst-plugins-base meson python3
+# depends	: gst-plugins-base meson python3 liba52 x264 libmpeg2
+# depends	: libcdio libcdio-paranoia
 
 pkgname=gst-plugins-ugly
 pkgver=1.26.5

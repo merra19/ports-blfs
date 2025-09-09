@@ -1,5 +1,5 @@
 # description	: Netscape Portable Runtime
-# depends	: glibc nspr
+# depends	: nspr
 
 pkgname=nspr-32
 _pkgname=nspr

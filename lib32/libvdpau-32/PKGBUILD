@@ -1,5 +1,5 @@
 # description	: VDPAU wrapper and trace libraries
-# depends	: meson libx11 libxext xorg-proto
+# depends	: xorg-libs-32 libvdpau
 
 pkgname=libvdpau-32
 _pkgname=libvdpau

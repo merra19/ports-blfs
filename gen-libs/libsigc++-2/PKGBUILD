@@ -1,0 +1,23 @@
+# description	: Typesafe callback system for standard C++
+# depends	: libxslt m4 boost docbook-utils docbook-xml
+
+pkgname=libsigc++-2
+pkgver=2.12.1
+pkgrel=1
+source=(https://download.gnome.org/sources/libsigc++/${pkgver%.*}/libsigc++-$pkgver.tar.xz)
+
+build() {
+	cd libsigc++-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        bld
+	ninja -C bld
+}
+
+package() {
+    cd libsigc++-$pkgver
+
+	DESTDIR="$pkgdir" ninja -C bld install
+}

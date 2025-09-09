@@ -1,5 +1,5 @@
 # description	: Translation tool for XML documents that uses gettext files and ITS rules
-# depends	: docbook-xml libxml2 python3
+# depends	: docbook-xml python3
 
 pkgname=itstool
 pkgver=2.0.7

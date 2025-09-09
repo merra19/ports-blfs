@@ -1,5 +1,5 @@
-# description	: PAM module to not enter KWallet password again after login
-# depends	: kwallet socat libgcrypt pam extra-cmake-modules
+# description	: KDE Plasma
+# depends	: kscreen
 
 pkgname=kwallet-pam
 pkgver=6.4.4
@@ -13,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build

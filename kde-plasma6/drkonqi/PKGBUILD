@@ -1,9 +1,5 @@
-# description	: Plasma crash handler, gives the user feedback if a program crashed
-# depends	: kconfig kcoreaddons kcrash ki18n kidletime kio cmake
-# depends	: kjobwidgets knotifications kstatusnotifieritem 
-# depends	: kwallet kwidgetsaddons kwindowsystem kirigami
-# depends	: syntax-highlighting kitemmodels qt6-base qt6-declarative
-# depends	: py3-pygdbmi py3-gpep517 py3-setuptools py3-wheel
+# description	: KDE Plasma
+# depends	: xdg-desktop-portal-kde
 
 pkgname=drkonqi
 pkgver=6.4.4
@@ -15,9 +11,10 @@ build() {
 
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
-        -D WITH_PYTHON_VENDORING=OFF \
         -Wno-dev
     make -C build
 }

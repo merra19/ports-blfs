@@ -1,5 +1,5 @@
 # description	: Audio compression format designed for speech -- DSP
-# depends	: speex glibc speexdsp
+# depends	: speex-32 speexdsp
 
 pkgname=speexdsp-32
 _pkgname=speexdsp

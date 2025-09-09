@@ -1,0 +1,30 @@
+# description	: Driver for Wacom tablets and drawing devices
+# depends	: xlibre-xserver
+
+pkgname=xlibre-xf86-input-wacom
+pkgver=1.2.3.2
+pkgrel=1
+source=(https://github.com/X11Libre/xf86-input-wacom/archive/refs/tags/$pkgname-$pkgver.tar.gz)
+
+ build() {
+    cd xf86-input-wacom-xlibre-xf86-input-wacom-$pkgver
+
+    LDFLAGS="$LDFLAGS -Wl,-z,lazy $DEBUGFLAGS"
+    export LDFLAGS
+
+    autoreconf -fiv
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --with-systemd-unit-dir=no
+    make
+}
+
+package() {
+    cd xf86-input-wacom-xlibre-xf86-input-wacom-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

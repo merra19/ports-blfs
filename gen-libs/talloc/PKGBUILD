@@ -1,5 +1,6 @@
 # description	: Samba talloc library
-# depends	: glibc python3 libxslt libnsl libtirpc
+# depends	: glibc python3 libxslt libnsl libtirpc docbook-xml
+# depends	: docbook-xsl-nons
 
 pkgname=talloc
 pkgver=2.4.3

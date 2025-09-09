@@ -1,12 +1,8 @@
 # description	: OpenGL-like graphic library for Linux
-# depends	: py3-mako elfutils-32 bison flex libdrm-32 llvm32 
-# depends	: libglvnd-32 vulkan-loader wayland-protocols expat-32
-# depends	: lm-sensors-32 wayland-32 glslang zlib-32 zstd-32 libclc
-# depends	: xorg-proto libxrandr-32 libx11-32 libxshmfence-32 
-# depends	: libxxf86vm-32 libxfixes-32 libxext-32 libxcb-32 libva-32
-# depends	: spirv-tools-32 py3-ply rust-bindgen cbindgen libpng-32
-# depends	: spirv-llvm-translator-32 py3-yaml libvdpau-32
-# depends	: libxml2-32 xcb-util-keysyms-32 mesa
+# depends	: elfutils-32 libdrm-32 llvm32 libglvnd-32 lm-sensors-32
+# depends	: vulkan-loader-32 libgcrypt-32 expat-32 zlib-32 zstd-32
+# depends	: xorg-libs-32 libxcb-32 libva-32 libvdpau-32 nettle-32
+# depends	: spirv-tools-32 spirv-llvm-translator-32 mesa
 
 pkgname=mesa-32
 _pkgname=mesa

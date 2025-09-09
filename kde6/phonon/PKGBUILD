@@ -1,6 +1,5 @@
 # description	: KDE multimedia abstraction library
-# depends	: cmake extra-cmake-modules glib qt6-base qt6-tools 
-# depends	: qt6-5compat pulseaudio pcre2
+# depends	: cmake extra-cmake-modules glib qt6 pulseaudio pcre2
 
 pkgname=phonon
 pkgver=4.12.0

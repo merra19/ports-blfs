@@ -1,5 +1,5 @@
 # description	: Light-weight, simple, and fast XML parser for C++ with XPath support
-# depends	:  cmake
+# depends	: cmake
 
 pkgname=pugixml
 pkgver=1.15

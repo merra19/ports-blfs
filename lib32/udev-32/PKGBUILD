@@ -1,6 +1,5 @@
 # description	: Controlling the startup, running, and shutdown of the system
-# depends	: meson acl-32 kbd kmod openssl-32 xz-32 py3-jinja gperf
-# depends	: zstd-32 libgcrypt-32 libxcrypt-32 libcap-32 udev
+# depends	: acl-32 xz-32 libcap-32 libarchive-32 udev
 
 pkgname=udev-32
 _pkgname=systemd

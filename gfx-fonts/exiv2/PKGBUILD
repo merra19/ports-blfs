@@ -1,5 +1,5 @@
 # description	: EXIF, IPTC and XMP metadata C++ library and command line utility
-# depends	: curl cmake ninja inih zlib expat
+# depends	: curl cmake ninja inih zlib expat brotli
 
 pkgname=exiv2
 pkgver=0.28.5

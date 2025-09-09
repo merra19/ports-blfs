@@ -1,7 +1,5 @@
-# description	: Support components for porting from KF5/Qt5 to KF6/Qt6
-# depends	: kconfig kcoreaddons kguiaddons ki18n knotifications
-# depends	: solid libksysguard qt6-base qt6-declarative qt6-tools 
-# depends	: extra-cmake-modules kdoctools kidletime
+# description	: KDE Plasma
+# depends	: kwin
 
 pkgname=plasma5support
 pkgver=6.4.4
@@ -15,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
@@ -24,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

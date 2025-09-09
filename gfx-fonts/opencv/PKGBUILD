@@ -1,0 +1,46 @@
+# description	: A collection of algorithms and sample code for various computer vision problems
+# depends	: zlib cmake libarchive ffmpeg gtk3 jasper libavif libexif
+# depends	: libjpeg-turbo libpng libtiff libwebp openjpeg2 v4l-utils
+# depends	: apache-ant java protobuf py3-numpy xine-lib
+# optional  : gstreamer!!gst-plugins-base
+
+pkgname=opencv
+pkgver=4.12.0
+pkgrel=1
+options=(!makeflags)
+source=(https://github.com/opencv/opencv/archive/$pkgver/$pkgname-$pkgver.tar.gz
+        https://github.com/opencv/opencv_contrib/archive/$pkgver/opencv_contrib-$pkgver.tar.gz)
+noextract=(opencv_contrib-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    if [ -z "$ANT_HOME" ];then
+        echo "ANT_HOME not set.  source /etc/profile"
+        exit 1
+    fi
+
+    tar -xf ../opencv_contrib-$pkgver.tar.gz
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D ENABLE_CXX11=ON \
+        -D BUILD_PERF_TESTS=OFF \
+        -D WITH_XINE=ON \
+        -D BUILD_TESTS=OFF \
+        -D ENABLE_PRECOMPILED_HEADERS=OFF \
+        -D CMAKE_SKIP_INSTALL_RPATH=ON \
+        -D BUILD_WITH_DEBUG_INFO=OFF \
+        -D OPENCV_GENERATE_PKGCONFIG=ON \
+        -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
+        -D OPENCV_EXTRA_MODULES_PATH=./opencv_contrib-$pkgver/modules \
+        -W no-dev
+	make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install -C build
+}

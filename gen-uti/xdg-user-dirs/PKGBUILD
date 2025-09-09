@@ -1,5 +1,5 @@
 # description	: Tool to help manage 'well known' user directories
-# depends	: bash udev docbook-xml
+# depends	: bash udev docbook-xml docbook-xsl-nons  libxslt
 
 pkgname=xdg-user-dirs
 pkgver=0.18

@@ -1,0 +1,27 @@
+# description	: Google's Protocol Buffers - Extensible mechanism for serializing structured data
+# depends	: glibc abseil-cpp cmake ninja zlib
+
+pkgname=protobuf
+pkgver=32.0
+pkgrel=1
+options=(!lto)
+source=(https://github.com/protocolbuffers/protobuf/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_SKIP_INSTALL_RPATH=ON \
+        -D protobuf_BUILD_TESTS=OFF \
+        -D protobuf_BUILD_SHARED_LIBS=ON \
+        -G Ninja                      
+    ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja install -C build
+}

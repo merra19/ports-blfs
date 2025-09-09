@@ -1,7 +1,8 @@
 # description	: PostgreSQL RDBMS
 # depends	: less intltool icu pam perl python3 readline openssl tcl 
-# depends	: libxml2 zlib zstd util-linux
-# optional	: krb5!!openldap
+# depends	: libxml2 zlib zstd util-linux libxslt openjade
+# depends	: docbook-dtd45 docbook-dsssl docbook-utils perl-sgmlspm
+# optional	: krb5 openldap
 
 pkgname=postgresql
 pkgver=17.6
@@ -18,6 +19,10 @@ build() {
         --prefix=/usr \
         --enable-nls \
         --enable-thread-safety \
+        --with-openss \
+        --with-perl \
+        --with-python \
+        --with-tcl \
         --docdir=/usr/share/doc/$pkgname-$pkgver
     make
 }

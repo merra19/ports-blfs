@@ -1,9 +1,9 @@
 # description	: A set of co-operative tools that make networking simple and straightforward
 # depends	: gobject-introspection vala glib libndp curl util-linux 
-# depends	: nss nspr readline newt intltool libxslt dbus polkit 
+# depends	: nss readline newt intltool libxslt polkit iptables
 # depends	: py3-gobject3 wpa_supplicant udev libpsl bluez perl
-# depends	: linux-api-headers jansson elogind
-# optional	: modemmanager dhcpcd
+# depends	: linux-api-headers jansson elogind libnvme modemmanager
+# depends	: dhcpcd upower
 
 pkgname=networkmanager
 pkgver=1.54.0
@@ -22,9 +22,9 @@ build() {
         --prefix=/usr \
         --buildtype=plain \
 		-D libaudit=no \
-		-D libpsl=false \
+		-D libpsl=true \
 		-D nmtui=true \
-		-D ovs=false \
+		-D ovs=true \
 		-D ppp=false \
 		-D selinux=false \
         -D session_tracking=elogind \

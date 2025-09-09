@@ -1,5 +1,5 @@
 # description	: Library for handling OpenGL function pointer management
-# depends	: mesa meson xorg-proto libx11
+# depends	: mesa meson
 
 pkgname=libepoxy
 pkgver=1.5.10

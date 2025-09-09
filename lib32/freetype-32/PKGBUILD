@@ -1,9 +1,9 @@
 # description	: High-quality and portable font engine
-# depends	: libpng-32 which zlib-32 bzip2-32 freetype brotli-32
+# depends	: libpng-32 zlib-32 bzip2-32 brotli-32 freetype
 
 pkgname=freetype-32
 _pkgname=freetype
-pkgver=2.13.3
+pkgver=2.14.0
 pkgrel=1
 source=(https://downloads.sourceforge.net/freetype/freetype-$pkgver.tar.xz
         https://downloads.sourceforge.net/freetype/freetype-doc-$pkgver.tar.xz)

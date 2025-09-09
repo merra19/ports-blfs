@@ -1,6 +1,6 @@
 # description	: C++ user interface toolkit for X and OpenGL
-# depends	: xorg-proto libjpeg-turbo libpng zlib libice libsm 
-# depends	: libxcursor libxcursor libxt mesa glu libxft cairo
+# depends	: xorg-proto libjpeg-turbo libpng zlib xorg-libs cairo
+# depends	: alsa-lib desktop-file-utils mesa glu
 
 pkgname=fltk
 pkgver=1.4.4

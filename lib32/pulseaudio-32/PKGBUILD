@@ -1,7 +1,7 @@
 # description	: (networked sound server
 # depends	: alsa-lib-32 dbus-32 elogind-32 glib-32 libsndfile-32 
-# depends	: libx11-32 libice-32 libsm-32 libxtst-32 libxcb-32 
-# depends	: speexdsp pulseaudio
+# depends	: xorg-libs-32 libxcb-32 speexdsp-32 libcap-32
+# depends	: libsamplerate-32 pulseaudio
 
 pkgname=pulseaudio-32
 _pkgname=pulseaudio

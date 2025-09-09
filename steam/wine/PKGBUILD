@@ -1,11 +1,10 @@
 # description	: A compatibility layer for running Windows programs
 # depends	: attr desktop-file-utils fontconfig freetype gcc gettext
-# depends	: libpcap libxcursor libxi libxrandr wayland alsa-lib 
-# depends	: ffmpeg giflib gnutls gst-plugins-base gtk3 cups libva
-# depends	: pulseaudio libxcomposite libxinerama mesa
-# depends	: libxxf86vm mingw-w64-gcc opencl-headers opencl-loader
-# depends	: pcsclite perl sdl2 v4l-utils vulkan-loader 
-# depends	: mingw-w64-winpthreads
+# depends	: libpcap xorg-libs wayland alsa-lib pulseaudio mesa
+# depends	: ffmpeg giflib gnutls gtk3 cups libva vulkan-loader
+# depends	: mingw-w64-gcc opencl-headers opencl-loader
+# depends	: perl sdl2 v4l-utils mingw-w64-winpthreads
+# optional  : gstreamer!!gst-plugins-base
 # todo      : libgphoto2
 
 pkgname=wine

@@ -1,7 +1,6 @@
 # description	: System which facilitates service discovery on a local network
-# depends	: libdaemon libevent expat glib dbus libcap py3-dbus
-# depends	: gobject-introspection py3-gobject3
-# optional	: gdbm 
+# depends	: libdaemon libevent expat glib dbus libcap py3-dbus gdbm
+# depends	: gobject-introspection
 
 pkgname=avahi
 pkgver=0.8
@@ -31,7 +30,7 @@ build() {
         --sysconfdir=/etc \
         --localstatedir=/var \
         --disable-static \
-        --disable-libevent \
+        --enable-libevent \
         --disable-mono \
         --disable-monodoc \
         --disable-python \

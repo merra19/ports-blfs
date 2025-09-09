@@ -1,7 +1,7 @@
 # description	: A Client that groks URL
-# depends	: p11-kit openssl zlib zstd perl nghttp2 libpsl
-# depends	: dbus libidn2
-# optional	: krb5!!openldap
+# depends	: openssl zlib zstd perl nghttp2 libpsl libssh2 gnutls
+# depends	: libidn2 make-ca brotli c-ares
+# optional  : openldap
 
 pkgname=curl
 pkgver=8.15.0
@@ -27,7 +27,9 @@ build() {
 		--with-fish-functions-dir \
 		--with-pic \
         --with-ca-path=/etc/ssl/certs \
-        $OPT_CURL
+        --with-gssapi \
+        --with-libssh2 \
+        --enable-ares
     make
 }
 

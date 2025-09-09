@@ -1,7 +1,9 @@
 # description	: Multimedia processing graphs
-# depends	: meson pkgconf python3 ncurses glib dbus readline openssl 
-# depends	: fdk-aac alsa-lib opus ffmpeg pulseaudio libx11 libxfixes 
-# depends	: alsa-plugins alsa-firmware avahi
+# depends	: meson pkgconf python3 ncurses dbus readline openssl 
+# depends	: fdk-aac alsa-lib opus ffmpeg pulseaudio xorg-libs libxcb
+# depends	: alsa-plugins alsa-firmware avahi bluez sbc libusb libdrm
+# depends	: vulkan-loader libsndfile v4l-utils
+# optional  : gstreamer gstreamer!!gst-plugins-base
 
 pkgname=pipewire
 pkgver=1.4.7
@@ -16,6 +18,8 @@ build() {
         --prefix=/usr \
         --buildtype=plain \
         -D session-managers="[]" \
+        -D ffmpeg=enabled \
+        -D vulkan=enabled \
         build
 	ninja -C build
 }

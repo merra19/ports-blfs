@@ -1,5 +1,5 @@
 # description	: DejaVu fonts, bitstream vera with ISO-8859-2 characters
-# depends	: fontconfig xorg-fonts mkfontscale
+# depends	: fontconfig xorg-fonts xorg-applications
 
 pkgname=ttf-dejavu
 pkgver=2.37

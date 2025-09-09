@@ -1,5 +1,5 @@
 # description	: Tool for annotating images
-# depends	: kcolorpicker qt6-svg qt6-tools libx11 xorg-proto cmake
+# depends	: kcolorpicker
 
 pkgname=kimageannotator
 _pkgname=kImageAnnotator

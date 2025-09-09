@@ -1,5 +1,5 @@
 # description	: Library that handles Resource Description Framework (RDF)
-# depends	: libgcrypt libgmp util-linux libxml2 bison flex raptor
+# depends	: libgcrypt libgmp util-linux bison flex raptor
 
 pkgname=rasqal
 pkgver=0.9.33

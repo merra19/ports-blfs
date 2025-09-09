@@ -1,0 +1,26 @@
+# description	: Implementation of the codec specified in the JPEG-2000 Part-1 standard
+# depends	: glibc cmake libjpeg-turbo freeglut
+
+pkgname=jasper
+pkgver=4.2.8
+pkgrel=1
+source=(https://github.com/jasper-software/jasper/archive/version-$pkgver/$pkgname-version-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-version-$pkgver
+
+    cmake -B BUILD \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_SKIP_INSTALL_RPATH=ON \
+        -D JAS_ENABLE_DOC=NO \
+        -D ALLOW_IN_SOURCE_BUILD=YES \
+        -D CMAKE_INSTALL_DOCDIR=/usr/share/doc/$pkgname-$pkgver
+    make -C BUILD
+}
+
+package() {
+    cd $pkgname-version-$pkgver
+
+    make DESTDIR="$pkgdir" install -C BUILD
+}

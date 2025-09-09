@@ -1,6 +1,5 @@
 # description	: A configuration management system for Xfce
-# depends	: glib dbus libxfce4util gobject-introspection vala 
-# depends	: intltool gettext pkgconf intltool
+# depends	: dbus libxfce4util vala intltool gettext pkgconf
 
 pkgname=xfconf
 pkgver=4.20.0

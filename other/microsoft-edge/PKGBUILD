@@ -1,13 +1,12 @@
 # description	: The web browser from Microsoft
 # depends	: at-spi2-core expat glib nspr nss liberation-fonts gtk3
 # depends	: alsa-lib mesa curl cups dbus util-linux glibc cairo
-# depends	: gdk-pixbuf libdrm libx11 libxcomposite libxdamage
-# depends	: libxext libxfixes libxrandr libxcb libxkbcommon pango
-# depends	: libxshmfence xdg-utils qt6-base libsecret p11-kit
+# depends	: gdk-pixbuf libdrm xorg-libs libxcb libxkbcommon pango
+# depends	: xdg-utils qt6 libsecret p11-kit
 # depends	: gnome-keyring
 
 pkgname=microsoft-edge
-pkgver=139.0.3405.125
+pkgver=140.0.3485.54
 pkgrel=1
 options=(!strip)
 source=($pkgname-$pkgver.deb::https://packages.microsoft.com/repos/edge/pool/main/m/$pkgname-stable/$pkgname-stable_$pkgver-1_amd64.deb)

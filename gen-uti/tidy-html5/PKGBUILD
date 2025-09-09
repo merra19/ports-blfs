@@ -1,0 +1,31 @@
+# description	: HTML parser based on the WHATWG HTML specification
+# depends	: python3 py3-gpep517 py3-wheel cmake libxslt
+
+pkgname=tidy-html5
+pkgver=5.8.0
+pkgrel=1
+source=(https://github.com/htacg/tidy-html5/archive/$pkgver/$pkgname-$pkgver.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/tidy-html5-5.8.0-cmake4_fixes-1.patch)
+
+build() {
+	cd $pkgname-$pkgver
+
+    patch -Np1 -i ../tidy-html5-5.8.0-cmake4_fixes-1.patch
+
+    cd build/cmake
+    cmake \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_TAB2SPACE=ON \
+        ../..
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver/build/cmake
+
+    make DESTDIR="$pkgdir"
+    rm -fv "$pkgdir"/usr/lib/libtidy.a
+    install -d "$pkgdir"/usr/bin/
+    install -v -m755 tab2space "$pkgdir"/usr/bin/
+}

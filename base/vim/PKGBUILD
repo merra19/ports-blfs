@@ -1,5 +1,6 @@
 # description	: Vim, an improved vi-style text editor
-# depends	: acl gettext ncurses gpm lua perl xorg-proto libxt tcl
+# depends	: acl gettext ncurses gpm lua perl xorg-proto  tcl
+# depends	: xorg-libs
 
 pkgname=vim
 pkgver=9.1.1629

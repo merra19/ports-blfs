@@ -1,7 +1,5 @@
-# description	: Framework for integrating Qt applications with KDE Plasma workspaces
-# depends	: qt6-base extra-cmake-modules kcolorscheme kconfig 
-# depends	: ki18n kiconthemes knewstuff knotifications 
-# depends	: kwidgetsaddons kpackage
+# description	: KDE Framework
+# depends	: knewstuff
 
 pkgname=frameworkintegration
 pkgver=6.17.0
@@ -10,7 +8,7 @@ source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver
 
 build() {
     cd $pkgname-$pkgver
-    
+
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
@@ -18,8 +16,7 @@ build() {
         -D CMAKE_SKIP_INSTALL_RPATH=ON  \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
-        -D CMAKE_DISABLE_FIND_PACKAGE_AppStreamQt=ON \
-        -D CMAKE_DISABLE_FIND_PACKAGE_packagekitqt6=ON \
+        -D BUILD_PYTHON_BINDINGS=OFF \
         -Wno-dev
     make -C build
 }
@@ -28,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

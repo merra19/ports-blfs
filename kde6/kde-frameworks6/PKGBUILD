@@ -1,0 +1,12 @@
+# description	: KDE Frameworks 6
+# depends	: kuserfeedback
+
+pkgname=kde-frameworks6
+pkgver=6.17.0
+pkgrel=1
+source=()
+
+
+package() {
+    mkdir -p "$pkgdir"/usr
+}

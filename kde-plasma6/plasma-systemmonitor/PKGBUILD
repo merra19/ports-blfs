@@ -1,9 +1,5 @@
-# description	: Monitor system sensors, process information and other system resources
-# depends	: kconfig kcoreaddons kdbusaddons kglobalaccel ki18n 
-# depends	: kiconthemes kio kitemmodels knewstuff kpackage 
-# depends	: kservice kwindowsystem libksysguard kirigami 
-# depends	: kquickcharts ksystemstats extra-cmake-modules
-# depends	: qt6-base qt6-declarative
+# description	: KDE Plasma
+# depends	: plasma-firewall
 
 pkgname=plasma-systemmonitor
 pkgver=6.4.4
@@ -17,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
@@ -26,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

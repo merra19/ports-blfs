@@ -1,6 +1,5 @@
 # description	: A library for configuring and customizing font access
-# depends	: freetype-32 expat-32 gperf json-c-32 fontconfig 
-# depends	: json-c-32
+# depends	: freetype-32 expat-32 json-c-32 libxml2-32 fontconfig 
 
 pkgname=fontconfig-32
 _pkgname=fontconfig

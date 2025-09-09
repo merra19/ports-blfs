@@ -1,7 +1,6 @@
 # description	: Provides GObjects and helper methods to read and write AppStream metadata
-# depends	: glib util-linux libarchive curl json-glib gdk-pixbuf 
-# depends	: gtk3 freetype fontconfig libyaml snowball-stemmer  
-# depends	: pango gobject-introspection gperf libxml2 libxslt
+# depends	: util-linux libarchive curl  gdk-pixbuf gtk3 freetype
+# depends	: fontconfig libyaml gperf libxslt
 
 pkgname=appstream-glib
 pkgver=0.8.3

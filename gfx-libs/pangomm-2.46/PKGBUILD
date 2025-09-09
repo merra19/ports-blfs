@@ -1,0 +1,23 @@
+# description	: C++ interface for pango
+# depends	: cairomm-1.14 glibmm-2.66 pango
+
+pkgname=pangomm-2.46
+pkgver=2.46.4
+pkgrel=1
+source=(https://download.gnome.org/sources/pangomm/${pkgver%.*}/pangomm-$pkgver.tar.xz)
+
+build() {
+	cd pangomm-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd pangomm-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

@@ -1,6 +1,6 @@
 # description	: A vector graphics library with cross-device output support
-# depends	: lzo pixman fontconfig freetype libpng zlib glib libxcb
-# depends	: libxrender libx11 libxext xorg-proto binutils
+# depends	: lzo pixman fontconfig libpng zlib glib libxcb libdrm
+# depends	: xorg-proto binutils libxml2 xorg-libs
 
 pkgname=cairo
 pkgver=1.18.4

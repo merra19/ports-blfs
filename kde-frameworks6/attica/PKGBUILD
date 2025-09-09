@@ -1,5 +1,13 @@
-# description	: Framework providing access to Open Collaboration Services
-# depends	: glibc qt6-base qt6-tools extra-cmake-modules
+# description	: KDE Framework
+# depends	: kde-pre-conf extra-cmake-modules breeze-icons libgcrypt
+# depends	: docbook-xml docbook-xsl-nons libcanberra libical libxslt
+# depends	: lmdb qca libqrencode plasma-wayland-protocols perl-uri
+# depends	: shared-mime-info curl aspell aspell-fr aspell-en avahi
+# depends	: polkit-qt modemmanager networkmanager vulkan-loader
+# depends	: zxing-cpp bluez noto-fonts py3-requests libavif libjxl
+# depends	: libraw udisks2 upower gpgmepp py3-doxypypy py3-doxyqml
+# depends	: doxygen python3 py3-wheel py3-gpep517 py3-setuptools
+# depends	: py3-jinja py3-yaml 
 
 pkgname=attica
 pkgver=6.17.0
@@ -16,6 +24,7 @@ build() {
         -D CMAKE_SKIP_INSTALL_RPATH=ON  \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
+        -D BUILD_PYTHON_BINDINGS=OFF \
         -Wno-dev
     make -C build
 }
@@ -24,4 +33,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

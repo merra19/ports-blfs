@@ -1,7 +1,6 @@
 # description	: A vector graphics library with cross-device output support
-# depends	: pixman-32 fontconfig-32 freetype-32 libpng-32
-# depends	: zlib-32 glib-32 libxcb-32 libxrender-32 libx11-32
-# depends	: libxext-32 xorg-proto binutils cairo
+# depends	: pixman-32 fontconfig-32 libpng-32 zlib-32 glib-32
+# depends	: libxcb-32 libdrm-32 xorg-libs-32 libxml2-32 cairo
 
 pkgname=cairo-32
 _pkgname=cairo

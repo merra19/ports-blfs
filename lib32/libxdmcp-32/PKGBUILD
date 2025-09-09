@@ -1,5 +1,5 @@
 # description	: X.Org X Display Manager Control Protocol library
-# depends	: glibc xorg-proto libxdmcp
+# depends	: libxdmcp
 
 pkgname=libxdmcp-32
 _pkgname=libXdmcp

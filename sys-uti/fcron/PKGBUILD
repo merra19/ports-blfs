@@ -1,5 +1,5 @@
 # description	: A command scheduler with extended capabilities over cron and anacron
-# depends	: pam libxcrypt readline nano vim
+# depends	: pam libxcrypt readline nano vim docbook-utils
 
 pkgname=fcron
 pkgver=3.4.0

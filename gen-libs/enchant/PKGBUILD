@@ -1,5 +1,5 @@
 # description	: Spellchecker wrapping library
-# depends	: glib aspell aspell-en aspell-fr 
+# depends	: glib aspell aspell-en aspell-fr vala dbus-glib
 
 pkgname=enchant
 pkgver=2.8.12

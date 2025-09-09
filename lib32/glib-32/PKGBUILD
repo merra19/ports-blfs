@@ -1,7 +1,6 @@
 # description	: The GLib library of C routines
-# depends	: docbook-xml meson libxslt pcre2-32 py3-packaging zlib-32
-# depends	: libffi-32 util-linux-32 elfutils-32 glib dbus-32
-# depends	: shared-mime-info util-linux
+# depends	: pcre2-32 libffi-32 zlib-32 util-linux-32 attr-32
+# depends	: elfutils-32 glib
 
 pkgname=glib-32
 _pkgname=glib

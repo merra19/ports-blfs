@@ -1,5 +1,5 @@
 # description	: Tk Widget Set
-# depends	: fontconfig
+# depends	: xorg-proto
 
 pkgname=tk
 pkgver=8.6.16

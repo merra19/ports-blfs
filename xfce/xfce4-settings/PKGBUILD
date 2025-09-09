@@ -1,9 +1,7 @@
 # description	: Configuration system for the Xfce desktop environment
-# depends	: glib fontconfig gtk3 libx11 libxi garcon exo libxfce4ui 
-# depends	: gettext pkgconf intltool xorg-proto libxfce4util xfconf 
-# depends	: xf86-input-libinput libnotify upower libxklavier 
-# depends	: libxcursor libxrandr wayland libcanberra
-# optional	: colord
+# depends	: garcon exo gettext pkgconf intltool colord libcanberra
+# depends	: xorg-proto libnotify libxklavier libinput wayland
+# depends	: xf86-input-libinput upower gnome-icon-theme
 
 pkgname=xfce4-settings
 pkgver=4.20.2

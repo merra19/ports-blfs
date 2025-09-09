@@ -1,5 +1,5 @@
 # description	: Secret Rabbit Code (aka libsamplerate) is a Sample Rate Converter for audio
-# depends	: alsa-lib libsndfile fftw
+# depends	: alsa-lib libsndfile
 
 pkgname=libsamplerate
 pkgver=0.2.2

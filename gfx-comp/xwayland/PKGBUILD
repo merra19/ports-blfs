@@ -1,8 +1,8 @@
 # description	: Standalone X server running under Wayland
 # depends	: openssl wayland-protocols wayland xorg-fonts libepoxy 
-# depends	: mesa libdrm libxau libxcvt libxdmcp xtrans pixman 
-# depends	: xkeyboard-config xkbcomp flex libxfont2 libxkbfile 
-# depends	: libxshmfence udev libei
+# depends	: mesa libxau libxcvt libxdmcp pixman flex libgcrypt
+# depends	: udev libei libtirpc xorg-applications
+# depends	: nettle xmlto
 
 pkgname=xwayland
 pkgver=24.1.8

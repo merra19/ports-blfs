@@ -1,5 +1,5 @@
 # description	: Qt bindings for pulseaudio
-# depends	: extra-cmake-modules qt6-base glib pulseaudio cmake
+# depends	: kde-frameworks6 pulseaudio
 
 pkgname=pulseaudio-qt
 pkgver=1.7.0

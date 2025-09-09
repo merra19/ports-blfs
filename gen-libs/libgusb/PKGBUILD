@@ -1,5 +1,5 @@
 # description	: GObject wrapper for libusb
-# depends	: glib json-glib libusb gobject-introspection hwdata
+# depends	: glib json-glib libusb gobject-introspection hwdata vala
 
 pkgname=libgusb
 pkgver=0.4.9

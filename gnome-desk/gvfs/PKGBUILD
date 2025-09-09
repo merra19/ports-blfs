@@ -1,10 +1,10 @@
 # description	: Virtual filesystem implementation for GIO
-# depends	: glib gsettings-desktop-schemas dbus gcr4 polkit libcap 
-# depends	: libarchive libgudev udev fuse udisks2 openssh libxslt
-# depends	: libgcrypt libusb libsecret libxml2 elogind avahi
-# optional	: cdda!!libcdio cdda!!libcdio-paranoia http!!libsoup3
-# optional	: google!!libgdata
-# todo      : libmtp
+# depends	: glib dbus gcr4 libcap libsoup3 udisks2 openssh libxslt
+# depends	: libarchive libgudev udev fuse libxml2 elogind avahi
+# depends	: libgcrypt libusb libsecret libcdio libcdio-paranoia
+# depends	: bluez
+# optional  : samba apache
+# todo      : libmtp libgdata
 
 pkgname=gvfs
 pkgver=1.56.1
@@ -24,14 +24,14 @@ build() {
         -D bluray=false \
         -D nfs=false \
         -D mtp=false \
-        -D smb=false \
+        -D smb="$(scratch isinstalled samba && echo "true" || echo "false")" \
         -D tmpfilesdir=no \
         -D dnssd=false \
         -D goa=false \
         -D google=false \
         -D cdda=false \
         -D systemduserunitdir=no \
-        -D http="$(scratch isinstalled libsoup3 && echo "true" || echo "false")" \
+        -D http=true \
         build
 	ninja -C build
 }

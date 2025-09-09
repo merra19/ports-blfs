@@ -2,7 +2,7 @@
 # depends	: glibc
 
 pkgname=hwdata
-pkgver=0.398
+pkgver=0.399
 pkgrel=1
 source=(https://github.com/vcrhonek/hwdata/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
 

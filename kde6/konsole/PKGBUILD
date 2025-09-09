@@ -1,10 +1,5 @@
 # description	: KDE's terminal emulator
-# depends	: icu kbookmarks kconfig kconfigwidgets kcoreaddons cmake
-# depends	: kcrash kdbusaddons kglobalaccel kguiaddons ki18n 
-# depends	: kiconthemes kio kjobwidgets knewstuff kservice
-# depends	: knotifications knotifyconfig kparts kpty kxmlgui
-# depends	: ktextwidgets kwidgetsaddons kwindowsystem qt6-5compat
-# depends	: qt6-base qt6-multimedia
+# depends	: icu kde-frameworks6
 
 pkgname=konsole
 pkgver=25.08.0

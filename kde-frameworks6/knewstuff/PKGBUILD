@@ -1,8 +1,5 @@
-# description	: Framework for downloading and sharing additional application data
-# depends	: qt6-base qt6-tools qt6-declarative qt6-5compat ki18n
-# depends	: extra-cmake-modules attica karchive kconfig 
-# depends	: kcoreaddons  kpackage kwidgetsaddons syndication 
-# depends	: kcmutils kirigami
+# description	: KDE Framework
+# depends	: syndication
 
 pkgname=knewstuff
 pkgver=6.17.0
@@ -19,6 +16,7 @@ build() {
         -D CMAKE_SKIP_INSTALL_RPATH=ON  \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
+        -D BUILD_PYTHON_BINDINGS=OFF \
         -Wno-dev
     make -C build
 }
@@ -27,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

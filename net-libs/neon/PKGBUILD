@@ -1,0 +1,27 @@
+# description	: HTTP and WebDAV client library
+# depends	: gnutls libproxy libxml2 xmlto expat libtool zlib
+# optional  : krb5
+
+pkgname=neon
+pkgver=0.35.0
+pkgrel=1
+source=(https://notroj.github.io/neon/$pkgname-$pkgver.tar.gz)
+
+build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --with-ssl \
+        --enable-shared \
+        --disable-static \
+        --with-libproxy
+    make
+    make docs
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

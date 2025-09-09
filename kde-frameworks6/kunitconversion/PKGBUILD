@@ -1,5 +1,5 @@
-# description	: Framework for converting units
-# depends	: qt6-base qt6-tools extra-cmake-modules ki18n
+# description	: KDE Framework
+# depends	: kpty
 
 pkgname=kunitconversion
 pkgver=6.17.0
@@ -25,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

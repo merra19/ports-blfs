@@ -1,5 +1,5 @@
 # description	: Wrapper around exiv2 library
-# depends	: qt6-base extra-cmake-modules exiv2 cmake
+# depends	: kde-frameworks6 exiv2
 
 pkgname=libkexiv2
 pkgver=25.08.0

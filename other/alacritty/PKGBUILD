@@ -1,6 +1,6 @@
 # description	: GPU-accelerated terminal emulator
 # depends	: fontconfig freetype libxkbcommon libxcb mesa zlib 
-# depends	: ncurses wayland libxcursor libxi libxrandr scdoc
+# depends	: ncurses wayland xorg-libs scdoc
 
 pkgname=alacritty
 pkgver=0.15.1

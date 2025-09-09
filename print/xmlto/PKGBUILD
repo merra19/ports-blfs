@@ -1,5 +1,5 @@
 # description	: Script for converting XML and DocBook documents to a variety of output formats"
-# depends	: docbook-xml docbook-xsl-nons libxslt
+# depends	: docbook-xml docbook-xsl-nons libxslt lynx
 
 pkgname=xmlto
 pkgver=0.0.29

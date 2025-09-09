@@ -1,10 +1,9 @@
 # description	: A fast, lightweight imageviewer using imlib2
-# depends	: xorg-proto libx11 libxinerama libxt imlib2 libpng curl
-# depends	: libexif libjpeg-turbo
+# depends	: libpng imlib2 curl libexif libjpeg-turbo imagemagick
 
 pkgname=feh
-pkgver=3.10.3
-pkgrel=2
+pkgver=3.11.1
+pkgrel=1
 source=(https://feh.finalrewind.org/$pkgname-$pkgver.tar.bz2)
 
 build() {

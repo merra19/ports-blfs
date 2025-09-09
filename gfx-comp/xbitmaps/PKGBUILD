@@ -1,5 +1,5 @@
 # description	: X.Org bitmaps data
-# depends	: glibc
+# depends	: glibc util-macros
 
 pkgname=xbitmaps
 pkgver=1.1.3

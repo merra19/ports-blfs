@@ -1,6 +1,5 @@
 # description	: High-level interface for the Resource Description Framework
-# depends	: libtool sqlite unixodbc rasqal raptor
-# optional	: mariadb postgresql
+# depends	: libtool sqlite unixodbc rasqal mariadb postgresql
 
 pkgname=redland
 pkgver=1.0.17

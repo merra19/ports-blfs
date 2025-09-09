@@ -1,8 +1,5 @@
-# description	: KDE Config Module for SDDM
-# depends	: karchive kauth kcmutils kconfig kcoreaddons ki18n 
-# depends	: kio knewstuff kservice kwidgetsaddons kirigami 
-# depends	: kitemmodels sddm qt6-base qt6-declarative qt6-5compat 
-# depends	: extra-cmake-modules kdoctools
+# description	: KDE Plasma
+# depends	: ksshaskpass
 
 pkgname=sddm-kcm
 pkgver=6.4.4
@@ -16,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
@@ -25,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

@@ -1,10 +1,9 @@
 # description	: Standards compliant, fast, light-weight, extensible window manager
 # depends	: gettext pkgconf glib libxml2 fontconfig cairo libxau
-# depends	: libxcursor libxext libxft libxinerama libxrandr libxt
 # depends	: pango imlib2 startup-notification librsvg py3-xdg
-# depends	: openbox wmctrl slop xprop numlockx setxkbmap feh
+# depends	: openbox wmctrl slop xorg-applications numlockx feh
 # depends	: xfce4-notifyd thunar-volman polkit-gnome pavucontrol
-# depends	: xfce4-terminal thunar rofi-dotfiles
+# depends	: xfce4-terminal thunar rofi-dotfiles xorg-libs
 
 pkgname=openbox-meta
 pkgver=3.6.1

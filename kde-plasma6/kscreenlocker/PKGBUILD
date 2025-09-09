@@ -1,10 +1,5 @@
-# description	: Library and components for secure lock screen architecture
-# depends	: glibc kcmutils kconfig kconfigwidgets kcoreaddons 
-# depends	: kcrash kglobalaccel  ki18n kidletime kio ksvg cmake
-# depends	: knotifications kwindowsystem solid layer-shell-qt 
-# depends	: libplasma libkscreen kdoctools kirigami pam libx11 
-# depends	: libxcb libxi qt6-base qt6-declarative xcb-util-keysyms
-# depends	: wayland
+# description	: KDE Plasma
+# depends	: libplasma
 
 pkgname=kscreenlocker
 pkgver=6.4.4
@@ -13,11 +8,12 @@ source=(https://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz)
 
 build() {
     cd $pkgname-$pkgver
-    
+
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
@@ -27,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

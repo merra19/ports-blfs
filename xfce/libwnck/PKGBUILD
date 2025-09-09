@@ -1,0 +1,23 @@
+# description	: A window navigation construction kit
+# depends	: glib gobject-introspection gtk3 startup-notification 
+
+pkgname=libwnck
+pkgver=43.3
+pkgrel=1
+source=(https://download.gnome.org/sources/libwnck/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

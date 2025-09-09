@@ -1,9 +1,5 @@
-# description	: Oxygen visual style for the Plasma desktop
-# depends	: frameworkintegration kcmutils kcompletion kconfig 
-# depends	: kconfigwidgets kcoreaddons kguiaddons ki18n 
-# depends	: kwidgetsaddons kwindowsystem kdecoration libplasma 
-# depends	: kservice hicolor-icon-theme libxcb qt6-base 
-# depends	: qt6-declarative extra-cmake-modules
+# description	: KDE Plasma
+# depends	: wacomtablet
 
 pkgname=oxygen
 pkgver=6.4.4
@@ -15,9 +11,10 @@ build() {
 
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
-        -D BUILD_TESTING=OFF \
         -D BUILD_QT5=OFF \
+        -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
 }
@@ -26,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

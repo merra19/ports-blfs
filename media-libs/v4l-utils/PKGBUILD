@@ -1,6 +1,6 @@
 # description	: v4l-utils libraries and optional utilities
-# depends	: glibc qt6-base qt6-5compat alsa-lib mesa json-c perl 
-# depends	: elfutils udev
+# depends	: glibc qt6 alsa-lib mesa json-c perl elfutils udev glu
+# depends	: libjpeg-turbo
 
 pkgname=v4l-utils
 pkgver=1.30.1

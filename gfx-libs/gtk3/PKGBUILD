@@ -1,15 +1,14 @@
 # description	: Gimp ToolKit +
-# depends	: at-spi2-core fribidi glib fontconfig harfbuzz libepoxy 
-# depends	: intltool cairo gdk-pixbuf pango shared-mime-info cups 
-# depends	: gobject-introspection wayland wayland-protocols mesa 
-# depends	: libxkbcommon librsvg docbook-xml libxslt libglvnd 
-# depends	: xorg-proto libx11 libxcomposite libxcursor libxdamage 
-# depends	: libxext libxfixes libxi libxrandr libxinerama
-# optional	: cloudproviders!!libcloudproviders colord
+# depends	: at-spi2-core glib libepoxy iso-codes libcloudproviders
+# depends	: intltool gdk-pixbuf pango shared-mime-info cups colord
+# depends	: gobject-introspection wayland wayland-protocols librsvg
+# depends	: libxkbcommon docbook-xml libxslt libglvnd xorg-proto
+# depends	: xorg-libs docbook-xsl-nons sassc hicolor-icon-theme
+# todo      : tinysparql
 
 pkgname=gtk3
 pkgver=3.24.50
-pkgrel=1
+pkgrel=2
 source=(https://download.gnome.org/sources/gtk/${pkgver%.*}/gtk-$pkgver.tar.xz
         settings.ini $pkgname.hooks)
 
@@ -21,6 +20,7 @@ build() {
         --buildtype=plain \
 		-D man=true \
 		-D broadway_backend=true \
+        -D cloudproviders=true \
         build
 	ninja -C build
 }

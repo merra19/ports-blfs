@@ -1,7 +1,6 @@
 # description	: Modular screen saver and locker for the X Window System
-# depends	: libxml2 libx11 libxext libxi libxrandr libxxf86vm
-# depends	: libxt elogind gdk-pixbuf gtk3 libjpeg-turbo glu mesa
-# depends	: pam libpng libxft libxinerama libgcrypt
+# depends	: elogind gdk-pixbuf gtk3 libjpeg-turbo glu mesa libxml2
+# depends	: pam libpng  libgcrypt xorg-applications
 
 pkgname=xscreensaver
 pkgver=6.12

@@ -1,6 +1,6 @@
 # description	: JPEG XL image format reference implementation
-# depends	: brotli highway lcms2 glib gdk-pixbuf giflib libpng 
-# depends	: libjpeg-turbo shared-mime-info cmake
+# depends	: brotli highway lcms2 gdk-pixbuf giflib libpng libavif
+# depends	: libjpeg-turbo shared-mime-info cmake libwebp java
 
 pkgname=libjxl
 pkgver=0.11.1
@@ -9,6 +9,11 @@ source=(https://github.com/libjxl/libjxl/archive/v$pkgver/$pkgname-$pkgver.tar.g
 
 build() {
 	cd $pkgname-$pkgver
+
+    if [ -z "$JAVA_HOME" ];then
+        echo "JAVA_HOME not set.  source /etc/profile"
+        exit 1
+    fi
 
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \

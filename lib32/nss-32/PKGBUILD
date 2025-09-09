@@ -1,10 +1,9 @@
 # description	: Mozilla's Network Security Services library that implements PKI support
-# depends	: nspr sqlite-32 zlib-32 perl p11-kit-32 glibc nss nspr-32
-# depends	: py3-gyp
+# depends	: nspr-32 sqlite-32 zlib-32 p11-kit-32 nss 
 
 pkgname=nss-32
 _pkgname=nss
-pkgver=3.115
+pkgver=3.115.1
 vrsn=$(echo $pkgver | sed 's/\./_/g')
 pkgrel=1
 options=(!lto)

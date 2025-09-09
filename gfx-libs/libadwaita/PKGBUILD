@@ -1,6 +1,5 @@
 # description	: Building blocks for modern GNOME applications
-# depends	: glib gobject-introspection gtk4 appstream fribidi vala
-# depends	: xorg-proto sassc
+# depends	: gtk4 appstream vala xorg-proto sassc
 
 pkgname=libadwaita
 pkgver=1.7.6

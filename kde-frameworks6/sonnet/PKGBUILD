@@ -1,7 +1,5 @@
-# description	: Framework for providing spell-checking through abstraction of popular backends
-# depends	: qt6-base qt6-tools qt6-declarative extra-cmake-modules 
-# optional	: hunspell!!hunspell aspell aspell!!aspell-en 
-# optional	: aspell!!aspell-fr
+# description	: KDE Framework
+# depends	: solid
 
 pkgname=sonnet
 pkgver=6.17.0
@@ -11,10 +9,6 @@ source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver
 build() {
     cd $pkgname-$pkgver
 
-    if (! scratch isinstalled hunspell ) && (! scratch isinstalled aspell ); then 
-        OPTS_BACKEND="-D SONNET_NO_BACKENDS=ON"
-    fi
-
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
@@ -22,7 +16,7 @@ build() {
         -D CMAKE_SKIP_INSTALL_RPATH=ON  \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
-        $OPTS_BACKEND \
+        -D BUILD_PYTHON_BINDINGS=OFF \
         -Wno-dev
     make -C build
 }
@@ -31,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

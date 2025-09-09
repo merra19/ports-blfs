@@ -1,5 +1,5 @@
 # description	: ASN.1 library
-# depends	: glibc bison libtasn1
+# depends	: libtasn1
 
 pkgname=libtasn1-32
 _pkgname=libtasn1

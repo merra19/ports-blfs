@@ -1,13 +1,13 @@
 # description	: Media player and framework with support for most multimedia files and streaming
 # depends	: yasm wayland libvorbis libidn zlib mesa alsa-lib libaom 
-# depends	: libarchive dav1d dbus ffmpeg flac libogg fontconfig 
-# depends	: libjpeg-turbo libsamplerate lua liba52 mpg123 qt5
-# depends	: ncurses opus libpng pulseaudio libssh2 libxext libxpm
-# depends	: libxinerama speex speexdsp gnutls freetype ttf-dejavu 
-# depends	: udev libva libvdpau libvpx wayland-protocols libx11
-# depends	: libxcb xcb-util xcb-util-keysyms x265 libmad avahi
+# depends	: libarchive dav1d dbus ffmpeg flac libogg fontconfig udev
+# depends	: libjpeg-turbo libsamplerate lua liba52 mpg123 qt5 speex
+# depends	: ncurses opus libpng pulseaudio libssh2 xorg-libs libva
+# depends	: speexdsp gnutls freetype ttf-dejavu wayland-protocols 
+# depends	: libxcb xcb-util xcb-utilities x265 libmad avahi libvpx
 # depends	: libxml2 fribidi harfbuzz liberation-fonts fdk-aac cairo
 # depends	: libgcrypt libass glib gdk-pixbuf gtk3 librsvg taglib
+# depends	: libvdpau  
 # optional	: cddb!!libcddb dvd!!libdvdnav dvd!!libdvdread faad!faad2 
 # optional	: gstreamer!!gst-plugins-base libnotify!!libnotify
 # optional	: keyring!!libsecret 

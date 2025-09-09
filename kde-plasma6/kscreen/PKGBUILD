@@ -1,8 +1,5 @@
-# description	: KDE Plasma screen management
-# depends	: kcmutils kconfig kcoreaddons kdbusaddons ksvg cmake
-# depends	: kglobalaccel ki18n  kwindowsystem layer-shell-qt 
-# depends	: libkscreen libplasma libx11 libxcb libxi qt6-base 
-# depends	: qt6-declarative qt6-sensors
+# description	: KDE Plasma
+# depends	: kmenuedit
 
 pkgname=kscreen
 pkgver=6.4.4
@@ -16,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build

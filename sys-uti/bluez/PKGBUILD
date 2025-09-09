@@ -1,6 +1,5 @@
 # description	: Bluetooth Tools and System Daemons for Linux
-# depends	: dbus glib libical py3-docutils cups alsa-lib 
-# depends	: readline
+# depends	: dbus glib libical py3-docutils readline
 
 pkgname=bluez
 pkgver=5.83

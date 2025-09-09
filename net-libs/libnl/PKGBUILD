@@ -1,5 +1,5 @@
 # description	: Libraries providing APIs to netlink protocol based Linux kernel interfaces"
-# depends	: python3 swig
+# depends	: python3
 
 pkgname=libnl
 pkgver=3.11.0

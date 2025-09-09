@@ -1,6 +1,5 @@
 # description	: Tag Image File Format (TIFF) library
-# depends	: cmake ninja libjpeg-turbo libwebp xz zlib zstd 
-# todo      : freeglut
+# depends	: cmake ninja libjpeg-turbo libwebp xz zlib zstd freeglut
 
 pkgname=libtiff
 pkgver=4.7.0

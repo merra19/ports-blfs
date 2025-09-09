@@ -1,5 +1,5 @@
 # description	: A module dedicated to file loading and saving
-# depends	: glib gobject-introspection gtk3
+# depends	: gtk3
 
 pkgname=libgedit-gfls
 pkgver=0.3.0

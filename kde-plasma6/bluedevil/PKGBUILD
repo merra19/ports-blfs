@@ -1,8 +1,5 @@
-# description	: Bluetooth stack for KDE Plasma
-# depends	: bluez-qt kcmutils kconfig kcoreaddons kdbusaddons 
-# depends	: ki18n kio kjobwidgets knotifications kservice ksvg 
-# depends	: kwidgetsaddons kwindowsystem libplasma kirigami 
-# depends	: kdoctools qt6-base qt6-declarative cmake
+# description	: KDE Plasma
+# depends	: plasma-disks
 
 pkgname=bluedevil
 pkgver=6.4.4
@@ -16,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
@@ -25,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

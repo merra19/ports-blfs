@@ -1,7 +1,6 @@
 # description	: Open source multimedia framework
-# depends	: glib libcap gobject-introspection meson qt6-base
-# depends	: qt6-declarative qt6-shadertools qt6-tools qt6-wayland
-# optional	: unwind!!libunwind unwind!!elfutils
+# depends	: glib libcap gobject-introspection meson qt6
+# depends	: libunwind elfutils rustc libnsl
 
 pkgname=gstreamer
 pkgver=1.26.5

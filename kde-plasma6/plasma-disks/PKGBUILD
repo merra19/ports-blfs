@@ -1,8 +1,5 @@
-# description	: Monitors S.M.A.R.T. capable devices for imminent failure
-# depends	: glibc kauth kcmutils kconfig kcoreaddons kdbusaddons
-# depends	: ki18n kinfocenter kio kirigami knotifications kservice
-# depends	: qt6-base qt6-declarative smartmontools solid
-# depends	: extra-cmake-modules
+# description	: KDE Plasma
+# depends	: plasma-workspace
 
 pkgname=plasma-disks
 pkgver=6.4.4
@@ -16,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
@@ -25,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

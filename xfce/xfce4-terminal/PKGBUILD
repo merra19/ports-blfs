@@ -1,6 +1,5 @@
 # description	: A terminal emulator for the Xfce desktop environment
-# depends	: glib pcre2 gtk3 libx11 libxfce4ui vte xfconf intltool 
-# depends	: gtk-layer-shell
+# depends	: pcre2 libxfce4ui vte intltool 
 
 pkgname=xfce4-terminal
 pkgver=1.1.5

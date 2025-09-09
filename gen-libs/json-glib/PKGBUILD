@@ -13,7 +13,6 @@ build() {
 	meson setup \
         --prefix=/usr \
         --buildtype=plain \
-        -D nls=disabled \
         build
 	ninja -C build
 }

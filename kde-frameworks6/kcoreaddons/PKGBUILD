@@ -1,6 +1,5 @@
-# description	: Framework for solving common problems such as caching, randomisation, and more
-# depends	: qt6-base qt6-tools qt6-declarative extra-cmake-modules 
-# depends	: llvm
+# description	: KDE Framework
+# depends	: kconfig
 
 pkgname=kcoreaddons
 pkgver=6.17.0
@@ -9,7 +8,7 @@ source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver
 
 build() {
     cd $pkgname-$pkgver
-    
+
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
@@ -26,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

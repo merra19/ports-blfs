@@ -1,7 +1,6 @@
 # description	: Unified widget and session management libs for Xfce
-# depends	: glib gtk3 libx11 libice libsm libxfce4util xfconf
-# depends	: gobject-introspection startup-notification libepoxy
-# depends	: libgudev libgtop perl gettext pkgconf xorg-proto
+# depends	: gtk3 xfconf startup-notification libgudev libgtop perl
+# depends	: gettext pkgconf xorg-proto
 
 pkgname=libxfce4ui
 pkgver=4.20.2

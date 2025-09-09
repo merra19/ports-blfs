@@ -1,5 +1,5 @@
 # description	: Simple library for creating daemon processes in C
-# depends	: glibc
+# depends	: glibc lynx
 
 pkgname=libdaemon
 pkgver=0.14

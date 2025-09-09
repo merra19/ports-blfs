@@ -1,6 +1,5 @@
 # description	: Hyprland QT/qml utility apps
-# depends	:  hyprland-qt-support hyprutils qt6-base qt6-declarative
-# depends	:  qt6-wayland cmake
+# depends	: hyprland-qt-support hyprutils qt6 cmake
 
 pkgname=hyprland-qtutils
 pkgver=0.1.4

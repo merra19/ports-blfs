@@ -1,6 +1,6 @@
 # description	: LDAP suite of application and development tool
-# depends	: util-linux gnutls libgcrypt e2fsprogs lmdb perl openssl 
-# depends	: groff krb5
+# depends	: util-linux gnutls e2fsprogs perl openssl groff krb5
+# depends	: unixodbc
 
 pkgname=openldap
 pkgver=2.6.10

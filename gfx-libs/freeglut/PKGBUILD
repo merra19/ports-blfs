@@ -1,5 +1,5 @@
 # description	: A free OpenGL utility toolkit, the open-sourced alternative to the GLUT library
-# depends	: libxi libx11 libxrandr libxxf86vm mesa glu cmake
+# depends	: mesa glu cmake
 
 pkgname=freeglut
 pkgver=3.6.0

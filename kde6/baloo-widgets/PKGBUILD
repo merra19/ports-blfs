@@ -1,6 +1,5 @@
 # description	: Widget library for baloo
-# depends	: baloo kconfig kcoreaddons kfilemetadata ki18n kio cmake
-# depends	: kwidgetsaddons kservice extra-cmake-modules qt6-base
+# depends	: extra-cmake-modules qt6 kde-frameworks6
 
 pkgname=baloo-widgets
 pkgver=25.08.0

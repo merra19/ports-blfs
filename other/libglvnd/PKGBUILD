@@ -1,5 +1,5 @@
 # description	: The GL Vendor-Neutral Dispatch library
-# depends	: libxext libx11 xorg-proto
+# depends	: xorg-proto xorg-libs
 
 pkgname=libglvnd
 pkgver=1.7.0

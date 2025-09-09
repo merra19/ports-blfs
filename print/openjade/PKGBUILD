@@ -1,5 +1,5 @@
 # description	: Jade is an implementation of DSSSL for formatting SGML and XML documents
-# depends	: sgml-common opensp perl
+# depends	: opensp perl
 
 pkgname=openjade
 pkgver=1.3.2

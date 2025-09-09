@@ -1,5 +1,5 @@
 # description	: C library for the Public Suffix List
-# depends	: libidn2-32 libunistring-32 python3 icu-32 libpsl
+# depends	: libidn2-32 libunistring-32 icu-32 libpsl
 
 pkgname=libpsl-32
 _pkgname=libpsl

@@ -1,0 +1,23 @@
+# description	: C++ interface for GTK+
+# depends	: atkmm-2.28 gtk3 pangomm-2.46
+
+pkgname=gtkmm-3.24
+pkgver=3.24.10
+pkgrel=1
+source=(https://download.gnome.org/sources/gtkmm/${pkgver%.*}/gtkmm-$pkgver.tar.xz)
+
+build() {
+	cd gtkmm-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        gtkmm3-build
+	ninja -C gtkmm3-build
+}
+
+package() {
+    cd gtkmm-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C gtkmm3-build install
+}

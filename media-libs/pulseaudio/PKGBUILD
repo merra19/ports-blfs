@@ -1,7 +1,6 @@
 # description	: networked sound server
-# depends	: alsa-lib libatomic_ops dbus elogind glib libsndfile 
-# depends	: libx11 libice libsm libxtst libxcb speexdsp bluez sbc 
-# depends	: libcap avahi
+# depends	: alsa-lib dbus elogind glib libsndfile libxcb speexdsp
+# depends	: libcap avahi libsamplerate gtk3 bluez sbc xorg-libs
 
 pkgname=pulseaudio
 pkgver=17.0

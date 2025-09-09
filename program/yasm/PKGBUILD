@@ -1,5 +1,5 @@
 # description	: An assembler for x86 and x86_64 instruction sets
-# depends	: glibc
+# depends	: glibc py3-cython
 
 pkgname=yasm
 pkgver=1.3.0

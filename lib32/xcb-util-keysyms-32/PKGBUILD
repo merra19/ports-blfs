@@ -1,5 +1,5 @@
 # description	: X C-language Bindings sample implementations
-# depends	: libxcb-32 xorg-proto xcb-util-keysyms
+# depends	: libxcb-32 xcb-utilities
 
 pkgname=xcb-util-keysyms-32
 _pkgname=xcb-util-keysyms

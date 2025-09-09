@@ -1,6 +1,6 @@
 # description	: Direct3D 12 to Vulkan translation library By WineHQ
 # depends	: spirv-tools vulkan-loader perl-json spirv-headers
-# depends	: vulkan-headers xcb-util-keysyms xorg-proto perl-json
+# depends	: vulkan-headers xcb-utilities xorg-proto
 
 pkgname=vkd3d
 pkgver=1.16

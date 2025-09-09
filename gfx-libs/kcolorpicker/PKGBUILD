@@ -1,5 +1,5 @@
 # description	: Qt based color picker with popup menu
-# depends	: cmake qt6-base
+# depends	: cmake qt6
 
 pkgname=kcolorpicker
 _pkgname=kColorPicker

@@ -1,6 +1,5 @@
 # description	: Network-related giomodules for glib
-# depends	: glib gnutls gsettings-desktop-schemas p11-kit meson dbus
-# depends	: libproxy
+# depends	: glib gnutls gsettings-desktop-schemas meson libproxy
 
 pkgname=glib-networking
 pkgver=2.80.1

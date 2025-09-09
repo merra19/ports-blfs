@@ -1,6 +1,5 @@
 # description	: A portable, bytecode-compiled implementation of Common Lisp
-# depends	: glibc libxcrypt libsigsegv dbus gdbm readline zlib
-# depends	: libxpm libnsl
+# depends	: glibc libxcrypt libsigsegv gdbm readline zlib libnsl
 
 pkgname=clisp
 pkgver=2.49.95

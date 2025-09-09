@@ -1,0 +1,23 @@
+# description	: Library for handling and rendering XPS documents
+# depends	: glibc gtk3 lcms2 libarchive libjpeg-turbo libtiff libxslt
+
+pkgname=libgxps
+pkgver=0.3.2
+pkgrel=1
+source=(https://download.gnome.org/sources/libgxps/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    meson setup \
+        --prefix=/usr \
+        --buildtype=release \
+        build
+    ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

@@ -1,5 +1,6 @@
 # description	: Monospace bitmap font (for X11 and console)
-# depends	: python3 gzip gawk grub bdftopcf freetype fontconfig
+# depends	: python3 gzip gawk grub xorg-fonts freetype fontconfig
+# depends	: xorg-legacy
 
 pkgname=terminus-font
 pkgver=4.49.1

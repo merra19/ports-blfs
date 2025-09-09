@@ -1,6 +1,5 @@
 # description	: A tool to find and launch installed applications for the Xfce desktop
-# depends	: garcon libxfce4ui libxfce4util xfconf gtk3 glib gettext 
-# depends	: intltool pkgconf hicolor-icon-theme
+# depends	: garcon gettext intltool pkgconf
 
 pkgname=xfce4-appfinder
 pkgver=4.20.0

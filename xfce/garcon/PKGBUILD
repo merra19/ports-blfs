@@ -1,5 +1,5 @@
 # description	: Xfce's freedesktop.org specification compatible menu implementation library
-# depends	: libxfce4ui gobject-introspection glib libxfce4util gtk3
+# depends	: libxfce4ui gtk3
 
 pkgname=garcon
 pkgver=4.20.0

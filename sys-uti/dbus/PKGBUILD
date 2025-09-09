@@ -1,5 +1,5 @@
 # description	: A message bus system, a simple way for applications to talk to each other
-# depends	: expat xorg-proto libx11 libxt elogind
+# depends	: expat xorg-proto xorg-libs
 
 pkgname=dbus
 pkgver=1.16.2
@@ -30,4 +30,6 @@ package() {
    
     chown -v root:messagebus "$pkgdir"/usr/libexec/dbus-daemon-launch-helper &&
     chmod -v      4750       "$pkgdir"/usr/libexec/dbus-daemon-launch-helper
+
+    ln -sfv /var/lib/dbus/machine-id "$pkgdir"/etc/
 }

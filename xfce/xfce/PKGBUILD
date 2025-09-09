@@ -3,7 +3,7 @@
 # depends	: thunar thunar-volman adwaita-icon-theme tumbler xfconf
 # depends	: xfce4-appfinder xfce4-panel xfce4-session xfce4-settings 
 # depends	: xfce4-terminal xfdesktop xfwm4 xfce4-pulseaudio-plugin
-# depends	: ttf-dejavu noto-fonts-cjk noto-fonts wireplumber 
+# depends	: ttf-dejavu noto-fonts-cjk noto-fonts wireplumber xorg
 # depends	: xcursor-themes polkit-gnome xfce4-notifyd
 # depends	: xfce4-power-manager parole ristretto
 

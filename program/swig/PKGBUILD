@@ -1,5 +1,5 @@
 # description	: Simplified Wrapper and Interface Generator
-# depends	: zlib pcre2
+# depends	: zlib pcre2 boost
 
 pkgname=swig
 pkgver=4.3.1

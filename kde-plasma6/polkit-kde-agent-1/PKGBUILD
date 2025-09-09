@@ -1,7 +1,5 @@
-# description	: Daemon providing a polkit authentication UI for KDE
-# depends	: kcoreaddons kcrash kdbusaddons ki18n kwindowsystem 
-# depends	: polkit-qt kirigami libplasma qt6-base qt6-declarative 
-# depends	: qt6-5compat extra-cmake-modules kdoctools
+# description	: KDE Plasma
+# depends	: plasma-workspace-wallpapers
 
 pkgname=polkit-kde-agent-1
 pkgver=6.4.4
@@ -15,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build

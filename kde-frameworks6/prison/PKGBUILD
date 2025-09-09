@@ -1,6 +1,5 @@
-# description	: QRCode and data matrix barcode library
-# depends	: qt6-base qt6-tools qt6-declarative qt6-multimedia 
-# depends	: extra-cmake-modules libdmtx libqrencode zxing-cpp
+# description	: KDE Framework
+# depends	: krunner
 
 pkgname=prison
 pkgver=6.17.0
@@ -17,7 +16,7 @@ build() {
         -D CMAKE_SKIP_INSTALL_RPATH=ON  \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
-        -D CMAKE_DISABLE_FIND_PACKAGE_ZXing=ON \
+        -D BUILD_PYTHON_BINDINGS=OFF \
         -Wno-dev
     make -C build
 }
@@ -26,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

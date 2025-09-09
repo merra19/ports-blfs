@@ -1,6 +1,6 @@
 # description	: D-Bus accessibility specifications and registration daemon
-# depends	: dbus glib libxml2 gobject-introspection libx11 libxtst 
-# depends	: libxi
+# depends	: dbus glib gobject-introspection xorg-libs
+# depends	: gsettings-desktop-schemas 
 
 pkgname=at-spi2-core
 pkgver=2.56.4

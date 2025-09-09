@@ -1,0 +1,37 @@
+# description	: Perl library for parsing the output of nsgmls
+# depends	: perl
+
+pkgname=perl-sgmlspm
+pkgver=1.1
+pkgrel=1
+options=(!emptydirs)
+source=(https://www.cpan.org/authors/id/R/RA/RAAB/SGMLSpm-$pkgver.tar.gz)
+
+prepareEnvironment() {
+        export \
+            PERL_MM_USE_DEFAULT=1 \
+            PERL_AUTOINSTALL=--skipdeps \
+            PERL_MM_OPT="INSTALLDIRS=vendor DESTDIR='"$pkgdir"'" \
+            PERL_MB_OPT="--installdirs vendor --destdir '"$pkgdir"'" \
+            MODULEBUILDRC=/dev/null
+}
+
+
+build() {
+	cd SGMLSpm-$pkgver
+
+    find . -type f -exec chmod 0644 {} \;
+
+    prepareEnvironment
+	perl Makefile.PL INSTALLDIRS=vendor
+	make
+}
+
+package() {
+	cd SGMLSpm-$pkgver
+
+    prepareEnvironment
+	make install
+
+    ln -sv sgmlspl.pl "$pkgdir"/usr/bin/sgmlspl
+}

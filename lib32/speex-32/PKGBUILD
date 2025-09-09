@@ -1,0 +1,28 @@
+# description	: Audio compression format designed for speech
+# depends	: libogg-32 speex
+
+pkgname=speex-32
+_pkgname=speex
+pkgver=1.2.1
+pkgrel=1
+source=(https://downloads.xiph.org/releases/speex/$_pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $_pkgname-$pkgver
+
+	./configure \
+        --prefix=/usr \
+		--disable-static \
+        --enable-sse \
+        --libdir=/usr/lib32 \
+        --host=i686-pc-linux-gnu 
+	make
+}
+
+package() {
+    cd $_pkgname-$pkgver
+
+    make DESTDIR="$PWD"/DESTDIR install
+    mkdir -p "$pkgdir"/usr/lib32
+    cp -Rv DESTDIR/usr/lib32/* "$pkgdir"/usr/lib32
+}

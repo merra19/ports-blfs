@@ -1,9 +1,8 @@
 # description	: Cross platform Make
-# depends	: glibc libarchive libuv nghttp2 gcc expat zlib ncurses 
-# depends	: curl
+# depends	: glibc gcc libarchive libuv nghttp2 expat zlib ncurses
 
 pkgname=cmake
-pkgver=4.1.0
+pkgver=4.1.1
 pkgrel=1
 source=(https://cmake.org/files/v${pkgver%.*}/$pkgname-$pkgver.tar.gz)
 
@@ -11,6 +10,8 @@ build() {
 	cd $pkgname-$pkgver
 
     sed -i '/"lib64"/s/64//' Modules/GNUInstallDirs.cmake
+
+    scratch isinstalled curl || OPTS_CMAKE='--no-system-curl'
 
     ./bootstrap \
         --prefix=/usr \
@@ -21,6 +22,7 @@ build() {
         --no-system-cppdap \
         --no-system-librhash \
         --parallel=$jobs \
+        $OPTS_CMAKE \
         --docdir=/share/doc/$pkgname-$pkgver
     make   
 }

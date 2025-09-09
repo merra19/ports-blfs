@@ -1,5 +1,5 @@
 # description	: FFmpeg based gstreamer plugin
-# depends	: gst-plugins-base glib gstreamer ffmpeg yasm meson
+# depends	: gst-plugins-base gstreamer ffmpeg yasm meson
 
 pkgname=gst-libav
 pkgver=1.26.5

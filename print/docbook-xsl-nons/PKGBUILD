@@ -1,5 +1,5 @@
 # description	: XSL stylesheets for Docbook-xml transformations
-# depends	: libxml2 libxslt libarchive
+# depends	: libxml2 libxslt zip
 
 pkgname=docbook-xsl-nons
 pkgver=1.79.2

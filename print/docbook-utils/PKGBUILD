@@ -1,5 +1,5 @@
 # description	: Shell scripts to manage DocBook documents"
-# depends	: docbook-dsssl docbook-dtd perl-sgmlspm openjade
+# depends	: docbook-dsssl docbook-dtd perl-sgmlspm openjade lynx
 
 pkgname=docbook-utils
 pkgver=0.6.14

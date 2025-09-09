@@ -1,9 +1,5 @@
-# description	: Plasma applet for audio volume management using PulseAudio
-# depends	: glib kcmutils kconfig kcoreaddons kdbusaddons 
-# depends	: kdeclarative kglobalaccel ki18n kstatusnotifieritem 
-# depends	: ksvg libplasma libcanberra pulseaudio kitemmodels 
-# depends	: kirigami qt6-base qt6-declarative extra-cmake-modules
-# depends	: sound-theme-freedesktop kdoctools pulseaudio-qt
+# description	: KDE Plasma
+# depends	: plasma-nm
 
 pkgname=plasma-pa
 pkgver=6.4.4
@@ -17,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
@@ -26,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

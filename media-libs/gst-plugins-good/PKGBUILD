@@ -1,5 +1,8 @@
 # description	: Basepack of plugins for GStreamer
-# depends	: gst-plugins-base bzip2 zlib meson
+# depends	: gst-plugins-base bzip2 zlib meson cairo flac gdk-pixbuf
+# depends	: lame libsoup3 libvpx mpg123 nasm pulseaudio speex taglib
+# depends	: speexdsp v4l-utils wayland aalib
+# todo      : libdv
 
 pkgname=gst-plugins-good
 pkgver=1.26.5

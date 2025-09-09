@@ -1,5 +1,5 @@
 # description	: Locale and ISO 2022 support for Unicode terminals
-# depends	: libfontenc zlib groff
+# depends	: zlib groff xorg-applications
 
 pkgname=luit
 pkgver=20240910

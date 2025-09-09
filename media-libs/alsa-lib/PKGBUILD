@@ -1,5 +1,5 @@
 # description	: Advanced Linux Sound Architecture Library
-# depends	: glibc alsa-ucm-conf alsa-topology-conf
+# depends	: glibc alsa-ucm-conf alsa-topology-conf elogind
 
 pkgname=alsa-lib
 pkgver=1.2.14

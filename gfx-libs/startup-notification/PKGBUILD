@@ -1,5 +1,5 @@
 # description	: Application startup notification and feedback library
-# depends	: glibc libx11 libxcb xcb-util xorg-proto
+# depends	: glibc libxcb xcb-util xorg-proto xorg-libs
 
 pkgname=startup-notification
 pkgver=0.12

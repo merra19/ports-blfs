@@ -1,5 +1,5 @@
 # description	: Library for arbitrary-precision arithmetic on different type of numbers
-# depends	: m4 xz-32 libgmp
+# depends	: xz-32 libgmp
 
 pkgname=libgmp-32
 _pkgname=libgmp

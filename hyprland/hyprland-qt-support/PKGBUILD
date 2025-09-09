@@ -1,5 +1,5 @@
 # description	: QML style provider for Hypr* QT app
-# depends	:  hyprlang qt6-base qt6-declarative qt6-wayland cmake
+# depends	: hyprlang qt6 cmake
 
 pkgname=hyprland-qt-support
 pkgver=0.1.0

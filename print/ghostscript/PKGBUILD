@@ -1,8 +1,7 @@
 # description	: Interpreter for the PostScript language and PDF
 # depends	: libpaper fontconfig freetype lcms2 libpng libjpeg-turbo 
-# depends	: openjpeg2 libtiff zlib dbus libxext  libxt 
-# depends	: libidn cups
-# todo      : poppler 
+# depends	: openjpeg2 libtiff zlib libidn cups cairo libwebp gtk3
+# depends	: poppler xorg-libs
 
 pkgname=ghostscript
 pkgver=10.05.1

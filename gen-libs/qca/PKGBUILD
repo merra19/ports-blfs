@@ -1,6 +1,6 @@
 # description	: Qt Cryptographic Architecture (QCA)
-# depends	: p11-kit cmake qt6-base qt6-5compat which gnupg libgcrypt 
-# depends	: botan nss
+# depends	: p11-kit cmake qt6 which gnupg libgcrypt libgpg-error
+# depends	: botan nss nspr make-ca
 
 pkgname=qca
 pkgver=2.3.10

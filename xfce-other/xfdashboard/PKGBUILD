@@ -1,7 +1,6 @@
 # description	: Maybe a GNOME shell like dashboard for the Xfce desktop environment
-# depends	: glib gtk3 clutter libwnck3 libx11 libxcomposite garcon
-# depends	: libxdamage libxinerama libxfce4ui libxfce4util xfconf
-# depends	: intltool
+# depends	: glib gtk3 clutter libwnck garcon xorg-libs libxfce4ui
+# depends	: libxfce4util xfconf intltool
 
 pkgname=xfdashboard
 pkgver=1.0.0

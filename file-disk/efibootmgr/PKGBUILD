@@ -1,5 +1,5 @@
 # description	: User-space application to modify the EFI boot manager
-# depends	: efivar popt pciutils
+# depends	: efivar popt
 
 pkgname=efibootmgr
 pkgver=18

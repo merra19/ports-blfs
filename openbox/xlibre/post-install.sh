@@ -1,7 +1,7 @@
 #!/bin/sh
 
 pkg_postinst() {
-    fc-cache -fv
+    fc-cache -f
 }
 
 pkg_postupgrade() {

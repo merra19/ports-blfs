@@ -1,11 +1,5 @@
-# description	: Power management for KDE Plasma Shell
-# depends	: kauth kconfig kconfigwidgets kcoreaddons kcrash 
-# depends	: kdbusaddons kglobalaccel ki18n kidletime kio 
-# depends	: kirigami kitemmodels knotifications kservice 
-# depends	: kwindowsystem kxmlgui solid layer-shell-qt 
-# depends	: libkscreen plasma-activities plasma-workspace libxcb
-# depends	: libcap qt6-base qt6-declarative upower kcmutils 
-# depends	: extra-cmake-modules kdoctools power-profiles-daemon
+# description	: KDE Plasma
+# depends	: polkit-kde-agent-1
 
 pkgname=powerdevil
 pkgver=6.4.4
@@ -19,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build

@@ -1,0 +1,20 @@
+# description	: Python SDK for Sentry.io
+# depends	: python3 py3-wheel py3-gpep517 py3-setuptools 
+# depends	: py3-flit-core py3-certifi py3-urllib3
+
+pkgname=py3-sentry_sdk
+pkgver=2.35.0
+pkgrel=1
+source=(https://github.com/getsentry/sentry-python/releases/download/$pkgver/sentry_sdk-$pkgver.tar.gz)
+
+build() {
+    cd ${pkgname#*-}-$pkgver
+    
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${pkgname#*-}-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}

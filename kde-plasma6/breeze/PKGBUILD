@@ -1,8 +1,5 @@
-# description	: Breeze visual style for the Plasma desktop
-# depends	: breeze-icons frameworkintegration kcmutils kconfig 
-# depends	: kconfigwidgets kcoreaddons kguiaddons ki18n cmake
-# depends	: kiconthemes kirigami kwidgetsaddons kwindowsystem 
-# depends	: kdecoration hicolor-icon-theme qt6-base qt6-declarative
+# description	: KDE Plasma
+# depends	: libksysguard
 
 pkgname=breeze
 pkgver=6.4.4
@@ -14,6 +11,7 @@ build() {
 
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
@@ -25,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

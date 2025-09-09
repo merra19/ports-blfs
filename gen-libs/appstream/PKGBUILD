@@ -1,7 +1,6 @@
 # description	: Cross-distro effort for providing metadata for software in the Linux ecosystem
-# depends	: zstd libxml2 glib libxmlb libyaml snowball-stemmer curl 
-# depends	: gobject-introspection qt6-tools appstream-glib libxslt 
-# depends	: itstool
+# depends	: zstd libxml2 libxmlb libyaml snowball-stemmer curl 
+# depends	: qt6 libxslt itstool
 
 pkgname=appstream
 _pkgname=AppStream

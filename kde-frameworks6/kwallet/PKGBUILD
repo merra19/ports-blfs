@@ -1,8 +1,5 @@
-# description	: Framework providing desktop-wide storage for passwords
-# depends	: qt6-base qt6-tools extra-cmake-modules gpgme kconfig
-# depends	: kcolorscheme kcrash kcoreaddons kdbusaddons ki18n 
-# depends	: knotifications kservice kwidgetsaddons kwindowsystem 
-# depends	: libgcrypt qca kdoctools
+# description	: KDE Framework
+# depends	: kbookmarks
 
 pkgname=kwallet
 pkgver=6.17.0
@@ -19,6 +16,7 @@ build() {
         -D CMAKE_SKIP_INSTALL_RPATH=ON  \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
+        -D BUILD_PYTHON_BINDINGS=OFF \
         -Wno-dev
     make -C build
 }
@@ -27,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

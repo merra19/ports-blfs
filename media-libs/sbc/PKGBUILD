@@ -1,5 +1,5 @@
 # description	: Audio codec to connect bluetooth HQ audio devices as headphones or loudspeakers
-# depends	: glibc
+# depends	: glibc libsndfile
 
 pkgname=sbc
 pkgver=2.1

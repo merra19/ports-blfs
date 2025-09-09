@@ -1,5 +1,5 @@
 # description	: Provides a standard configuration setup for installing PKCS#11
-# depends	: libtasn1-32 libffi-32 meson glibc p11-kit
+# depends	: libtasn1-32 libffi-32 p11-kit
 
 pkgname=p11-kit-32
 _pkgname=p11-kit

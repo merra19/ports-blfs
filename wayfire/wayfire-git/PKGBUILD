@@ -4,7 +4,7 @@
 # depends	: libpng cairo libxkbcommon pango pixman dbus libxcb
 # depends	: xkeyboard-config cmake vulkan-headers libxml2 libdrm
 # depends	: polkit seatd xwayland glslang libdisplay-info mesa
-# depends	: xcb-util-errors xcb-util-renderutil xcb-util-wm yyjson
+# depends	: xcb-util-errors xcb-utilities yyjson
 # depends	: xdg-desktop-portal-gtk xdg-desktop-portal-wlr
 
 pkgname=wayfire-git

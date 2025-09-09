@@ -1,6 +1,5 @@
-# description	: Framework for notifying the user of an event
-# depends	: qt6-base qt6-tools qt6-declarative extra-cmake-modules 
-# depends	: kconfig libcanberra
+# description	: KDE Framework
+# depends	: kiconthemes
 
 pkgname=knotifications
 pkgver=6.17.0
@@ -26,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

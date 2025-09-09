@@ -1,5 +1,5 @@
 # description	: A library for configuring and customizing font access
-# depends	: freetype expat gperf
+# depends	: freetype expat gperf json-c libxml2
 
 pkgname=fontconfig
 pkgver=2.17.1

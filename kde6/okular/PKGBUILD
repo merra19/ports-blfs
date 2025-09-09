@@ -1,11 +1,6 @@
 # description	: Universal document viewer based on KDE Frameworks
-# depends	: libkexiv2 karchive kbookmarks kcolorscheme kcrash
-# depends	: kcompletion kconfig kconfigwidgets kcoreaddons cmake
-# depends	: ki18n kio kitemviews kparts kpty ktextwidgets 
-# depends	: kwidgetsaddons kwindowsystem kxmlgui threadweaver 
-# depends	: plasma-activities freetype libjpeg-turbo zlib kwallet 
-# depends	: poppler phonon purpose qt6-base qt6-declarative 
-# depends	: qt6-speech qt6-svg libtiff
+# depends	: kde-frameworks6 plasma-activities libkexiv2 libtiff
+# depends	: phonon poppler qca freetype zlib
 
 pkgname=okular
 pkgver=25.08.0

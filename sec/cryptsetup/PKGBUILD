@@ -1,6 +1,6 @@
 # description	: Tool to setup encrypted devices with dm-crypt
-# depends	: openssl popt json-c lvm2 util-linux libgcrypt nettle
-# depends	: libgpg-error argon2 asciidoctor libpwquality
+# depends	: openssl popt json-c lvm2 util-linux libpwquality
+# depends	: argon2 asciidoctor
 
 pkgname=cryptsetup
 pkgver=2.8.1

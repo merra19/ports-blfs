@@ -1,5 +1,6 @@
 # description	: Easy to use task manager
-# depends	: libxfce4ui xfconf libxmu libwnck3 meson xfce4-dev-tools
+# depends	: libxfce4ui xfconf xorg-libs libwnck meson
+# depends	: xfce4-dev-tools
 
 pkgname=xfce4-taskmanager
 pkgver=1.6.0

@@ -2,7 +2,7 @@
 # depends	: py3-attrs elogind libevdev libxkbcommon libxml2
 
 pkgname=libei
-pkgver=1.4.1
+pkgver=1.5.0
 pkgrel=1
 source=(https://gitlab.freedesktop.org/libinput/libei/-/archive/$pkgver/$pkgname-$pkgver.tar.gz)
 

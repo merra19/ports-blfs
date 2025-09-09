@@ -1,0 +1,23 @@
+# description	: Audio processing library for changing tempo, pitch and playback rates
+# depends	: glibc
+
+pkgname=soundtouch
+pkgver=2.4.0
+pkgrel=1
+source=(https://www.surina.net/soundtouch/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname
+	
+    ./bootstrap &&
+	./configure \
+        --prefix=/usr \
+        --docdir=/usr/share/doc/$pkgname-$pkgver
+	make
+}
+
+package() {
+    cd $pkgname
+
+    make DESTDIR="$pkgdir" install
+}

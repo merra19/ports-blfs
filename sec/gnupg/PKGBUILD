@@ -1,6 +1,7 @@
 # description	: The GNU Privacy Guard, a GPL OpenPGP implementation
-# depends	: libassuan libgcrypt libgpg-error libksba npth pinentry 
-# depends	: gnutls curl zlib bzip2 sqlite readline libusb
+# depends	: libassuan libgcrypt libksba npth pinentry gnutls
+# depends	: curl fuse zlib bzip2 sqlite readline libusb
+# optional  : openldap
 
 pkgname=gnupg
 pkgver=2.4.8

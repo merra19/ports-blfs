@@ -2,13 +2,11 @@
 # depends	: cmake hyprland-protocols meson ninja xorg-proto cairo
 # depends	: aquamarine gcc glib glslang hyprcursor hyprgraphics
 # depends	: hyprland-qtutils hyprlang hyprutils hyprwayland-scanner
-# depends	: libdisplay-info libdrm libglvnd libinput libliftoff 
-# depends	: libx11 libxcb libxcomposite libxcursor libxfixes re2 
-# depends	: libxkbcommon libxrender mesa pango pixman seatd udev
-# depends	: tomlplusplus util-linux wayland wayland-protocols 
-# depends	: xcb-proto xcb-util xcb-util-errors xcb-util-image
-# depends	: xcb-util-keysyms xcb-util-renderutil xcb-util-wm
-# depends	: xwayland glaze polkit
+# depends	: libdisplay-info libdrm libglvnd libinput libliftoff udev 
+# depends	: libxcb xorg-libs re2 libxkbcommon mesa pango pixman 
+# depends	: tomlplusplus util-linux wayland wayland-protocols polkit
+# depends	: xcb-proto xcb-util xcb-util-errors xcb-utilities glaze
+# depends	: xwayland seatd
 
 pkgname=hyprland
 pkgver=0.50.1

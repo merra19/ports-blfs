@@ -1,5 +1,5 @@
 # description	: Internationalized Domain Names (IDN) implementation
-# depends	: glibc gettext
+# depends	: glibc gettext java
 
 pkgname=libidn
 pkgver=1.43
@@ -9,9 +9,15 @@ source=(https://ftp.gnu.org/gnu/libidn/$pkgname-$pkgver.tar.gz)
 build() {
 	cd $pkgname-$pkgver
 
+    if [ -z "$JAVA_HOME" ];then
+        echo "JAVA_HOME not set.  source /etc/profile"
+        exit 1
+    fi
+
 	./configure \
         --prefix=/usr \
-        --disable-static
+        --disable-static \
+        --enable-java
 	make
 }
 

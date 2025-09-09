@@ -1,5 +1,6 @@
 # description	: Multi-format archive and compression library
-# depends	: glibc acl zlib xz bzip2 lz4 zstd libxml2 openssl
+# depends	: glibc acl zlib xz bzip2 lz4 zstd openssl lzo pcre2
+# depends	: nettle 
 
 pkgname=libarchive
 pkgver=3.8.1

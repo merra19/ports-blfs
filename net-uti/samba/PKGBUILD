@@ -1,9 +1,10 @@
 # description	: Samba Suite Version 4
 # depends	: glibc libarchive perl icu libtasn1 perl-parse-yapp popt 
-# depends	: gnutls e2fsprogs libcap ncurses readline zlib libxcrypt 
-# depends	: acl cups jansson pam libtirpc glib dbus rpcsvc-proto 
-# depends	: gpgme lmdb libaio libnsl py3-markdown avahi openldap
-# depends	: krb5 talloc
+# depends	: e2fsprogs libcap ncurses readline zlib libxcrypt gnutls
+# depends	: acl cups jansson pam libtirpc dbus rpcsvc-proto fuse
+# depends	: gpgme lmdb libaio libnsl py3-markdown avahi talloc
+# depends	: libxslt gnupg libgcrypt libunwind nss vala
+# optional	: krb5 openldap
 
 pkgname=samba
 pkgver=4.22.4
@@ -12,9 +13,6 @@ source=(https://download.samba.org/pub/samba/stable/$pkgname-$pkgver.tar.gz)
 
 build() {
     cd $pkgname-$pkgver
-
-    scratch isinstalled openldap ||  OPT_LDAP='--without-ldap --without-ads'
-    scratch isinstalled krb5 &&  OPT_KRB5='--with-system-mitkrb5'
 
     python3 -m venv pyvenv &&
     ./pyvenv/bin/pip3 install cryptography pyasn1 iso8601
@@ -30,9 +28,9 @@ build() {
         --enable-fhs \
         --without-ad-dc \
         --without-systemd \
+        --with-system-mitkrb5 \
         --enable-selftest \
-        --disable-rpath-install \
-        $OPT_LDAP $OPT_KRB5
+        --disable-rpath-install 
     make
 }
 

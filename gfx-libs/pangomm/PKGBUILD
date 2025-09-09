@@ -1,13 +1,13 @@
 # description	: C++ interface for pango
-# depends	: cairomm glibmm pango libsigc++
+# depends	: cairomm glibmm pango
 
 pkgname=pangomm
-pkgver=2.46.4
+pkgver=2.56.1
 pkgrel=1
-source=(https://download.gnome.org/sources/pangomm/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+source=(https://download.gnome.org/sources/pangomm/${pkgver%.*}/pangomm-$pkgver.tar.xz)
 
 build() {
-	cd $pkgname-$pkgver
+	cd pangomm-$pkgver
 
 	meson setup \
         --prefix=/usr \
@@ -17,7 +17,7 @@ build() {
 }
 
 package() {
-    cd $pkgname-$pkgver
+    cd pangomm-$pkgver
 
     DESTDIR="$pkgdir" ninja -C build install
 }

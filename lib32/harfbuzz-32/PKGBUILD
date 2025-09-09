@@ -1,10 +1,10 @@
 # description	: An OpenType text shaping engine
-# depends	: meson glib-32 gobject-introspection icu-32 freetype-32
-# depends	: cairo-32 graphite2 harfbuzz
+# depends	: glib-32 icu-32 freetype-32 graphite2-32 cairo-32
+# depends	: harfbuzz
 
 pkgname=harfbuzz-32
 _pkgname=harfbuzz
-pkgver=11.4.1
+pkgver=11.4.5
 pkgrel=1
 source=(https://github.com/harfbuzz/harfbuzz/releases/download/$pkgver/$_pkgname-$pkgver.tar.xz)
 

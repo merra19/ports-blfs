@@ -1,9 +1,7 @@
 # description	: X C-language Bindings sample implementations
-# depends	: libglvnd openssl iceauth xauth xkbcomp libdrm libxdmcp
-# depends	: libpciaccess libxau libxfont2 libxkbfile libxshmfence 
-# depends	: pixman xbitmaps xkeyboard-config libxcvt mesa libepoxy 
-# depends	: udev dbus pam xorg-proto xtrans xorg-fonts libxext
-# depends	: libx11 xorg-legacy elogind xcb-util xcb-util-wm xterm
+# depends	: libxcvt pixman libglvnd openssl udev xorg-fonts dbus
+# depends	: xkeyboard-config elogind libepoxy libtirpc libunwind
+# depends	: nettle libgcrypt xcb-utilities xmlto mesa
 
 pkgname=xlibre-xserver
 pkgver=25.0.0.11

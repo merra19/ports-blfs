@@ -1,6 +1,6 @@
 # description	: Speech synthesis interface
-# depends	: glib intltool espeak-ng libtool py3-xdg dotconf
-# depends	: pulseaudio pipewire libao
+# depends	: glib intltool libtool py3-xdg dotconf espeak-ng libao
+# depends	: pulseaudio pipewire
 
 pkgname=speech-dispatcher
 pkgver=0.12.1

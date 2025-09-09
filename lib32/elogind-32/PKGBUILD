@@ -1,6 +1,6 @@
 # description	: The systemd project's logind, extracted to a standalone package
-# depends	: pam-32 util-linux-32 libcap-32 udev-32 acl-32 elogind
-# depends	: 
+# depends	: pam-32 acl-32 util-linux-32 libcap-32 udev-32 dbus-32
+# depends	: elogind
 
 pkgname=elogind-32
 _pkgname=elogind

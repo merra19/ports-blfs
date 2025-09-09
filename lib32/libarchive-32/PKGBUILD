@@ -1,6 +1,6 @@
 # description	: Multi-format archive and compression library
-# depends	: glibc acl-32  zlib-32  xz-32  bzip2-32 zstd-32 
-# depends	: openssl-32 
+# depends	: acl-32 zlib-32 xz-32 bzip2-32 zstd-32 openssl-32
+# depends	: pcre2-32 nettle-32 libarchive
 
 pkgname=libarchive-32
 pkgver=3.8.1

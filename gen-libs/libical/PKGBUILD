@@ -1,5 +1,6 @@
 # description	: Implementation of basic iCAL protocols
 # depends	: cmake ninja gobject-introspection vala icu perl glib
+# depends	: libxml2
 
 pkgname=libical
 pkgver=3.0.20

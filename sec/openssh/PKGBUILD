@@ -1,5 +1,7 @@
 # description	: Port of OpenBSD's free SSH release
-# depends	: pam xauth which net-tools libxcrypt zlib shadow
+# depends	: pam which net-tools libxcrypt zlib shadow
+# depends	: xorg-applications
+# optional	: krb5
 
 pkgname=openssh
 pkgver=10.0p1
@@ -12,6 +14,8 @@ backup=(etc/ssh/ssh_config etc/ssh/sshd_config)
 build() {
 	cd $pkgname-$pkgver
 
+    scratch isinstalled krb5 && OPT_OPENSSH='--with-kerberos5=/usr'
+
     ./configure \
         --prefix=/usr \
         --sysconfdir=/etc/ssh \
@@ -19,7 +23,7 @@ build() {
         --with-default-path=/usr/bin \
         --with-superuser-path=/usr/sbin:/usr/bin \
         --with-pid-dir=/run \
-        "$(scratch isinstalled krb5 && echo "--with-kerberos5=/usr" || echo "--without-kerberos5")"             
+        $OPT_OPENSSH
 	make
 }
 

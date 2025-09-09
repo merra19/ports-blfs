@@ -1,5 +1,5 @@
 # description	: Breeze SVG icon theme
-# depends	: extra-cmake-modules qt6-base py3-lxml
+# depends	: extra-cmake-modules qt6 py3-lxml libxml2
 
 pkgname=breeze-icons
 pkgver=6.17.0

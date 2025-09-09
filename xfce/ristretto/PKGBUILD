@@ -1,6 +1,5 @@
 # description	: A fast and lightweight picture viewer for Xfce
-# depends	: glib libexif file cairo gtk3 libx11 libxfce4ui
-# depends	: libxfce4util xfconf
+# depends	: libexif file libxfce4ui tumbler
 
 pkgname=ristretto
 pkgver=0.13.4

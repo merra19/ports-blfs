@@ -1,5 +1,5 @@
 # description	: Robust, full-featured Open Source Toolkit for the Transport Layer Security (TLS)
-# depends	: perl openssl
+# depends	: zlib-32 openssl
 
 pkgname=openssl-32
 _pkgname=openssl

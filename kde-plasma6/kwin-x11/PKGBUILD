@@ -1,22 +1,10 @@
-# description	: Flexible, composited Window Manager for windowing systems on Linux
-# depends	: wayland qt6-base qt6-declarative qt6-5compat qt6-sensors
-# depends	: qt6-tools qt6-wayland qt6-svg kauth kcmutils kconfig
-# depends	: kcolorscheme kcrash kcoreaddons kdeclarative kguiaddons
-# depends	: kglobalaccel ki18n knewstuff knotifications kpackage
-# depends	: kquickcharts kservice ksvg kwidgetsaddons kwindowsystem
-# depends	: kxmlgui breeze kdecoration extra-cmake-modules python3
-# depends	: plasma-activities lcms2 libdisplay-info libcanberra
-# depends	: libepoxy mesa libx11 libxi libdrm libxcb libxkbcommon
-# depends	: xcb-util-cursor xcb-util-keysyms xcb-util-wm kirigami
-# depends	: kscreenlocker kglobalacceld kirigami kitemmodels
-# depends	: libplasma plasma-wayland-protocols wayland-protocols
-# depends	: xorg-proto
-# todo      : libqaccessibilityclient-qt6
+# description	: KDE Plasma
+# depends	: aurorae
 
 pkgname=kwin-x11
 pkgver=6.4.4
 pkgrel=1
-source=(https://download.kde.org/stable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz)
+source=(https://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz)
 
 build() {
     cd $pkgname-$pkgver
@@ -25,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build

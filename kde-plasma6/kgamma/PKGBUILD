@@ -1,6 +1,5 @@
-# description	: Screen gamma values kcontrol module
-# depends	: kcmutils kconfig kconfigwidgets kcoreaddons ki18n 
-# depends	: qt6-base libx11 libxxf86vm xorg-proto kdoctools cmake
+# description	: KDE Plasma
+# depends	: plasma-desktop
 
 pkgname=kgamma
 pkgver=6.4.4
@@ -14,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
@@ -23,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

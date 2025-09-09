@@ -1,6 +1,5 @@
 # description	: Makes power profiles handling available over D-Bus
-# depends	: glib libgudev polkit upower bash-completion meson
-# depends	: py3-shtab py3-gobject3 gtk-doc
+# depends	: py3-gobject3 polkit upower meson
 
 pkgname=power-profiles-daemon
 pkgver=0.30
@@ -13,7 +12,7 @@ build() {
 	meson setup \
         --prefix=/usr \
         --buildtype=plain \
-        -D gtk_doc=true \
+        -D gtk_doc=false \
         -D tests=false \
         -D systemdsystemunitdir=/tmp \
         build

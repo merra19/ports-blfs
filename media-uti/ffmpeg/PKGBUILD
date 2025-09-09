@@ -1,6 +1,11 @@
 # description	: Complete solution to record/convert/stream audio and video. Includes libavcodec
 # depends	: bzip2 libass freetype lame gnutls libvorbis libvpx opus 
 # depends	: x264 x265 alsa-lib yasm dav1d libaom fdk-aac libva
+# depends	: libdrm libjxl libwebp openjpeg2 speexdsp vulkan-loader
+# depends	: v4l-utils libvdpau fontconfig fribidi pulseaudio
+# depends	: libcdio-paranoia libplacebo
+# todo      : frei0r
+# optional  : samba
 
 pkgname=ffmpeg
 pkgver=7.1.1
@@ -13,12 +18,6 @@ build() {
 
     patch -Np1 -i ../ffmpeg-$pkgver-chromium_method-1.patch
 
-
-	sed -i 's/-lflite"/-lflite -lasound"/' configure
-
-    # -fdiagnostics-color=auto gets appended after user flags which 
-	# will ignore user's preference.
-	sed -i -e '/check_cflags -fdiagnostics-color=auto/d' configure
 
 	./configure \
         --prefix=/usr \
@@ -44,6 +43,8 @@ build() {
         --enable-libaom \
         --enable-libfdk-aac \
         --enable-vaapi \
+		--enable-libpulse \
+		--enable-libplacebo \
 		--docdir=/usr/share/doc/$pkgname-$pkgver
 
 	make &&      

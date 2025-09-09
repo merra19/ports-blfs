@@ -1,7 +1,7 @@
 # description	: Version 2 of an advanced replacement library for libraries like libXpm
-# depends	: bzip2 libspectre giflib libheif openjpeg2 libjpeg-turbo
-# depends	: libjxl xz freetype libid3tag libpng libraw librsvg
-# depends	: libtiff libwebp zlib xorg-proto libx11 libxext
+# depends	: bzip2  giflib libjpeg-turbo highway libjxl xz libpng
+# depends	: librsvg xorg-libs libtiff libwebp zlib xorg-proto
+# todo      : libspectre libheif libid3tag
 
 pkgname=imlib2
 pkgver=1.12.5

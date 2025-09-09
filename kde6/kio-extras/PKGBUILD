@@ -1,12 +1,7 @@
 # description	: KIO plugins present a filesystem-like view of arbitrary data
-# depends	: qcoro6 libkexiv2 karchive kcmutils kcodecs kconfig 
-# depends	: kconfigwidgets kcoreaddons kdbusaddons kdnssd cmake
-# depends	: kguiaddons ki18n kio kparts kservice ktextwidgets 
-# depends	: kxmlgui solid syntax-highlighting plasma-activities 
-# depends	: plasma-activities-stats phonon libx11 libxcursor 
-# depends	: extra-cmake-modules gperf kdoctools qt6-5compat 
-# depends	: qt6-base qt6-svg taglib libproxy
-# optional	: samba samba!!kdsoap  samba!!kdsoap-ws-discovery-client
+# depends	: kde-frameworks6 kdsoap-ws-discovery-client libproxy
+# depends	: plasma-activities-stats qcoro6 libkexiv2 libtirpc taglib
+# optional  : samba
 
 pkgname=kio-extras
 pkgver=25.08.0

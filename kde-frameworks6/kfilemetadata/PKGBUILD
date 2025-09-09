@@ -1,7 +1,5 @@
-# description	: Library for extracting file metadata
-# depends	: qt6-base qt6-tools extra-cmake-modules exiv2 karchive 
-# depends	: kconfig kcoreaddons ki18n poppler ffmpeg attr 
-# depends	: kcodecs taglib
+# description	: KDE Framework
+# depends	: bluez-qt
 
 pkgname=kfilemetadata
 pkgver=6.17.0
@@ -10,7 +8,7 @@ source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver
 
 build() {
     cd $pkgname-$pkgver
-    
+
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
@@ -18,7 +16,7 @@ build() {
         -D CMAKE_SKIP_INSTALL_RPATH=ON  \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
-        -D CMAKE_DISABLE_FIND_PACKAGE_QMobipocket6=ON \
+        -D BUILD_PYTHON_BINDINGS=OFF \
         -Wno-dev
     make -C build
 }
@@ -27,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

@@ -1,21 +1,8 @@
 # description	: Meta port for KDE
-# depends	: kde-pre-conf breeze kactivitymanagerd kde-cli-tools 
-# depends	: kdecoration kdeplasma-addons kgamma kglobalacceld 
-# depends	: kinfocenter kmenuedit kpipewire kscreen 
-# depends	: kscreenlocker ksshaskpass ksystemstats kwayland 
-# depends	: kwin kwrited layer-shell-qt libkscreen libksysguard 
-# depends	: libplasma milou plasma-activities plasma-vault
-# depends	: plasma-activities-stats plasma-desktop kwallet-pam
-# depends	: plasma-integration plasma-systemmonitor 
-# depends	: plasma-welcome plasma-workspace plasma5support 
-# depends	: polkit-kde-agent-1 powerdevil qqc2-breeze-style 
-# depends	: systemsettings xdg-desktop-portal-kde bluedevil 
-# depends	: oxygen-icons plasma-pa drkonqi oxygen-sounds ark 
-# depends	: gwenview dolphin konsole kate okular plasma-disks
-# depends	: dolphin-plugins aurorae
-# optional	: colord cups!!print-manager gtk!!xdg-desktop-portal-gtk
-# optional	: gtk!!breeze-gtk discover!!discover gtk!!kde-gtk-config
-# optional	: networkmanager networkmanager!!plasma-nm
+# depends	: kde-pre-conf kde-frameworks6 plasma-activities-stats
+# depends	: oxygen-icons ark gwenview dolphin konsole kate okular
+# depends	: dolphin-plugins kde-plasma6 networkmanager xlibre
+# depends	: xdg-desktop-portal-gtk
 # todo      : flatpak-kcm
 
 pkgname=kde

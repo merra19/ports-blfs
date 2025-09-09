@@ -1,5 +1,5 @@
 # description	: MIT Kerberos V
-# depends	: e2fsprogs keyutils lmdb yasm
+# depends	: e2fsprogs keyutils lmdb yasm ntp
 
 pkgname=krb5
 pkgver=1.22.1

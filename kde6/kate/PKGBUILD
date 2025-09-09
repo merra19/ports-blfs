@@ -1,6 +1,5 @@
 # description	: Multi-document editor with network transparency, Plasma integration and more
-# depends	: extra-cmake-modules qt6-base kcoreaddons kdbusaddons 
-# depends	: ki18n kwindowsystem ktexteditor
+# depends	: kde-frameworks6
 
 pkgname=kate
 pkgver=25.08.0

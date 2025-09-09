@@ -1,6 +1,5 @@
 # description	: Backend implementation for xdg-desktop-portal using GTK+
-# depends	: cmake glib gsettings-desktop-schemas fontconfig dbus 
-# depends	: xdg-desktop-portal cairo gdk-pixbuf gtk3
+# depends	: xdg-desktop-portal gtk3 gnome-desktop
 
 pkgname=xdg-desktop-portal-gtk
 pkgver=1.15.3

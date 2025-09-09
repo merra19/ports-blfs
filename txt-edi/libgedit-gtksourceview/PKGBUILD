@@ -1,5 +1,5 @@
 # description	: Gedit Technology - Source code editing widget
-# depends	: glib gobject-introspection gtk3 libxml2
+# depends	: gtk3 libxml2
 
 pkgname=libgedit-gtksourceview
 pkgver=299.5.0

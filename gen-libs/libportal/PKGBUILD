@@ -1,0 +1,27 @@
+# description	: Library for handling paper characteristics
+# depends	: glibc glib gtk3 gtk4 vala qt6 gobject-introspection
+
+pkgname=libportal
+pkgver=0.9.1
+pkgrel=1
+source=(https://github.com/flatpak/libportal/releases/download/$pkgver/$pkgname-$pkgver.tar.xz
+		https://www.linuxfromscratch.org/patches/blfs/svn/libportal-0.9.1-qt6.9_fixes-1.patch)
+
+build() {
+	cd $pkgname-$pkgver
+
+	patch -Np1 -i ../libportal-0.9.1-qt6.9_fixes-1.patch
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+		-D docs=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+}

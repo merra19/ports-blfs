@@ -1,0 +1,50 @@
+# description	: A ASCII-Graphics Library
+# depends	: xorg-libs xorg-fonts slang gpm
+
+pkgname=aalib
+pkgver=1.4rc5
+_pkgver=${pkgver%*rc5}.0
+pkgrel=1
+source=(https://downloads.sourceforge.net/aa-project/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$_pkgver
+
+	# Fix a minor problem with the included m4 file
+    sed -i -e '/AM_PATH_AALIB,/s/AM_PATH_AALIB/[&]/' aalib.m4
+	# Change the default X11 font from Xorg Legacy Fonts to Xorg Fonts
+	sed -e 's/8x13bold/-*-luxi mono-bold-r-normal--13-120-*-*-m-*-*-*/' \
+		-i src/aax.c
+	# Fix an overuse of some ncurses internal data structures to allow building  
+	# this package with ncurses-6.5 or later
+	sed 's/stdscr->_max\([xy]\) + 1/getmax\1(stdscr)/' \
+		-i src/aacurses.c
+
+	# To allow building this package with GCC-14 or later, add some missing #include 
+	# directives and fix a bad return statement to make the code C99-compatible. Then 
+	# regenerate the configure script to ensure the C code for probing system features 
+	# is C99-compatible as well
+	sed -i '1i#include <stdlib.h>' \
+		src/aa{fire,info,lib,linuxkbd,savefont,test,regist}.c
+	sed -i '1i#include <string.h>' \
+		src/aa{kbdreg,moureg,test,regist}.c
+	sed -i '/X11_KBDDRIVER/a#include <X11/Xutil.h>' \
+		src/aaxkbd.c
+	sed -i '/rawmode_init/,/^}/s/return;/return 0;/' \
+		src/aalinuxkbd.c
+	autoconf
+
+	./configure \
+		--prefix=/usr \
+		--infodir=/usr/share/info \
+		--mandir=/usr/share/man \
+		--with-ncurses=/usr \
+		--disable-static
+	make
+}
+
+package() {
+    cd $pkgname-$_pkgver
+
+    make DESTDIR="$pkgdir" install
+}

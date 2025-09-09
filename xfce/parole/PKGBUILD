@@ -1,7 +1,6 @@
 # description	: A simple Xfce4 media player using GStreamer
-# depends	: dbus-glib gst-plugins-base gst-plugins-good libnotify
-# depends	: libxfce4ui meson glib python3 xfce4-dev-tools taglib
-# depends	: gst-libav gst-plugins-bad gst-plugins-ugly
+# depends	: dbus-glib  libnotify meson glib python3 taglib
+# depends	: libxfce4ui gst-plugins-good gst-plugins-base
 
 pkgname=parole
 pkgver=4.20.0

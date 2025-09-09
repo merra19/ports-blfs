@@ -1,9 +1,7 @@
 # description	: X.Org X servers
-# depends	: libglvnd openssl iceauth xauth xkbcomp libdrm libxdmcp
-# depends	: libpciaccess libxau libxfont2 libxkbfile libxshmfence 
-# depends	: pixman xbitmaps xkeyboard-config libxcvt mesa libepoxy 
-# depends	: udev dbus pam xorg-proto xtrans xorg-fonts libxext
-# depends	: libx11 xorg-legacy elogind
+# depends	: pixman xkeyboard-config libxcvt mesa libepoxy libtirpc
+# depends	: udev dbus xorg-proto xorg-fonts libunwind libxdmcp
+# depends	: xorg-legacy elogind libxau libglvnd openssl  
 
 pkgname=xorg-server
 pkgver=21.1.18

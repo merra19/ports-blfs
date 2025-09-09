@@ -1,0 +1,21 @@
+# description	: IO::File interface for in-core strings
+# depends	: perl
+
+pkgname=perl-xml-simple
+_pkgname=XML-Simple
+pkgver=2.25
+pkgrel=1
+source=(https://www.cpan.org/authors/id/G/GR/GRANTM/XML-Simple-$pkgver.tar.gz)
+
+build() {
+	cd ${_pkgname}-$pkgver
+
+	PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+	make
+}
+
+package() {
+    cd ${_pkgname}-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

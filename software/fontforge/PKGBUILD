@@ -1,7 +1,7 @@
 # description	: postscript font editor and converter
-# depends	: giflib libtiff libtool libxml2 python3 glib cmake libxi
-# depends	: freetype libjpeg-turbo libpng readline xorg-proto libx11 
-# depends	: cairo pango libspiro py3-sphinx woff2
+# depends	: giflib libtiff libtool libxml2 python3 glib cmake
+# depends	: libjpeg-turbo libpng readline xorg-proto xorg-libs
+# depends	: py3-sphinx woff2 gtk3 libspiro
 
 pkgname=fontforge
 pkgver=20230101

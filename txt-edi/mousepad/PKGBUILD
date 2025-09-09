@@ -1,5 +1,5 @@
 # description	: GTK+-based editor for the Xfce Desktop Environment
-# depends	: glib gtk3 gtksourceview4 polkit gspell libxfce4ui
+# depends	: gtksourceview4 gspell libxfce4ui
 
 pkgname=mousepad
 pkgver=0.6.5

@@ -1,0 +1,23 @@
+# description	: AAC audio decoding library
+# depends	: cmake
+
+pkgname=faad2
+pkgver=2.11.2
+pkgrel=1
+source=(https://github.com/knik0/faad2/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+
+build() {
+	cd $pkgname-$pkgver
+	
+    cmake -B build \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_SHARED_LIBS=ON
+	make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install -C build
+}

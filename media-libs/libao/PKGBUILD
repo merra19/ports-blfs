@@ -1,5 +1,5 @@
 # description	: The Audio Output library
-# depends	: alsa-lib pulseaudio
+# depends	: alsa-lib pulseaudio xorg-libs
 
 pkgname=libao
 pkgver=1.2.0

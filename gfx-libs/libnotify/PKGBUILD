@@ -1,0 +1,28 @@
+# description	: A library for sending desktop notifications
+# depends	: glib gobject-introspection docbook-xml libxslt xmlto
+# depends	: gtk3
+
+pkgname=libnotify
+pkgver=0.8.6
+pkgrel=1
+source=(https://download.gnome.org/sources/libnotify/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+
+build() {
+    cd $pkgname-$pkgver
+
+	meson setup \
+        --prefix=/usr \
+        --buildtype=plain \
+        -D gtk_doc=false \
+        -D man=false \
+        build
+	ninja -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    DESTDIR="$pkgdir" ninja -C build install
+
+    mv "$pkgdir"/usr/share/doc/libnotify{,-$pkgver}
+}

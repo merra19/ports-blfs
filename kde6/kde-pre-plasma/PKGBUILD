@@ -1,0 +1,21 @@
+# description	: Plasma Dependencies 
+# depends	: kde-pre-conf extra-cmake-modules breeze-icons libgcrypt
+# depends	: boost ffmpeg gtk3 kde-frameworks6 kirigami-addons
+# depends	: libdisplay-info libpwquality libqalculate libnl libxcvt
+# depends	: libxkbcommon mesa wayland phonon pipewire pulseaudio-qt
+# depends	: qca qcoro6 sassc taglib xdotool xf86-input-evdev pciutils
+# depends	: gsettings-desktop-schemas libcanberra libinput libpcap
+# depends	: libwacom pam lm-sensors oxygen-icons xdg-desktop-portal
+# depends	: power-profiles-daemon py3-psutil py3-pygdbmi glu ibus
+# depends	: py3-sentry_sdk py3-urllib3 kio-extras accountsservice
+# depends	: smartmontools xwayland appstream xf86-input-wacom opencv
+# depends   : xf86-input-libinput
+
+pkgname=kde-pre-plasma
+pkgver=6.4.4
+pkgrel=1
+source=()
+
+package() {
+    install -v -dm755 "$pkgdir"/usr
+}

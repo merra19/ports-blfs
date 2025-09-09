@@ -1,7 +1,7 @@
 # description	: Standards compliant, fast, light-weight, extensible window manager
 # depends	: gettext pkgconf glib libxml2 fontconfig cairo libxau
-# depends	: libxcursor libxext libxft libxinerama libxrandr libxt
-# depends	: pango imlib2 startup-notification librsvg py3-xdg
+# depends	: xorg-libs imlib2 startup-notification librsvg pango
+# depends	: py3-xdg
 
 pkgname=openbox
 pkgver=3.6.1

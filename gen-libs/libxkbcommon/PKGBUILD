@@ -1,6 +1,5 @@
 # description	: Keymap handling library for toolkits and window systems
-# depends	: xkeyboard-config meson libxml2 wayland wayland-protocols 
-# depends	: libxcb
+# depends	: xkeyboard-config meson wayland wayland-protocols libxcb
 
 pkgname=libxkbcommon
 pkgver=1.11.0

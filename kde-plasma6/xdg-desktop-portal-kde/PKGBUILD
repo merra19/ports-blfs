@@ -1,10 +1,5 @@
-# description	: A backend implementation for xdg-desktop-portal using Qt/KF5
-# depends	: kcoreaddons kconfig kglobalaccel kguiaddons ki18n cmake
-# depends	: kiconthemes kio kirigami knotifications kservice 
-# depends	: kstatusnotifieritem kwidgetsaddons kwindowsystem
-# depends	: kwayland plasma-workspace libxkbcommon wayland 
-# depends	: plasma-wayland-protocols wayland-protocols qt6-base 
-# depends	: qt6-declarative xdg-desktop-portal kio-fuse qt6-wayland
+# description	: KDE Plasma
+# depends	: plasma-integration
 
 pkgname=xdg-desktop-portal-kde
 pkgver=6.4.4
@@ -18,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build

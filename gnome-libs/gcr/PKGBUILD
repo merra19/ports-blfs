@@ -1,7 +1,6 @@
 # description	: Libraries for cryptographic UIs and accessing PKCS#11 modules
 # depends	: glib libgcrypt p11-kit libsecret gobject-introspection 
-# depends	: dbus gnupg gettext pkgconf vala openssh
-# optional	: gtk!!gtk3 gtk!!libxml2
+# depends	: gnupg gettext pkgconf vala libxslt gtk3
 
 pkgname=gcr
 pkgver=3.41.2

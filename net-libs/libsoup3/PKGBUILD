@@ -1,7 +1,6 @@
 # description	: HTTP client/server library for GNOME version 3
-# depends	: glib nghttp2 sqlite brotli libpsl zlib libxml2
-# depends	: gobject-introspection vala glib-networking
-# optional	: samba
+# depends	: glib nghttp2 sqlite brotli libpsl zlib libxml2 vala
+# depends	: gobject-introspection glib-networking
 
 pkgname=libsoup3
 _pkgname=libsoup

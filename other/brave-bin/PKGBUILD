@@ -1,5 +1,5 @@
 # description	: Web browser that blocks ads and trackers by default (binary release)
-# depends	: alsa-lib gtk3 nss liberation-fonts libnotify libxscrnsaver
+# depends	: alsa-lib gtk3 nss liberation-fonts libnotify xorg-libs
 
 pkgname=brave-bin
 pkgver=1.81.137

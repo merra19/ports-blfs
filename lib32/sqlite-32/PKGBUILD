@@ -1,5 +1,5 @@
 # description	: SQL database engine
-# depends	: zlib-32 readline-32 tcl icu-32 unzip glibc sqlite
+# depends	: zlib-32 readline-32 icu-32 sqlite
 
 pkgname=sqlite-32
 _pkgname=sqlite

@@ -1,12 +1,11 @@
 # description	: A fast and secure web browser
 # depends	: at-spi2-core expat glib nspr nss alsa-lib mesa curl cups
 # depends	: gsettings-desktop-schemas dbus glibc cairo gdk-pixbuf
-# depends	: gtk3 libdrm libxcb libxkbcommon libxshmfence libx11
-# depends	: libxcomposite libxdamage libxext libxfixes libxrandr
-# depends	: pango ffmpeg qt6-base
+# depends	: gtk3 libdrm libxcb libxkbcommon xorg-libs pango ffmpeg
+# depends	: qt6
 
 pkgname=opera
-pkgver=121.0.5600.38
+pkgver=121.0.5600.50
 pkgrel=1
 source=(https://get.geo.opera.com/ftp/pub/$pkgname/desktop/$pkgver/linux/$pkgname-stable_${pkgver}_amd64.deb
         opera default)

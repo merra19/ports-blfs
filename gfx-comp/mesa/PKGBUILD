@@ -1,9 +1,9 @@
 # description	: OpenGL-like graphic library for Linux
 # depends	: py3-mako elfutils bison flex libdrm llvm libglvnd 
-# depends	: vulkan-loader wayland-protocols lm-sensors wayland 
-# depends	: glslang expat zlib zstd xorg-proto libxrandr libx11 
-# depends	: libxshmfence libxxf86vm libxfixes libxext libxcb libclc 
+# depends	: vulkan-loader wayland-protocols lm-sensors libgcrypt
+# depends	: glslang expat zlib zstd xorg-proto xorg-libs libxcb
 # depends	: py3-ply rust-bindgen cbindgen libva libvdpau py3-yaml
+# depends	: libunwind nettle make-ca libclc
 
 pkgname=mesa
 pkgver=25.1.8

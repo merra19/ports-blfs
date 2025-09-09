@@ -1,5 +1,5 @@
 # description	: Mobile Broadband Interface Model (MBIM) modem protocol helper library
-# depends	: gobject-introspection help2man glib
+# depends	: gobject-introspection help2man glib  bash-completion
 
 pkgname=libmbim
 pkgver=1.32.0

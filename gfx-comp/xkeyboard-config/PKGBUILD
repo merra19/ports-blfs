@@ -1,5 +1,6 @@
 # description	: X keyboard configuration database
-# depends	: perl libxslt gettext xorg-proto
+# depends	: perl libxslt gettext xorg-proto xorg-applications
+# depends	: xorg-libs
 
 pkgname=xkeyboard-config
 pkgver=2.45

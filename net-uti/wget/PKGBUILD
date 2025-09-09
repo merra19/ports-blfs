@@ -1,6 +1,6 @@
 # description	: Network utility to retrieve files from the WWW
-# depends	: p11-kit openssl util-linux perl texinfo libpsl pcre2
-# depends	: libidn2
+# depends	: openssl util-linux perl texinfo libpsl pcre2 libidn2
+# depends	: gnutls libproxy
 
 pkgname=wget
 pkgver=1.25.0
@@ -16,7 +16,8 @@ build() {
         --prefix=/usr \
         --sysconfdir=/etc \
         --enable-nls \
-        --with-ssl=openssl
+        --with-ssl=openssl \
+        --enable-libproxy
     make
 }
 

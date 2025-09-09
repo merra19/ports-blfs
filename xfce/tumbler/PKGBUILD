@@ -1,9 +1,9 @@
 # description	: A thumbnail service for Thunar
-# depends	: glib freetype libpng dbus libxfce4util gdk-pixbuf curl 
-# depends	: poppler intltool libjpeg-turbo gettext pkgconf
-# optional	: gstreamer gstreamer!!gst-plugins-bad 
-# optional	: gstreamer!!gst-plugins-good gstreamer!!gst-plugins-ugly
-# optional	: gstreamer!!gst-libav
+# depends	: glib freetype libpng gdk-pixbuf curl libjpeg-turbo 
+# depends	: poppler intltool gettext pkgconf libgsf
+# optional  : gstreamer gstreamer!!gst-libav 
+# optional  : gstreamer!!gst-plugins-bad gstreamer!!gst-plugins-good
+# optional  : gstreamer!gst-plugins-ugly
 
 pkgname=tumbler
 pkgver=4.20.0

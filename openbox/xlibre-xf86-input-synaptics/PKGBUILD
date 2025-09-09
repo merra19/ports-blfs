@@ -1,6 +1,5 @@
 # description	: Driver for Synaptics touchpads
-# depends	: libinput libevdev libx11 libxi libxtst xorg-proto
-# depends	: xlibre-xserver
+# depends	: libevdev xlibre-xserver
 
 pkgname=xlibre-xf86-input-synaptics
 pkgver=1.10.0.2

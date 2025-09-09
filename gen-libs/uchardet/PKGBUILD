@@ -1,0 +1,24 @@
+# description	: Encoding detector library
+# depends	: cmake
+
+pkgname=uchardet
+pkgver=0.0.8
+pkgrel=1
+source=(https://www.freedesktop.org/software/uchardet/releases/uchardet-0.0.8.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    cmake -B build \
+         -D CMAKE_INSTALL_PREFIX=/usr \
+         -D BUILD_STATIC=OFF \
+         -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
+         -W no-dev
+    make -C build
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" -C build install
+}

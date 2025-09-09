@@ -1,7 +1,6 @@
 # description	: A Client that groks URL
-# depends	: p11-kit openssl-32 zlib-32 zstd-32 perl nghttp2-32
-# depends	: libpsl-32 libidn2-32 brotli-32 libssh2-32 gnutls-32
-# depends	: curl patchelf
+# depends	: openssl-32 zlib-32 zstd-32 nghttp2-32 libpsl-32
+# depends	: libssh2-32 gnutls-32 libidn2-32 brotli-32 curl
 
 pkgname=curl-32
 _pkgname=curl

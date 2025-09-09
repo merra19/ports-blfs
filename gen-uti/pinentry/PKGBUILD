@@ -1,5 +1,5 @@
 # description	: Simple passphrase entry dialogs which utilize the Assuan protocol
-# depends	: libassuan libgpg-error libgcrypt ncurses libsecret
+# depends	: libassuan libgpg-error ncurses libsecret fltk
 
 pkgname=pinentry
 pkgver=1.3.2

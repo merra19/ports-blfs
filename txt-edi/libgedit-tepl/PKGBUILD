@@ -1,6 +1,6 @@
 # description	: GtkSourceView-based text editors and IDE helper library
-# depends	: glib gobject-introspection gtk3 libgedit-gtksourceview
-# depends	: libgedit-gfls icu gsettings-desktop-schemas libhandy
+# depends	: gtk3 libgedit-gtksourceview libgedit-gfls libhandy
+# depends	: gsettings-desktop-schemas 
 
 pkgname=libgedit-tepl
 pkgver=6.13.0

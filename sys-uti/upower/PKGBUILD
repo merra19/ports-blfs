@@ -1,9 +1,9 @@
 # description	: D-Bus abstraction for enumerating power devices, querying history and statistics
-# depends	: libgudev gobject-introspection meson glib dbus libxslt
+# depends	: libgudev libusb gobject-introspection glib libxslt
 # depends	: py3-gobject3 docbook-xsl-nons
 
 pkgname=upower
-pkgver=1.90.9
+pkgver=1.90.10
 pkgrel=1
 source=(https://gitlab.freedesktop.org/$pkgname/$pkgname/-/archive/v$pkgver/$pkgname-v$pkgver.tar.bz2
         rules)

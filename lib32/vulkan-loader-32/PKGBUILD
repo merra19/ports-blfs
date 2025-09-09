@@ -1,6 +1,5 @@
 # description	: Vulkan Installable Client Driver (ICD) Loader
-# depends	: cmake vulkan-headers wayland-32 libxrandr-32 libx11-32 
-# depends	: libxcb-32 vulkan-loader
+# depends	: wayland-32 xorg-libs-32 libxcb-32 vulkan-loader
 
 pkgname=vulkan-loader-32
 pkgver=1.4.321

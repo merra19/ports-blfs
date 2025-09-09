@@ -1,6 +1,5 @@
 # description	: "Actions, Menus and Toolbars Kit for GTK applications
-# depends	: glib gobject-introspection gtk3
-# depends	: 
+# depends	: gtk3
 
 pkgname=libgedit-amtk
 pkgver=5.9.1

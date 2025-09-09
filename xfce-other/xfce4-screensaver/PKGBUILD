@@ -1,6 +1,6 @@
 # description	: Screen saver and locker (port of MATE screensaver)
-# depends	: libxscrnsaver libxklavier libwnck3 garcon dbus-glib
-# depends	: python3 py3-gobject3 glib xfce4-dev-tools
+# depends	: xorg-libs libxklavier libwnck garcon dbus-glib python3
+# depends	: py3-gobject3 glib xfce4-dev-tools
 
 pkgname=xfce4-screensaver
 pkgver=4.20.1

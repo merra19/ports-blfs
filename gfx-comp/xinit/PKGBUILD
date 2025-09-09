@@ -1,5 +1,5 @@
 # description	: X Window System initializer
-# depends	: libx11 xauth xrdb
+# depends	: xorg-libs
 
 pkgname=xinit
 pkgver=1.4.4

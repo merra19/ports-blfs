@@ -1,5 +1,5 @@
 # description	: Generic-purpose lossless compression algorithm
-# depends	: python3 py3-wheel ninja brotli cmake
+# depends	: brotli
 
 pkgname=brotli-32
 _pkgname=brotli

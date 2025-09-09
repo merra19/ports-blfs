@@ -1,9 +1,8 @@
 # description	: A fast and easy-to-use tool for creating status bars
 # depends	: python3 xcb-proto libuv fontconfig freetype xorg-proto
-# depends	: cairo libxcb xcb-util xcb-util-cursor xcb-util-image
-# depends	: xcb-util-wm xcb-util-xrm alsa-lib curl libnl pulseaudio
-# depends	: wireplumber ttf-font-awesome ttf-nerd-fonts-symbols
-# depends	: cmake
+# depends	: cairo libxcb xcb-util xcb-utilities xcb-util-xrm curl
+# depends	: alsa-lib libnl pulseaudio ttf-nerd-fonts-symbols cmake
+# depends	: wireplumber ttf-font-awesome 
 
 pkgname=polybar
 pkgver=3.7.2

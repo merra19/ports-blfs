@@ -2,7 +2,7 @@
 # depends	: glib gtk3 cpio lzo unrar unzip zip 7zip intltool
 
 pkgname=xarchiver
-pkgver=0.5.4.25
+pkgver=0.5.4.26
 pkgrel=1
 source=(https://github.com/ib/xarchiver/archive/$pkgver/$pkgname-$pkgver.tar.gz)
 

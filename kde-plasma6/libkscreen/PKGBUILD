@@ -1,6 +1,5 @@
-# description	: Plasma screen management library
-# depends	: kconfig plasma-wayland-protocols qt6-base qt6-tools 
-# depends	: qt6-wayland libxcb wayland extra-cmake-modules
+# description	: KDE Plasma
+# depends	: kdecoration
 
 pkgname=libkscreen
 pkgver=6.4.4
@@ -14,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build

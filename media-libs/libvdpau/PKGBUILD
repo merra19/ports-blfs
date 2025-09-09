@@ -1,5 +1,5 @@
 # description	: VDPAU wrapper and trace libraries
-# depends	: meson libx11 libxext xorg-proto
+# depends	: meson xorg-proto xorg-libs
 
 pkgname=libvdpau
 pkgver=1.5

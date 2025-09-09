@@ -1,0 +1,20 @@
+# description	: Retrieve information on running processes and system utilization
+# depends	: python3 py3-wheel py3-gpep517 py3-setuptools 
+# depends	: py3-flit-core
+
+pkgname=py3-psutil
+pkgver=7.0.0
+pkgrel=1
+source=(https://files.pythonhosted.org/packages/source/p/psutil/psutil-$pkgver.tar.gz)
+
+build() {
+    cd ${pkgname#*-}-$pkgver
+    
+    gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+package() {
+	cd ${pkgname#*-}-$pkgver
+
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}

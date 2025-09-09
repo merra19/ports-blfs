@@ -1,7 +1,6 @@
 # description	: File manager for the Xfce desktop environment
-# depends	: glib gdk-pixbuf gtk3 exo libxfce4ui libxfce4util xfconf 
-# depends	: libexif gobject-introspection libnotify pcre2 libgudev
-# depends	: xfce4-panel udisks2 gvfs 
+# depends	: exo hicolor-icon-theme libgudev libnotify pcre2 libexif  
+# depends	: tumbler gvfs 
 
 pkgname=thunar
 pkgver=4.20.4

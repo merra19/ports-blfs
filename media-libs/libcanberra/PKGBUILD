@@ -1,7 +1,7 @@
 # description	: Portable sound event library
-# depends	: libvorbis alsa-lib udev pulseaudio wireplumber 
-# depends	: sound-theme-freedesktop glib libx11 gstreamer
-# optional	: gtk3
+# depends	: libvorbis alsa-lib udev pulseaudio wireplumber gtk3
+# depends	: sound-theme-freedesktop
+# optional  : gstreamer
 
 pkgname=libcanberra
 pkgver=0.30

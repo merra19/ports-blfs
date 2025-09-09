@@ -41,7 +41,7 @@ package() {
 
     mkdir -p "$pkgdir"/etc/pam.d
 
-    make DESTDIR="$pkgdir" exec_prefix=/usr  install
+    make DESTDIR="$pkgdir" exec_prefix=/usr pamddir= install
     make -C man DESTDIR="$pkgdir" install-man
 
 

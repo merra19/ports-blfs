@@ -1,5 +1,5 @@
 # description	: Notification daemon
-# depends	: glib gtk3 dbus libx11
+# depends	: glib libcanberra gtk3 xorg-libs
 
 pkgname=notification-daemon
 pkgver=3.20.0

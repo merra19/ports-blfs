@@ -1,7 +1,6 @@
 # description	: Notification daemon for the Xfce desktop environment
-# depends	: sqlite glib dbus gtk3 wayland libnotify libxfce4ui
-# depends	: libxfce4util xfce4-panel xfconf libcanberra intltool
-# depends	: gtk-layer-shell libx11
+# depends	: sqlite libnotify libxfce4ui xfce4-panel libcanberra
+# depends	: xfce4-dev-tools intltool
 
 pkgname=xfce4-notifyd
 pkgver=0.9.7

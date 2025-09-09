@@ -1,5 +1,5 @@
 # description	: Image loading library for GTK+
-# depends	: glib libpng libtiff libjpeg-turbo shared-mime-info 
+# depends	: glib libpng libtiff libjpeg-turbo shared-mime-info
 # depends	: gobject-introspection
 
 pkgname=gdk-pixbuf

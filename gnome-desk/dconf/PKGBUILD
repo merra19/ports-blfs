@@ -1,5 +1,5 @@
 # description	: Simple low-level configuration system
-# depends	: glib docbook-xml libxslt gettext pkgconf dbus
+# depends	: glib docbook-xml libxslt gettext pkgconf dbus vala
 
 pkgname=dconf
 pkgver=0.40.0

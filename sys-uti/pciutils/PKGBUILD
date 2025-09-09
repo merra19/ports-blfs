@@ -1,5 +1,5 @@
 # description	: Various utilities dealing with the PCI bus
-# depends	: wget which kmod hwdata
+# depends	: which kmod hwdata
 
 pkgname=pciutils
 pkgver=3.14.0

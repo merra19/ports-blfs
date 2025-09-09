@@ -1,5 +1,5 @@
 # description	: Replacement for pipewire-media-session
-# depends	: pipewire glib elogind lua
+# depends	: pipewire glib elogind lua py3-lxml
 
 pkgname=wireplumber
 pkgver=0.5.10

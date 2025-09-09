@@ -1,0 +1,25 @@
+# description	: C library implementing the OAuth secure authentication protocol
+# depends	: curl nss openssl
+pkgname=liboauth
+pkgver=1.0.3
+pkgrel=1
+source=(https://downloads.sourceforge.net/liboauth/$pkgname-$pkgver.tar.gz
+        https://www.linuxfromscratch.org/patches/blfs/svn/liboauth-1.0.3-openssl-1.1.0-3.patch)
+
+build() {
+	cd $pkgname-$pkgver
+
+    patch -Np1 -i ../liboauth-1.0.3-openssl-1.1.0-3.patch
+
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --enable-nss
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

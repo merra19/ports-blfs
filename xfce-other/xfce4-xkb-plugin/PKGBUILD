@@ -1,5 +1,5 @@
 # description	: XKB layout switching panel plug-in for the Xfce desktop environment
-# depends	: xfce4-panel libxklavier librsvg libwnck3 libnotify meson
+# depends	: xfce4-panel libxklavier librsvg libwnck libnotify meson
 # depends	: xfce4-dev-tools xfce4-notifyd
 
 pkgname=xfce4-xkb-plugin

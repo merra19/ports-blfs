@@ -1,5 +1,5 @@
 # description	: Library for identifying Wacom tablets and their model-specific features
-# depends	: glibc glib libevdev libgudev meson
+# depends	: glibc glib libevdev libgudev meson libxml2 librsvg
 
 pkgname=libwacom
 pkgver=2.16.1

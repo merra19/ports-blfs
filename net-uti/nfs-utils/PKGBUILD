@@ -1,6 +1,7 @@
 # description	: NFS client and server daemons
 # depends	: libevent libnl libtirpc libxml2 rpcsvc-proto sqlite
-# depends	: libnsl lvm2 krb5 openldap libcap rpcbind
+# depends	: libnsl lvm2 libcap pam rpcbind
+# optional	: krb5 openldap
 
 pkgname=nfs-utils
 pkgver=2.8.3

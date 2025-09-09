@@ -1,5 +1,5 @@
 # description	: The RDF Parser Toolkit
-# depends	: libxml2 libxslt icu curl zlib bison flex 
+# depends	: libxslt icu curl zlib bison flex 
 
 pkgname=raptor
 _pkgname=raptor2

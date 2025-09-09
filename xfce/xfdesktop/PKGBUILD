@@ -1,7 +1,6 @@
 # description	: Desktop manager for the Xfce desktop environment
-# depends	: cairo glib gtk3 libwnck3 libx11 exo garcon libxfce4ui 
-# depends	: libxfce4util xfconf gettext pkgconf intltool libnotify 
-# depends	: thunar libxfce4windowing
+# depends	: libwnck exo garcon libxfce4windowing libnotify thunar
+# depends	: gettext pkgconf intltool startup-notification
 
 pkgname=xfdesktop
 pkgver=4.20.1

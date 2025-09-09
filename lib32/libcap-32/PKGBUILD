@@ -1,5 +1,5 @@
 # description	: POSIX 1003.1e capabilities
-# depends	: diffutils pam-32 libcap
+# depends	: pam-32 libcap
 
 pkgname=libcap-32
 _pkgname=libcap

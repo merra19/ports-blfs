@@ -1,5 +1,5 @@
 # description	: Public Key Infrastructure (PKI)
-# depends	: p11-kit nss
+# depends	: p11-kit nss libtasn1
 
 pkgname=make-ca
 pkgver=1.16.1

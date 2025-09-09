@@ -1,5 +1,5 @@
 # description	: Qt-based client-side and server-side SOAP component
-# depends	: qt6-base boost cmake
+# depends	: qt6
 
 pkgname=kdsoap
 pkgver=2.2.0

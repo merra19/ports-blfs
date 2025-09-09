@@ -1,8 +1,8 @@
 # description	: Daemon providing interfaces to work with storage devices
 # depends	: libatasmart libblockdev libgudev glib libxslt polkit 
-# depends	: gobject-introspection udev parted lvm2 util-linux
+# depends	: gobject-introspection udev lvm2 util-linux dbus
 # depends	: linux-api-headers acl btrfs-progs dosfstools gptfdisk 
-# depends	: mdadm 
+# depends	: mdadm elogind
 
 pkgname=udisks2
 _pkgname=udisks

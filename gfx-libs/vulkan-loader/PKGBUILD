@@ -1,5 +1,5 @@
 # description	: Vulkan Installable Client Driver (ICD) Loader
-# depends	: cmake vulkan-headers wayland libxrandr libx11 libxcb
+# depends	: cmake vulkan-headers wayland libxcb xorg-libs
 
 pkgname=vulkan-loader
 pkgver=1.4.321

@@ -1,5 +1,5 @@
 # description	: Text formatter used for man pages
-# depends	: perl texinfo libice libsm libx11 libxaw libxmu libxt
+# depends	: perl texinfo xorg-libs
 
 pkgname=groff
 pkgver=1.23.0

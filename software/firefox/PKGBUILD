@@ -1,13 +1,9 @@
 # description	: Firefox Web Browser
-# depends	: pulseaudio at-spi2-core glib alsa-lib fontconfig dbus
-# depends	: freetype cairo libx11 libxcomposite libxcursor libxcb
-# depends	: libxdamage libxext libxfixes libxi libxrandr libxrender
-# depends	: pango gtk3 gdk-pixbuf shared-mime-info breeze-icons
-# depends	: adwaita-icon-theme patchelf alsa-plugins bash ffmpeg lld
-# depends	: hicolor-icon-theme libxscrnsaver llvm mesa nasm libxt
-# depends	: nspr nss cbindgen diffutils nodejs yasm python3 rustc
-# depends	: unzip zip xorg-server libnotify networkmanager libproxy
-# depends	: xdg-desktop-portal
+# depends	: pulseaudio alsa-lib bash gtk3 ffmpeg lld llvm nasm
+# depends	: libarchive startup-notification libevent libvpx libxcb
+# depends	: libwebp icu curl geoclue pciutils wget liboauth python3
+# depends	: nss cbindgen diffutils nodejs yasm libnotify libproxy
+# depends	: wireless_tools sqlite xorg-libs 
 
 pkgname=firefox
 pkgver=140.2.0
@@ -112,6 +108,13 @@ ac_add_options --without-wasm-sandboxed-libraries
 unset MOZ_TELEMETRY_REPORTING
 
 mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/firefox-build-dir
+
+# By default firefox will attempt to use the window class firefox-default on
+# launch. This makes the icon not work properly because wayland does not
+# support the X11 property  class header. Change the remoting name to fix this.
+# This is also reflected in the .desktop file where StartupWMClass is set to
+# firefox.
+MOZ_APP_REMOTINGNAME=firefox
 END
 }
 

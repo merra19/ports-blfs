@@ -1,6 +1,5 @@
 # description	: Libraries/utilities to handle ELF objects (drop in replacement for libelf)
-# depends	: zlib-32 bzip2-32 flex m4 elfutils libarchive-32 curl-32
-# depends	: json-c-32 xz-32 zstd-32
+# depends	: zlib-32 xz-32 bzip2-32 zstd-32 elfutils
 
 pkgname=elfutils-32
 _pkgname=elfutils

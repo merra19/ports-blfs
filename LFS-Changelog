@@ -1,6 +1,14 @@
- Version r12.3-117 
+ Version r12.4-15 
  
-2025-09-01
+    2025-09-03
 
-    [bdubbs] - LFS-12.4 released.
+        [bdubbs] - Add the sqlite-3.50.4 package. Fixes #5784.
+
+        [bdubbs] - Add the pcre2-10.45 package. Fixes #5782.
+
+        [bdubbs] - Add a description on how to use a kernel base+patch in Chapter 3. Fixes #5785.
+
+    2025-09-01
+
+        [bdubbs] - LFS-12.4 released.
 

@@ -1,11 +1,5 @@
-# description	: Plasma library and runtime components based upon KF6 and Qt6
-# depends	: karchive kcmutils kconfig kconfigwidgets ki18n
-# depends	: kcoreaddons kglobalaccel kguiaddons kiconthemes kio 
-# depends	: kirigami knotifications kpackage ksvg wayland
-# depends	: kwidgetsaddons kwindowsystem plasma-activities 
-# depends	: libglvnd libx11 libxcb qt6-5compat qt6-base xorg-proto 
-# depends	: qt6-declarative qt6-wayland plasma-wayland-protocols
-# depends	: extra-cmake-modules kdoctools
+# description	: KDE Plasma
+# depends	: layer-shell-qt
 
 pkgname=libplasma
 pkgver=6.4.4
@@ -19,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
@@ -28,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

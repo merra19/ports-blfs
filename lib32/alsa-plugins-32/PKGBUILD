@@ -1,6 +1,6 @@
 # description	: Advanced Linux Sound Architecture Library
-# depends	: alsa-lib-32 ffmpeg libsamplerate-32 pulseaudio-32 speex
-# depends	: speexdsp-32 alsa-plugins dbus-32 
+# depends	: alsa-lib-32 libsamplerate-32 pulseaudio-32 speex-32
+# depends	: speexdsp-32 alsa-plugins 
 
 pkgname=alsa-plugins-32
 _pkgname=alsa-plugins

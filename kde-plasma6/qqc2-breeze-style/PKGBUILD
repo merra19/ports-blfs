@@ -1,7 +1,5 @@
-# description	: Breeze inspired QQC2 Style
-# depends	: kcolorscheme kconfig kcoreaddons kguiaddons 
-# depends	: kiconthemes kirigami kquickcharts qt6-base 
-# depends	: qt6-declarative extra-cmake-modules
+# description	: KDE Plasma
+# depends	: plasma-systemmonitor
 
 pkgname=qqc2-breeze-style
 pkgver=6.4.4
@@ -15,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
@@ -24,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

@@ -1,6 +1,6 @@
 # description	: The systemd project's logind, extracted to a standalone package
 # depends	: pam docbook-xml libxslt py3-lxml py3-jinja gperf acl
-# depends	: util-linux libcap udev
+# depends	: util-linux libcap udev dbus docbook-xsl-nons
 
 pkgname=elogind
 pkgver=255.17

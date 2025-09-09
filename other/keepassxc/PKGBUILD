@@ -1,6 +1,6 @@
 # description	: KeePassXC - KeePass Cross-platform Community Editio
 # depends	: glibc argon2 botan qt5 libqrencode zlib zlib-minizip
-# depends	: hicolor-icon-theme libusb pcsclite asciidoctor cmake
+# depends	: hicolor-icon-theme libusb asciidoctor cmake
 
 pkgname=keepassxc
 pkgver=2.7.10
@@ -16,9 +16,13 @@ build() {
         -D CMAKE_BUILD_TYPE=Release \
         -D CMAKE_INSTALL_LIBDIR=lib \
         -D KEEPASSXC_BUILD_TYPE=Release \
-        -D WITH_XC_ALL=ON \
+        -D WITH_XC_BROWSER=ON \
+        -D WITH_XC_BROWSER_PASSKEYS=ON \
+        -D WITH_XC_SSHAGENT=ON \
+        -D WITH_XC_FDOSECRETS=ON \
         -D WITH_GUI_TESTS=ON \
-        -D WITH_XC_UPDATECHECK=OFF
+        -D WITH_XC_UPDATECHECK=OFF \
+        -D WITH_XC_YUBIKEY=OFF
     ninja -C build
 }
 

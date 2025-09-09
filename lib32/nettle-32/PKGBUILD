@@ -1,5 +1,5 @@
 # description	: Low-level cryptographic library
-# depends	: libgmp-32 m4 nettle
+# depends	: libgmp-32 nettle
 
 pkgname=nettle-32
 _pkgname=nettle

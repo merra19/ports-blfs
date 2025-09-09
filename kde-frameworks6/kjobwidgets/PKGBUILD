@@ -1,6 +1,5 @@
-# description	: Framework providing assorted widgets for showing the progress of jobs
-# depends	: qt6-base qt6-tools extra-cmake-modules llvm libx11 
-# depends	: xorg-proto kcoreaddons knotifications kwidgetsaddons
+# description	: KDE Framework
+# depends	: knotifications
 
 pkgname=kjobwidgets
 pkgver=6.17.0
@@ -26,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

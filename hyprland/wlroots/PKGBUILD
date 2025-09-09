@@ -1,9 +1,8 @@
 # description	: Pluggable, composable, unopinionated modules for building a Wayland compositor
 # depends	: wayland libglvnd mesa libdrm libxkbcommon pixman lcms2
 # depends	: libdisplay-info hwdata libliftoff libinput glslang 
-# depends	: vulkan-headers vulkan-loader libxcb xcb-util-renderutil 
-# depends	: xcb-util-wm xwayland udev wayland-protocols
-# depends	: seatd xcb-util-errors 
+# depends	: vulkan-headers vulkan-loader libxcb xcb-utilities
+# depends	: xwayland udev wayland-protocols seatd xcb-util-errors
 
 pkgname=wlroots
 pkgver=0.19.0

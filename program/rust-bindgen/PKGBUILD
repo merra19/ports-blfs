@@ -1,11 +1,11 @@
 # description	: Automatically generates Rust FFI bindings to C and C++ libraries
-# depends	: rustc
+# depends	: rustc llvm
 
 pkgname=rust-bindgen
-pkgver=0.72.0
+pkgver=0.72.1
 pkgrel=1
 options=(!lto)
-source=(https://github.com/rust-lang/rust-bindgen/archive/v$pkgver/$pkgname-$pkgver.tar.gz
+source=(https://github.com/rust-lang/rust-bindgen/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz
         local://rust-bindgen-$pkgver-cargo.tar.xz)
 
 
@@ -14,6 +14,7 @@ createpack() {
     cargo vendor vendor
     tar -cJpf $pkgname-$pkgver-cargo.tar.xz vendor/
     cp $pkgname-$pkgver-cargo.tar.xz /sources/src/
+    xxxxxxxx
 }
 
 build() {

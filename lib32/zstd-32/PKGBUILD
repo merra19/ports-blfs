@@ -1,5 +1,5 @@
 # description	: zstd fast compression library
-# depends	: glibc zlib-32 zstd
+# depends	: zlib-32 zstd
 
 pkgname=zstd-32
 _pkgname=zstd

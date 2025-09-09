@@ -1,19 +1,20 @@
-version 12.4
+Current release: r12.4-65 – September 6th, 2025 
 
-September 1st, 2025
 
-    [bdubbs] - Release of BLFS-12.4.
 
-August 31st, 2025
+September 8th, 2025
 
-    [renodr] - Fix building Guile on 32-bit systems.
+    [bdubbs] - Update to audacious and audacious-plugins 4.5.1. Fixes #22070.
 
-    [renodr] - Update to krb5-1.22.1 (Security Update). Fixes #22015.
+    [bdubbs] - Update to libXScrnSaver-1.2.5 libXpresent-1.0.2 libXres-1.2.3 (Xorg libs). Fixes #22069.
 
-    [renodr] - Update to Qt6 and QtWebEngine 6.9.2 (Security Update). Fixes #22025.
+    [bdubbs] - Update to freetype-2.14.0. Fixes #22067.
 
-    [renodr] - Update to udisks2-2.10.2 (Security Update). Fixes #22029.
 
-    [renodr] - Update to libreoffice-25.8.1.1. Fixes #22039.
+
+
+
+
+note: ffmpeg-8.0 not updated , incompability with xine-lib,opencv
 
 

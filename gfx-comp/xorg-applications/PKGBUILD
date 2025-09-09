@@ -1,0 +1,77 @@
+# description	: Xorg applications
+# depends	: libpng mesa xbitmaps xcb-util pam
+
+pkgname=xorg-applications
+pkgver=1.0.0
+pkgrel=1
+source=()
+noextract=(
+    iceauth-1.0.10.tar.xz
+    mkfontscale-1.2.3.tar.xz
+    sessreg-1.1.4.tar.xz
+    setxkbmap-1.3.4.tar.xz
+    smproxy-1.0.8.tar.xz
+    xauth-1.1.4.tar.xz
+    xcmsdb-1.0.7.tar.xz
+    xcursorgen-1.0.9.tar.xz
+    xdpyinfo-1.4.0.tar.xz
+    xdriinfo-1.0.8.tar.xz
+    xev-1.2.6.tar.xz
+    xgamma-1.0.8.tar.xz
+    xhost-1.0.10.tar.xz
+    xinput-1.6.4.tar.xz
+    xkbcomp-1.4.7.tar.xz
+    xkbevd-1.1.6.tar.xz
+    xkbutils-1.0.6.tar.xz
+    xkill-1.0.6.tar.xz
+    xlsatoms-1.1.4.tar.xz
+    xlsclients-1.1.5.tar.xz
+    xmessage-1.0.7.tar.xz
+    xmodmap-1.0.11.tar.xz
+    xpr-1.2.0.tar.xz
+    xprop-1.2.8.tar.xz
+    xrandr-1.5.3.tar.xz
+    xrdb-1.2.2.tar.xz
+    xrefresh-1.1.0.tar.xz
+    xset-1.2.5.tar.xz
+    xsetroot-1.1.3.tar.xz
+    xvinfo-1.1.5.tar.xz
+    xwd-1.0.9.tar.xz
+    xwininfo-1.1.6.tar.xz
+    xwud-1.0.7.tar.xz
+)
+
+for listsrc in ${noextract[@]};do
+    source=(${source[@]} https://www.x.org/pub/individual/app/$listsrc)
+done
+
+
+package() {
+    export XORG_PREFIX=/usr
+    export XORG_CONFIG="--prefix=$XORG_PREFIX --sysconfdir=/etc \
+    --localstatedir=/var --disable-static"
+
+    export PKG_CONFIG_PATH="$pkgdir/usr/lib/pkgconfig:$pkgdir/usr/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig"
+    export PKG_CONFIG_LIBDIR="$pkgdir/usr/lib/pkgconfig:$pkgdir/usr/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig"
+
+    export CFLAGS="$CFLAGS -L$pkgdir/usr/lib -I$pkgdir/usr/include"
+
+    for packagex in ${noextract[@]}
+    do
+        packagedir=${packagex%.tar.?z*}
+        tar -xf $packagex
+
+        docdir="--docdir=$XORG_PREFIX/share/doc/$packagedir"
+
+        pushd $packagedir
+
+        ./configure $XORG_CONFIG
+        LD_LIBRARY_PATH="$pkgdir/usr/lib" make
+        make DESTDIR="$pkgdir" install
+        #find "$pkgdir" ! -type d -name "*.la" -delete
+        popd
+        rm -rf $packagedir
+    done
+
+    rm -f "$pkgdir$XORG_PREFIX"/bin/xkeystone
+}

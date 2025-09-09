@@ -1,6 +1,6 @@
 # description	: The GLib library of C routines
-# depends	: docbook-xml meson libxslt pcre2 py3-packaging libffi
-# depends	: zlib util-linux attr elfutils
+# depends	: docbook-xml docbook-xsl-nons meson libxslt pcre2 libffi
+# depends	: py3-packaging zlib util-linux attr elfutils
 
 pkgname=glib
 pkgver=2.84.4
@@ -21,7 +21,6 @@ build() {
 	if [ -n "$FAKEROOTKEY" ]; then
         PATHFAKEROOT=/usr/lib/libfakeroot:/usr/lib32/libfakeroot
 	fi
-
 
     local _prefix="$PWD/boostrap-glib"
 

@@ -1,5 +1,5 @@
 # description	: Extended crypt library for descrypt, md5crypt, bcrypt, and others
-# depends	: glibc perl libxcrypt gcc
+# depends	: libxcrypt
 
 pkgname=libxcrypt-32
 _pkgname=libxcrypt

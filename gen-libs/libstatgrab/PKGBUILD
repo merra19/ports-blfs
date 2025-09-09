@@ -1,5 +1,6 @@
 # description	: A tool to provide access to statistics about the system on which it's run
 # depends	: glibc ncurses
+# todo      : log4cplus
 
 pkgname=libstatgrab
 pkgver=0.92.1

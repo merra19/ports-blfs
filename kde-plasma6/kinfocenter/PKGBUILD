@@ -1,7 +1,5 @@
-# description	: Utility providing information about the computer hardware
-# depends	: kauth kcmutils kconfig kcoreaddons ki18n kio cmake
-# depends	: kservice solid mesa kdoctools qt6-base kirigami
-# depends	: qt6-declarative systemsettings libusb
+# description	: KDE Plasma
+# depends	: kscreenlocker
 
 pkgname=kinfocenter
 pkgver=6.4.4
@@ -15,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
@@ -24,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

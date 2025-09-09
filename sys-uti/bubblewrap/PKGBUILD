@@ -1,5 +1,5 @@
 # description	: Unprivileged sandboxing tool, namespaces-powered chroot-like solution
-# depends	: libseccomp libcap
+# depends	: libseccomp libcap libxslt
 
 pkgname=bubblewrap
 pkgver=0.11.0

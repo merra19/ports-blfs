@@ -1,5 +1,5 @@
 # description	: IEEE 802.1X/WPA supplicant for secure wireless transfers
-# depends	: libnl dbus openssl ncurses readline desktop-file-utils
+# depends	: libnl dbus openssl ncurses readline libxml2
 
 pkgname=wpa_supplicant
 pkgver=2.11

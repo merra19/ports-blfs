@@ -1,6 +1,5 @@
-# description	: ModemManager bindings for Qt
-# depends	: dbus qt6-base qt6-tools extra-cmake-modules
-# depends	:  modemmanager
+# description	: KDE Framework
+# depends	: ktexteditor
 
 pkgname=modemmanager-qt
 pkgver=6.17.0
@@ -17,6 +16,7 @@ build() {
         -D CMAKE_SKIP_INSTALL_RPATH=ON  \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_TESTING=OFF \
+        -D BUILD_PYTHON_BINDINGS=OFF \
         -Wno-dev
     make -C build
 }
@@ -25,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

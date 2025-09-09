@@ -1,9 +1,9 @@
 # description	: Highly customizable Wayland bar for Sway and Wlroots based compositors
-# depends	: atkmm cairomm fmt glib glibc glibmm gtk-layer-shell gtk3
-# depends	: gtkmm jsoncpp libnl pipewire pulseaudio libsigc++ meson
-# depends	: spdlog udev upower wireplumber libxkbcommon wayland
+# depends	: atkmm-2.28 cairomm fmt glib glibc glibmm-2.66 jsoncpp
+# depends	: gtkmm-3.24 libnl pipewire pulseaudio libsigc++-2 meson
+# depends	: spdlog udev upower wireplumber libxkbcommon wayland gtk3
 # depends	: playerctl cmake wayland-protocols ttf-font-awesome
-# depends	: libdbusmenu libevdev libinput 
+# depends	: libdbusmenu libevdev libinput gtk-layer-shell
 
 pkgname=waybar
 pkgver=0.12.0

@@ -1,7 +1,7 @@
 # description	: System service to accurately color manage input and output devices
 # depends	: glib lcms2 sqlite dbus polkit gobject-introspection 
-# depends	: docbook-xml vala libgusb libgudev udev docbook-xsl-ns
-# depends	: libxslt
+# depends	: docbook-xml vala libgusb libgudev udev libxslt
+# depends	: elogind docbook-xsl-ns
 
 pkgname=colord
 pkgver=1.4.8

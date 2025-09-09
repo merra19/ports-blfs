@@ -1,7 +1,5 @@
-# description	: Power Manager for Xfce
-# depends	: hicolor-icon-theme libnotify libxfce4ui upower glib
-# depends	: xfce4-notifyd wayland-protocols xfce4-dev-tools
-# depends	: xfce4-panel polkit
+# description	: Power Manager for Xfcn
+# depends	: libnotify upower xfce4-panel polkit networkmanager
 
 pkgname=xfce4-power-manager
 pkgver=4.20.0

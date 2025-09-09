@@ -1,5 +1,5 @@
 # description	: Library for manipulating Unicode and C strings according to Unicode standard
-# depends	: glibc libunistring
+# depends	: libunistring
 
 pkgname=libunistring-32
 _pkgname=libunistring

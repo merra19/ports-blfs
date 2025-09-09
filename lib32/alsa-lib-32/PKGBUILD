@@ -1,5 +1,5 @@
 # description	: Advanced Linux Sound Architecture Library
-# depends	: alsa-ucm-conf alsa-topology-conf alsa-lib
+# depends	: elogind-32 alsa-lib
 
 pkgname=alsa-lib-32
 _pkgname=alsa-lib

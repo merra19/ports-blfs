@@ -1,7 +1,6 @@
 # description	: Windowing concept abstraction library for X11 and Wayland for Xfce
-# depends	: glib gobject-introspection gtk3 gdk-pixbuf libwnck3
-# depends	: libdisplay-info libx11 libxrandr wayland-protocols 
-# depends	: xfce4-dev-tools perl gettext pkgconf
+# depends	: gtk3 libwnck libdisplay-info gettext xfce4-dev-tools
+# depends	: wayland-protocols perl pkgconf
 
 pkgname=libxfce4windowing
 pkgver=4.20.4

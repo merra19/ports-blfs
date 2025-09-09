@@ -1,8 +1,8 @@
 # description	: A text editor for the GNOME desktop
-# depends	: glib gobject-introspection gtk3 libgedit-amtk libpeas
-# depends	: libgedit-tepl gspell py3-cairo py3-gobject3
-# depends	: libgedit-gtksourceview adwaita-icon-theme gvfs itstool
-# depends	: gsettings-desktop-schemas vala
+# depends	: gtk3 libgedit-amtk libpeas libgedit-tepl gspell itstool
+# depends	: libxml2 libhandy py3-gobject3 libgedit-gtksourceview
+# depends	: adwaita-icon-theme gvfs iso-codes vala
+# depends	: gsettings-desktop-schemas
 
 pkgname=gedit
 pkgver=48.1

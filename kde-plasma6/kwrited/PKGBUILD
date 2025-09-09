@@ -1,6 +1,5 @@
-# description	: KDE Plasma daemon listening for wall and write messages
-# depends	: kcoreaddons kdbusaddons ki18n knotifications kpty cmake
-# depends	: qt6-base kdoctools
+# description	: KDE Plasma
+# depends	: kwallet-pam
 
 pkgname=kwrited
 pkgver=6.4.4
@@ -14,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build
@@ -23,4 +23,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

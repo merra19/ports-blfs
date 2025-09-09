@@ -1,7 +1,7 @@
 # description	: Intelligent Input Bus for Linux / Unix OS
-# depends	: iso-codes glib dconf librsvg dbus libx11 libxfixes gtk3 
-# depends	: libxi gobject-introspection libnotify wayland vala gtk4
-# depends	: libxkbcommon xkeyboard-config py3-gobject3 
+# depends	: iso-codes glib dconf gtk3 wayland vala libxkbcommon
+# depends	: gobject-introspection libnotify gtk4 py3-gobject3
+# depends	: py3-dbus libarchive
 # optional	: appindicator!!libdbusmenu
 
 pkgname=ibus

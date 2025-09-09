@@ -1,7 +1,10 @@
 # description	: Configuration for KDE frameworks
-# depends	: pam elogind dbus polkit udisks2 cups 
-# depends	: extra-cmake-modules 
-# optional	: colord
+# depends	: extra-cmake-modules breeze-icons docbook-xml libical
+# depends	: docbook-xsl-nons libcanberra libgcrypt libxslt lmdb
+# depends	: qca libqrencode plasma-wayland-protocols py3-yaml avahi
+# depends	: shared-mime-info perl-uri curl aspell modemmanager bluez
+# depends	: networkmanager polkit-qt vulkan-loader zxing-cpp gpgmepp
+# depends	: noto-fonts libavif libjxl libraw udisks2 upower
 
 pkgname=kde-pre-conf
 pkgver=6.0.0

@@ -1,11 +1,10 @@
 # description	:  Micro-compositor formerly known as steamcompgr
-# depends	: wlroots sdl2 pipewire libx11 libxcomposite libxcursor
-# depends	: libxdamage libdrm libxext libxfixes libxi libxkbcommon
-# depends	: libxmu libxrender libxres libxtst libxxf86vm wayland-protocols 
+# depends	: wlroots sdl2 pipewire xorg-libs libdrm libxkbcommon
 # depends	: glslang vulkan-headers udev seatd luajit wayland glm
 # depends	: libdisplay-info vulkan-loader hwdata libcap stb libxcb
 # depends	: libei libavif libinput libglvnd mesa xwayland pixman
-# depends	: xcb-util-wm spirv-headers libdecor git
+# depends	: xcb-utilities spirv-headers libdecor git
+# depends	: wayland-protocols 
 
 pkgname=gamescope
 pkgver=3.16.14

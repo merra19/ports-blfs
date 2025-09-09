@@ -3,7 +3,7 @@
 # depends	: py3-cython
 
 pkgname=py3-lxml
-pkgver=6.0.0
+pkgver=6.0.1
 pkgrel=1
 options=(!lto)
 source=(https://files.pythonhosted.org/packages/source/l/lxml/lxml-$pkgver.tar.gz)

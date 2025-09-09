@@ -1,5 +1,5 @@
 # description	: Extra modules and scripts for CMake
-# depends	: bzip2 libarchive cmake ninja qt6-base qt6-tools
+# depends	: bzip2 cmake ninja qt6
 
 pkgname=extra-cmake-modules
 pkgver=6.17.0

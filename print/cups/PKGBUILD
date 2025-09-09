@@ -1,6 +1,7 @@
 # description	: The Common Unix Printing System
 # depends	: libpaper zlib linux-api-headers acl attr dbus pam 
-# depends	: openssl libusb avahi
+# depends	: openssl libusb avahi colord xdg-utils gnutls
+# optional  : php
 
 pkgname=cups
 pkgver=2.4.12

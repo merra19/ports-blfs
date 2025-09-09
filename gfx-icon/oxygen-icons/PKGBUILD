@@ -1,5 +1,5 @@
 # description	: Oxygen SVG icon theme
-# depends	: extra-cmake-modules qt6-base
+# depends	: extra-cmake-modules qt6
 
 pkgname=oxygen-icons
 pkgver=6.0.0

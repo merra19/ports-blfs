@@ -1,0 +1,25 @@
+# description	: Driver for Wacom tablets and drawing devices
+# depends	: xorg-server
+
+pkgname=xf86-input-wacom
+pkgver=1.10.0
+pkgrel=2
+source=(https://www.x.org/pub/individual/driver/$pkgname-$pkgver.tar.xz)
+
+ build() {
+    cd $pkgname-$pkgver
+
+    ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --with-systemd-unit-dir=no
+    make
+}
+
+package() {
+    cd $pkgname-$pkgver
+
+    make DESTDIR="$pkgdir" install
+}

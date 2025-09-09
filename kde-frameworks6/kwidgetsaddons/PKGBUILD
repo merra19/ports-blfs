@@ -1,5 +1,5 @@
-# description	: An assortment of high-level widgets for common tasks
-# depends	: qt6-base qt6-tools extra-cmake-modules llvm
+# description	: KDE Framework
+# depends	: kplotting
 
 pkgname=kwidgetsaddons
 pkgver=6.17.0
@@ -25,4 +25,6 @@ package() {
     cd $pkgname-$pkgver
 
     make DESTDIR="$pkgdir" -C build install
+
+    rm -rf "$pkgdir"/usr/lib/systemd
 }

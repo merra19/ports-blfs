@@ -1,7 +1,5 @@
-# description	: Daemon providing Global Keyboard Shortcut (Accelerator) functionality
-# depends	: kconfig kcoreaddons kcrash kdbusaddons kglobalaccel 
-# depends	: kio kjobwidgets knotifications kservice libxcb cmake
-# depends	: kwindowsystem qt6-base xcb-util-keysyms
+# description	: KDE Plasma
+# depends	: kinfocenter
 
 pkgname=kglobalacceld
 pkgver=6.4.4
@@ -15,6 +13,7 @@ build() {
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
         -D CMAKE_BUILD_TYPE=Release \
+        -D BUILD_QT5=OFF \
         -D BUILD_TESTING=OFF \
         -Wno-dev
     make -C build

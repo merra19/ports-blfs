@@ -1,5 +1,5 @@
 # description	: Low-level pixel manipulation routines
-# depends	: glibc libpng-32 pixman
+# depends	: libpng-32 pixman
 
 pkgname=pixman-32
 _pkgname=pixman

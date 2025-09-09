@@ -1,5 +1,5 @@
 # description	: Building blocks for modern adaptive GNOME apps
-# depends	: glib gobject-introspection gtk3 libxml2 vala
+# depends	: gtk3 vala
 
 pkgname=libhandy
 pkgver=1.8.3

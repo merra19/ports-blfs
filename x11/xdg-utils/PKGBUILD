@@ -1,6 +1,6 @@
 # description	: Portland utils for cross-platform/cross-toolkit/cross-desktop interoperability
-# depends	: xmlto lynx xprop xset dbus desktop-file-utils gawk
-# depends	: shared-mime-info
+# depends	: xmlto lynx dbus desktop-file-utils gawk shared-mime-info
+# depends	: xorg-applications
 
 pkgname=xdg-utils
 pkgver=1.2.1
