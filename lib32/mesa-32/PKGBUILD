@@ -6,7 +6,7 @@
 
 pkgname=mesa-32
 _pkgname=mesa
-pkgver=25.1.8
+pkgver=25.2.2
 pkgrel=1
 options=(!lto)
 source=(https://mesa.freedesktop.org/archive/${_pkgname}-$pkgver.tar.xz
@@ -24,25 +24,14 @@ build() {
         --libdir=/usr/lib32 \
         --buildtype=plain \
         --cross-file lib32 \
-        -D android-libbacktrace=disabled \
-        -D b_ndebug=true \
-        -D gallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,llvmpipe,softpipe,iris,crocus,i915,zink \
-        -D gallium-extra-hud=true \
-        -D gallium-nine=true \
-        -D gallium-opencl=icd \
-        -D gallium-rusticl=true \
-        -D gles1=disabled \
-        -D glx=dri \
-        -D intel-clc=enabled \
-        -D libunwind=disabled \
-        -D microsoft-clc=disabled \
-        -D osmesa=true \
-        -D platforms=x11,wayland \
-        -D valgrind=disabled \
-        -D video-codecs=all \
-        -D vulkan-drivers=amd,intel,intel_hasvk,nouveau,swrast,virtio \
-        -D vulkan-layers=device-select,intel-nullhw,overlay,screenshot \
         -D glvnd=enabled \
+        -D platforms=x11,wayland \
+        -D gallium-drivers=auto \
+        -D vulkan-drivers=auto \
+        -D gles1=disabled \
+        -D video-codecs=all \
+        -D valgrind=disabled \
+        -D libunwind=disabled \
         build32
     ninja -C build32
     DESTDIR=$PWD/DESTDIR ninja install -C build32

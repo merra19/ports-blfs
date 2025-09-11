@@ -2,7 +2,7 @@
 # depends	: ncurses xorg-libs luit ttf-dejavu
 
 pkgname=xterm
-pkgver=401
+pkgver=402
 pkgrel=1
 source=(http://invisible-mirror.net/archives/$pkgname/$pkgname-$pkgver.tgz)
 

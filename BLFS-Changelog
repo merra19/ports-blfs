@@ -2,19 +2,18 @@ Current release: r12.4-65 – September 6th, 2025
 
 
 
-September 8th, 2025
+September 9th, 2025
 
-    [bdubbs] - Update to audacious and audacious-plugins 4.5.1. Fixes #22070.
+    [bdubbs] - Update to gtk4-4.20.1. Fixes #22074.
 
-    [bdubbs] - Update to libXScrnSaver-1.2.5 libXpresent-1.0.2 libXres-1.2.3 (Xorg libs). Fixes #22069.
+    [bdubbs] - Update to xterm-402. Fixes #22072.
 
-    [bdubbs] - Update to freetype-2.14.0. Fixes #22067.
+    [bdubbs] - Update to libxml2-2.14.6. Fixes #22071.
 
-
-
-
+    [zeckma] - Update to mesa-25.2.2. Fixes #21896.
 
 
-note: ffmpeg-8.0 not updated , incompability with xine-lib,opencv
+
+note: ffmpeg-8.0 not updated , incompatibility with xine-lib,opencv
 
 
