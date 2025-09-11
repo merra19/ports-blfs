@@ -23,7 +23,7 @@ build() {
     vers="$(getversionpkg llvm)"
     if [ ! "$vers" == "$pkgver" ]; then
         echo "$pkgname version is $vers // $pkgver"
-        exit 1
+        abort 1
     fi
 
 	cd ${_pkgname}-$pkgver.src

@@ -3,7 +3,7 @@
 # depends	: ttf-nerd-fonts-symbols wayland-protocols fontconfig go
 # depends	: freetype hicolor-icon-theme lcms2 libglvnd libpng
 # depends	: librsync xorg-libs libcanberra imagemagick py3-pygments
-# depends	: openssl xxhash 
+# depends	: openssl xxhash nerd-fonts
 
 pkgname=kitty
 pkgver=0.42.2

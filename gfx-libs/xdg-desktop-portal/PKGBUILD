@@ -1,6 +1,7 @@
 # description	: Desktop integration portal
 # depends	: json-glib wireplumber pipewire fuse gdk-pixbuf 
-# depends	: bubblewrap dbus geoclue libportal
+# depends	: bubblewrap dbus geoclue libportal gstreamer
+# depends	: gst-plugins-base
 
 pkgname=xdg-desktop-portal
 pkgver=1.20.3

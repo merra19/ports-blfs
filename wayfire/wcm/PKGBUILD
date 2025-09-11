@@ -1,5 +1,6 @@
 # description	: Wayfire Configuration Manager
 # depends	: gtk3 libepoxy wayland wayland-protocols meson wdisplays
+# depends	: wf-shell
 
 pkgname=wcm
 pkgver=0.10.0

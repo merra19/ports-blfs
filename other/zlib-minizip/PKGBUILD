@@ -18,7 +18,7 @@ build() {
     
     if [ ! "$vers" == "$pkgver" ]; then
         echo "$pkgname version is $vers // $pkgver"
-        exit 1
+        abort 1
     fi
 
     cd contrib/minizip

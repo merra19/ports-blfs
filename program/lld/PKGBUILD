@@ -19,7 +19,7 @@ build() {
     vers="$(getversionpkg llvm)"
     if [ ! "$vers" == "$pkgver" ]; then
         echo "$pkgname version is $vers // $pkgver"
-        exit 1
+        abort 1
     fi
 
     export CFLAGS="-O2 -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x4000 -march=$MMARCH -fno-lto $DEBUGFLAGS"
