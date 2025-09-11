@@ -13,7 +13,6 @@ build() {
     cd $pkgname-$pkgver
 
     scratch isinstalled openldap && OPT_CURL='--with-gssapi' ||  OPT_CURL='--disable-ldap'
-    scratch isinstalled c-ares && OPT_CURL+=' --enable-ares' ||  OPT_CURL+=' --disable-ares'
 
 
     ./configure \
@@ -29,7 +28,8 @@ build() {
         --with-ca-path=/etc/ssl/certs \
         --with-gssapi \
         --with-libssh2 \
-        --enable-ares
+        --enable-ares \
+        $OPT_CURL
     make
     make DESTDIR="$pkgdir" install
 }

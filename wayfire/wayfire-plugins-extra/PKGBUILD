@@ -1,24 +1,22 @@
 # description	: 3D wayland compositor extra plugins
-# depends	: glibmm-2.66 glm wayfire-git wayland-protocols
-# depends	: boost libdisplay-info meson ninja nlohmann-json wcm
+# depends	: glibmm-2.66 glm wayfire wayland-protocols boost
+# depends	: libdisplay-info meson ninja nlohmann-json wcm
 
-pkgname=wayfire-plugins-extra-git
-# commit 3a58ab6
-commit=3a58ab6472f473b218b547b446313cf64a2f42ef
-pkgver=0.9.0.re${commit:0:7}
+pkgname=wayfire-plugins-extra
+pkgver=0.10.0
 pkgrel=1
 filter_commit=00024b531548817ac6c7fed7436e55c4edc5caab
 focus_commit=b5c5029f1a695bcd79e2fa0de615cd8028f64f62
 pixdecor_commit=8a0b02861221450947f02352d97c81a115ffe05d
 wayfireshadows_commit=453c21713dbe1ebbd209cfa29c14fbb6e9a9d991
-source=($pkgname-$pkgver.zip::https://github.com/WayfireWM/wayfire-plugins-extra/archive/$commit.zip
+source=($pkgname-$pkgver.tar.gz::https://github.com/WayfireWM/wayfire-plugins-extra/archive/refs/tags/v$pkgver.tar.gz
         filters-$filter_commit.zip::https://github.com/soreau/filters/archive/$filter_commit.zip
         focus-request-$focus_commit.zip::https://gitlab.com/wayfireplugins/focus-request/-/archive/$focus_commit/focus-request-$focus_commit.zip
         pixdecor-$pkgver.zip::https://github.com/soreau/pixdecor/archive/$pixdecor_commit.zip
         wayfire-shadows-$pkgver.zip::https://github.com/timgott/wayfire-shadows/archive/$wayfireshadows_commit.zip)
 
 build() {
-	cd wayfire-plugins-extra-$commit
+	cd wayfire-plugins-extra-$pkgver
 
     cp -r "$srcdir/"filters-*/* subprojects/filters/
     cp -r "$srcdir/"focus-request-*/* subprojects/focus-request/
@@ -32,7 +30,7 @@ build() {
         -Denable_focus_request=true \
         -Denable_pixdecor=true \
         -Denable_filters=true \
-        wayfire-plugins-extra-$commit build
+        build
     ninja -C build
     DESTDIR="$pkgdir/" ninja install -C build
 }

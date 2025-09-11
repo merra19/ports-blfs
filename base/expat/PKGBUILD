@@ -9,6 +9,8 @@ source=(https://prdownloads.sourceforge.net/expat/$pkgname-$pkgver.tar.xz)
 build() {
     cd $pkgname-$pkgver
 
+    scratch isinstalled xmlto &&  export DOCBOOK_TO_MAN="xmlto man --skip-validation"
+
     ./configure \
         --prefix=/usr \
         --disable-static \

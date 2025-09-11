@@ -28,7 +28,7 @@ EOF
         -D gtk_doc=false \
         p11-build
     ninja -C p11-build
-    DESTDIR="$pkgdir" ninja install-C p11-build
+    DESTDIR="$pkgdir" ninja install -C p11-build
 
 	ln -s /usr/libexec/p11-kit/trust-extract-compat  \
 		"$pkgdir"/usr/bin/update-ca-certificates
