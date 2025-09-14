@@ -3,7 +3,7 @@
  
 pkgname=nghttp2-32
 _pkgname=nghttp2
-pkgver=1.66.0
+pkgver=1.67.0
 pkgrel=1
 source=(https://github.com/nghttp2/nghttp2/releases/download/v$pkgver/$_pkgname-$pkgver.tar.xz)
 

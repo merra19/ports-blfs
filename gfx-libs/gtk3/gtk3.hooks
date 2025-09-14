@@ -7,6 +7,6 @@ for dir in /usr/share/icons/* ; do
 		gtk-update-icon-cache -q $dir 2>/dev/null
 	else
 		rm -f $dir/icon-theme.cache
-		rmdir --ignore-fail-on-non-empty $dir
+		rmdir --ignore-fail-on-non-empty $dir 2>/dev/null
 	fi
 done

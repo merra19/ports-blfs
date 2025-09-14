@@ -1,15 +1,17 @@
 # description	: A collection of algorithms and sample code for various computer vision problems
 # depends	: zlib cmake libarchive ffmpeg gtk3 jasper libavif libexif
 # depends	: libjpeg-turbo libpng libtiff libwebp openjpeg v4l-utils
-# depends	: apache-ant java protobuf py3-numpy xine-lib
+# depends	: apache-ant java protobuf py3-numpy
 # optional  : gstreamer!!gst-plugins-base
+# disabled  : xine-lib
 
 pkgname=opencv
 pkgver=4.12.0
-pkgrel=1
-options=(!makeflags)
+pkgrel=2
+options=(!lto)
 source=(https://github.com/opencv/opencv/archive/$pkgver/$pkgname-$pkgver.tar.gz
-        https://github.com/opencv/opencv_contrib/archive/$pkgver/opencv_contrib-$pkgver.tar.gz)
+        https://github.com/opencv/opencv_contrib/archive/$pkgver/opencv_contrib-$pkgver.tar.gz
+        https://github.com/opencv/opencv/commit/86df53155411b3ade57d0213bf8dd63006bf248f.patch)
 noextract=(opencv_contrib-$pkgver.tar.gz)
 
 build() {
@@ -22,12 +24,14 @@ build() {
 
     tar -xf ../opencv_contrib-$pkgver.tar.gz
 
+    patch -Np1 -i ../86df53155411b3ade57d0213bf8dd63006bf248f.patch
+
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_BUILD_TYPE=Release \
         -D ENABLE_CXX11=ON \
         -D BUILD_PERF_TESTS=OFF \
-        -D WITH_XINE=ON \
+        -D WITH_XINE=OFF \
         -D BUILD_TESTS=OFF \
         -D ENABLE_PRECOMPILED_HEADERS=OFF \
         -D CMAKE_SKIP_INSTALL_RPATH=ON \

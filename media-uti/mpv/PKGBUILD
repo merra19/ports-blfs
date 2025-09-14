@@ -8,7 +8,7 @@
 
 pkgname=mpv
 pkgver=0.40.0
-pkgrel=1
+pkgrel=2
 options=(!lto)
 source=(https://github.com/mpv-player/mpv/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz)
 
@@ -17,6 +17,8 @@ build() {
 
     # Add a fix to build with FFMpeg > 7.0 
     sed -i 's/AV_OPT_TYPE_CHANNEL_LAYOUT/AV_OPT_TYPE_CHLAYOUT/' filters/f_lavfi.c
+
+    sed -i 's/FF_PROFILE_/AV_PROFILE_/' demux/demux_mkv.c
 
 	meson setup \
         --prefix=/usr \

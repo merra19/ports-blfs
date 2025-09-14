@@ -14,6 +14,5 @@ September 9th, 2025
 
 
 
-note: ffmpeg-8.0 not updated , incompatibility with xine-lib,opencv
-
-
+note: ffmpeg-8.0  incompatibility with xine-lib,vlc
+      updated ffmpeg-8.0 mpv,opencv,kpipewire spectacle depend kpipewire

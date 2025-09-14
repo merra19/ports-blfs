@@ -9,6 +9,13 @@ source=(https://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz)
 build() {
     cd $pkgname-$pkgver
 
+
+    #sed -i 's/FF_PROFILE_/AV_PROFILE_/' src/libopenh264encoder.cpp
+
+    for i in libx264encoder h264vaapiencoder libopenh264encoder ;do
+        sed -i 's/FF_PROFILE_/AV_PROFILE_/' src/$i.cpp
+    done
+
     cmake -B build \
         -D CMAKE_INSTALL_PREFIX=/usr \
         -D CMAKE_INSTALL_LIBEXECDIR=libexec \
