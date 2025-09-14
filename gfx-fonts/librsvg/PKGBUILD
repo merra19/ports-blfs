@@ -3,7 +3,7 @@
 # depends	: cargo-c
 
 pkgname=librsvg
-pkgver=2.61.0
+pkgver=2.61.1
 pkgrel=1
 source=(https://download.gnome.org/sources/librsvg/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
 
@@ -17,9 +17,10 @@ build() {
 #linker = "clang"
 #EOF
 
+    cp doc/meson.build doc/meson.build2
     # Fix the installation path of the API documentation
-    sed -e "/OUTDIR/s|,| / 'librsvg-2.60.0', '--no-namespace-dir',|" \
-        -e '/output/s|Rsvg-2.0|librsvg-2.60.0|'                      \
+    sed -e "/OUTDIR/s|,| / 'librsvg-$pkgver', '--no-namespace-dir',|" \
+        -e "/output/s|Rsvg-2.0|librsvg-$pkgver|"  \
         -i doc/meson.build
 
     meson setup \

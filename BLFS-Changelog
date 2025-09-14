@@ -1,16 +1,26 @@
 Current release: r12.4-65 – September 6th, 2025 
 
+September 13th, 2025
+
+    [zeckma] - Update to inih-62. Fixes #22091.
+
+    [zeckma] - Update to wireplumber-0.5.11. Fixes #22051.
+
+    [zeckma] - Update to pipewire-1.4.8. Fixes #22099.
+
+    [bdubbs] - Update to feh-3.11.2. Fixes #22083.
+
+    [bdubbs] - Update to numpy-2.3.3 (Python module). Fixes #22080.
+
+    [bdubbs] - Update to librsvg-2.61.1. Fixes #22079.
+
+    [bdubbs] - Update to libproxy-0.5.11. Fixes #22078.
+
+    [bdubbs] - Update to p11-kit-0.25.7. Fixes #22077.
+
+    [bdubbs] - Update to xcb-util-cursor-0.1.6 (XCB Utility). Fixes #22076.
 
 
-September 9th, 2025
-
-    [bdubbs] - Update to gtk4-4.20.1. Fixes #22074.
-
-    [bdubbs] - Update to xterm-402. Fixes #22072.
-
-    [bdubbs] - Update to libxml2-2.14.6. Fixes #22071.
-
-    [zeckma] - Update to mesa-25.2.2. Fixes #21896.
 
 
 

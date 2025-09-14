@@ -2,14 +2,14 @@
 # depends	: libpng imlib2 curl libexif libjpeg-turbo imagemagick
 
 pkgname=feh
-pkgver=3.11.1
+pkgver=3.11.2
 pkgrel=1
 source=(https://feh.finalrewind.org/$pkgname-$pkgver.tar.bz2)
 
 build() {
     cd $pkgname-$pkgver
 
-    sed -i "s:doc/feh:&-3.10.3:" config.mk
+    sed -i "s:doc/feh:&-$pkgver:" config.mk
 
 	make PREFIX=/usr
     make PREFIX=/usr DESTDIR="$pkgdir" install

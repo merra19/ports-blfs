@@ -2,7 +2,7 @@
 # depends	: pipewire glib elogind lua py3-lxml
 
 pkgname=wireplumber
-pkgver=0.5.10
+pkgver=0.5.11
 pkgrel=1
 source=(https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/$pkgver/$pkgname-$pkgver.tar.bz2
         pipewire-launcher.sh pipewire.desktop)

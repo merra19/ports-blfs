@@ -3,7 +3,7 @@
 # depends	: gsettings-desktop-schemas
 
 pkgname=libproxy
-pkgver=0.5.10
+pkgver=0.5.11
 pkgrel=1
 source=(https://github.com/libproxy/libproxy/archive/$pkgver/$pkgname-$pkgver.tar.gz)
 
@@ -13,6 +13,7 @@ build() {
 	meson setup \
         --prefix=/usr \
         --buildtype=plain \
+        -D release=true \
         -D docs=false \
         build
 	ninja -C build

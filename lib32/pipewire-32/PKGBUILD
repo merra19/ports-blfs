@@ -5,7 +5,7 @@
 
 pkgname=pipewire-32
 _pkgname=pipewire
-pkgver=1.4.7
+pkgver=1.4.8
 pkgrel=1
 options=(!lto)
 source=(https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/$pkgver/$_pkgname-$pkgver.tar.bz2)

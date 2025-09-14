@@ -2,7 +2,7 @@
 # depends	: libtasn1 libffi meson bash-completion
 
 pkgname=p11-kit
-pkgver=0.25.5
+pkgver=0.25.7
 pkgrel=1
 options=(!lto)
 source=(https://github.com/p11-glue/p11-kit/releases/download/$pkgver/$pkgname-$pkgver.tar.xz)
