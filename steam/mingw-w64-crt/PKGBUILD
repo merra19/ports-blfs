@@ -20,6 +20,7 @@ build() {
         --disable-lib32 \
         --enable-lib64
     make
+    make DESTDIR="$pkgdir" install
     cd -
 
     mkdir build-i686
@@ -31,14 +32,7 @@ build() {
         --enable-wildcard \
         --disable-lib64 \
         --enable-lib32
-    make  
-
-    cd  "$srcdir"/build-x86_64
-
-    make DESTDIR="$pkgdir" install
-
-    cd  "$srcdir"/build-i686
-
+    make
     make DESTDIR="$pkgdir" install
 
     for i in h dlg rh inl ver hxx h16;do

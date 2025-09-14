@@ -17,11 +17,6 @@ build() {
             --prefix=/usr/${_target} \
             --enable-sdk=all \
             --host=${_target}
-    done
-
-    for _target in ${_targets}; do
-        echo "Installing ${_target} headers"
-        cd "$srcdir"/headers-${_target}
         make DESTDIR="$pkgdir" install
     done
 }

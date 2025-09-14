@@ -38,7 +38,10 @@ build() {
             --enable-checking=release \
             --disable-multilib \
             --disable-sjlj-exceptions --with-dwarf2
-        make 
+        make
+        make DESTDIR="$pkgdir" install
+
+        strip "$pkgdir"/usr/lib/gcc/x86_64-w64-mingw32/${pkgver}/{cc1*,collect2,lto*}
         
         cd "$srcdir"/build-i686-w64-mingw32
 
@@ -57,6 +60,9 @@ build() {
             --disable-multilib \
             --disable-sjlj-exceptions --with-dwarf2
         make
+        make DESTDIR="$pkgdir" install
+
+        strip "$pkgdir"/usr/lib/gcc/i686-w64-mingw32/${pkgver}/{cc1*,collect2,lto*}
     else
         mkdir -p "$srcdir"/build-i686-w64-mingw32 "$srcdir"/build-x86_64-w64-mingw32
         
@@ -76,6 +82,7 @@ build() {
             --disable-threads \
             --disable-sjlj-exceptions --with-dwarf2
         make all-gcc
+        make DESTDIR="$pkgdir" install-gcc
 
         cd "$srcdir"/build-x86_64-w64-mingw32
 
@@ -92,31 +99,8 @@ build() {
             --disable-multilib \
             --disable-threads \
             --disable-sjlj-exceptions --with-dwarf2
-        make all-gcc  
-    fi
-
-    if ( scratch isinstalled mingw-w64-winpthreads ); then 
-
-    cd "$srcdir"/build-x86_64-w64-mingw32
-
-    make DESTDIR="$pkgdir" install
-
-    strip "$pkgdir"/usr/lib/gcc/x86_64-w64-mingw32/${pkgver}/{cc1*,collect2,lto*}
-
-    cd "$srcdir"/build-i686-w64-mingw32
-
-    make DESTDIR="$pkgdir" install
-
-    strip "$pkgdir"/usr/lib/gcc/i686-w64-mingw32/${pkgver}/{cc1*,collect2,lto*}
-
-    else
-    cd "$srcdir"/build-i686-w64-mingw32
-
-    make DESTDIR="$pkgdir" install-gcc
-
-    cd "$srcdir"/build-x86_64-w64-mingw32
-    
-    make DESTDIR="$pkgdir" install-gcc
+        make all-gcc
+        make DESTDIR="$pkgdir" install-gcc
     fi
 
     strip "$pkgdir"/usr/bin/i686-w64-mingw32-*

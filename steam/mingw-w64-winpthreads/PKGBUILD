@@ -18,6 +18,7 @@ build() {
         --host=x86_64-w64-mingw32 \
         --enable-static --enable-shared
     make
+    make DESTDIR="$pkgdir" install
     cd -
 
     mkdir build-i686
@@ -27,14 +28,7 @@ build() {
         --prefix=/usr/i686-w64-mingw32 \
         --host=i686-w64-mingw32 \
         --enable-static --enable-shared
-    make  
-
-    cd  "$srcdir"/build-x86_64
-
-    make DESTDIR="$pkgdir" install
-
-    cd  "$srcdir"/build-i686
-
+    make
     make DESTDIR="$pkgdir" install
 
     rm -f "$pkgdir"/usr/x86_64-w64-mingw32/include/pthread_signal.h
