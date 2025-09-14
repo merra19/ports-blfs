@@ -10,7 +10,6 @@ getversionpkg() {
     awk 'NR==1 {print $1}' /var/lib/scratchpkg/db/$1 2>/dev/null
 }
 
-
 build() {
     cd zlib-$pkgver
 
@@ -32,7 +31,7 @@ build() {
         --prefix=/usr \
         --enable-static=no
     make
-    make DESTDIR="$pkgdir" install -C contrib/minizip
+    make DESTDIR="$pkgdir" install
 
     rm "$pkgdir/usr/include/minizip/crypt.h"
 }

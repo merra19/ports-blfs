@@ -1,4 +1,4 @@
-# description	: Fallback theme for the freedesktop icon theme specification"
+# description	: Fallback theme for the freedesktop icon theme specification
 # depends	: xz
 
 pkgname=hicolor-icon-theme

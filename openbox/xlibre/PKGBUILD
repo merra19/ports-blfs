@@ -1,6 +1,6 @@
 # description	: Meta port for Xorg
 # depends	: xlibre-xserver xinit pulseaudio pipewire wireplumber 
-# depends	: ttf-dejavu xlibre-xf86-input-evdev
+# depends	: ttf-dejavu xlibre-xf86-input-evdev xorg-legacy
 # depends	: xlibre-xf86-input-libinput
 
 pkgname=xlibre

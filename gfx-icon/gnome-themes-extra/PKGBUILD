@@ -1,0 +1,20 @@
+# description	: contains various components of the default GNOME theme
+# depends	: gtk3  librsvg
+
+pkgname=gnome-themes-extra
+pkgver=3.28
+pkgrel=1
+options=(!lto)
+source=(https://download.gnome.org/sources/gnome-themes-extra/$pkgver/$pkgname-$pkgver.tar.xz)
+
+build() {
+	cd $pkgname-$pkgver
+
+    scratch isinstalled gtk2 || OPT_GNOME="--disable-gtk2-engine"
+
+    ./configure \
+        --prefix=/usr \
+        $OPT_GNOME
+    make
+    make DESTDIR="$pkgdir" install
+}

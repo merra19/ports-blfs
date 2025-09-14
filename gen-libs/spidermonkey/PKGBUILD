@@ -31,7 +31,7 @@ build() {
             --with-system-zlib \
             --enable-optimize="-O3"
     make
-    make DESTDIR="$pkgdir"
+    make DESTDIR="$pkgdir" install
     rm -v "$pkgdir"/usr/lib/libjs_static.ajs
     sed -i '/@NSPR_CFLAGS@/d' "$pkgdir"/usr/bin/js140-config
 

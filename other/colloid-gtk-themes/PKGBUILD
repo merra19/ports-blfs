@@ -1,8 +1,9 @@
 # description	: Colloid GTK Theme
-# depends	: sassc gtk-engine-murrine
+# depends	: sassc gtk-engine-murrine gnome-themes-extra
+# depends	: colloid-icon-themes
 
 pkgname=colloid-gtk-themes
-pkgver=2024.11.16
+pkgver=2025.07.31
 _pkgver="${pkgver//./-}"
 pkgrel=1
 options=(!strip)
@@ -12,6 +13,8 @@ build() {
     cd Colloid-gtk-theme-$_pkgver
 
     sed -i 's/clean_theme && install_theme/install_theme/g' install.sh
+
+    sed -i 's/xfce4-session/xfce4-sessionxx/' install.sh
 
     install -d "$pkgdir"/usr/share/themes
     ./install.sh -t all -d "$pkgdir"/usr/share/themes

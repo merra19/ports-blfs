@@ -1,6 +1,7 @@
 # description	: Meta port for Xorg
 # depends	: xorg-server xinit pulseaudio pipewire wireplumber 
 # depends	: ttf-dejavu xf86-input-evdev xf86-input-libinput
+# depends	: xorg-legacy
 
 pkgname=xorg
 pkgver=1.0

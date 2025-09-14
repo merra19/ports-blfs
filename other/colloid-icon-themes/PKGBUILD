@@ -1,0 +1,20 @@
+# description	: Colloid Icon Theme
+# depends	: gtk3 hicolor-icon-theme
+
+pkgname=colloid-icon-themes
+pkgver=2025.07.19
+_pkgver="${pkgver//./-}"
+pkgrel=1
+options=(!strip)
+source=($pkgname-$pkgver.tar.gz::https://github.com/vinceliuice/Colloid-icon-theme/archive/refs/tags/$_pkgver.tar.gz)
+
+build() {
+    cd Colloid-icon-theme-$_pkgver
+
+    # Disable running gtk-update-icon-cache
+    sed -i '/gtk-update-icon-cache/d' install.sh
+
+    ./install.sh -s default -t all -d "$pkgdir/usr/share/icons"
+    ./install.sh -s catppuccin -t all -d "$pkgdir/usr/share/icons"
+    ./install.sh -s dracula -t all -d "$pkgdir/usr/share/icons"
+}

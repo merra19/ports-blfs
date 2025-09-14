@@ -1,5 +1,5 @@
 # description	: Efficient binary serialization format
-# depends	: python py3-wheel py3-setuptools 
+# depends	: python py3-wheel py3-setuptools cython
 
 pkgname=py3-msgpack
 pkgver=1.1.1
@@ -9,8 +9,11 @@ source=(msgpack-python-$pkgver.tar.gz::https://github.com/msgpack/msgpack-python
 build() {
 	cd msgpack-python-$pkgver
 
-    sed -i 's/~=/>=/' pyproject.toml
+    # Remove pre-generated cython files
+    rm -f msgpack/_cmsgpack.c 
 
+    cython -v msgpack/_cmsgpack.pyx
+    
     gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
 	python3 -m installer -d "$pkgdir" .dist/*.whl
 }

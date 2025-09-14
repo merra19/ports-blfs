@@ -9,8 +9,7 @@ source=($pkgname-$pkgver.tar.gz::https://github.com/KhronosGroup/OpenCL-Headers/
 
 build() {
     cmake -B build -S OpenCL-Headers* \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-
+        -DCMAKE_INSTALL_PREFIX=/usr
     cmake --build build
     DESTDIR="$pkgdir" cmake --install build
 }

@@ -34,6 +34,16 @@ build() {
 
     #sed "s/-mtune=generic/-mtune=generic -march=$MMARCH/g" -i arch/x86/Makefile
 
+    if [ "$MMARCH" = "native" ] ;then
+        if grep -qi 'amd' /proc/cpuinfo; then
+            ./scripts/config --enable  MNATIVE_INTEL
+        elif grep -qi 'intel' /proc/cpuinfo; then
+            ./scripts/config --enable  MNATIVE_AMD
+        else
+            ./scripts/config --enable  MNATIVE_INTEL
+        fi
+    fi
+
     export KCFLAGS=" -march=$MMARCH -O3"
     export KCPPFLAGS=" -march=$MMARCH -O3"
     export KRUSTFLAGS=" -C target-cpu=$MMARCH"

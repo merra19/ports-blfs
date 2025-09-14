@@ -2,9 +2,9 @@
 # depends	: xorg-server
 
 pkgname=xf86-input-wacom
-pkgver=1.10.0
-pkgrel=2
-source=(https://www.x.org/pub/individual/driver/$pkgname-$pkgver.tar.xz)
+pkgver=1.2.3
+pkgrel=1
+source=(https://github.com/linuxwacom/xf86-input-wacom/releases/download/$pkgname-$pkgver/$pkgname-$pkgver.tar.bz2)
 
  build() {
     cd $pkgname-$pkgver

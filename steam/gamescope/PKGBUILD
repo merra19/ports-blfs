@@ -31,7 +31,7 @@ build() {
     done
     git -c protocol.file.allow=always submodule update
 
-    meson setup gamescope \
+    meson setup \
       -D force_fallback_for=glm,stb,libdisplay-info,libliftoff,vkroots,wlroots \
       -D pipewire=enabled \
       -D benchmark=disabled \
